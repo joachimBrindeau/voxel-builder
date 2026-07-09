@@ -1,0 +1,12 @@
+id: hero-headline-lead
+scope: section
+type: hero
+name: "Headline + lead hero"
+tags: [hero, headline, lead, intro]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Top hero section of the klarc homepage (postId 4453); source node = the first section ef-wrapper `elements[0]` (orig id `3772f34`), selector `jq '.[0].elements[0]'` over the raw bare-array export. Two-card headline+lead layout (large H1 heading card + subtitle/rich-text card), no loop. Sanitized per placeholder-policy: no allowlist dtags present in the section, so all display copy (H1, subtitle, rich-text body) replaced with Lorem Ipsum, action-row labels/tooltips Lorem-ized, `link`/`modal_id` routing neutralized (link->'#', modal->''), the `#services`/`/identite` anchor targets neutralized; node ids regenerated recursively; then `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

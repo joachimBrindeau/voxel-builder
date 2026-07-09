@@ -1,0 +1,26 @@
+{
+  "postId": 2025,
+  "title": "Pages: Archive",
+  "id": "616d5e2",
+  "elType": "widget",
+  "widgetType": "ts-post-feed",
+  "settings": {
+    "ts_source": "search-filters",
+    "ts_noresults_text": "Aucun résultat disponible",
+    "ts_manual_posts": [],
+    "ts_choose_post_type": "page",
+    "ts_filter_list__post": [],
+    "ts_filter_list__page": [],
+    "ts_filter_list__collection": [],
+    "ts_filter_list__profile": [],
+    "ts_filter_list__org": [],
+    "ts_filter_list__exp": [],
+    "ts_filter_list__emploi": [],
+    "ts_filter_list__geo": [],
+    "ts_filter_list__testimonials": [],
+    "__globals__": {
+      "ts_counter_typo_col": "globals/colors?id=text"
+    },
+    "ts_feed_column_no": 2
+  }
+}

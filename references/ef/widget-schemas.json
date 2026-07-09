@@ -1,0 +1,5017 @@
+{
+  "$generatedBy": "wpdev elementor:codegen",
+  "$runtimeInjectedCells": {
+    "description": "Runtime-injected cells per row envelope. `rowAssignments[row]` lists the envelope sets that auto-merge cells onto that row type at runtime (via Loopable_Row + Action_Row_Definition + Row_Builder::build_shape()). These cells are valid on the row type but are NOT present in `widgets[*].rows[<row>].props` — they're injected at runtime, not declared per-row. Reviewers should consult this block before flagging row-level _vx_loop / _vx_visibility / _ef_loop_query / action-suite props as phantoms. See plugins/custom/elementor-framework/schemas/parts/rows/_envelope-loop.schema.json for the source of truth.",
+    "envelopes": {
+      "actions": {
+        "cells": {
+          "icon": {
+            "$primitive": "string",
+            "default": "",
+            "description": "Icon cell — data only. action-row authors this as an explicit prop with a panel control; content-block-row has no button icon."
+          },
+          "tooltip": {
+            "$primitive": "string",
+            "default": "",
+            "description": "Tooltip cell — data only. action-row authors this as an explicit prop with a panel control."
+          },
+          "type": {
+            "$primitive": "string",
+            "default": "action_link",
+            "description": "Choose what opens on click."
+          },
+          "variant": {
+            "$primitive": "string",
+            "default": "",
+            "description": "Button colors."
+          }
+        }
+      },
+      "loop": {
+        "cells": {
+          "_ef_loop_query": {
+            "control": {
+              "label": "Loop order",
+              "trigger": "order",
+              "type": "ef-loop-query-v4"
+            },
+            "description": "Sort repeated items.",
+            "propClass": "EF\\Props\\Loop_Query"
+          },
+          "_vx_loop": {
+            "control": {
+              "label": "Loop row",
+              "trigger": "loop",
+              "type": "voxel-loop-v4"
+            },
+            "default": {
+              "limit": null,
+              "offset": null,
+              "tag": ""
+            },
+            "description": "Repeat this item for dynamic content.",
+            "propClass": "Voxel\\Modules\\Elementor\\Atomic_Vx\\Vx_Loop_Prop_Type"
+          },
+          "_vx_visibility": {
+            "control": {
+              "label": "Row visibility",
+              "trigger": "visibility",
+              "type": "voxel-visibility-v4"
+            },
+            "default": {
+              "behavior": "show",
+              "rules": []
+            },
+            "description": "Show or hide this item with rules.",
+            "propClass": "Voxel\\Modules\\Elementor\\Atomic_Vx\\Vx_Visibility_Prop_Type"
+          }
+        }
+      }
+    },
+    "rowAssignments": {
+      "action-row": [
+        "loop",
+        "actions"
+      ],
+      "content-block-row": [
+        "loop",
+        "actions"
+      ],
+      "field-row": [
+        "loop"
+      ],
+      "map-pin-row": [
+        "loop"
+      ],
+      "mega-row": [
+        "loop"
+      ]
+    }
+  },
+  "$source": "plugins/custom/elementor-framework/schemas",
+  "primitives": {
+    "boolean": {
+      "elementorPropType": "Elementor\\Modules\\AtomicWidgets\\PropTypes\\Primitives\\Boolean_Prop_Type",
+      "envelope": {
+        "$$type": "boolean",
+        "valueShape": "scalar"
+      },
+      "name": "boolean",
+      "supportsDynamic": false,
+      "supportsEnum": false,
+      "supportsLoopable": true,
+      "supportsResponsive": true,
+      "tsType": "boolean",
+      "type": "boolean"
+    },
+    "image": {
+      "elementorPropType": "EF\\Props\\Lenient_Image",
+      "envelope": {
+        "$$type": "image",
+        "valueShape": {
+          "size": {
+            "$id": "ef://primitives/image.schema.json#size",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "string",
+              "valueShape": "scalar"
+            },
+            "tsType": "string",
+            "type": "string"
+          },
+          "src": {
+            "$id": "ef://primitives/image.schema.json#src",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "string",
+              "valueShape": "scalar"
+            },
+            "tsType": "number | string",
+            "type": "string"
+          }
+        }
+      },
+      "name": "image",
+      "supportsDynamic": true,
+      "supportsEnum": false,
+      "supportsLoopable": true,
+      "supportsResponsive": false,
+      "tsType": "{ src: number | string; size: string }",
+      "type": "image"
+    },
+    "number": {
+      "elementorPropType": "Elementor\\Modules\\AtomicWidgets\\PropTypes\\Primitives\\Number_Prop_Type",
+      "envelope": {
+        "$$type": "number",
+        "valueShape": "scalar"
+      },
+      "name": "number",
+      "supportsDynamic": false,
+      "supportsEnum": true,
+      "supportsLoopable": true,
+      "supportsResponsive": true,
+      "tsType": "number",
+      "type": "number"
+    },
+    "richtext": {
+      "elementorPropType": "EF\\Props\\Body_Prop_Type",
+      "envelope": {
+        "$$type": "string",
+        "valueShape": "scalar"
+      },
+      "name": "richtext",
+      "supportsDynamic": true,
+      "supportsEnum": false,
+      "supportsLoopable": true,
+      "supportsResponsive": false,
+      "tsType": "string",
+      "type": "richtext"
+    },
+    "source": {
+      "elementorPropType": "EF\\Props\\Source_Value",
+      "envelope": {
+        "$$type": "ef-source-value",
+        "valueShape": {
+          "source": {
+            "$id": "ef://primitives/source.schema.json#source",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "string",
+              "valueShape": "scalar"
+            },
+            "tsType": "string",
+            "type": "string"
+          },
+          "value": {
+            "$id": "ef://primitives/source.schema.json#value",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "string",
+              "valueShape": "scalar"
+            },
+            "tsType": "string",
+            "type": "string"
+          }
+        }
+      },
+      "name": "source",
+      "supportsDynamic": false,
+      "supportsEnum": false,
+      "supportsLoopable": false,
+      "supportsResponsive": false,
+      "tsType": "{ source: string; value: string }",
+      "type": "source"
+    },
+    "string": {
+      "elementorPropType": "Elementor\\Modules\\AtomicWidgets\\PropTypes\\Primitives\\String_Prop_Type",
+      "envelope": {
+        "$$type": "string",
+        "valueShape": "scalar"
+      },
+      "name": "string",
+      "supportsDynamic": true,
+      "supportsEnum": true,
+      "supportsLoopable": true,
+      "supportsResponsive": true,
+      "tsType": "string",
+      "type": "string"
+    },
+    "svg": {
+      "elementorPropType": "Elementor\\Modules\\AtomicWidgets\\PropTypes\\Svg_Src_Prop_Type",
+      "envelope": {
+        "$$type": "svg-src",
+        "valueShape": {
+          "id": {
+            "$id": "ef://primitives/svg.schema.json#id",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "number",
+              "valueShape": "scalar"
+            },
+            "tsType": "number",
+            "type": "number"
+          },
+          "url": {
+            "$id": "ef://primitives/svg.schema.json#url",
+            "$schema": "../meta/primitive.schema.json",
+            "elementorPropType": "inline",
+            "envelope": {
+              "$$type": "string",
+              "valueShape": "scalar"
+            },
+            "tsType": "string",
+            "type": "string"
+          }
+        }
+      },
+      "name": "svg",
+      "supportsDynamic": false,
+      "supportsEnum": false,
+      "supportsLoopable": true,
+      "supportsResponsive": false,
+      "tsType": "{ id: number; url: string }",
+      "type": "svg"
+    }
+  },
+  "widgets": [
+    {
+      "meta": {
+        "category": "voxel",
+        "description": "Creates a card with media, text, tags, logo, and buttons.",
+        "icon": "eicon-card-list",
+        "keywords": [
+          "card",
+          "post",
+          "preview",
+          "voxel"
+        ],
+        "renderer": {
+          "phpClass": "EF\\Widgets\\Card",
+          "scripts": [
+            "ef-vx-popup",
+            "ef-card-tags",
+            "ef-card-counter",
+            "ef-actions",
+            "ef-toc"
+          ],
+          "stylesheets": [
+            "ef-card",
+            "ef-card-tags",
+            "ef-accordion",
+            "ef-prose",
+            "ef-tooltip",
+            "ef-footer",
+            "ef-separator",
+            "ef-toc"
+          ]
+        },
+        "title": "Card"
+      },
+      "name": "ef-card",
+      "props": {
+        "actions_embedded": {
+          "control": {
+            "kind": "segmented",
+            "label": "Layout",
+            "section": "actions"
+          },
+          "default": "",
+          "description": "Place buttons inside the card or below it.",
+          "enum": [
+            "",
+            "yes",
+            "no"
+          ],
+          "enumLabels": {
+            "no": "Grouped",
+            "yes": "Embedded"
+          },
+          "primitive": "string"
+        },
+        "content_blocks": {
+          "control": {
+            "kind": "repeater",
+            "label": "Content",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add and order card content.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "content-block-row"
+          }
+        },
+        "full_height": {
+          "control": {
+            "kind": "segmented",
+            "label": "Full height",
+            "section": "settings"
+          },
+          "default": true,
+          "description": "Make cards in a row match height.",
+          "enumDescriptions": {
+            "false": "Use each card’s own height.",
+            "true": "Match the row height."
+          },
+          "primitive": "boolean"
+        },
+        "layout": {
+          "control": {
+            "kind": "select",
+            "label": "Layout",
+            "section": "content"
+          },
+          "default": "vertical",
+          "description": "Choose the layout per screen size. Tablet/mobile default to \"Inherit\" in the panel, but an inherited (empty) breakpoint resolves to this Part's default layout — it does NOT copy the desktop layout down. So a horizontal card collapses to vertical on tablet/mobile unless that breakpoint is set explicitly (responsiveInherit=false).",
+          "enum": [
+            "vertical",
+            "horizontal"
+          ],
+          "enumLabels": {
+            "horizontal": "Horizontal",
+            "vertical": "Vertical"
+          },
+          "primitive": "string",
+          "responsive": true
+        },
+        "logo_caption": {
+          "control": {
+            "after": "fit",
+            "kind": "text",
+            "label": "Caption",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Caption shown with the media.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": [
+                  "image",
+                  "video",
+                  "icon",
+                  "svg"
+                ]
+              }
+            ]
+          }
+        },
+        "logo_enabled": {
+          "control": {
+            "kind": "segmented",
+            "label": "Media",
+            "section": "content"
+          },
+          "default": false,
+          "description": "Show this media area.",
+          "primitive": "boolean"
+        },
+        "logo_fit": {
+          "control": {
+            "kind": "segmented",
+            "label": "Fit",
+            "section": "content"
+          },
+          "default": "cover",
+          "description": "How the image fills the space.",
+          "enum": [
+            "cover",
+            "contain"
+          ],
+          "enumLabels": {
+            "contain": "Contain",
+            "cover": "Cover"
+          },
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": [
+                  "image"
+                ]
+              }
+            ]
+          }
+        },
+        "logo_icon": {
+          "control": {
+            "kind": "icon",
+            "label": "Icon",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Choose an icon.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "icon"
+              }
+            ]
+          }
+        },
+        "logo_image": {
+          "control": {
+            "kind": "image",
+            "label": "Image",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Choose an image.",
+          "primitive": "image",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "logo_image_alt": {
+          "control": {
+            "kind": "text",
+            "label": "Alt text",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Describe the image for screen readers.",
+          "dynamic": true,
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "logo_image_loading": {
+          "default": "auto",
+          "description": "Choose when the image loads.",
+          "enum": [
+            "auto",
+            "lazy",
+            "eager"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "logo_map_pins": {
+          "control": {
+            "kind": "repeater",
+            "label": "Pins",
+            "rowLabel": "Pin",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add pins to the map.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "map-pin-row"
+          },
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "logo_map_zoom": {
+          "control": {
+            "kind": "text",
+            "label": "Zoom",
+            "section": "content"
+          },
+          "default": "14",
+          "description": "Starting map zoom level.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "logo_svg": {
+          "control": {
+            "kind": "media",
+            "label": "SVG",
+            "section": "content"
+          },
+          "description": "Choose an uploaded vector image.",
+          "primitive": "svg",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "svg"
+              }
+            ]
+          }
+        },
+        "logo_type": {
+          "control": {
+            "kind": "select",
+            "label": "Type",
+            "options": "mediaTypes",
+            "section": "content"
+          },
+          "default": "image",
+          "description": "Choose what kind of media to show.",
+          "dynamic": true,
+          "enum": [
+            "image",
+            "video",
+            "icon",
+            "svg",
+            "map"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              }
+            ]
+          }
+        },
+        "logo_video_url": {
+          "control": {
+            "customOnly": true,
+            "kind": "source",
+            "label": "Video URL",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Video link or file.",
+          "dynamic": true,
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "logo_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "logo_type"
+                ],
+                "value": "video"
+              }
+            ]
+          }
+        },
+        "media_caption": {
+          "control": {
+            "after": "fit",
+            "kind": "text",
+            "label": "Caption",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Caption shown with the media.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": [
+                  "image",
+                  "video",
+                  "icon",
+                  "svg"
+                ]
+              }
+            ]
+          }
+        },
+        "media_enabled": {
+          "control": {
+            "kind": "segmented",
+            "label": "Media",
+            "section": "content"
+          },
+          "default": false,
+          "description": "Show this media area.",
+          "primitive": "boolean"
+        },
+        "media_fit": {
+          "control": {
+            "kind": "segmented",
+            "label": "Fit",
+            "section": "content"
+          },
+          "default": "cover",
+          "description": "How the image fills the space.",
+          "enum": [
+            "cover",
+            "contain"
+          ],
+          "enumLabels": {
+            "contain": "Contain",
+            "cover": "Cover"
+          },
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": [
+                  "image"
+                ]
+              }
+            ]
+          }
+        },
+        "media_icon": {
+          "control": {
+            "kind": "icon",
+            "label": "Icon",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Choose an icon.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "icon"
+              }
+            ]
+          }
+        },
+        "media_image": {
+          "control": {
+            "kind": "image",
+            "label": "Image",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Choose an image.",
+          "primitive": "image",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "media_image_alt": {
+          "control": {
+            "kind": "text",
+            "label": "Alt text",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Describe the image for screen readers.",
+          "dynamic": true,
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "media_image_loading": {
+          "default": "auto",
+          "description": "Choose when the image loads.",
+          "enum": [
+            "auto",
+            "lazy",
+            "eager"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "media_map_pins": {
+          "control": {
+            "kind": "repeater",
+            "label": "Pins",
+            "rowLabel": "Pin",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add pins to the map.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "map-pin-row"
+          },
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "media_map_zoom": {
+          "control": {
+            "kind": "text",
+            "label": "Zoom",
+            "section": "content"
+          },
+          "default": "14",
+          "description": "Starting map zoom level.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "media_overlay": {
+          "control": {
+            "kind": "segmented",
+            "label": "Overlay",
+            "section": "media"
+          },
+          "default": false,
+          "description": "Add a soft tint over images.",
+          "primitive": "boolean",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              }
+            ]
+          }
+        },
+        "media_svg": {
+          "control": {
+            "kind": "media",
+            "label": "SVG",
+            "section": "content"
+          },
+          "description": "Choose an uploaded vector image.",
+          "primitive": "svg",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "svg"
+              }
+            ]
+          }
+        },
+        "media_type": {
+          "control": {
+            "kind": "select",
+            "label": "Type",
+            "options": "mediaTypes",
+            "section": "content"
+          },
+          "default": "image",
+          "description": "Choose what kind of media to show.",
+          "dynamic": true,
+          "enum": [
+            "image",
+            "video",
+            "icon",
+            "svg",
+            "map"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              }
+            ]
+          }
+        },
+        "media_video_url": {
+          "control": {
+            "customOnly": true,
+            "kind": "source",
+            "label": "Video URL",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Video link or file.",
+          "dynamic": true,
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "media_type"
+                ],
+                "value": "video"
+              }
+            ]
+          }
+        },
+        "tag": {
+          "control": {
+            "kind": "select",
+            "label": "Tag",
+            "options": "htmlTags",
+            "section": "settings"
+          },
+          "default": "div",
+          "description": "Choose what kind of container this is.",
+          "enum": [
+            "div",
+            "section",
+            "article",
+            "aside",
+            "li",
+            "header"
+          ],
+          "primitive": "string"
+        },
+        "ts_actions": {
+          "control": {
+            "kind": "repeater",
+            "label": "Buttons",
+            "rowLabel": "Button",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add and order buttons.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "action-row"
+          }
+        },
+        "variant": {
+          "control": {
+            "kind": "select",
+            "label": "Variant",
+            "options": "variants",
+            "section": "content"
+          },
+          "default": "white",
+          "description": "Choose the colors.",
+          "enum": [
+            "transparent",
+            "white",
+            "primary",
+            "secondary",
+            "negative",
+            "positive"
+          ],
+          "primitive": "string"
+        }
+      },
+      "rows": {
+        "action-row": {
+          "name": "action-row",
+          "props": {
+            "address": {
+              "control": {
+                "kind": "text",
+                "label": "Address",
+                "placeholder": "123 Main St, City, Country",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "get_directions"
+                }
+              },
+              "default": "",
+              "description": "Address for directions.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_desc": {
+              "control": {
+                "kind": "text",
+                "label": "Event description",
+                "placeholder": "Détails de l'événement…",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event details.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_end_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event end",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Event end date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_location": {
+              "control": {
+                "kind": "text",
+                "label": "Event location",
+                "placeholder": "Centre de conférences, 10 rue du Faubourg, 75011 Paris",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event location.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_start_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event start",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Event start date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_title": {
+              "control": {
+                "kind": "text",
+                "label": "Event title",
+                "placeholder": "Conférence annuelle 2026",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event title.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_url": {
+              "control": {
+                "kind": "source",
+                "label": "Event URL",
+                "placeholder": "https://example.com/event.ics",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "action_ical"
+                }
+              },
+              "description": "Existing calendar file link.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "cart_text": {
+              "control": {
+                "kind": "text",
+                "label": "Cart text",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "add_to_cart"
+                }
+              },
+              "default": "",
+              "description": "Button text after adding.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "email": {
+              "control": {
+                "kind": "email",
+                "label": "Email",
+                "placeholder": "contact@example.com",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "send_email"
+                }
+              },
+              "default": "",
+              "description": "Email address to contact.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Icon",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Icon shown on the button.",
+              "primitive": "string"
+            },
+            "icon_active": {
+              "control": {
+                "kind": "icon",
+                "label": "Active icon",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_follow",
+                    "action_follow_post",
+                    "action_save"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Icon shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Button text.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label_active": {
+              "control": {
+                "kind": "text",
+                "label": "Active label",
+                "placeholder": "Following",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_follow",
+                    "action_follow_post",
+                    "action_save"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Text shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "link": {
+              "control": {
+                "kind": "source",
+                "label": "Link",
+                "placeholder": "https://example.com",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "action_link"
+                }
+              },
+              "description": "Page or link to open.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "modal_id": {
+              "control": {
+                "kind": "select",
+                "label": "Modal",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "open_modal"
+                }
+              },
+              "default": "",
+              "description": "On-page modal or saved template to open.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "phone": {
+              "control": {
+                "kind": "phone",
+                "label": "Phone",
+                "placeholder": "+33 1 23 45 67 89",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "call"
+                }
+              },
+              "default": "",
+              "description": "Phone number to call.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "scroll_to": {
+              "control": {
+                "kind": "text",
+                "label": "Section ID",
+                "placeholder": "#section-id",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "scroll_to_section"
+                }
+              },
+              "default": "",
+              "description": "Section to scroll to.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "toast_message": {
+              "control": {
+                "kind": "text",
+                "label": "Toast message",
+                "placeholder": "Link copied",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "share_post"
+                }
+              },
+              "default": "",
+              "description": "Short message after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "tooltip": {
+              "control": {
+                "kind": "text",
+                "label": "Tooltip",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Short hover text shown on the button.",
+              "primitive": "string"
+            },
+            "type": {
+              "control": {
+                "default": "action_link",
+                "kind": "select",
+                "label": "Type",
+                "section": "content"
+              },
+              "default": "action_link",
+              "description": "Choose what opens on click.",
+              "enum": [
+                "action_link",
+                "get_directions",
+                "call",
+                "send_email",
+                "open_modal",
+                "scroll_to_section",
+                "action_gcal",
+                "action_ical",
+                "share_post",
+                "add_to_cart",
+                "promote_post",
+                "action_follow_post",
+                "action_follow",
+                "action_save",
+                "edit_post",
+                "delete_post",
+                "unpublish_post",
+                "publish_post",
+                "show_post_on_map",
+                "view_post_stats",
+                "go_back",
+                "back_to_top",
+                "action_login",
+                "action_logout",
+                "direct_message",
+                "direct_message_user",
+                "open_vx_inbox",
+                "open_vx_notifications",
+                "open_vx_cart",
+                "open_vx_user_menu",
+                "open_vx_quick_search",
+                "access_markdown",
+                "vote_upvote",
+                "vote_downvote"
+              ],
+              "enumLabels": {
+                "access_markdown": "Access Markdown",
+                "action_follow": "Follow post author",
+                "action_follow_post": "Follow post",
+                "action_gcal": "Google Calendar",
+                "action_ical": "iCal",
+                "action_link": "Link",
+                "action_login": "Log in",
+                "action_logout": "Log out",
+                "action_save": "Save post",
+                "add_to_cart": "Add to cart",
+                "back_to_top": "Back to top",
+                "call": "Phone call",
+                "delete_post": "Delete post",
+                "direct_message": "Message post",
+                "direct_message_user": "Message post author",
+                "edit_post": "Edit post",
+                "get_directions": "Directions",
+                "go_back": "Go back",
+                "open_modal": "Open modal",
+                "open_vx_cart": "Open cart",
+                "open_vx_inbox": "Open inbox",
+                "open_vx_notifications": "Open notifications",
+                "open_vx_quick_search": "Open quick search",
+                "open_vx_user_menu": "Open user menu",
+                "promote_post": "Promote post",
+                "publish_post": "Publish post",
+                "scroll_to_section": "Scroll to section",
+                "send_email": "Email",
+                "share_post": "Share post",
+                "show_post_on_map": "Show on map",
+                "unpublish_post": "Unpublish post",
+                "view_post_stats": "View post stats",
+                "vote_downvote": "Downvote",
+                "vote_upvote": "Upvote"
+              },
+              "primitive": "string"
+            },
+            "variant": {
+              "control": {
+                "cascadeFrom": "variant",
+                "kind": "select",
+                "label": "Variant",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Button colors.",
+              "enum": [
+                "transparent",
+                "white",
+                "primary",
+                "secondary",
+                "negative",
+                "positive"
+              ],
+              "enumLabels": {
+                "negative": "Negative",
+                "positive": "Positive",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "transparent": "Transparent",
+                "white": "White"
+              },
+              "primitive": "string"
+            },
+            "vote_field_key": {
+              "control": {
+                "kind": "text",
+                "label": "Vote field key",
+                "placeholder": "vote",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "vote_upvote",
+                    "vote_downvote"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Vote field to update. Leave empty to use the first one.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Action row"
+        },
+        "content-block-row": {
+          "name": "content-block-row",
+          "props": {
+            "accordion_open": {
+              "control": {
+                "default": false,
+                "kind": "segmented",
+                "label": "Open by default",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "accordion"
+                }
+              },
+              "default": false,
+              "description": "Open this accordion by default.",
+              "primitive": "boolean"
+            },
+            "accordion_variant": {
+              "control": {
+                "default": "transparent",
+                "kind": "select",
+                "label": "Variant",
+                "options": "variants",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "accordion"
+                }
+              },
+              "default": "transparent",
+              "description": "Accordion colors.",
+              "enum": [],
+              "primitive": "string"
+            },
+            "address": {
+              "control": {
+                "kind": "text",
+                "label": "Address",
+                "placeholder": "123 Main St, City, Country",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "get_directions"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Address for directions.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "body": {
+              "control": {
+                "kind": "richtext",
+                "label": "Body",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": [
+                    "rich_text",
+                    "accordion"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Body text with formatting.",
+              "dynamic": true,
+              "primitive": "richtext"
+            },
+            "brand_color": {
+              "control": {
+                "kind": "select",
+                "label": "Brand Color",
+                "options": "colors",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "default": "primary",
+              "description": "Booking accent color.",
+              "primitive": "string"
+            },
+            "byline_avatar_enabled": {
+              "control": {
+                "kind": "segmented",
+                "label": "Media",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": false,
+              "description": "Show this media area.",
+              "primitive": "boolean"
+            },
+            "byline_avatar_fit": {
+              "control": {
+                "kind": "segmented",
+                "label": "Fit",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "cover",
+              "description": "How the image fills the space.",
+              "enum": [
+                "cover",
+                "contain"
+              ],
+              "enumLabels": {
+                "contain": "Contain",
+                "cover": "Cover"
+              },
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": [
+                      "image"
+                    ]
+                  }
+                ]
+              }
+            },
+            "byline_avatar_icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Icon",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "",
+              "description": "Choose an icon.",
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": "icon"
+                  }
+                ]
+              }
+            },
+            "byline_avatar_image": {
+              "control": {
+                "kind": "image",
+                "label": "Image",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": [],
+              "description": "Choose an image.",
+              "primitive": "image",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "byline_avatar_image_alt": {
+              "control": {
+                "kind": "text",
+                "label": "Alt text",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "",
+              "description": "Describe the image for screen readers.",
+              "dynamic": true,
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "byline_avatar_image_loading": {
+              "default": "auto",
+              "description": "Choose when the image loads.",
+              "enum": [
+                "auto",
+                "lazy",
+                "eager"
+              ],
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "byline_avatar_type": {
+              "control": {
+                "kind": "select",
+                "label": "Type",
+                "options": "mediaTypes",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "image",
+              "description": "Choose what kind of media to show.",
+              "dynamic": true,
+              "enum": [
+                "image",
+                "video",
+                "icon"
+              ],
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  }
+                ]
+              }
+            },
+            "byline_avatar_video_url": {
+              "control": {
+                "customOnly": true,
+                "kind": "source",
+                "label": "Video URL",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "",
+              "description": "Video link or file.",
+              "dynamic": true,
+              "primitive": "source",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "byline_avatar_enabled"
+                    ],
+                    "value": true
+                  },
+                  {
+                    "path": [
+                      "byline_avatar_type"
+                    ],
+                    "value": "video"
+                  }
+                ]
+              }
+            },
+            "byline_primary": {
+              "control": {
+                "kind": "text",
+                "label": "Byline primary",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "",
+              "description": "Main byline text, like author name.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "byline_secondary": {
+              "control": {
+                "kind": "text",
+                "label": "Byline secondary",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "byline"
+                }
+              },
+              "default": "",
+              "description": "Secondary byline text, like date or role.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_desc": {
+              "control": {
+                "kind": "text",
+                "label": "Event description",
+                "placeholder": "Détails de l'événement…",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_gcal",
+                      "action_ical"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Calendar event details.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_end_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event end",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_gcal",
+                      "action_ical"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Event end date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_location": {
+              "control": {
+                "kind": "text",
+                "label": "Event location",
+                "placeholder": "Centre de conférences, 10 rue du Faubourg, 75011 Paris",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_gcal",
+                      "action_ical"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Calendar event location.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_start_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event start",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_gcal",
+                      "action_ical"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Event start date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_title": {
+              "control": {
+                "kind": "text",
+                "label": "Event title",
+                "placeholder": "Conférence annuelle 2026",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_gcal",
+                      "action_ical"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Calendar event title.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_url": {
+              "control": {
+                "kind": "source",
+                "label": "Event URL",
+                "placeholder": "https://example.com/event.ics",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "action_ical"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "description": "Existing calendar file link.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "calendar_url": {
+              "control": {
+                "customOnly": true,
+                "kind": "source",
+                "label": "Calendar URL override",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "description": "Optional absolute booking URL override. Leave empty to use the Lean SEO site calendar URL.",
+              "primitive": "source"
+            },
+            "cart_text": {
+              "control": {
+                "kind": "text",
+                "label": "Cart text",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "add_to_cart"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Button text after adding.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "datafield_label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "datafield"
+                }
+              },
+              "default": "",
+              "description": "Field label, like 'Surface' or 'Bedrooms'.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "datafield_value": {
+              "control": {
+                "kind": "text",
+                "label": "Value",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "datafield"
+                }
+              },
+              "default": "",
+              "description": "Field value. Bind a @post(...) tag or type text.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "email": {
+              "control": {
+                "kind": "email",
+                "label": "Email",
+                "placeholder": "contact@example.com",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "send_email"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Email address to contact.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "group": {
+              "control": {
+                "kind": "select",
+                "label": "Group",
+                "optionsFrom": {
+                  "kind": "group",
+                  "valueCell": "group_name"
+                },
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "tag"
+                }
+              },
+              "default": "",
+              "description": "Group this tag belongs to.",
+              "primitive": "string"
+            },
+            "group_name": {
+              "control": {
+                "kind": "text",
+                "label": "Name",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": "",
+              "description": "Group name. Tags join a group by this name; the card slugifies it to a stable cluster id (sanitize_title), so the name is the only thing you type.",
+              "primitive": "string"
+            },
+            "group_over_media": {
+              "control": {
+                "enumLabels": {
+                  "false": "Inline",
+                  "true": "Over media"
+                },
+                "kind": "segmented",
+                "label": "Over media",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": false,
+              "description": "Place this group over the media.",
+              "primitive": "boolean"
+            },
+            "group_overflow_suffix": {
+              "control": {
+                "kind": "text",
+                "label": "Overflow suffix",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": "",
+              "description": "Word after the hidden tag count.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "group_visible_rows": {
+              "control": {
+                "kind": "number",
+                "label": "Visible rows",
+                "max": 6,
+                "min": 1,
+                "section": "content",
+                "step": 1,
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": 1,
+              "description": "Lines shown before +N appears.",
+              "primitive": "number"
+            },
+            "hide_event_details": {
+              "control": {
+                "kind": "segmented",
+                "label": "Hide event details",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "default": false,
+              "description": "Hide event details.",
+              "primitive": "boolean"
+            },
+            "icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Icon",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "tag",
+                      "datafield"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Optional leading icon shown on the heading line or in the tag pill.",
+              "primitive": "string"
+            },
+            "icon_active": {
+              "control": {
+                "kind": "icon",
+                "label": "Active icon",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_follow",
+                      "action_follow_post",
+                      "action_save"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Icon shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "kind": {
+              "control": {
+                "default": "heading",
+                "kind": "select",
+                "label": "Type",
+                "section": "content"
+              },
+              "default": "heading",
+              "description": "Choose what this content block shows.",
+              "enum": [
+                "heading",
+                "rich_text",
+                "byline",
+                "separator",
+                "accordion",
+                "tag",
+                "datafield",
+                "group",
+                "calendar",
+                "toc"
+              ],
+              "enumDescriptions": {
+                "accordion": "Add collapsible content.",
+                "byline": "Add author, date, or detail text.",
+                "calendar": "Add a Cal.com booking form.",
+                "datafield": "Add a labeled data row.",
+                "group": "Set rules for matching tags.",
+                "heading": "Add a heading line.",
+                "rich_text": "Add formatted body text.",
+                "separator": "Add a divider.",
+                "tag": "Add a pill tag.",
+                "toc": "Add links to headings on the page."
+              },
+              "enumLabels": {
+                "accordion": "Accordion",
+                "byline": "Byline",
+                "calendar": "Calendar",
+                "datafield": "Datafield",
+                "group": "Tag group",
+                "heading": "Heading",
+                "rich_text": "Rich text",
+                "separator": "Separator",
+                "tag": "Tag",
+                "toc": "Table of contents"
+              },
+              "primitive": "string"
+            },
+            "label_active": {
+              "control": {
+                "kind": "text",
+                "label": "Active label",
+                "placeholder": "Following",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "action_follow",
+                      "action_follow_post",
+                      "action_save"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Text shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "layout": {
+              "control": {
+                "default": "week_view",
+                "kind": "segmented",
+                "label": "Layout",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "default": "week_view",
+              "description": "Choose the layout.",
+              "enum": [
+                "week_view",
+                "month_view",
+                "column_view"
+              ],
+              "enumLabels": {
+                "column_view": "Column",
+                "month_view": "Month",
+                "week_view": "Week"
+              },
+              "primitive": "string"
+            },
+            "link": {
+              "control": {
+                "kind": "source",
+                "label": "Link",
+                "placeholder": "https://example.com",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "action_link"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "description": "Page or link to open.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "modal_id": {
+              "control": {
+                "kind": "select",
+                "label": "Modal",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "open_modal"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "On-page modal or saved template to open.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "phone": {
+              "control": {
+                "kind": "phone",
+                "label": "Phone",
+                "placeholder": "+33 1 23 45 67 89",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "call"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Phone number to call.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "scroll_to": {
+              "control": {
+                "kind": "text",
+                "label": "Section ID",
+                "placeholder": "#section-id",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "scroll_to_section"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Section to scroll to.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "separator_color": {
+              "control": {
+                "kind": "select",
+                "label": "Color",
+                "options": "colors",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "separator"
+                }
+              },
+              "default": "gray_light",
+              "description": "Divider color.",
+              "primitive": "string"
+            },
+            "separator_spacing": {
+              "control": {
+                "default": "m",
+                "kind": "select",
+                "label": "Spacing",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "separator"
+                }
+              },
+              "default": "m",
+              "description": "Space above and below the divider.",
+              "enum": [
+                "s",
+                "m",
+                "l"
+              ],
+              "enumLabels": {
+                "l": "Large",
+                "m": "Medium",
+                "s": "Small"
+              },
+              "primitive": "string"
+            },
+            "separator_variant": {
+              "control": {
+                "default": "full",
+                "kind": "select",
+                "label": "Separator style",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "separator"
+                }
+              },
+              "default": "full",
+              "description": "Divider width.",
+              "enum": [
+                "full",
+                "centered",
+                "partial"
+              ],
+              "enumLabels": {
+                "centered": "Centered",
+                "full": "Full width",
+                "partial": "Partial"
+              },
+              "primitive": "string"
+            },
+            "slots_view_mobile": {
+              "control": {
+                "kind": "segmented",
+                "label": "Mobile slots",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "default": true,
+              "description": "Show times first on mobile.",
+              "primitive": "boolean"
+            },
+            "style": {
+              "control": {
+                "kind": "select",
+                "label": "Style",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": [
+                    "heading",
+                    "accordion"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Title size.",
+              "enum": [
+                "",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6"
+              ],
+              "enumLabels": {
+                "": "Inherit from tag",
+                "h1": "H1",
+                "h2": "H2",
+                "h3": "H3",
+                "h4": "H4",
+                "h5": "H5",
+                "h6": "H6"
+              },
+              "primitive": "string"
+            },
+            "tag": {
+              "control": {
+                "default": "h3",
+                "kind": "select",
+                "label": "Tag",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": [
+                    "heading",
+                    "accordion"
+                  ]
+                }
+              },
+              "default": "h3",
+              "description": "Choose the title level.",
+              "enum": [
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "p",
+                "span",
+                "address"
+              ],
+              "enumLabels": {
+                "address": "Address",
+                "h1": "H1",
+                "h2": "H2",
+                "h3": "H3",
+                "h4": "H4",
+                "h5": "H5",
+                "h6": "H6",
+                "p": "Paragraph",
+                "span": "Span"
+              },
+              "primitive": "string"
+            },
+            "text": {
+              "control": {
+                "kind": "text",
+                "label": "Text",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": [
+                    "heading",
+                    "accordion",
+                    "tag",
+                    "toc"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Main text for this block.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "theme": {
+              "control": {
+                "kind": "select",
+                "label": "Theme",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "calendar"
+                }
+              },
+              "default": "light",
+              "description": "Light, dark, or automatic theme.",
+              "enum": [
+                "light",
+                "dark",
+                "auto"
+              ],
+              "enumLabels": {
+                "auto": "Auto",
+                "dark": "Dark",
+                "light": "Light"
+              },
+              "primitive": "string"
+            },
+            "toast_message": {
+              "control": {
+                "kind": "text",
+                "label": "Toast message",
+                "placeholder": "Link copied",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": "share_post"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Short message after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "toc_max_heading": {
+              "control": {
+                "default": "h3",
+                "kind": "select",
+                "label": "Max Heading",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "toc"
+                }
+              },
+              "default": "h3",
+              "description": "Deepest heading level included in the table of contents.",
+              "enum": [
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6"
+              ],
+              "enumLabels": {
+                "h2": "H2",
+                "h3": "H3",
+                "h4": "H4",
+                "h5": "H5",
+                "h6": "H6"
+              },
+              "primitive": "string"
+            },
+            "toc_scope": {
+              "control": {
+                "kind": "text",
+                "label": "Scope",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "toc"
+                }
+              },
+              "default": "",
+              "description": "Element ID to build the table of contents from. Leave empty to auto-detect the article body.",
+              "primitive": "string"
+            },
+            "toc_variant": {
+              "control": {
+                "default": "transparent",
+                "kind": "select",
+                "label": "Variant",
+                "options": "link_variants",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "toc"
+                }
+              },
+              "default": "transparent",
+              "description": "Table-of-contents link colors.",
+              "enum": [
+                "transparent",
+                "primary",
+                "secondary",
+                "negative",
+                "positive"
+              ],
+              "enumLabels": {
+                "negative": "Negative",
+                "positive": "Positive",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "transparent": "Transparent"
+              },
+              "primitive": "string"
+            },
+            "tooltip": {
+              "default": "",
+              "description": "Tooltip cell — data only. action-row authors this as an explicit prop with a panel control.",
+              "primitive": "string"
+            },
+            "type": {
+              "control": {
+                "default": "",
+                "kind": "select",
+                "label": "Action",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": [
+                    "heading",
+                    "byline",
+                    "tag",
+                    "datafield"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Choose what opens on click.",
+              "enum": [
+                "",
+                "action_link",
+                "get_directions",
+                "call",
+                "send_email",
+                "open_modal",
+                "scroll_to_section",
+                "action_gcal",
+                "action_ical",
+                "share_post",
+                "add_to_cart",
+                "promote_post",
+                "action_follow_post",
+                "action_follow",
+                "action_save",
+                "edit_post",
+                "delete_post",
+                "unpublish_post",
+                "publish_post",
+                "show_post_on_map",
+                "view_post_stats",
+                "go_back",
+                "back_to_top",
+                "action_login",
+                "action_logout",
+                "direct_message",
+                "direct_message_user",
+                "open_vx_inbox",
+                "open_vx_notifications",
+                "open_vx_cart",
+                "open_vx_user_menu",
+                "open_vx_quick_search",
+                "access_markdown",
+                "vote_upvote",
+                "vote_downvote"
+              ],
+              "enumLabels": {
+                "": "None",
+                "access_markdown": "Access Markdown",
+                "action_follow": "Follow post author",
+                "action_follow_post": "Follow post",
+                "action_gcal": "Google Calendar",
+                "action_ical": "iCal",
+                "action_link": "Link",
+                "action_login": "Log in",
+                "action_logout": "Log out",
+                "action_save": "Save post",
+                "add_to_cart": "Add to cart",
+                "back_to_top": "Back to top",
+                "call": "Phone call",
+                "delete_post": "Delete post",
+                "direct_message": "Message post",
+                "direct_message_user": "Message post author",
+                "edit_post": "Edit post",
+                "get_directions": "Directions",
+                "go_back": "Go back",
+                "open_modal": "Open modal",
+                "open_vx_cart": "Open cart",
+                "open_vx_inbox": "Open inbox",
+                "open_vx_notifications": "Open notifications",
+                "open_vx_quick_search": "Open quick search",
+                "open_vx_user_menu": "Open user menu",
+                "promote_post": "Promote post",
+                "publish_post": "Publish post",
+                "scroll_to_section": "Scroll to section",
+                "send_email": "Email",
+                "share_post": "Share post",
+                "show_post_on_map": "Show on map",
+                "unpublish_post": "Unpublish post",
+                "view_post_stats": "View post stats",
+                "vote_downvote": "Downvote",
+                "vote_upvote": "Upvote"
+              },
+              "primitive": "string"
+            },
+            "variant": {
+              "control": {
+                "cascadeFrom": "variant",
+                "kind": "select",
+                "label": "Variant",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "kind",
+                    "value": "tag"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Tag colors.",
+              "enum": [
+                "white",
+                "primary",
+                "secondary",
+                "negative",
+                "positive"
+              ],
+              "enumLabels": {
+                "negative": "Negative",
+                "positive": "Positive",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "white": "White"
+              },
+              "primitive": "string"
+            },
+            "vote_field_key": {
+              "control": {
+                "kind": "text",
+                "label": "Vote field key",
+                "placeholder": "vote",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "type",
+                    "value": [
+                      "vote_upvote",
+                      "vote_downvote"
+                    ]
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield"
+                    ]
+                  }
+                ]
+              },
+              "default": "",
+              "description": "Vote field to update. Leave empty to use the first one.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Content block row"
+        },
+        "map-pin-row": {
+          "name": "map-pin-row",
+          "props": {
+            "address": {
+              "control": {
+                "kind": "text",
+                "label": "Address",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Address shown in the popup.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Pin popup text.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "lat": {
+              "control": {
+                "kind": "text",
+                "label": "Latitude",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Latitude.",
+              "primitive": "string"
+            },
+            "lng": {
+              "control": {
+                "kind": "text",
+                "label": "Longitude",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Longitude.",
+              "primitive": "string"
+            },
+            "location": {
+              "control": {
+                "kind": "text",
+                "label": "Location",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Pin address or coordinates.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Map pin row"
+        }
+      }
+    },
+    {
+      "meta": {
+        "category": "voxel",
+        "description": "Adds a visitor form with fields and a submit button.",
+        "icon": "eicon-form-horizontal",
+        "keywords": [
+          "form",
+          "contact",
+          "input"
+        ],
+        "renderer": {
+          "phpClass": "EF\\Widgets\\Form",
+          "scripts": [
+            "ef-form"
+          ],
+          "stylesheets": [
+            "ef-form"
+          ]
+        },
+        "title": "Form"
+      },
+      "name": "ef-form",
+      "props": {
+        "button_text": {
+          "control": {
+            "kind": "text",
+            "label": "Button text",
+            "section": "submit"
+          },
+          "default": "Envoyer",
+          "description": "Submit button text.",
+          "primitive": "string"
+        },
+        "fields": {
+          "control": {
+            "kind": "repeater",
+            "label": "Fields",
+            "section": "fields"
+          },
+          "default": [],
+          "description": "Add and order fields.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "field-row"
+          }
+        },
+        "honeypot": {
+          "control": {
+            "kind": "segmented",
+            "label": "Honeypot anti-spam",
+            "section": "submit"
+          },
+          "default": true,
+          "description": "Add hidden spam protection.",
+          "primitive": "boolean"
+        },
+        "success_message": {
+          "control": {
+            "kind": "textarea",
+            "label": "Success message",
+            "section": "submit"
+          },
+          "default": "Merci ! Votre message a bien été envoyé.",
+          "description": "Message shown after sending.",
+          "primitive": "string"
+        },
+        "variant": {
+          "control": {
+            "kind": "select",
+            "label": "Variant",
+            "options": "variants",
+            "section": "content"
+          },
+          "default": "primary",
+          "description": "Choose the colors.",
+          "enum": [
+            "transparent",
+            "white",
+            "primary",
+            "secondary",
+            "negative",
+            "positive"
+          ],
+          "primitive": "string"
+        }
+      },
+      "rows": {
+        "field-row": {
+          "name": "field-row",
+          "props": {
+            "accept": {
+              "control": {
+                "default": ".pdf,.doc,.docx",
+                "kind": "text",
+                "label": "Upload accept",
+                "when": {
+                  "field": "type",
+                  "value": "upload"
+                }
+              },
+              "default": ".pdf,.doc,.docx",
+              "description": "Allowed upload file types.",
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label"
+              },
+              "default": "",
+              "description": "Field label shown to visitors.",
+              "primitive": "string"
+            },
+            "options": {
+              "control": {
+                "kind": "textarea",
+                "label": "Options",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "select",
+                    "checkbox"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Choices, one per line.",
+              "primitive": "string"
+            },
+            "placeholder": {
+              "control": {
+                "kind": "text",
+                "label": "Placeholder",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "text",
+                    "email",
+                    "textarea",
+                    "select"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Hint inside the field.",
+              "primitive": "string"
+            },
+            "required": {
+              "control": {
+                "default": false,
+                "kind": "segmented",
+                "label": "Required",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "text",
+                    "email",
+                    "textarea",
+                    "select",
+                    "upload",
+                    "checkbox"
+                  ]
+                }
+              },
+              "default": false,
+              "description": "Require visitors to fill this in.",
+              "primitive": "boolean"
+            },
+            "type": {
+              "control": {
+                "default": "text",
+                "kind": "select",
+                "label": "Type"
+              },
+              "default": "text",
+              "description": "Choose the kind of field.",
+              "enum": [
+                "heading",
+                "text",
+                "email",
+                "textarea",
+                "select",
+                "upload",
+                "checkbox"
+              ],
+              "enumLabels": {
+                "checkbox": "Checkbox",
+                "email": "Email",
+                "heading": "Heading",
+                "select": "Select",
+                "text": "Text",
+                "textarea": "Textarea",
+                "upload": "File Upload"
+              },
+              "primitive": "string"
+            }
+          },
+          "title": "Field row"
+        }
+      }
+    },
+    {
+      "meta": {
+        "category": "voxel",
+        "description": "Adds site navigation with links, buttons, and a banner.",
+        "icon": "eicon-nav-menu",
+        "keywords": [
+          "navbar",
+          "menu",
+          "navigation",
+          "header"
+        ],
+        "renderer": {
+          "phpClass": "EF\\Widgets\\Navbar",
+          "scripts": [
+            "ef-navbar",
+            "ef-vx-popup",
+            "ef-actions"
+          ],
+          "stylesheets": [
+            "ef-navbar",
+            "ef-navbar-banner",
+            "ef-breadcrumb",
+            "ef-tooltip"
+          ]
+        },
+        "title": "Navbar"
+      },
+      "name": "ef-navbar",
+      "props": {
+        "banner_action_address": {
+          "control": {
+            "kind": "text",
+            "label": "Address",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Address for directions.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "get_directions"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_desc": {
+          "control": {
+            "kind": "text",
+            "label": "Event description",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event details.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_end_date": {
+          "control": {
+            "kind": "text",
+            "label": "Event end",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Event end date and time.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_location": {
+          "control": {
+            "kind": "text",
+            "label": "Event location",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event location.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_start_date": {
+          "control": {
+            "kind": "text",
+            "label": "Event start",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Event start date and time.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_title": {
+          "control": {
+            "kind": "text",
+            "label": "Event title",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event title.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cal_url": {
+          "control": {
+            "kind": "source",
+            "label": "Event URL",
+            "section": "content"
+          },
+          "description": "Existing calendar file link.",
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_cart_text": {
+          "control": {
+            "kind": "text",
+            "label": "Cart text",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Button text after adding.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "add_to_cart"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_email": {
+          "control": {
+            "kind": "email",
+            "label": "Email",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Email address to contact.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "send_email"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_icon_active": {
+          "control": {
+            "kind": "icon",
+            "label": "Active icon",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Icon shown after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_follow",
+                  "action_follow_post",
+                  "action_save"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_label": {
+          "control": {
+            "kind": "text",
+            "label": "Action label",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Banner button text.",
+          "primitive": "string"
+        },
+        "banner_action_label_active": {
+          "control": {
+            "kind": "text",
+            "label": "Active label",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Text shown after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_follow",
+                  "action_follow_post",
+                  "action_save"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_link": {
+          "control": {
+            "kind": "source",
+            "label": "Link",
+            "section": "content"
+          },
+          "description": "Page or link to open.",
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "action_link"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_modal_id": {
+          "control": {
+            "kind": "select",
+            "label": "Modal",
+            "section": "content"
+          },
+          "default": "",
+          "description": "On-page modal or saved template to open.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "open_modal"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_phone": {
+          "control": {
+            "kind": "phone",
+            "label": "Phone",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Phone number to call.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "call"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_scroll_to": {
+          "control": {
+            "kind": "text",
+            "label": "Section ID",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Section to scroll to.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "scroll_to_section"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_toast_message": {
+          "control": {
+            "kind": "text",
+            "label": "Toast message",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Short message after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "share_post"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_action_tooltip": {
+          "control": {
+            "kind": "text",
+            "label": "Tooltip",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Short hover text.",
+          "primitive": "string"
+        },
+        "banner_action_type": {
+          "control": {
+            "kind": "select",
+            "label": "Action",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Choose what opens on click.",
+          "enum": [
+            "",
+            "action_link",
+            "get_directions",
+            "call",
+            "send_email",
+            "open_modal",
+            "scroll_to_section",
+            "action_gcal",
+            "action_ical",
+            "share_post",
+            "add_to_cart",
+            "promote_post",
+            "action_follow_post",
+            "action_follow",
+            "action_save",
+            "edit_post",
+            "delete_post",
+            "unpublish_post",
+            "publish_post",
+            "show_post_on_map",
+            "view_post_stats",
+            "go_back",
+            "back_to_top",
+            "action_login",
+            "action_logout",
+            "direct_message",
+            "direct_message_user",
+            "open_vx_inbox",
+            "open_vx_notifications",
+            "open_vx_cart",
+            "open_vx_user_menu",
+            "open_vx_quick_search",
+            "access_markdown",
+            "vote_upvote",
+            "vote_downvote"
+          ],
+          "enumLabels": {
+            "": "None",
+            "access_markdown": "Access Markdown",
+            "action_follow": "Follow post author",
+            "action_follow_post": "Follow post",
+            "action_gcal": "Google Calendar",
+            "action_ical": "iCal",
+            "action_link": "Link",
+            "action_login": "Log in",
+            "action_logout": "Log out",
+            "action_save": "Save post",
+            "add_to_cart": "Add to cart",
+            "back_to_top": "Back to top",
+            "call": "Phone call",
+            "delete_post": "Delete post",
+            "direct_message": "Message post",
+            "direct_message_user": "Message post author",
+            "edit_post": "Edit post",
+            "get_directions": "Directions",
+            "go_back": "Go back",
+            "open_modal": "Open modal",
+            "open_vx_cart": "Open cart",
+            "open_vx_inbox": "Open inbox",
+            "open_vx_notifications": "Open notifications",
+            "open_vx_quick_search": "Open quick search",
+            "open_vx_user_menu": "Open user menu",
+            "promote_post": "Promote post",
+            "publish_post": "Publish post",
+            "scroll_to_section": "Scroll to section",
+            "send_email": "Email",
+            "share_post": "Share post",
+            "show_post_on_map": "Show on map",
+            "unpublish_post": "Unpublish post",
+            "view_post_stats": "View post stats",
+            "vote_downvote": "Downvote",
+            "vote_upvote": "Upvote"
+          },
+          "primitive": "string"
+        },
+        "banner_action_vote_field_key": {
+          "control": {
+            "kind": "text",
+            "label": "Vote field key",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Vote field to update. Leave empty to use the first one.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "banner_action_type"
+                ],
+                "value": [
+                  "vote_upvote",
+                  "vote_downvote"
+                ]
+              }
+            ]
+          }
+        },
+        "banner_background": {
+          "control": {
+            "after": "action_cal_url",
+            "kind": "select",
+            "label": "Color",
+            "section": "content"
+          },
+          "default": "primary",
+          "description": "Announcement bar colors.",
+          "enum": [
+            "primary",
+            "positive",
+            "negative"
+          ],
+          "enumLabels": {
+            "negative": "Negative",
+            "positive": "Positive",
+            "primary": "Primary"
+          },
+          "primitive": "string"
+        },
+        "banner_message": {
+          "control": {
+            "kind": "text",
+            "label": "Message",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Announcement text.",
+          "dynamic": true,
+          "primitive": "string"
+        },
+        "cta_ts_actions": {
+          "control": {
+            "kind": "repeater",
+            "label": "Buttons",
+            "rowLabel": "Button",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add and order buttons.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "action-row"
+          }
+        },
+        "nav_items": {
+          "control": {
+            "kind": "repeater",
+            "label": "Items",
+            "rowLabel": "Item",
+            "section": "nav_items"
+          },
+          "default": [],
+          "description": "Add and order menu links.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "mega-row"
+          }
+        },
+        "show_breadcrumb": {
+          "control": {
+            "kind": "segmented",
+            "label": "Show breadcrumb",
+            "section": "settings"
+          },
+          "default": false,
+          "description": "Show page path links.",
+          "primitive": "boolean"
+        },
+        "variant": {
+          "control": {
+            "kind": "select",
+            "label": "Variant",
+            "options": "variants",
+            "section": "content"
+          },
+          "default": "transparent",
+          "description": "Choose the colors.",
+          "enum": [
+            "transparent",
+            "white",
+            "primary",
+            "secondary",
+            "negative",
+            "positive"
+          ],
+          "primitive": "string"
+        }
+      },
+      "rows": {
+        "action-row": {
+          "name": "action-row",
+          "props": {
+            "address": {
+              "control": {
+                "kind": "text",
+                "label": "Address",
+                "placeholder": "123 Main St, City, Country",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "get_directions"
+                }
+              },
+              "default": "",
+              "description": "Address for directions.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_desc": {
+              "control": {
+                "kind": "text",
+                "label": "Event description",
+                "placeholder": "Détails de l'événement…",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event details.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_end_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event end",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Event end date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_location": {
+              "control": {
+                "kind": "text",
+                "label": "Event location",
+                "placeholder": "Centre de conférences, 10 rue du Faubourg, 75011 Paris",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event location.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_start_date": {
+              "control": {
+                "kind": "text",
+                "label": "Event start",
+                "placeholder": "YYYY-MM-DD HH:MM:SS",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Event start date and time.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_title": {
+              "control": {
+                "kind": "text",
+                "label": "Event title",
+                "placeholder": "Conférence annuelle 2026",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_gcal",
+                    "action_ical"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Calendar event title.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "cal_url": {
+              "control": {
+                "kind": "source",
+                "label": "Event URL",
+                "placeholder": "https://example.com/event.ics",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "action_ical"
+                }
+              },
+              "description": "Existing calendar file link.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "cart_text": {
+              "control": {
+                "kind": "text",
+                "label": "Cart text",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "add_to_cart"
+                }
+              },
+              "default": "",
+              "description": "Button text after adding.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "email": {
+              "control": {
+                "kind": "email",
+                "label": "Email",
+                "placeholder": "contact@example.com",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "send_email"
+                }
+              },
+              "default": "",
+              "description": "Email address to contact.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Icon",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Icon shown on the button.",
+              "primitive": "string"
+            },
+            "icon_active": {
+              "control": {
+                "kind": "icon",
+                "label": "Active icon",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_follow",
+                    "action_follow_post",
+                    "action_save"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Icon shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Button text.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label_active": {
+              "control": {
+                "kind": "text",
+                "label": "Active label",
+                "placeholder": "Following",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "action_follow",
+                    "action_follow_post",
+                    "action_save"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Text shown after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "link": {
+              "control": {
+                "kind": "source",
+                "label": "Link",
+                "placeholder": "https://example.com",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "action_link"
+                }
+              },
+              "description": "Page or link to open.",
+              "dynamic": true,
+              "primitive": "source"
+            },
+            "modal_id": {
+              "control": {
+                "kind": "select",
+                "label": "Modal",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "open_modal"
+                }
+              },
+              "default": "",
+              "description": "On-page modal or saved template to open.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "phone": {
+              "control": {
+                "kind": "phone",
+                "label": "Phone",
+                "placeholder": "+33 1 23 45 67 89",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "call"
+                }
+              },
+              "default": "",
+              "description": "Phone number to call.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "scroll_to": {
+              "control": {
+                "kind": "text",
+                "label": "Section ID",
+                "placeholder": "#section-id",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "scroll_to_section"
+                }
+              },
+              "default": "",
+              "description": "Section to scroll to.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "toast_message": {
+              "control": {
+                "kind": "text",
+                "label": "Toast message",
+                "placeholder": "Link copied",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": "share_post"
+                }
+              },
+              "default": "",
+              "description": "Short message after click.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "tooltip": {
+              "control": {
+                "kind": "text",
+                "label": "Tooltip",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Short hover text shown on the button.",
+              "primitive": "string"
+            },
+            "type": {
+              "control": {
+                "default": "action_link",
+                "kind": "select",
+                "label": "Type",
+                "section": "content"
+              },
+              "default": "action_link",
+              "description": "Choose what opens on click.",
+              "enum": [
+                "action_link",
+                "get_directions",
+                "call",
+                "send_email",
+                "open_modal",
+                "scroll_to_section",
+                "action_gcal",
+                "action_ical",
+                "share_post",
+                "add_to_cart",
+                "promote_post",
+                "action_follow_post",
+                "action_follow",
+                "action_save",
+                "edit_post",
+                "delete_post",
+                "unpublish_post",
+                "publish_post",
+                "show_post_on_map",
+                "view_post_stats",
+                "go_back",
+                "back_to_top",
+                "action_login",
+                "action_logout",
+                "direct_message",
+                "direct_message_user",
+                "open_vx_inbox",
+                "open_vx_notifications",
+                "open_vx_cart",
+                "open_vx_user_menu",
+                "open_vx_quick_search",
+                "access_markdown",
+                "vote_upvote",
+                "vote_downvote"
+              ],
+              "enumLabels": {
+                "access_markdown": "Access Markdown",
+                "action_follow": "Follow post author",
+                "action_follow_post": "Follow post",
+                "action_gcal": "Google Calendar",
+                "action_ical": "iCal",
+                "action_link": "Link",
+                "action_login": "Log in",
+                "action_logout": "Log out",
+                "action_save": "Save post",
+                "add_to_cart": "Add to cart",
+                "back_to_top": "Back to top",
+                "call": "Phone call",
+                "delete_post": "Delete post",
+                "direct_message": "Message post",
+                "direct_message_user": "Message post author",
+                "edit_post": "Edit post",
+                "get_directions": "Directions",
+                "go_back": "Go back",
+                "open_modal": "Open modal",
+                "open_vx_cart": "Open cart",
+                "open_vx_inbox": "Open inbox",
+                "open_vx_notifications": "Open notifications",
+                "open_vx_quick_search": "Open quick search",
+                "open_vx_user_menu": "Open user menu",
+                "promote_post": "Promote post",
+                "publish_post": "Publish post",
+                "scroll_to_section": "Scroll to section",
+                "send_email": "Email",
+                "share_post": "Share post",
+                "show_post_on_map": "Show on map",
+                "unpublish_post": "Unpublish post",
+                "view_post_stats": "View post stats",
+                "vote_downvote": "Downvote",
+                "vote_upvote": "Upvote"
+              },
+              "primitive": "string"
+            },
+            "variant": {
+              "control": {
+                "cascadeFrom": "variant",
+                "kind": "select",
+                "label": "Variant",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Button colors.",
+              "enum": [
+                "transparent",
+                "white",
+                "primary",
+                "secondary",
+                "negative",
+                "positive"
+              ],
+              "enumLabels": {
+                "negative": "Negative",
+                "positive": "Positive",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "transparent": "Transparent",
+                "white": "White"
+              },
+              "primitive": "string"
+            },
+            "vote_field_key": {
+              "control": {
+                "kind": "text",
+                "label": "Vote field key",
+                "placeholder": "vote",
+                "section": "content",
+                "when": {
+                  "field": "type",
+                  "value": [
+                    "vote_upvote",
+                    "vote_downvote"
+                  ]
+                }
+              },
+              "default": "",
+              "description": "Vote field to update. Leave empty to use the first one.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Action row"
+        },
+        "mega-row": {
+          "name": "mega-row",
+          "props": {
+            "link": {
+              "control": {
+                "kind": "source",
+                "label": "Link",
+                "section": "content"
+              },
+              "description": "Link this item opens.",
+              "primitive": "source"
+            },
+            "loop_anchor": {
+              "control": {
+                "kind": "text",
+                "label": "Anchor post",
+                "relevantWhen": {
+                  "hasChildren": true
+                },
+                "section": "content",
+                "when": {
+                  "field": "loop_anchor_type",
+                  "value": "custom"
+                }
+              },
+              "default": "",
+              "description": "Post used for repeated links.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "loop_anchor_type": {
+              "control": {
+                "default": "",
+                "kind": "select",
+                "label": "Loop anchor",
+                "relevantWhen": {
+                  "hasChildren": true
+                },
+                "section": "content"
+              },
+              "default": "",
+              "description": "Choose the source for repeated links.",
+              "enum": [
+                "",
+                "custom"
+              ],
+              "enumLabels": {
+                "": "Parent row",
+                "custom": "Custom"
+              },
+              "primitive": "string"
+            },
+            "loop_overflow_suffix": {
+              "control": {
+                "kind": "text",
+                "label": "Overflow suffix",
+                "relevantWhen": {
+                  "loop": true
+                },
+                "section": "content"
+              },
+              "default": "",
+              "description": "Word after hidden items.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "loop_visible_rows": {
+              "control": {
+                "kind": "number",
+                "label": "Max rows",
+                "max": 6,
+                "min": 0,
+                "relevantWhen": {
+                  "depth": {
+                    "min": 1
+                  }
+                },
+                "section": "content",
+                "step": 1
+              },
+              "default": 0,
+              "description": "Lines shown before +N appears.",
+              "primitive": "number"
+            },
+            "meta": {
+              "control": {
+                "kind": "text",
+                "label": "Subtitle",
+                "relevantWhen": {
+                  "depth": {
+                    "min": 1
+                  }
+                },
+                "section": "content"
+              },
+              "default": "",
+              "description": "Optional subtitle.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "text": {
+              "control": {
+                "kind": "text",
+                "label": "Text",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Menu item text.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Mega row"
+        }
+      }
+    },
+    {
+      "meta": {
+        "category": "voxel",
+        "description": "Groups content with layout, color, and background controls.",
+        "icon": "eicon-container",
+        "keywords": [
+          "wrapper",
+          "space",
+          "section",
+          "container",
+          "div",
+          "modal",
+          "dialog",
+          "popup"
+        ],
+        "renderer": {
+          "phpClass": "EF\\Elements\\Wrapper",
+          "scripts": [
+            "ef-modal",
+            "ef-tabs",
+            "ef-scroll-pager"
+          ],
+          "stylesheets": [
+            "ef-wrapper"
+          ]
+        },
+        "title": "Wrapper"
+      },
+      "name": "ef-wrapper",
+      "props": {
+        "bg_color": {
+          "control": {
+            "after": "bg_media_type",
+            "kind": "select",
+            "label": "Background color",
+            "options": "colors",
+            "section": "settings"
+          },
+          "default": "transparent",
+          "description": "Background color token.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "color"
+              }
+            ]
+          }
+        },
+        "bg_media_enabled": {
+          "control": {
+            "kind": "segmented",
+            "label": "Media",
+            "section": "content"
+          },
+          "default": false,
+          "description": "Show this media area.",
+          "primitive": "boolean"
+        },
+        "bg_media_fit": {
+          "control": {
+            "kind": "segmented",
+            "label": "Fit",
+            "section": "content"
+          },
+          "default": "cover",
+          "description": "How the image fills the space.",
+          "enum": [
+            "cover",
+            "contain"
+          ],
+          "enumLabels": {
+            "contain": "Contain",
+            "cover": "Cover"
+          },
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": [
+                  "image"
+                ]
+              }
+            ]
+          }
+        },
+        "bg_media_icon": {
+          "control": {
+            "kind": "icon",
+            "label": "Icon",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Choose an icon.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "icon"
+              }
+            ]
+          }
+        },
+        "bg_media_image": {
+          "control": {
+            "kind": "image",
+            "label": "Image",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Choose an image.",
+          "primitive": "image",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "bg_media_image_alt": {
+          "control": {
+            "kind": "text",
+            "label": "Alt text",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Describe the image for screen readers.",
+          "dynamic": true,
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "bg_media_image_loading": {
+          "default": "auto",
+          "description": "Choose when the image loads.",
+          "enum": [
+            "auto",
+            "lazy",
+            "eager"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "image"
+              }
+            ]
+          }
+        },
+        "bg_media_map_pins": {
+          "control": {
+            "kind": "repeater",
+            "label": "Pins",
+            "rowLabel": "Pin",
+            "section": "content"
+          },
+          "default": [],
+          "description": "Add pins to the map.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "map-pin-row"
+          },
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "bg_media_map_zoom": {
+          "control": {
+            "kind": "text",
+            "label": "Zoom",
+            "section": "content"
+          },
+          "default": "14",
+          "description": "Starting map zoom level.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "map"
+              }
+            ]
+          }
+        },
+        "bg_media_svg": {
+          "control": {
+            "kind": "media",
+            "label": "SVG",
+            "section": "content"
+          },
+          "description": "Choose an uploaded vector image.",
+          "primitive": "svg",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "svg"
+              }
+            ]
+          }
+        },
+        "bg_media_type": {
+          "control": {
+            "kind": "select",
+            "label": "Type",
+            "options": "mediaTypes",
+            "section": "content"
+          },
+          "default": "image",
+          "description": "Choose what kind of media to show.",
+          "dynamic": true,
+          "enum": [
+            "color",
+            "image",
+            "video",
+            "icon",
+            "svg",
+            "map"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              }
+            ]
+          }
+        },
+        "bg_media_video_url": {
+          "control": {
+            "customOnly": true,
+            "kind": "source",
+            "label": "Video URL",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Video link or file.",
+          "dynamic": true,
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "video"
+              }
+            ]
+          }
+        },
+        "bg_pattern": {
+          "control": {
+            "after": "bg_color",
+            "kind": "segmented",
+            "label": "Show pattern",
+            "section": "settings"
+          },
+          "default": true,
+          "description": "Add a discreet scattered-shape texture behind the color background.",
+          "primitive": "boolean",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_enabled"
+                ],
+                "value": true
+              },
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "color"
+              }
+            ]
+          }
+        },
+        "cols": {
+          "control": {
+            "kind": "text",
+            "label": "Columns",
+            "section": "settings"
+          },
+          "default": "1fr",
+          "description": "Columns for each screen size. In carousel and pagination modes, columns combine with rows to determine items per page.",
+          "primitive": "string",
+          "responsive": true
+        },
+        "mode": {
+          "control": {
+            "kind": "select",
+            "label": "Mode",
+            "section": "settings"
+          },
+          "default": "",
+          "description": "Choose how this wrapper works.",
+          "enum": [
+            "",
+            "modal",
+            "template",
+            "tabs",
+            "carousel",
+            "pagination",
+            "masonry"
+          ],
+          "enumDescriptions": {
+            "": "Normal section.",
+            "carousel": "Show items in a slider.",
+            "masonry": "Arrange items in a variable-height masonry grid (all items shown, no pagination).",
+            "modal": "Open as a popup.",
+            "pagination": "Split items into pages.",
+            "tabs": "Show one item at a time with tabs.",
+            "template": "Use a saved template."
+          },
+          "enumLabels": {
+            "": "Block",
+            "carousel": "Carousel",
+            "masonry": "Masonry",
+            "modal": "Modal",
+            "pagination": "Pagination",
+            "tabs": "Tabs",
+            "template": "Template"
+          },
+          "primitive": "string"
+        },
+        "modifiers": {
+          "control": {
+            "kind": "multiselect",
+            "label": "Modifiers",
+            "options": [
+              {
+                "label": "Sticky",
+                "value": "sticky"
+              },
+              {
+                "label": "Reversed",
+                "value": "reversed"
+              }
+            ],
+            "section": "settings"
+          },
+          "default": "",
+          "description": "Active modifiers per breakpoint (comma-joined flags): sticky, reversed.",
+          "primitive": "string",
+          "responsive": true
+        },
+        "rows": {
+          "control": {
+            "after": "cols",
+            "kind": "number",
+            "label": "Rows",
+            "max": 12,
+            "min": 1,
+            "section": "settings",
+            "step": 1
+          },
+          "default": 1,
+          "description": "Number of rows per page. Items per page = columns × rows.",
+          "primitive": "number",
+          "responsive": true,
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "mode"
+                ],
+                "value": [
+                  "carousel",
+                  "pagination"
+                ]
+              }
+            ]
+          }
+        },
+        "tab_variant": {
+          "control": {
+            "kind": "select",
+            "label": "Tab variant",
+            "options": "variants",
+            "section": "settings"
+          },
+          "default": "primary",
+          "description": "Active tab colors.",
+          "enum": [
+            "transparent",
+            "white",
+            "primary",
+            "secondary",
+            "negative",
+            "positive"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "mode"
+                ],
+                "value": "tabs"
+              }
+            ]
+          }
+        },
+        "tag": {
+          "control": {
+            "kind": "select",
+            "label": "Tag",
+            "options": "htmlTags",
+            "section": "settings"
+          },
+          "default": "div",
+          "description": "Choose what kind of container this is.",
+          "enum": [
+            "div",
+            "main",
+            "section",
+            "article",
+            "aside",
+            "header",
+            "footer",
+            "nav"
+          ],
+          "primitive": "string"
+        },
+        "template_id": {
+          "control": {
+            "combobox": true,
+            "kind": "select",
+            "label": "Template",
+            "openTemplate": true,
+            "options": "elementorTemplates",
+            "section": "settings"
+          },
+          "default": "",
+          "description": "Saved template to show here.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "mode"
+                ],
+                "value": "template"
+              }
+            ]
+          }
+        }
+      },
+      "rows": {
+        "map-pin-row": {
+          "name": "map-pin-row",
+          "props": {
+            "address": {
+              "control": {
+                "kind": "text",
+                "label": "Address",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Address shown in the popup.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Pin popup text.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "lat": {
+              "control": {
+                "kind": "text",
+                "label": "Latitude",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Latitude.",
+              "primitive": "string"
+            },
+            "lng": {
+              "control": {
+                "kind": "text",
+                "label": "Longitude",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Longitude.",
+              "primitive": "string"
+            },
+            "location": {
+              "control": {
+                "kind": "text",
+                "label": "Location",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Pin address or coordinates.",
+              "dynamic": true,
+              "primitive": "string"
+            }
+          },
+          "title": "Map pin row"
+        }
+      }
+    }
+  ]
+}

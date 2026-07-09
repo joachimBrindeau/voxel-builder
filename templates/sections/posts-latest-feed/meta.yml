@@ -1,0 +1,12 @@
+id: posts-latest-feed
+scope: section
+type: feed
+name: "Latest posts feed"
+tags: [feed, posts, blog, loop, articles]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Latest-articles / blog-feed section of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[8]` (orig id `c40fce2`), selector `jq '.[0].elements[8]'` over the raw bare-array export. Heading card + a loop-bound post card. The site-specific `@site(loop_post)` loop-source tag (NON-allowlist) was neutralized so the feed card structure re-binds cleanly; section heading/subtitle copy replaced with Lorem Ipsum; `link` routing neutralized to '#'; image attachment ids neutralized to 0; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

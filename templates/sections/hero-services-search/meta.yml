@@ -1,0 +1,13 @@
+id: hero-services-search
+scope: section
+type: hero
+name: "Services search hero"
+tags: [hero, search, services, header]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "hero subtree extracted from klarc /services page (postId 12434); source node = the `header`-cssid ef-wrapper `elements[0].elements[0]` of the exported page, selector `jq '.[0].elements[0]'` over the raw nested export. The `section` sibling (ts-search-form + ts-post-feed) was deliberately excluded so the stored subtree is a single self-contained container. Sanitized per placeholder-policy: `@post(parent.title)` (§1.1) kept live; the `@post(parent.permalink)` link (non-allowlist dtag) replaced with `#`; the H1 heading and rich-text subtitle display copy replaced with Lorem Ipsum; node ids regenerated recursively."
+breakpoints: [desktop, tablet, mobile]

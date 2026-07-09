@@ -1,0 +1,13 @@
+id: locations-map-feed
+scope: section
+type: locations
+name: "Locations map feed"
+tags: [locations, geo, map, loop, feed]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@post(slug)"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Regional-offices / locations section of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[7]` (orig id `7407a02`), selector `jq '.[0].elements[7]'` over the raw bare-array export. Heading card + a loop-bound location card. Kept live the allowlisted `@post(slug)` (§1.2) in the loop-item `_cssid` binding; the site-specific `@site(loop_geo)` loop-source tag (NON-allowlist) was neutralized so the structure re-binds cleanly. Display copy replaced with Lorem Ipsum; `link`/`address` routing neutralized; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

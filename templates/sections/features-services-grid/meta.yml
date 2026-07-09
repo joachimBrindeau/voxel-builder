@@ -1,0 +1,12 @@
+id: features-services-grid
+scope: section
+type: features
+name: "Services / features grid"
+tags: [features, services, grid, cards, expertise]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Homepage `#services` features section of the klarc homepage (postId 4453); source node = the `services`-cssid ef-wrapper `elements[2]` (orig id `a5a7bf2`), selector `jq '.[0].elements[2]'` over the raw bare-array export. Section-heading card + 3 feature/expertise cards (each: heading + rich-text). Sanitized per placeholder-policy: no allowlist dtags in the section, so all headings + rich-text bodies replaced with Lorem Ipsum, feature-card anchor `link`s neutralized to '#', media attachment ids neutralized to 0; heading `tag` levels (h2/h3) preserved as structural; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

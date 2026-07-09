@@ -1,0 +1,123 @@
+{
+  "postId": 2023,
+  "title": "Pages: Single post",
+  "id": "a8839c0",
+  "elType": "ef-card",
+  "settings": {
+    "__globals__": [],
+    "classes": {
+      "$$type": "classes",
+      "value": [
+        "s-a8839c0-0"
+      ]
+    },
+    "attributes": {
+      "$$type": "attributes",
+      "value": []
+    },
+    "content_blocks": {
+      "$$type": "ef-content-block-rows",
+      "value": [
+        {
+          "$$type": "ef-content-block-row",
+          "value": {
+            "kind": {
+              "$$type": "string",
+              "value": "heading"
+            },
+            "text": {
+              "$$type": "string",
+              "value": "@tags()@post(h1)@endtags()"
+            },
+            "tag": {
+              "$$type": "string",
+              "value": "h1"
+            },
+            "style": {
+              "$$type": "string",
+              "value": ""
+            }
+          }
+        },
+        {
+          "$$type": "ef-content-block-row",
+          "value": {
+            "kind": {
+              "$$type": "string",
+              "value": "byline"
+            },
+            "byline_primary": {
+              "$$type": "string",
+              "value": "@author(display_name)"
+            },
+            "byline_secondary": {
+              "$$type": "string",
+              "value": "@author(profile.job)"
+            },
+            "type": {
+              "$$type": "string",
+              "value": "action_link"
+            },
+            "link": {
+              "$$type": "link",
+              "value": {
+                "destination": {
+                  "$$type": "vx",
+                  "value": "@author(profile.permalink)"
+                },
+                "isTargetBlank": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "a"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "byline_avatar_image": {
+      "$$type": "image",
+      "value": {
+        "src": {
+          "$$type": "image-src",
+          "value": {
+            "id": null,
+            "url": {
+              "$$type": "vx",
+              "value": "@author(avatar)"
+            }
+          }
+        },
+        "size": {
+          "$$type": "string",
+          "value": "thumbnail"
+        }
+      }
+    },
+    "byline_avatar_type": {
+      "$$type": "string",
+      "value": "image"
+    },
+    "col_span": {
+      "$$type": "ef-responsive-string",
+      "value": {
+        "desktop": {
+          "$$type": "string",
+          "value": ""
+        },
+        "tablet": {
+          "$$type": "string",
+          "value": "2"
+        },
+        "mobile": {
+          "$$type": "string",
+          "value": ""
+        }
+      }
+    }
+  }
+}

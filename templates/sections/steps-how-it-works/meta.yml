@@ -1,0 +1,12 @@
+id: steps-how-it-works
+scope: section
+type: steps
+name: "How-it-works steps"
+tags: [steps, process, how-it-works, timeline, cards]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "How-it-works / process-steps section of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[5]` (orig id `0803b0c`), selector `jq '.[0].elements[5]'` over the raw bare-array export. Intro card + 4 numbered step cards (heading + rich-text each; first card carries an image, mixed `primary`/`white` variants). Sanitized per placeholder-policy: no allowlist dtags present, so all step headings + descriptions replaced with Lorem Ipsum, image attachment id neutralized to 0, any `link` routing neutralized to '#'; card `variant` and heading `tag` tokens preserved; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

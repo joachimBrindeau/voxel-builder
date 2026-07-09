@@ -1,0 +1,12 @@
+id: faq-accordion
+scope: section
+type: faq
+name: "FAQ accordion"
+tags: [faq, accordion, questions, support]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "FAQ section of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[9]` (orig id `8cff1a4`), selector `jq '.[0].elements[9]'` over the raw bare-array export. Heading card + accordion cards (question/answer content-block rows, `accordion` kind). Sanitized per placeholder-policy: no allowlist dtags present, so all question titles + answer bodies replaced with Lorem Ipsum; `accordion` structural tokens (kind, accordion_open, accordion_variant) and heading `tag` levels preserved; image attachment ids neutralized to 0; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

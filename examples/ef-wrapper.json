@@ -1,0 +1,41 @@
+{
+  "postId": 2023,
+  "title": "Pages: Single post",
+  "id": "17f086a",
+  "elType": "ef-wrapper",
+  "settings": {
+    "_title": "main",
+    "__globals__": [],
+    "tag": {
+      "$$type": "string",
+      "value": "main"
+    },
+    "classes": {
+      "$$type": "classes",
+      "value": [
+        "s-17f086a-0"
+      ]
+    },
+    "attributes": {
+      "$$type": "attributes",
+      "value": []
+    },
+    "cols": {
+      "$$type": "ef-responsive-string",
+      "value": {
+        "desktop": {
+          "$$type": "string",
+          "value": "1fr"
+        },
+        "tablet": {
+          "$$type": "string",
+          "value": ""
+        },
+        "mobile": {
+          "$$type": "string",
+          "value": ""
+        }
+      }
+    }
+  }
+}

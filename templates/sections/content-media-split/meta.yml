@@ -1,0 +1,12 @@
+id: content-media-split
+scope: section
+type: content
+name: "Content + media split band"
+tags: [content, media, split, image, text]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Content/media split band of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[3]` (orig id `24a218c`), selector `jq '.[0].elements[3]'` over the raw bare-array export. Two-card split: a transparent text card (heading + heading + rich-text) beside a `secondary`-variant image card. Chosen over the near-duplicate `elements[4]` content band (same archetype, mirrored) to keep one canonical media-split template. Sanitized per placeholder-policy: no allowlist dtags present, so all headings + rich-text replaced with Lorem Ipsum, image attachment ids neutralized to 0, `link` routing neutralized to '#'; card `variant` tokens preserved as structural; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

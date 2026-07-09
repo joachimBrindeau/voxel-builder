@@ -1,0 +1,12 @@
+id: testimonials-loop-feed
+scope: section
+type: testimonials
+name: "Testimonials loop feed"
+tags: [testimonials, loop, feed, reviews, byline]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Testimonials section of the klarc homepage (postId 4453); source node = the ef-wrapper `elements[6]` (orig id `0152eca`), selector `jq '.[0].elements[6]'` over the raw bare-array export. Heading card + a loop-bound testimonial card (byline: avatar + author-name + company-name + quote body). The section's live loop was bound to a site-specific `@site(loop_testimonials)` source (NON-allowlist), so per policy the loop-source `tag`, the `@site(loop_testimonials.*)` display bindings (company-name, content, author-name/title, avatar url + alt) were all neutralized/Lorem-ized — the reusable byline+quote card structure survives for the consuming agent to re-bind. Image attachment ids neutralized to 0; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

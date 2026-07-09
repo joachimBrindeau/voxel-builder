@@ -1,0 +1,12 @@
+id: cta-conversion-band
+scope: section
+type: cta
+name: "Conversion CTA band"
+tags: [cta, conversion, band, call-to-action]
+widgets: [ef-wrapper, ef-card]
+dtags_used: []
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Bottom `cta`-cssid conversion band of the klarc homepage (postId 4453); source node = the `cta`-cssid ef-wrapper `elements[10]` (orig id `b0bbcca`), selector `jq '.[0].elements[10]'` over the raw bare-array export. Single CTA card (heading + supporting bullets + action row). Sanitized per placeholder-policy: the CTA headline carried a `@post(keyword-prefix).fallback(Klarc)` dtag (NON-allowlist, and embedding the `Klarc` proper noun) — replaced with Lorem Ipsum; action-row labels/tooltips Lorem-ized; `modal_id`/`scroll_to`/`link` routing and the `@site(seo.calendar_url)` binding neutralized; action `type`/`variant` tokens preserved as structural; node ids regenerated recursively; `elementor:normalize` survivability pass."
+breakpoints: [desktop, tablet, mobile]

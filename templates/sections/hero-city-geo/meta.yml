@@ -1,0 +1,15 @@
+id: hero-city-geo
+scope: section
+type: hero
+name: "City geolocation hero"
+tags: [hero, geo, city, header, background-image]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+  - "@tags()@post(h1)@endtags()"
+  - "@tags()@post(_thumbnail_id.id)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "hero subtree extracted from the klarc `Localisations: Single post` template (postId 2642) that renders the geo CPT — the /villes/lyon page (postId 2186, type `geo`) carries NO own _elementor_data and inherits this single-template hero. Source node = the first section ef-wrapper `elements[0]` of the exported template, selector `jq '.[0].elements[0]'` over the raw nested export; single self-contained container, no sibling-span wrap needed. Geolocation-variant note: this hero references its PARENT service via `@post(parent.title)` (§1.1) in the eyebrow tag — the canonical parent-service dtag usage expected of a city page. Sanitized per placeholder-policy: kept live `@post(parent.title)` (§1.1), `@post(h1)` (§1.4), and the featured-image-id `@post(_thumbnail_id.id)` in the bg-media vx envelope (§1.8); the `@post(parent.permalink)` link (non-allowlist) replaced with `#`; the bare `@post(excerpt)` (non-allowlist; allowlist requires `@post(:excerpt)`), the `geo-street/geo-zip/geo-city` byline dtags, the `Bureau Klarc …` alt/byline copy, and the `Prendre rendez-vous à …` action label (all containing the real proper noun `Klarc` and/or non-allowlist geo dtags) replaced with Lorem Ipsum; the real `tpl:18460` modal_id reference stripped to empty; node ids regenerated recursively."
+breakpoints: [desktop, tablet, mobile]

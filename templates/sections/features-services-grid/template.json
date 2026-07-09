@@ -1,0 +1,712 @@
+{
+  "id": "39ee47d",
+  "elType": "ef-wrapper",
+  "settings": {
+    "classes": {
+      "$$type": "classes",
+      "value": []
+    },
+    "attributes": {
+      "$$type": "attributes",
+      "value": []
+    },
+    "col_span": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "row_span": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "sticky": {
+      "$$type": "ef-responsive-boolean",
+      "value": {
+        "desktop": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "tablet": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "mobile": {
+          "$$type": "boolean",
+          "value": false
+        }
+      }
+    },
+    "tag": {
+      "$$type": "string",
+      "value": "section"
+    },
+    "bg_color": {
+      "$$type": "string",
+      "value": "transparent"
+    },
+    "cols": {
+      "$$type": "ef-responsive-string",
+      "value": {
+        "desktop": {
+          "$$type": "string",
+          "value": "1fr 1fr"
+        },
+        "tablet": {
+          "$$type": "string",
+          "value": ""
+        },
+        "mobile": {
+          "$$type": "string",
+          "value": ""
+        }
+      }
+    },
+    "rows": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "bg_media_enabled": {
+      "$$type": "boolean",
+      "value": true
+    },
+    "bg_media_type": {
+      "$$type": "string",
+      "value": "color"
+    },
+    "_cssid": {
+      "$$type": "string",
+      "value": "services"
+    }
+  },
+  "elements": [
+    {
+      "id": "cd26a21",
+      "elType": "ef-card",
+      "settings": {
+        "classes": {
+          "$$type": "classes",
+          "value": []
+        },
+        "attributes": {
+          "$$type": "attributes",
+          "value": []
+        },
+        "col_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "row_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "sticky": {
+          "$$type": "ef-responsive-boolean",
+          "value": {
+            "desktop": {
+              "$$type": "boolean",
+              "value": true
+            },
+            "tablet": {
+              "$$type": "boolean",
+              "value": false
+            },
+            "mobile": {
+              "$$type": "boolean",
+              "value": false
+            }
+          }
+        },
+        "variant": {
+          "$$type": "string",
+          "value": "white"
+        },
+        "full_height": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "content_blocks": {
+          "$$type": "ef-content-block-rows",
+          "value": [
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "heading"
+                },
+                "text": {
+                  "$$type": "string",
+                  "value": "Lorem ipsum dolor sit amet consectetur"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "h2"
+                },
+                "style": {
+                  "$$type": "string",
+                  "value": ""
+                }
+              }
+            },
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "body": {
+                  "$$type": "string",
+                  "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "elements": [],
+      "isInner": false,
+      "styles": [],
+      "interactions": [],
+      "editor_settings": [],
+      "version": "0.0"
+    },
+    {
+      "id": "63c0876",
+      "elType": "ef-wrapper",
+      "settings": {
+        "classes": {
+          "$$type": "classes",
+          "value": []
+        },
+        "attributes": {
+          "$$type": "attributes",
+          "value": []
+        },
+        "col_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "row_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "sticky": {
+          "$$type": "ef-responsive-boolean",
+          "value": {
+            "desktop": {
+              "$$type": "boolean",
+              "value": false
+            },
+            "tablet": {
+              "$$type": "boolean",
+              "value": false
+            },
+            "mobile": {
+              "$$type": "boolean",
+              "value": false
+            }
+          }
+        },
+        "mode": {
+          "$$type": "string",
+          "value": ""
+        },
+        "bg_color": {
+          "$$type": "string",
+          "value": "transparent"
+        },
+        "cols": {
+          "$$type": "ef-responsive-string",
+          "value": {
+            "desktop": {
+              "$$type": "string",
+              "value": "1fr"
+            },
+            "tablet": {
+              "$$type": "string",
+              "value": ""
+            },
+            "mobile": {
+              "$$type": "string",
+              "value": ""
+            }
+          }
+        },
+        "rows": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        }
+      },
+      "elements": [
+        {
+          "id": "ea98f9b",
+          "elType": "ef-card",
+          "settings": {
+            "classes": {
+              "$$type": "classes",
+              "value": []
+            },
+            "attributes": {
+              "$$type": "attributes",
+              "value": []
+            },
+            "col_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "row_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "sticky": {
+              "$$type": "ef-responsive-boolean",
+              "value": {
+                "desktop": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "tablet": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "mobile": {
+                  "$$type": "boolean",
+                  "value": false
+                }
+              }
+            },
+            "variant": {
+              "$$type": "string",
+              "value": "primary"
+            },
+            "content_blocks": {
+              "$$type": "ef-content-block-rows",
+              "value": [
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "heading"
+                    },
+                    "text": {
+                      "$$type": "string",
+                      "value": "Lorem ipsum"
+                    },
+                    "tag": {
+                      "$$type": "string",
+                      "value": "h3"
+                    },
+                    "style": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "rich_text"
+                    },
+                    "body": {
+                      "$$type": "string",
+                      "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                    }
+                  }
+                }
+              ]
+            },
+            "_cssid": {
+              "$$type": "string",
+              "value": "conseil-financier"
+            }
+          },
+          "elements": [],
+          "isInner": false,
+          "styles": [],
+          "interactions": [],
+          "editor_settings": [],
+          "version": "0.0"
+        },
+        {
+          "id": "623b2ae",
+          "elType": "ef-card",
+          "settings": {
+            "classes": {
+              "$$type": "classes",
+              "value": []
+            },
+            "attributes": {
+              "$$type": "attributes",
+              "value": []
+            },
+            "col_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "row_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "sticky": {
+              "$$type": "ef-responsive-boolean",
+              "value": {
+                "desktop": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "tablet": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "mobile": {
+                  "$$type": "boolean",
+                  "value": false
+                }
+              }
+            },
+            "variant": {
+              "$$type": "string",
+              "value": "primary"
+            },
+            "content_blocks": {
+              "$$type": "ef-content-block-rows",
+              "value": [
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "heading"
+                    },
+                    "text": {
+                      "$$type": "string",
+                      "value": "Lorem ipsum dolor sit amet consectetur"
+                    },
+                    "tag": {
+                      "$$type": "string",
+                      "value": "h3"
+                    },
+                    "style": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "rich_text"
+                    },
+                    "body": {
+                      "$$type": "string",
+                      "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                    }
+                  }
+                }
+              ]
+            },
+            "_cssid": {
+              "$$type": "string",
+              "value": "propriete-industrielle"
+            }
+          },
+          "elements": [],
+          "isInner": false,
+          "styles": [],
+          "interactions": [],
+          "editor_settings": [],
+          "version": "0.0"
+        },
+        {
+          "id": "ab60e84",
+          "elType": "ef-card",
+          "settings": {
+            "classes": {
+              "$$type": "classes",
+              "value": []
+            },
+            "attributes": {
+              "$$type": "attributes",
+              "value": []
+            },
+            "col_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "row_span": {
+              "$$type": "ef-responsive-number",
+              "value": {
+                "desktop": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "tablet": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "mobile": {
+                  "$$type": "number",
+                  "value": 1
+                }
+              }
+            },
+            "sticky": {
+              "$$type": "ef-responsive-boolean",
+              "value": {
+                "desktop": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "tablet": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "mobile": {
+                  "$$type": "boolean",
+                  "value": false
+                }
+              }
+            },
+            "variant": {
+              "$$type": "string",
+              "value": "primary"
+            },
+            "content_blocks": {
+              "$$type": "ef-content-block-rows",
+              "value": [
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "heading"
+                    },
+                    "text": {
+                      "$$type": "string",
+                      "value": "Lorem ipsum dolor sit amet consectetur"
+                    },
+                    "tag": {
+                      "$$type": "string",
+                      "value": "h3"
+                    },
+                    "style": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                {
+                  "$$type": "ef-content-block-row",
+                  "value": {
+                    "kind": {
+                      "$$type": "string",
+                      "value": "rich_text"
+                    },
+                    "body": {
+                      "$$type": "string",
+                      "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                    }
+                  }
+                }
+              ]
+            },
+            "_cssid": {
+              "$$type": "string",
+              "value": "management-innovation"
+            }
+          },
+          "elements": [],
+          "isInner": false,
+          "styles": [],
+          "interactions": [],
+          "editor_settings": [],
+          "version": "0.0"
+        }
+      ],
+      "isInner": true,
+      "styles": [],
+      "interactions": [],
+      "editor_settings": [],
+      "version": "0.0"
+    }
+  ],
+  "isInner": false,
+  "styles": [],
+  "interactions": [],
+  "editor_settings": [],
+  "version": "0.0"
+}

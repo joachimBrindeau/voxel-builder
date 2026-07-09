@@ -1,0 +1,639 @@
+{
+  "id": "653df8e",
+  "elType": "ef-wrapper",
+  "settings": {
+    "classes": {
+      "$$type": "classes",
+      "value": []
+    },
+    "attributes": {
+      "$$type": "attributes",
+      "value": []
+    },
+    "col_span": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "row_span": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "sticky": {
+      "$$type": "ef-responsive-boolean",
+      "value": {
+        "desktop": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "tablet": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "mobile": {
+          "$$type": "boolean",
+          "value": false
+        }
+      }
+    },
+    "tag": {
+      "$$type": "string",
+      "value": "header"
+    },
+    "mode": {
+      "$$type": "string",
+      "value": ""
+    },
+    "cols": {
+      "$$type": "ef-responsive-string",
+      "value": {
+        "desktop": {
+          "$$type": "string",
+          "value": "2fr 1fr"
+        },
+        "tablet": {
+          "$$type": "string",
+          "value": "1fr"
+        },
+        "mobile": {
+          "$$type": "string",
+          "value": "1fr"
+        }
+      }
+    },
+    "rows": {
+      "$$type": "ef-responsive-number",
+      "value": {
+        "desktop": {
+          "$$type": "number",
+          "value": 1
+        },
+        "tablet": {
+          "$$type": "number",
+          "value": 1
+        },
+        "mobile": {
+          "$$type": "number",
+          "value": 1
+        }
+      }
+    },
+    "bg_media_enabled": {
+      "$$type": "boolean",
+      "value": true
+    },
+    "bg_media_type": {
+      "$$type": "string",
+      "value": "image"
+    },
+    "bg_media_image": {
+      "$$type": "image",
+      "value": {
+        "src": {
+          "$$type": "image-src",
+          "value": {
+            "id": null,
+            "url": {
+              "$$type": "vx",
+              "value": "@tags()@post(_thumbnail_id.id)@endtags()"
+            }
+          }
+        },
+        "size": {
+          "$$type": "string",
+          "value": "large"
+        }
+      }
+    },
+    "bg_media_image_alt": {
+      "$$type": "string",
+      "value": "Lorem ipsum dolor sit amet"
+    },
+    "bg_media_image_loading": {
+      "$$type": "string",
+      "value": "eager"
+    },
+    "bg_media_fit": {
+      "$$type": "string",
+      "value": "cover"
+    }
+  },
+  "elements": [
+    {
+      "id": "acc1540",
+      "elType": "ef-card",
+      "settings": {
+        "classes": {
+          "$$type": "classes",
+          "value": []
+        },
+        "attributes": {
+          "$$type": "attributes",
+          "value": []
+        },
+        "col_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "row_span": {
+          "$$type": "ef-responsive-number",
+          "value": {
+            "desktop": {
+              "$$type": "number",
+              "value": 1
+            },
+            "tablet": {
+              "$$type": "number",
+              "value": 1
+            },
+            "mobile": {
+              "$$type": "number",
+              "value": 1
+            }
+          }
+        },
+        "sticky": {
+          "$$type": "ef-responsive-boolean",
+          "value": {
+            "desktop": {
+              "$$type": "boolean",
+              "value": false
+            },
+            "tablet": {
+              "$$type": "boolean",
+              "value": false
+            },
+            "mobile": {
+              "$$type": "boolean",
+              "value": false
+            }
+          }
+        },
+        "content_blocks": {
+          "$$type": "ef-content-block-rows",
+          "value": [
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "tag"
+                },
+                "accordion_variant": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "text": {
+                  "$$type": "string",
+                  "value": "@tags()@post(parent.title)@endtags()"
+                },
+                "toc_variant": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "toc_scope": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "toc_max_heading": {
+                  "$$type": "string",
+                  "value": "h3"
+                },
+                "variant": {
+                  "$$type": "string",
+                  "value": "primary"
+                },
+                "icon": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "group": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "group_name": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "group_over_media": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "group_visible_rows": {
+                  "$$type": "number",
+                  "value": 1
+                },
+                "group_overflow_suffix": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "h3"
+                },
+                "style": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "body": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "accordion_open": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "byline_primary": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "byline_secondary": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "separator_variant": {
+                  "$$type": "string",
+                  "value": "full"
+                },
+                "separator_spacing": {
+                  "$$type": "string",
+                  "value": "m"
+                },
+                "separator_color": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "calendar_url": {
+                  "$$type": "ef-source-value",
+                  "value": {
+                    "source": {
+                      "$$type": "string",
+                      "value": "custom"
+                    },
+                    "value": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                "layout": {
+                  "$$type": "string",
+                  "value": "week_view"
+                },
+                "theme": {
+                  "$$type": "string",
+                  "value": "light"
+                },
+                "brand_color": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "hide_event_details": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "slots_view_mobile": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "type": {
+                  "$$type": "string",
+                  "value": "action_link"
+                },
+                "byline_avatar_enabled": {
+                  "$$type": "boolean",
+                  "value": false
+                },
+                "byline_avatar_type": {
+                  "$$type": "string",
+                  "value": "image"
+                },
+                "byline_avatar_image": {
+                  "$$type": "image",
+                  "value": []
+                },
+                "byline_avatar_image_alt": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "byline_avatar_video_url": {
+                  "$$type": "ef-source-value",
+                  "value": {
+                    "source": {
+                      "$$type": "string",
+                      "value": "custom"
+                    },
+                    "value": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                "byline_avatar_icon": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "byline_avatar_fit": {
+                  "$$type": "string",
+                  "value": "cover"
+                },
+                "link": {
+                  "$$type": "ef-source-value",
+                  "value": {
+                    "source": {
+                      "$$type": "string",
+                      "value": "custom"
+                    },
+                    "value": {
+                      "$$type": "string",
+                      "value": "#"
+                    }
+                  }
+                },
+                "address": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "phone": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "email": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "modal_id": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "scroll_to": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_start_date": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_end_date": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_title": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_desc": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_location": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cal_url": {
+                  "$$type": "ef-source-value",
+                  "value": {
+                    "source": {
+                      "$$type": "string",
+                      "value": "custom"
+                    },
+                    "value": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                },
+                "cart_text": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "menu": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "vote_field_key": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "icon_active": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "label_active": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "toast_message": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "_vx_loop": {
+                  "$$type": "vx-loop",
+                  "value": {
+                    "tag": "",
+                    "limit": null,
+                    "offset": null
+                  }
+                },
+                "_vx_visibility": {
+                  "$$type": "vx-visibility",
+                  "value": {
+                    "behavior": "show",
+                    "rules": []
+                  }
+                },
+                "_ef_loop_query": {
+                  "$$type": "ef-loop-query",
+                  "value": {
+                    "post_type": {
+                      "$$type": "string",
+                      "value": ""
+                    },
+                    "order": {
+                      "$$type": "string",
+                      "value": ""
+                    },
+                    "search_form": {
+                      "$$type": "string",
+                      "value": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "heading"
+                },
+                "text": {
+                  "$$type": "string",
+                  "value": "@tags()@post(h1)@endtags()"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "h1"
+                },
+                "style": {
+                  "$$type": "string",
+                  "value": ""
+                }
+              }
+            },
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "body": {
+                  "$$type": "string",
+                  "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                }
+              }
+            },
+            {
+              "$$type": "ef-content-block-row",
+              "value": {
+                "kind": {
+                  "$$type": "string",
+                  "value": "byline"
+                },
+                "byline_primary": {
+                  "$$type": "string",
+                  "value": "Lorem ipsum dolor"
+                },
+                "byline_secondary": {
+                  "$$type": "string",
+                  "value": "Lorem ipsum, dolor sit amet"
+                },
+                "byline_avatar_type": {
+                  "$$type": "string",
+                  "value": "image"
+                },
+                "byline_avatar_enabled": {
+                  "$$type": "boolean",
+                  "value": false
+                }
+              }
+            }
+          ]
+        },
+        "media_enabled": {
+          "$$type": "boolean",
+          "value": false
+        },
+        "ts_actions": {
+          "$$type": "ef-action-rows",
+          "value": [
+            {
+              "$$type": "ef-action-row",
+              "value": {
+                "_id": {
+                  "$$type": "string",
+                  "value": "32480fe"
+                },
+                "label": {
+                  "$$type": "string",
+                  "value": "Lorem ipsum"
+                },
+                "type": {
+                  "$$type": "string",
+                  "value": "open_modal"
+                },
+                "variant": {
+                  "$$type": "string",
+                  "value": "primary"
+                },
+                "icon": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "tooltip": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "address": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "phone": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "email": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "modal_id": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "scroll_to": {
+                  "$$type": "string",
+                  "value": ""
+                },
+                "cart_text": {
+                  "$$type": "string",
+                  "value": ""
+                }
+              }
+            }
+          ]
+        }
+      },
+      "elements": [],
+      "isInner": false,
+      "styles": [],
+      "interactions": [],
+      "editor_settings": [],
+      "version": "0.0"
+    }
+  ],
+  "isInner": false,
+  "styles": [],
+  "interactions": [],
+  "editor_settings": [],
+  "version": "0.0"
+}
