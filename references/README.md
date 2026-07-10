@@ -84,7 +84,6 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`blueprint-format.md`](core/blueprint-format.md) | The Plan Document blueprint table format. |
 | [`page-plan-contract.md`](core/page-plan-contract.md) · [`page-plan-archetypes.md`](core/page-plan-archetypes.md) | Plan/Blueprint output schema and archetype/vocabulary catalog. |
 | [`elementor-mutation-tools.md`](core/elementor-mutation-tools.md) · [`build-troubleshooting.md`](core/build-troubleshooting.md) | Existing-data write mechanisms and conditional failure recovery. |
-| [`solution-absorption.md`](core/solution-absorption.md) | Freshness, coverage, disposition, and retirement contract for continuously absorbing workspace solutions. |
 
 ## `ef/` — EF V4 atomic widget reference
 

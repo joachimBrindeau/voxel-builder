@@ -67,11 +67,7 @@ else
   printf "  \033[33mSKIP\033[0m  no templates to lint\n"
 fi
 
-# --- 7. Solution absorption -------------------------------------------------
-heading "Solution absorption"
-if python3 scripts/audit-solution-absorption.py; then :; else fail "solution absorption ledger invalid"; fi
-
-# --- 8. Deep link + anchor check (lychee, optional) -------------------------
+# --- 7. Deep link + anchor check (lychee, optional) -------------------------
 heading "Deep link check (lychee)"
 if command -v lychee >/dev/null 2>&1; then
   md_files=$(find . -name '*.md' -not -path './node_modules/*')

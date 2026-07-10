@@ -29,7 +29,6 @@ workflow and never compete at intake.
 | Workflow | Called by | Contract |
 |---|---|---|
 | [`page-planning.md`](page-planning.md) | build, migrate, structural repair | Gated Plan Document matching the Blueprint contract |
-| [`absorb-solutions.md`](absorb-solutions.md) | skill maintenance after new workspace learnings | Freshness-audited owners, ledger update, and clean source retirement |
 
 ## Supporting Contracts
 
@@ -39,7 +38,6 @@ workflow and never compete at intake.
 | [`../references/core/page-plan-contract.md`](../references/core/page-plan-contract.md) | Plan/Blueprint output schema |
 | [`../references/verification/behavior-contract.md`](../references/verification/behavior-contract.md) | Existing-data semantic boundary |
 | [`../references/verification/browser.md`](../references/verification/browser.md) | Runtime verification commands/assertions |
-| [`../references/core/solution-absorption.md`](../references/core/solution-absorption.md) | Solution freshness, coverage, disposition, and retirement rules |
 
 ## Adding A Workflow
 

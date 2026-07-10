@@ -121,10 +121,6 @@ for the domain lookup table. Keep loading narrow: open only the selected workflo
 its declared references. A selected workflow's required-reference list is complete;
 lateral links inside references are optional lookup aids, not required chained reads.
 
-For skill maintenance, route new workspace learnings through
-`workflows/absorb-solutions.md` and `references/core/solution-absorption.md`. This is a
-supporting maintenance pipeline, not a task-facing primary route.
-
 Saved section templates (reusable hero/section starting trees, one folder per section) live in the `templates/` store — see `templates/README.md` for the on-disk shape, `meta.yml` schema, SSOT-wins discipline, and the refresh/migrate workflow; `templates/index.md` is the master catalog. Templates are starting trees, never authoritative spec.
 
 ## Success Criteria
