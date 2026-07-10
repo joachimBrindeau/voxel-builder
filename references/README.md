@@ -49,6 +49,8 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "Configure post types / taxonomies / roles / collections / verification / async jobs / nav menus / Voxel widget catalog" | [`voxel-platform.md`](voxel/voxel-platform.md) |
 | "What's the shape of an ef-card / ef-form / ef-wrapper widget?" | committed SSOT `cli/src/generated/widget-schemas.json` (preferred, offline) → [`ef-widgets.md`](ef/ef-widgets.md) → live `wpdev elementor:schema` (fallback) |
 | "Which EF widget should I use? (router / phantom check / reserved keys / `$$type` envelopes)" | [`widgets.md`](ef/widgets.md) |
+| "Which generated EF artifact owns schemas/defaults/types, or how do variants/icons/compat stay single-source?" | [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) |
+| "Why does EF differ in the editor iframe, or how should live preview refresh and teardown work?" | [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) |
 | "What settings does ts-search-form / ts-post-feed / ts-map / ts-template-tabs / ts-print-template take?" | [`ts-widgets.md`](voxel/ts-widgets.md) |
 | "Build a CPT submission / edit form (ts-create-post)" | [`ts-widgets.md`](voxel/ts-widgets.md) §ts-create-post + [`../examples/ts-create-post.json`](../examples/ts-create-post.json) |
 | "I'm building an ef-card and need to wire up the `tags` pill repeater or `ts_actions` action rows" | [`widgets.md`](ef/widgets.md) + [`actions.md`](ef/actions.md) |
@@ -60,6 +62,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "I'm composing a custom widget and need a part (Field, Banner, Headings…)" | [`ef-parts.md`](ef/ef-parts.md) |
 | "I'm calling an `ef_*` helper and need its signature" | [`ef-helpers.md`](ef/ef-helpers.md) |
 | "I need a dynamic-tag expression like `@post(field)` or `@if(...)`" | [`voxel-tags.md`](voxel/voxel-tags.md) |
+| "Author or repair an EF/Voxel loop, relation traversal, loop index, or native children loop" | [`voxel-loop-authoring.md`](voxel/voxel-loop-authoring.md) |
 | "I need a fixture for an existing widget" | `../examples/<widget>.json` (golden fixtures) |
 | "I need to compose multi-source text (fallbacks, currency, relations, math)" | [`dynamic-text.md`](ef/dynamic-text.md) |
 | "I'm building a single/archive template and need to plan sections" | [`page-planning.md`](../workflows/page-planning.md) — Phase 2 sub-pipeline (Field Inventory → SSOT Read → Archetypes → Blueprints → Adversarial review → Reconciliation → Approval) |
@@ -81,12 +84,15 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`blueprint-format.md`](core/blueprint-format.md) | The Plan Document blueprint table format. |
 | [`page-plan-contract.md`](core/page-plan-contract.md) · [`page-plan-archetypes.md`](core/page-plan-archetypes.md) | Plan/Blueprint output schema and archetype/vocabulary catalog. |
 | [`elementor-mutation-tools.md`](core/elementor-mutation-tools.md) · [`build-troubleshooting.md`](core/build-troubleshooting.md) | Existing-data write mechanisms and conditional failure recovery. |
+| [`solution-absorption.md`](core/solution-absorption.md) | Freshness, coverage, disposition, and retirement contract for continuously absorbing workspace solutions. |
 
 ## `ef/` — EF V4 atomic widget reference
 
 | File | What it is |
 |---|---|
 | [`widgets.md`](ef/widgets.md) · [`ef-widgets.md`](ef/ef-widgets.md) | Widget catalog + per-widget prop tables (generated from the schema SSOT). |
+| [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) | Generated-schema, atomic-node, compatibility, icon, variant, and token ownership rules. |
+| [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) | Editor iframe parity, batch preview refresh, view dispatch, bindings, and teardown contract. |
 | [`ef-parts.md`](ef/ef-parts.md) · [core](ef/ef-parts-core.md) · [media/nav](ef/ef-parts-media-nav.md) · [row surfaces](ef/ef-parts-row-surfaces.md) | Parts index and its three concern-owned catalogs. |
 | [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |
 | [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` variants and registration behavior. |
@@ -109,7 +115,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | File | What it is |
 |---|---|
 | [`voxel-field-inventory.md`](voxel/voxel-field-inventory.md) · [field index](voxel/voxel-field-types.md) · [core](voxel/voxel-field-types-core.md) · [advanced](voxel/voxel-field-types-advanced.md) · [patterns](voxel/voxel-field-types-patterns.md) · [visibility](voxel/voxel-field-visibility.md) | Field availability, configuration, selection patterns, storage, and visibility. |
-| [tag index](voxel/voxel-tags.md) · [expressions](voxel/voxel-tags-expressions.md) · [runtime](voxel/voxel-tags-runtime.md) | Dynamic expressions/modifiers and loops/visibility/feeds/relations. |
+| [tag index](voxel/voxel-tags.md) · [expressions](voxel/voxel-tags-expressions.md) · [runtime](voxel/voxel-tags-runtime.md) · [loop authoring](voxel/voxel-loop-authoring.md) | Dynamic expressions/modifiers and loops/visibility/feeds/relations. |
 | [search index](voxel/voxel-search.md) · [query](voxel/voxel-search-query.md) · [index/maps](voxel/voxel-search-index-maps.md) | Search/filter/sort behavior and index/geospatial storage. |
 | [timeline index](voxel/voxel-timeline.md) · [social](voxel/voxel-timeline-social.md) · [messaging](voxel/voxel-timeline-messaging.md) | Timeline/review/social behavior and direct messaging/notifications. |
 | [commerce index](voxel/voxel-commerce.md) · [products](voxel/voxel-commerce-products.md) · [plans](voxel/voxel-commerce-plans.md) · [payments](voxel/voxel-commerce-payments.md) | Products/bookings, memberships/listings, and payment/provider behavior. |
@@ -127,6 +133,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`lean-seo-maintenance.md`](voxel/lean-seo-maintenance.md) | SEO-safe 503 maintenance screen — enabled-state IS the switch; 503 + Retry-After, robots.txt stays 200, never noindex, admin bypass; EF-token theming. |
 | [`lean-seo-purge.md`](voxel/lean-seo-purge.md) | LiteSpeed cache-purge bridge — `lean_seo_purge`/`lean_seo_purge_all`/`lean_seo_bump_cache_epoch` API, the Last-Modified epoch, the WP hooks that trigger purges, the non-purge perf tweaks. |
 | [`voxel-lean-seo-routing.md`](voxel/voxel-lean-seo-routing.md) · [`claude-seo-authoring.md`](voxel/claude-seo-authoring.md) | Voxel-to-lean-seo ownership routing and optional source-supported authoring handoff. |
+| [`lean-seo-source-engineering.md`](voxel/lean-seo-source-engineering.md) | Source-level portability, bootstrap, symlinked textdomain, DB-audit, security, and quality gates for lean-seo work. |
 
 ## Specialized Supporting References
 

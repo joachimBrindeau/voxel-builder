@@ -25,6 +25,10 @@ archive/search URL and result surface; general templates stay in the build route
 1. Record target `post_parent`, slug, localized title, canonical URL, and post type.
 2. Check conflicts with native archives, standalone marketing pages, and sibling routes.
 3. Keep native Voxel archive/search wiring enabled; do not solve conflicts by disabling it.
+4. When Voxel binds an archive to a regular page, record both the bound page ID and the
+   WordPress reading option. A curated page that owns `/blog` independently of the built-in
+   `post` archive requires `page_for_posts=0`; otherwise Voxel's `home.php` route can shadow
+   the page while the stored Elementor tree remains correct.
 
 **Exit:** One non-conflicting URL/page owner is recorded and existing landing pages remain
 separate unless the sibling pattern proves otherwise.
@@ -50,6 +54,8 @@ and result/filter ownership points to the target CPT.
 2. Verify tree, Voxel index/published counts, HTTP 200, canonical URL, browser heading,
    filters/results, empty state, and console/page errors.
 3. Compare a complete and sparse result record so visibility/fallback behavior is exercised.
+4. For a page-backed archive, prove the rendered Elementor document ID and canonical query
+   owner, not just the requested URL. A `200` from the wrong WordPress template is a failure.
 
 **Exit:** The archive/search URL, EF/approved legacy surface, index, results, and browser
 assertions all pass.

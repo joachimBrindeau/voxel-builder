@@ -60,3 +60,18 @@ For below-fold maps/embeds:
 - Run more than one warm Lighthouse sample on busy dev hardware.
 - Cross-check noisy Lighthouse TBT/Layout numbers with real browser navigation timing.
 - For HTML assertions that require full output, use uncapped terminal/curl output rather than tools that truncate large pages.
+
+## Media And LiteSpeed Acceptance Rules
+
+- Backfill local WebP siblings through the media owner and verify `<picture>` output. Treat
+  unused-media scans as conservative reports: generated sizes, metadata references, CSS, and
+  Voxel/Elementor data can make an apparently unreferenced attachment live.
+- Start from the smallest LiteSpeed optimization subset that yields a measured win. Reject UCSS,
+  CSS combine, or JS combine unless the tested state set covers logged-in/out, responsive,
+  interactive, sparse, and cache-hit behavior.
+- CSS combine changes URL resolution. Icon-font declarations must use root-relative or otherwise
+  stable URLs so the combined stylesheet cannot resolve fonts relative to a cache directory.
+- Mark a confirmed above-fold hero with `data-no-lazy` at the final rendered `<img>` boundary.
+  Verify the attribute survives Elementor/Voxel rendering and that lower images remain lazy.
+- Compare equivalent cache states and warm both variants before drawing a conclusion. Record the
+  exact URL, viewport, authentication state, cache state, and run count with each result.

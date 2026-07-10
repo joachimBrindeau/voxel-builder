@@ -2,6 +2,22 @@
 
 The `schema` module (`modules/schema/`) emits JSON-LD structured data per CPT. Config persists **one option per target** — `lean_seo_schema:{target}` (JSON string) plus a `lean_seo_schema_targets` index option; a legacy monolithic `lean_seo_schema` option is auto-migrated to per-target on `plugins_loaded` (prio 5) then deleted. This is the richest Voxel surface: its source grammar has dedicated resolvers for Voxel fields, relations, relation-fields, and hierarchy. Read [`lean-seo-settings-substrate.md`](lean-seo-settings-substrate.md) first.
 
+## Bounded Enrichment Rules
+
+- `post:thumbnail_object` resolves an `ImageObject`, using the configured thumbnail size and a
+  safe fallback when attachment metadata is incomplete. Prefer it to assembling image properties
+  from unrelated scalar sources; change the size through its current filter rather than forking
+  the resolver.
+- Aggregate sources use the registered `aggregate:` grammar. Validate the source key and emitted
+  numeric type against the current registry before adding `AggregateRating`; omit the node when
+  no real rating/count exists rather than publishing invented defaults.
+- Relation/query-backed sources are bounded per key by `lean_seo_schema_query_limit`. Never use
+  `-1` or an unbounded relation scan in render-time schema. When a result is truncated, the
+  plugin's truncation action is the observability hook; tests must cover limit, omission, and
+  truncation behavior.
+- Verify the final JSON-LD on a populated and sparse record. Passing config validation does not
+  prove that runtime sources resolve, that fallbacks prune cleanly, or that query limits hold.
+
 ## Config model — per-target `@type` + property→source map
 
 Schema config is keyed by **target**, retrieved via `lean_seo_schema_get_configs()` (two-layer cached: static memo + persistent `schema_configs`, flushed on save/delete). Assignable targets (`lean_seo_schema_get_assignable_targets`): public/queryable post types → key `<post_type>`; public taxonomies → key `taxonomy:<slug>`. Render-time archive targets: `front_page`, `archive:<post_type>`, `taxonomy:<slug>`, `author` (author archives route to the `profile` CPT config — see below).

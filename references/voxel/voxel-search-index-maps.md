@@ -181,6 +181,21 @@ Use `\Voxel\Post::get_timezone()` to get the resolved timezone — handles the f
 
 ---
 
+## Rebuild And Type-Drift Gate
+
+Use the current workspace command, not historical aliases:
+
+```bash
+wpdev rebuild <site> --only reindex
+wpdev rebuild <site> --only reindex --recreate
+```
+
+Use `--recreate` after field/filter schema changes so the physical table is rebuilt. Before and
+afterward, compare the CPT field definition, inferred map, and actual database column types.
+Values that appear correct in `_postmeta` can still be truncated or coerced by a stale index
+column. Verify indexed/published counts and exercise a query using every changed filter or sort;
+a successful rebuild alone does not prove compatible types or query behavior.
+
 ## Cross-reference — other feature files in this cluster
 
 | File | Covers | When to read |

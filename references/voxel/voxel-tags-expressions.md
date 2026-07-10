@@ -120,13 +120,13 @@ When in doubt about which form to use for a prop, query `wpdev elementor:schema 
 
 Source: `app/dynamic-data/config.php` (registry), `app/dynamic-data/modifiers/*.php`. The list below is exhaustive. Voxel has NO `.lower`, `.upper`, `.urlencode`, `.json_encode`, `.strip_tags`, `.add_days`, `.implode`, `.slice`, `.starts_with`, `.ends_with`, `.add/subtract/multiply/divide/modulo`, `.floor/ceil/abs`, `.format_number`, `.format` modifiers — use `@site().math(...)`, `.number_format()`, `.contains()`, or `.list()`.
 
-For composition recipes (graceful empties, currency, relation summaries, math-driven badges, search-context echoes), see [`dynamic-text.md`](../ef/dynamic-text.md) — recipe-first cookbook. The catalog under `docs/solutions/best-practices/voxel-modifier-catalog.md` is the source-of-truth registry walk.
+For composition recipes (graceful empties, currency, relation summaries, math-driven badges, search-context echoes), see [`dynamic-text.md`](../ef/dynamic-text.md) — recipe-first cookbook. This file's registry-derived tables are the modifier catalog; confirm additions against `app/dynamic-data/config.php` and `app/dynamic-data/modifiers/`.
 
 Modifiers chain left-to-right; each receives the previous step's string output. Args are literal strings (no quoting). Nested tag expressions inside an arg ARE expanded (e.g. `.fallback(@post(title))`).
 
 ### Chain semantics
 
-Source: `app/dynamic-data/voxelscript/tokens/dynamic-tag.php` lines 39-57. Canonical pseudocode + three rules + footgun explanation live in `docs/solutions/best-practices/voxel-modifier-catalog.md` §"Chain evaluation semantics". Recipe-level patterns in [`dynamic-text.md`](../ef/dynamic-text.md) §1.
+Source: `app/dynamic-data/voxelscript/tokens/dynamic-tag.php`. Modifiers run left-to-right on the previous string output; arguments are literal strings after nested-tag expansion, and an empty intermediate value remains input to later fallbacks. Recipe-level patterns live in [`dynamic-text.md`](../ef/dynamic-text.md) §1.
 
 ### String
 

@@ -159,7 +159,7 @@ Failure classes to check (every applicable one):
        "is row index N intentionally resolving the looped relation, or should
        this be @post(<field>) on the looped post?". Fix: drop the relation
        prefix → `@post(<field>)`.
-       Source: docs/solutions/runtime-errors/voxel-relation-loop-self-traversal-2026-05-02.md
+       Source and current repair contract: [`voxel-loop-authoring.md`](../voxel/voxel-loop-authoring.md).
   3. Broken filters (widget-level)
      - `_ef_loop_transform.filter_*` excludes everything
      - visibility rule `compare` operator wrong for field shape

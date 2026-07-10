@@ -89,7 +89,7 @@ Finding `[W-I3]`: wire the `byline` content-block row's action on card widget `a
 - `@post(hierarchy-ancestors)` at each `_vx_loop` row index must resolve to the same post as pre-fix.
 - Do NOT alter `_vx_loop.tag`, the loop's inner `text` / `link` tags, the `_cssid`, or any sibling widget.
 
-**Falsifier:** the baseline captures each loop row's `.textContent` pre-fix. After the fix lands, the re-audit re-fetches and diffs — rows unchanged → GREEN. If the byline edit perturbed the loop (e.g. a tree-walk re-serialized a tag and reintroduced the self-traversal bug from `docs/solutions/runtime-errors/voxel-relation-loop-self-traversal-2026-05-02.md`), the diff shows changed row text → Forbidden Semantic Delta violation → roll back.
+**Falsifier:** the baseline captures each loop row's `.textContent` pre-fix. After the fix lands, the re-audit re-fetches and diffs — rows unchanged → GREEN. If the byline edit perturbed the loop (for example, a tree walk re-serialized a tag and violated the current [`loop authoring contract`](../voxel/voxel-loop-authoring.md)), the diff shows changed row text → Forbidden Semantic Delta violation → roll back.
 
 **class:** `structural_only`.
 

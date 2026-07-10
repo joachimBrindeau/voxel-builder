@@ -231,3 +231,17 @@ Current filter values surface to JS via `@site().query_var()` and on the search-
 ```
 
 ---
+
+## Configuration Invariants
+
+- Treat filter and order keys as stable API identifiers. Labels may change; keys referenced by
+  conditions, query strings, widget settings, and sort dependencies must change atomically.
+- Field-derived filters must name a field that exists on the same CPT and is supported by that
+  filter type. Verify the generated index column/map before assuming a UI row is queryable.
+- Dependency pairs are structural: `nearby-order` needs a location filter and
+  `relevance-order` needs a keywords filter. Preserve both members when copying configurations.
+- Inspect the complete filter row object when debugging. Settings from a prior filter type can
+  remain in the shared row namespace and alter behavior after the visible type changes.
+- There is no supported `voxel:filters:apply` command. Inspect current CPT configuration with
+  supported `wpdev voxel:*` reads, mutate through the current owner, read it back, then rebuild
+  the index. Never promote a proposed command from an incident note as an available interface.
