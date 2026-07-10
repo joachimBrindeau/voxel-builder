@@ -9,7 +9,8 @@ This file is the **per-widget cheat sheet** for the four EF widgets/elements act
 - **Live-introspect** (`wpdev elementor:schema <site> ef-<name>` / `wpdev elementor:dump <site> ef-<name> --post <id> --json`) as the fallback — when you need to confirm a specific site's actually-registered shape, or that site runs a different EF version than this repo. The atomic V4 schema churns; this doc captures the **conceptual surface**, while the committed SSOT and the introspection commands return the **wire format** at HEAD.
 - **Cross-references**:
   - Shared parts (`Action_Slot`, `Actions`, `Banner`, `Field`, `Headings`, `Heading_Enums`, `Icon`, `Media`, `Nav_Item`, `Tags`) live in `ef-parts.md`.
-  - Golden fixtures (one real `_elementor_data` snapshot per widget) live in `../../examples/` — see `examples/ef-card.json`, `examples/ef-wrapper.json`, `examples/ef-form.json`, and `examples/ef-navbar.json`.
+  - Golden fixtures currently exist for `ef-card` and `ef-wrapper` in
+    `../../examples/`. Use live introspection for `ef-form` and `ef-navbar`.
   - The canonical V4 `$$type` / `value` envelope cheatsheet lives in `widgets.md`; this file refers back to it at the bottom rather than repeating it.
 
 ## Phantom widgets — DO NOT USE
@@ -48,12 +49,12 @@ The widgets named `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-bu
 - **elType key**: `ef-form` (atomic element — `_elementor_data[].elType`, NO `widgetType`)
 - **Twig template**: `templates/form.html.twig`; per-field rendering via `templates/partials/field.html.twig`
 - **Render output**: A `<div>` host containing a `<form>` with hidden security fields (nonce, post_id, widget_id, signed timestamp `ef_t`, salted honeypot), the looped field rows, a submit `<button>` (action-surface class), a success message `<div>` (hidden by default), and an error `<div>`.
-- **Settings schema**: see the [generated per-widget prop table](#generated-prop-tables). Per-row field shape comes from the `field-row` sub-schema in [`ef-parts.md`](ef-parts.md#row-surface-field-row--field-row).
+- **Settings schema**: see the [generated per-widget prop table](#generated-prop-tables). Per-row field shape comes from the `field-row` sub-schema in [`ef-parts-row-surfaces.md`](ef-parts-row-surfaces.md#row-surface-field-row--field-row).
 - **Parts used**: `EF\Parts\Field` (`$field` instance — owns per-row rendering)
 - **Twig context**: `post_id`, `widget_id`, `hidden_fields_html` (pre-rendered), `fields` (per-field descriptor arrays — type, name, field_id, label, placeholder, required, options, accept), `button_text`, `submit_class`, `success_message`, `success_message_html`
 - **Asset handles**: stylesheets = `['ef-form']`; scripts = `[{handle:'ef-form', localize:'efForm'}]`; localized message bag from `ef_form_messages()`
 - **Voxel / dynamic-data integration**: none — forms are WP-native. Submissions are handled by `includes/forms/submission-handler.php` → `ef_handle_form_submit` (AJAX). Field rows do NOT carry `_vx_loop` (the form is not meant to be replicated per Voxel post).
-- **voxel-builder fixture**: **missing** — fixture `examples/ef-form.json` lands in Wave B.
+- **voxel-builder fixture**: none; use the live-introspection commands below.
 - **Gotchas**:
   - Honeypot name is salted per-site via `ef_form_honeypot_name()` — never hardcode the field name in tests.
   - Signed timestamp `ef_t` is per-IP-prefix (`ef_form_ip_network_prefix()` returns /24 IPv4 or /64 IPv6) — proxy IP detection runs through `ef_form_client_ip()` against `ef_form_ip_in_trusted_proxies()`.
@@ -71,12 +72,12 @@ The widgets named `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-bu
 - **elType key**: `ef-navbar` (atomic element — `_elementor_data[].elType`, NO `widgetType`)
 - **Twig template**: `templates/navbar.html.twig`; per-item via `templates/partials/nav-item.html.twig`
 - **Render output**: A `<nav>` containing an optional banner strip, a `.ef-navbar` flex row (logo + UL menu + CTA buttons + mobile-drawer toggle), a `<dialog>` mobile drawer with header/body/footer, and an optional `.ef-navbar-breadcrumb` row.
-- **Settings schema**: see the [generated per-widget prop table](#generated-prop-tables). The nav-item row grammar (`root` / `section` / `heading` / `link` / `tree`) comes from the `mega-row` sub-schema in [`ef-parts.md`](ef-parts.md#row-surface-mega-row--mega-row).
+- **Settings schema**: see the [generated per-widget prop table](#generated-prop-tables). The nav-item row grammar (`root` / `section` / `heading` / `link` / `tree`) comes from the `mega-row` sub-schema in [`ef-parts-row-surfaces.md`](ef-parts-row-surfaces.md#row-surface-mega-row--mega-row).
 - **Parts used**: `EF\Parts\Actions\Actions` (`$cta`, force-button-mode), `EF\Parts\Banner` (`$banner`), `EF\Parts\Nav\Nav_Item` (via static `resolve_unified_rows()`)
 - **Twig context**: `widget_id`, `drawer_id`, `logo_html` (`wp_get_attachment_image` of theme-mod custom_logo), `logo_link_url`, `nav_label`, `home_label`, `menu_toggle_label`, `drawer_label`, `drawer_title`, `drawer_close_label`, `nav_items` (desktop), `nav_items_mobile`, `cta_html`, `cta_mobile_html`, `show_breadcrumb`, `breadcrumb_html` (from `do_shortcode('[breadcrumb]')`), `banner_html`
 - **Asset handles**: stylesheets = `['ef-navbar','ef-navbar-banner','ef-breadcrumb','ef-tooltip']`; scripts = `[{handle:'ef-navbar', localize:'efNavbar'},{handle:'ef-vx-popup'}]`; `$base_display = 'block'` override
 - **Voxel / dynamic-data integration**: nav items support per-row `_vx_loop` expansion; `tree` row type DFS-walks the Voxel descendant post tree at render time (flattened into the root/section buffer during root grouping, `EF\Parts\Nav_Item_Roots`). CTA + banner actions accept every Voxel action type registered in `ef_action_types()`.
-- **voxel-builder fixture**: **missing** — fixture `examples/ef-navbar.json` lands in Wave B.
+- **voxel-builder fixture**: none; use the live-introspection commands below.
 - **Gotchas**:
   - Logo image is read from `get_theme_mod('custom_logo')` — there is **no per-instance image setting**. Change the site logo in Customizer / theme mod, not in the widget.
   - The `tree` row type DFS-walks `parent_post`'s descendant post tree at render — heavy on large hierarchies. Use a `_vx_loop` on a `link` row instead if you want a flat menu of children.

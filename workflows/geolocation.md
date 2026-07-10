@@ -40,17 +40,17 @@ If any input is missing, halt — do not enter Phase 0.
 2. **Capture a claude-seo BASELINE on the LIVE canonical page — MANDATORY, gated
    (`claude-seo-baseline`).** This is not advisory: no authoring starts until the baseline
    gap-list file exists. Follow [`../references/voxel/claude-seo-authoring.md`](../references/voxel/claude-seo-authoring.md) §1:
-   1. Resolve the skills base by glob (version advances):
-      `ls -d ~/.claude/plugins/cache/*/claude-seo/*/skills/`.
-   2. **Read** `<base>/seo-local/SKILL.md` (and optionally `seo-page/SKILL.md` /
-      `seo-schema/SKILL.md`) and **follow it inline** (Read-fallback — there is NO runnable
-      `/claude-seo` tool on this host; do not claim one ran).
+   1. Resolve the installed `seo-local` skill through the host's skill catalog as
+      described in the authoring reference; do not assume a fixed cache path.
+   2. Invoke it natively when supported. Otherwise **read** its resolved `SKILL.md`
+      (and optionally `seo-page` / `seo-schema`) and follow it inline. Record which
+      method and source path were used; do not claim native execution for a read fallback.
    3. Apply its Analysis Dimensions to the **live canonical** service URL (READ-ONLY: fetch
       the URL, write a `.md` report). Write the report to `/tmp/BASELINE-<canonical-slug>.md`.
    4. Note the **gap list** — areaServed/doorway/uniqueness/title-signal issues the derive
       pipeline must close.
 
-**Exit gate:** geo target + cross-CPT nesting confirmed; `/tmp/BASELINE-<canonical-slug>.md`
+**Exit:** Geo target + cross-CPT nesting confirmed; `/tmp/BASELINE-<canonical-slug>.md`
 exists with a non-empty gap list (`claude-seo-baseline` Critical — a docs-only or advisory
 mention does NOT satisfy it).
 
@@ -90,7 +90,7 @@ mention does NOT satisfy it).
 5. Run the plan through page-planning §2a→§2g (inventory → SSOT → archetype → blueprint
    → adversarial fan-out → reconciliation → computed §2g gate).
 
-**Exit gate:** a **gated plan doc** exists per [`../references/core/rules.md`](../references/core/rules.md)
+**Exit:** A **gated plan doc** exists per [`../references/core/rules.md`](../references/core/rules.md)
 rule 8 (§2g gate green); the node→mirrored-parent map, reference wiring, per-node slug,
 uniqueness set, and subtree scope are decided. The `claude-seo-baseline` gap-list is captured
 (Phase 0) and the uniqueness set is authored through claude-seo methodology
@@ -122,7 +122,7 @@ uniqueness set, and subtree scope are decided. The `claude-seo-baseline` gap-lis
 4. The **shared template renders it** (klarc `2033`); the breadcrumb auto-resolves to
    the city via `@post(parent.title)` — **no template change needed**.
 
-**Exit gate:** the subtree exists parent-before-child; a descendant's
+**Exit:** The subtree exists parent-before-child; a descendant's
 `_lean_seo_uri = villes/<city>/<parent-slug>/<child-slug>`; every node has `post_name`
 = the mirrored canonical node's slug, `location` + `service-reference` relations set,
 `geolocated` on, and the uniqueness-set fields populated (passes the swap test on inspection).
@@ -147,7 +147,7 @@ uniqueness set, and subtree scope are decided. The `claude-seo-baseline` gap-lis
    ancestor-chain requires the subtree parented first); verify a descendant's
    `_lean_seo_uri = villes/<city>/<parent-slug>/<child-slug>`.
 
-**Exit gate:** schema validates, the nested URL resolves, and the title/meta are
+**Exit:** Schema validates, the nested URL resolves, and the title/meta are
 city-aware.
 
 ## Phase 4 — Verify & gate
@@ -167,7 +167,7 @@ city-aware.
    not executed.
 3. **Swap test** — confirm swapping the city name breaks coherence.
 
-**Exit gate:** browser verified + (on live execution) claude-seo re-audit clean +
+**Exit:** Browser verified + (on live execution) claude-seo re-audit clean +
 swap test passes.
 
 ## Must-NOT
@@ -186,10 +186,9 @@ swap test passes.
 - **MUST NOT emit org-wide `areaServed`** on a geo-child — it must name its city.
 - **MUST NOT create swap-only doorway pages** — a geo-child that survives the swap test
   is not publishable.
-- **MUST NOT phrase any claude-seo step as a runnable `/claude-seo` tool call on this
-  host** — capability language + the Read-fallback only (this host cannot load the
-  claude-seo skills; they run only via Read-ing the SKILL.md by absolute path and
-  following inline, or on a Claude Code host).
+- **MUST NOT invent a `/claude-seo` tool call.** Invoke the routed installed skill by
+  name when the host supports it, or resolve and read its `SKILL.md` through the
+  documented fallback.
 - **MUST NOT claim a claude-seo skill executed if it did not run.**
 
 ## Worked example — the Financement subtree → à Toulouse (two levels)

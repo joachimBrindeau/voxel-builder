@@ -4,4 +4,4 @@
 
 | Name | EF value | Category | Popularity | Terms |
 |---|---|---|---:|---|
-| `x_circle` | `ms:ms ms-x_circle` | Hardware | 56 | alert, alphabet, attention, button, cancel, circle, clear, close, control, delete, dismiss, error, exit, fail, game controller, gaming, geometric, Hardware |
+| `x_circle` | `ms:ms ms-x_circle` | Hardware | 58 | alert, alphabet, attention, button, cancel, circle, clear, close, control, delete, dismiss, error, exit, fail, game controller, gaming, geometric, Hardware |

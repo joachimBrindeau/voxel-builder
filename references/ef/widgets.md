@@ -4,7 +4,11 @@ For per-widget detail see [`ef-widgets.md`](ef-widgets.md); for the shared parts
 
 ## EF widget catalog → per-widget detail
 
-Only six EF widgets/elements are registered on disk (`includes/widgets/*.php` + `includes/elements/wrapper.php`). Anything else (`ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-button-group`, `ef-map-pin`, `ef-map`) is a **phantom** — no PHP file exists; do not dispatch. See [`ef-widgets.md#phantom-widgets--do-not-use`](ef-widgets.md).
+Only four EF widgets/elements are registered on disk (`ef-card`, `ef-form`,
+`ef-navbar`, and `ef-wrapper`). Anything else (`ef-media`, `ef-button`,
+`ef-buttons`, `ef-breadcrumb`, `ef-button-group`, `ef-map-pin`, `ef-map`) is a
+**phantom** — no PHP file exists; do not dispatch. See
+[`ef-widgets.md#phantom-widgets--do-not-use`](ef-widgets.md).
 
 The atomic-widget catalog below is generated from `cli/src/generated/widget-schemas.json` (the SSOT corpus produced by `wpdev elementor:codegen`). `ef-wrapper` is registered as an *element* (not a widget), so it lives in the prose, not the table. For per-widget detail see [`ef-widgets.md`](ef-widgets.md).
 

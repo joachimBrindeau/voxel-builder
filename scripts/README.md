@@ -2,14 +2,15 @@
 
 Utility scripts bundled with the voxel-builder skill. These are portable — they
 don't depend on any specific agent host — but the icon/action ones do call the
-`wpdev` CLI (see the skill's Prerequisites).
+`wpdev` CLI (see the root [`README.md`](../README.md) prerequisites).
 
 | Script | Purpose | Exit |
 |---|---|---|
-| [`lint.sh`](lint.sh) | Portable-skill lint: no Claude-Code coupling (Claude-Code plugin coupling (env-var paths, allowed-tools frontmatter, slash-command refs)), SKILL.md ≤500 lines, no hardcoded absolute paths, and every relative link + `#anchor` resolves (via `lychee` when installed). | `0` = clean, `1` = failures. |
-| [`verify-install.sh`](verify-install.sh) | Check the runtime prerequisites are present: `wpdev` on PATH, a local site reachable, `agent-browser`, `jq`. Run before first use on a new machine. | `0` = all prereqs OK. |
+| [`lint.sh`](lint.sh) | Full skill gate: workflow architecture/phase contracts/size ceilings, tool declarations, bounded fan-out language, wpdev coverage, template schemas, portability, and local links/anchors. | `0` = clean, `1` = failures. |
+| [`lint-workflow-structure.py`](lint-workflow-structure.py) | Deterministic workflow-skill-design checks for SKILL/workflow/reference/subagent structure. | `0` = compliant, `1` = findings. |
+| [`verify-install.sh`](verify-install.sh) | Check a target site and runtime prerequisites: `wpdev`, Voxel, lean-seo, Elementor Framework, committed EF assets, `agent-browser`, and `jq`. Run as `./scripts/verify-install.sh <site>` before first use on a site. | `0` = all required prereqs OK. |
 | [`action-spec.sh`](action-spec.sh) | Resolve the action-spec for a Voxel `ts_actions` cell (used by the card-actions workflow). | passthrough. |
-| [`generate-icon-reference.ts`](generate-icon-reference.ts) | Regenerate the Material Symbols icon reference (`references/icons/material-symbols/`) from Google's metadata. Run to refresh the icon set. | passthrough. |
+| [`generate-icon-reference.ts`](generate-icon-reference.ts) | Regenerate the Material Symbols icon reference (`references/icons/material-symbols/`) from Google's metadata. Run from the skill root; set `WPDEV_ROOT` for a non-sibling WordPress checkout. | passthrough. |
 
 ## Running lint
 

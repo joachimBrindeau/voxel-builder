@@ -73,6 +73,19 @@ safety gate (Phase 3, merge/delete) is understood.
 
 **Entry:** plan is evidence-backed. For merge/delete, the safety gate below must pass.
 
+### Destructive Gate 1 - Review Complete Plan
+
+For merge/delete, present the canonical/target identity, full field snapshots, all inbound
+references, profile/user/media dependencies, rewire plan, rollback, and items explicitly
+kept. Require the user to select the proposed destructive action. Do not ask incrementally
+before analysis is complete.
+
+### Destructive Gate 2 - Confirm Exact Commands
+
+After Gate 1 selection, show the exact rewire, trash/delete, reindex, rollback, and
+verification commands in execution order. Require a second explicit confirmation. Silence,
+vague approval, or changed evidence blocks execution.
+
 ### Create
 
 ```bash
@@ -110,7 +123,7 @@ links + no-drop + grammar) **before** writing, write through the terminal (not t
 sandbox — `bun` PATH) with payloads from files (HTML quoting), then re-scan the DB to catch
 silently-skipped records. **Do not listify prose** (testimonials, short definitions, bios).
 
-### Merge — SAFETY GATE
+### Merge
 
 **Do not delete the duplicate until inbound-relation proof exists.** Gate steps:
 
@@ -122,7 +135,7 @@ silently-skipped records. **Do not listify prose** (testimonials, short definiti
 6. **Gate:** verify no live references to the duplicate remain (inbound-relation scan returns empty).
 7. Only after that proof: trash/delete the duplicate.
 
-### Delete — SAFETY GATE
+### Delete
 
 1. Confirm identity from `voxel:data`.
 2. **Gate:** confirm no inbound refs, no profile/user dependency, and no unique media/data dependency.

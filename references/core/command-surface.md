@@ -167,7 +167,7 @@ wpdev elementor:set-value <site> --post <id> --node <node_id> --path <dotted> --
 wpdev elementor:set-value <site> --map /tmp/value-map.json -y                   # batch from JSON map
 ```
 
-For icon-specific lookup/repair, use [`../icons/material-symbols/workflow.md`](../icons/material-symbols/lookup-and-repair.md). It covers `elementor:icon-search` for ranked candidate selection, `elementor:icons` output paths, and the `settings.`/array-index conversion required by `elementor:set-value`.
+For icon-specific lookup/repair, use [`../icons/material-symbols/lookup-and-repair.md`](../icons/material-symbols/lookup-and-repair.md). It covers `elementor:icon-search` for ranked candidate selection, `elementor:icons` output paths, and the `settings.`/array-index conversion required by `elementor:set-value`.
 
 The `--map` JSON shape:
 - `set-cssid`: `[{"post": <post_id>, "node": "<node_id>", "cssid": "<slug>"}, …]`

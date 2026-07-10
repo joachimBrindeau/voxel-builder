@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 interface GoogleIconMetadata {
   name: string;
@@ -33,10 +34,12 @@ interface IconEntry {
   metadataSource: 'google-symbols' | 'generated-name';
 }
 
-const SKILL_ROOT = join(process.cwd(), '..', 'skills', 'voxel-builder');
-const SOURCE = join(process.cwd(), 'plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints');
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const SKILL_ROOT = join(SCRIPT_DIR, '..');
+const SOURCE = resolveCodepointsSource();
 const OUT = join(SKILL_ROOT, 'references/icons/material-symbols');
 const SHARD_DIR = join(OUT, 'by-prefix');
+const MAX_SHARD_ENTRIES = 350;
 const METADATA_FILE = join(OUT, 'metadata.json');
 const GOOGLE_SYMBOLS_METADATA_URL = 'https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols';
 const MATERIAL_SYMBOLS_FAMILIES = ['Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp'];
@@ -63,14 +66,22 @@ async function main(): Promise<void> {
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(SHARD_DIR, { recursive: true });
 
-  write(OUT, 'README.md', renderReadme(entries, stats));
-  write(OUT, 'workflow.md', renderWorkflow(entries, stats));
+  write(
+    OUT,
+    'README.md',
+    renderReadme(entries, stats)
+      .replaceAll('workflow.md', 'lookup-and-repair.md')
+      .replace('Do not hand-edit generated files; run:', 'Do not hand-edit generated files; from the skill root run:')
+      .replace('bun run ../skills/voxel-builder/scripts/generate-icon-reference.ts', 'bun run scripts/generate-icon-reference.ts')
+      .replace('\n\n## Storage format', '\n\nSet `WPDEV_ROOT` when the WordPress workspace is not a sibling checkout.\n\n## Storage format'),
+  );
+  write(OUT, 'lookup-and-repair.md', renderWorkflow(entries, stats));
   write(OUT, 'top-picks.md', renderTopPicks(entries));
   write(OUT, 'search.tsv', renderSearch(entries));
   write(OUT, 'metadata.json', `${JSON.stringify(renderMetadata(entries), null, 2)}\n`);
   write(OUT, 'manifest.json', `${JSON.stringify(renderManifest(entries, stats), null, 2)}\n`);
 
-  for (const [prefix, bucket] of groupByPrefix(entries)) {
+  for (const [prefix, bucket] of groupIntoShards(entries)) {
     write(SHARD_DIR, `${prefix}.md`, renderShard(prefix, bucket));
   }
 }
@@ -122,13 +133,14 @@ function compact(icon: GoogleIconMetadata): CompactIconMetadata {
 }
 
 function readEntries(metadata: Map<string, CompactIconMetadata>): IconEntry[] {
-  return readFileSync(SOURCE, 'utf8')
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      const [name, codepoint] = line.split(/\s+/, 2);
-      if (!name || !codepoint) throw new Error(`Bad codepoint row: ${line}`);
+  const raw = readFileSync(SOURCE, 'utf8');
+  const codepoints = SOURCE.endsWith('.json')
+    ? Object.entries(JSON.parse(raw) as Record<string, string>)
+    : raw.split('\n').map((line) => line.trim()).filter(Boolean).map((line) => line.split(/\s+/, 2) as [string, string]);
+
+  return codepoints
+    .map(([name, codepoint]) => {
+      if (!name || !codepoint) throw new Error(`Bad codepoint row: ${name ?? ''} ${codepoint ?? ''}`);
       const meta = metadata.get(name);
       const categories = meta?.categories ?? [];
       const tags = meta?.tags ?? [];
@@ -146,6 +158,24 @@ function readEntries(metadata: Map<string, CompactIconMetadata>): IconEntry[] {
       } satisfies IconEntry;
     })
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function resolveCodepointsSource(): string {
+  const candidates = [
+    process.env.MATERIAL_SYMBOLS_CODEPOINTS,
+    process.env.WPDEV_ROOT
+      ? join(process.env.WPDEV_ROOT, 'plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json')
+      : undefined,
+    join(process.cwd(), 'plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json'),
+    join(process.cwd(), 'plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints'),
+    join(SKILL_ROOT, '../../wordpress/plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json'),
+  ].filter((path): path is string => Boolean(path));
+
+  const source = candidates.find((path) => existsSync(path));
+  if (!source) {
+    throw new Error(`Material Symbols codepoints not found. Checked: ${candidates.join(', ')}`);
+  }
+  return source;
 }
 
 function termsFor(name: string, categories: string[], tags: string[]): string[] {
@@ -182,8 +212,20 @@ function groupByPrefix(entries: IconEntry[]): [string, IconEntry[]][] {
   return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 }
 
+function groupIntoShards(entries: IconEntry[]): [string, IconEntry[]][] {
+  return groupByPrefix(entries).flatMap(([prefix, bucket]) => {
+    if (bucket.length <= MAX_SHARD_ENTRIES) return [[prefix, bucket]];
+
+    const chunks: [string, IconEntry[]][] = [];
+    for (let offset = 0; offset < bucket.length; offset += MAX_SHARD_ENTRIES) {
+      chunks.push([`${prefix}-${chunks.length + 1}`, bucket.slice(offset, offset + MAX_SHARD_ENTRIES)]);
+    }
+    return chunks;
+  });
+}
+
 function renderReadme(entries: IconEntry[], stats: ReturnType<typeof metadataStats>): string {
-  const shards = groupByPrefix(entries).map(
+  const shards = groupIntoShards(entries).map(
     ([prefix, bucket]) => `- [${prefix}.md](by-prefix/${prefix}.md) — ${bucket.length} icon${bucket.length === 1 ? '' : 's'}`,
   );
   return `# Material Symbols Icon Reference\n\nGenerated from the Elementor Framework installed icon font at \`${rel(SOURCE)}\`, enriched with Google Symbols metadata from \`${GOOGLE_SYMBOLS_METADATA_URL}\`. Do not hand-edit generated files; run:\n\n\`\`\`bash\nbun run ../skills/voxel-builder/scripts/generate-icon-reference.ts\n\`\`\`\n\n## Storage format\n\nUse one string cell:\n\n\`\`\`text\nms:ms ms-<icon_name>\n\`\`\`\n\nExample: \`ms:ms ms-calendar_month\`. Add \`ms-fill\` to the class only when a filled Material Symbol is intentionally required: \`ms:ms ms-bookmark ms-fill\`.\n\n## Fast lookup protocol\n\n1. Use the CLI search when available:\n\n\`\`\`bash\n./wpdev elementor:icon-search \"calendar booking schedule\" --limit 12\n./wpdev elementor:icon-search --categories\n\`\`\`\n\nThe CLI expands common intent synonyms, accepts partial \`--category\` matches, returns match evidence in the table/JSON, and suppresses popularity-only false positives.\n\n2. Or search the generated index with intent words, not guesses:\n\n\`\`\`bash\nrg -i \"calendar|event|schedule|booking\" ../skills/voxel-builder/references/icons/material-symbols/search.tsv\n\`\`\`\n\n3. Read [top-picks.md](top-picks.md) for common Voxel/EF use cases.\n4. If needed, open the matching shard under [by-prefix/](by-prefix/) to inspect nearby names.\n5. Write exactly \`ms:ms ms-<name>\` into EF icon cells.\n\n## Coverage\n\n- EF installed icons: ${entries.length}.\n- Google Symbols metadata-enriched icons: ${stats.enriched}.\n- EF icons using generated-name fallback terms: ${stats.generatedFallback}.\n\nEF's installed \`codepoints\` file remains the availability source of truth. Google metadata supplies categories, tags, popularity, versions, and sizes where the current metadata endpoint covers the installed icon name.\n\n## Files\n\n- [workflow.md](workflow.md) — choose, verify, and repair icons in live Elementor data.\n- [top-picks.md](top-picks.md) — short curated map for common build decisions.\n- [search.tsv](search.tsv) — full ${entries.length}-icon grep index: \`name css codepoint categories popularity terms\`.\n- [metadata.json](metadata.json) — compact metadata cache for EF-installed icons only.\n- [manifest.json](manifest.json) — count + source metadata.\n${shards.join('\n')}\n`;

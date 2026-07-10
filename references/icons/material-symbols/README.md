@@ -1,10 +1,12 @@
 # Material Symbols Icon Reference
 
-Generated from the Elementor Framework installed icon font at `plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints`, enriched with Google Symbols metadata from `https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols`. Google's canonical upstream source for Material Symbols assets is the `google/material-design-icons` repository (`symbols/` and `variablefont/`); this workspace still gates writes on the installed EF codepoints file so generated references cannot suggest icons the site cannot render. Do not hand-edit generated files; run:
+Generated from the Elementor Framework installed icon font at `../../wordpress/plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json`, enriched with Google Symbols metadata from `https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols`. Do not hand-edit generated files; from the skill root run:
 
 ```bash
 bun run scripts/generate-icon-reference.ts
 ```
+
+Set `WPDEV_ROOT` when the WordPress workspace is not a sibling checkout.
 
 ## Storage format
 
@@ -30,7 +32,7 @@ The CLI expands common intent synonyms, accepts partial `--category` matches, re
 2. Or search the generated index with intent words, not guesses:
 
 ```bash
-rg -i "calendar|event|schedule|booking" references/icons/material-symbols/search.tsv
+rg -i "calendar|event|schedule|booking" ../skills/voxel-builder/references/icons/material-symbols/search.tsv
 ```
 
 3. Read [top-picks.md](top-picks.md) for common Voxel/EF use cases.
@@ -43,7 +45,7 @@ rg -i "calendar|event|schedule|booking" references/icons/material-symbols/search
 - Google Symbols metadata-enriched icons: 3879.
 - EF icons using generated-name fallback terms: 374.
 
-EF's installed `codepoints` file remains the availability source of truth. Google metadata supplies descriptions/search terms, categories, tags, popularity, versions, and sizes where the current metadata endpoint covers the installed icon name.
+EF's installed `codepoints` file remains the availability source of truth. Google metadata supplies categories, tags, popularity, versions, and sizes where the current metadata endpoint covers the installed icon name.
 
 ## Files
 
@@ -55,7 +57,8 @@ EF's installed `codepoints` file remains the availability source of truth. Googl
 - [0-9.md](by-prefix/0-9.md) — 67 icons
 - [a.md](by-prefix/a.md) — 330 icons
 - [b.md](by-prefix/b.md) — 254 icons
-- [c.md](by-prefix/c.md) — 363 icons
+- [c-1.md](by-prefix/c-1.md) — 350 icons
+- [c-2.md](by-prefix/c-2.md) — 13 icons
 - [d.md](by-prefix/d.md) — 222 icons
 - [e.md](by-prefix/e.md) — 148 icons
 - [f.md](by-prefix/f.md) — 281 icons
@@ -71,7 +74,8 @@ EF's installed `codepoints` file remains the availability source of truth. Googl
 - [p.md](by-prefix/p.md) — 280 icons
 - [q.md](by-prefix/q.md) — 20 icons
 - [r.md](by-prefix/r.md) — 152 icons
-- [s.md](by-prefix/s.md) — 550 icons
+- [s-1.md](by-prefix/s-1.md) — 350 icons
+- [s-2.md](by-prefix/s-2.md) — 200 icons
 - [t.md](by-prefix/t.md) — 250 icons
 - [u.md](by-prefix/u.md) — 40 icons
 - [v.md](by-prefix/v.md) — 101 icons

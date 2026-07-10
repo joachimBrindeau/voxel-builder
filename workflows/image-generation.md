@@ -2,7 +2,7 @@
 
 Use this when generating featured images, hero images, OG/social images, schema images, or CPT/post thumbnails for Voxel/Elementor WordPress sites.
 
-This workflow owns the Voxel/WordPress wiring and Joachim-specific quality gates. It does **not** duplicate global image-model logic. For model/tool behavior, Banana/NanoBanana MCP usage, model tiers, cost, and prompt-engineering primitives, load `seo/claude-seo/extensions/banana/skills/seo-image-gen` first.
+This workflow owns the Voxel/WordPress wiring and Joachim-specific quality gates. It does **not** duplicate global image-model logic. For model/tool behavior, backend usage, model tiers, cost, and prompt-engineering primitives, resolve the installed `seo-image-gen` capability first.
 
 ## Entry criteria
 
@@ -12,9 +12,12 @@ This workflow owns the Voxel/WordPress wiring and Joachim-specific quality gates
 
 ## Phase 0 — backend smoke test
 
-Done before prompt batching.
+**Entry:** Entry criteria are met and no prompt batch has been authored.
 
-1. Load `seo/claude-seo/extensions/banana/skills/seo-image-gen` for global generation logic.
+1. Resolve `seo-image-gen` through the host's advertised skill catalog and invoke it
+   natively when supported. Otherwise locate its `SKILL.md` through configured skill
+   roots and follow it inline. Record the resolved source; if neither form is available,
+   stop instead of substituting ad-hoc image-generation guidance.
 2. Verify the actual generation backend is live in this session.
    - Preferred: NanoBanana MCP, Pro model (`gemini-3-pro-image-preview`) for Joachim/Klarc-quality work.
    - Check that generation tools are available before authoring a large batch.
@@ -23,9 +26,11 @@ Done before prompt batching.
 3. Run one smoke-test image through the real backend.
 4. If no backend is live, stop and report exact unblock options: reconnect MCP, set required API key/env, or add credits.
 
-Exit: one generated smoke-test image exists, or the run is blocked plainly.
+**Exit:** One generated smoke-test image exists, or the run is blocked plainly.
 
 ## Phase 1 — discover WordPress targets
+
+**Entry:** Phase 0 proved a live backend.
 
 1. Use project wrapper first when present, else `wp --path=/path/to/site`.
 2. Confirm site with `wp core is-installed` and `wp option get siteurl`.
@@ -33,9 +38,11 @@ Exit: one generated smoke-test image exists, or the run is blocked plainly.
 4. Collect `ID`, `post_type`, `post_title`, `post_name`, status, `_thumbnail_id`, attachment URL, alt text, file path.
 5. For uniqueness, hash actual files on disk. Distinct attachment IDs are not enough.
 
-Exit: worklist has every target and a `needs_new` flag based on file hash, not DB ID.
+**Exit:** Worklist has every target and a `needs_new` flag based on file hash, not DB ID.
 
 ## Phase 2 — concept and approval gate
+
+**Entry:** Phase 1 target worklist is complete.
 
 1. Use scene-first art direction, not prop shuffling.
 2. Commit to a concept per image: who, where, action, topic anchors, composition, light, camera.
@@ -43,9 +50,11 @@ Exit: worklist has every target and a `needs_new` flag based on file hash, not D
 4. Brand colors are accents only, never an object prison.
 5. Avoid generic law imagery and repeated oak-table / teal-folder / brass-token still lifes.
 
-Exit: user approved direction, or explicitly chose autonomous full run.
+**Exit:** User approved direction, or explicitly chose autonomous full run.
 
 ## Phase 3 — prompt authoring
+
+**Entry:** Phase 2 direction gate is approved.
 
 1. Use `seo-image-gen` for global prompt-engineering structure.
 2. Use the Voxel-specific reference `../references/voxel/image-generation.md` for Joachim/Klarc constraints.
@@ -53,9 +62,11 @@ Exit: user approved direction, or explicitly chose autonomous full run.
 4. Verify every prompt file exists, parses as JSON, and count/IDs match input before generation.
 5. Each prompt must demand: photoreal scene, concrete action, varied camera, no readable text, no logos, no pseudo-text, no courtroom clichés.
 
-Exit: validated per-item prompt file(s), one prompt per target.
+**Exit:** Validated per-item prompt file(s), one prompt per target.
 
 ## Phase 4 — generate and QA
+
+**Entry:** Phase 3 prompt manifest parses and covers every target exactly once.
 
 1. Generate family-by-family with the live backend.
 2. Use Pro/NanoBanana for important Joachim/Klarc work unless explicitly overridden.
@@ -64,9 +75,11 @@ Exit: validated per-item prompt file(s), one prompt per target.
 5. If the same defect survives two edits, swap object class instead of looping.
 6. If no-text constraints create a hard concept ceiling, say so and request a narrow constraint relaxation rather than fabricating quality.
 
-Exit: accepted image per target, score at or above floor.
+**Exit:** Accepted image per target, score at or above floor.
 
 ## Phase 5 — optimize before upload
+
+**Entry:** Phase 4 images meet the quality floor.
 
 1. Convert to WebP before upload.
 2. Use target hero dimensions appropriate to the site; Klarc service/post heroes use 1600×900 unless changed.
@@ -74,9 +87,11 @@ Exit: accepted image per target, score at or above floor.
 4. Be honest: metadata cleanup does not remove pixel-domain SynthID.
 5. Verify no residual metadata markers with `exiftool | grep -iE 'c2pa|jumbf|synthid|trainedalgo|generative'`.
 
-Exit: clean WebP file(s), correct dimensions, no AI metadata markers.
+**Exit:** Clean WebP file(s), correct dimensions, no removable AI metadata markers.
 
 ## Phase 6 — batch upload and attach
+
+**Entry:** Phase 5 optimized files and target manifest are complete.
 
 Always upload in batches. Do not drip-upload one accepted image at a time unless debugging a failed import.
 
@@ -87,9 +102,11 @@ Always upload in batches. Do not drip-upload one accepted image at a time unless
 5. Use descriptive French alt text for Klarc/French sites.
 6. Preserve Voxel/Elementor source-of-truth boundaries; do not edit templates when only media attachment is needed.
 
-Exit: every target in the batch has correct new thumbnail attachment.
+**Exit:** Every target in the batch has correct new thumbnail attachment.
 
 ## Phase 7 — verify and purge
+
+**Entry:** Phase 6 attachment read-back passes.
 
 1. DB verify `_thumbnail_id`, attachment mime type, URL, alt text.
 2. Disk verify WebP, dimensions, file exists, no AI metadata markers.
@@ -97,7 +114,7 @@ Exit: every target in the batch has correct new thumbnail attachment.
 4. Verify at least one listing/archive and one detail/single render the new image URL.
 5. Purge LSCache / WP cache / Elementor CSS as needed.
 
-Exit: final report includes counts: total, unique hashes, WebP count, dimensions, AI-marker failures, missing files, cache purge result.
+**Exit:** Final report includes counts: total, unique hashes, WebP count, dimensions, AI-marker failures, missing files, and cache purge result.
 
 ## Failure rules
 

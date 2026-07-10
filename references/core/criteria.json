@@ -80,7 +80,7 @@
       "predicate": "∀ style prop p: value(p) ∈ design_tokens (no raw hex/px/rem)" },
     { "id": "claude-seo-baseline", "scope": "page", "phase": "plan", "severity": "C", "mode": "authoring",
       "criterion": "For any SEO-copy authoring build (geo derivation, CPT-single content, bulk excerpt/meta, content-surgery), a claude-seo BASELINE gap-list was captured on the LIVE source page via the Read-fallback BEFORE authoring (seo-local + optionally seo-page/seo-schema). Advisory language does not satisfy this — a written /tmp/BASELINE-<slug>.md gap list must exist.",
-      "evidence": "/tmp/BASELINE-<slug>.md produced by Read-ing ~/.claude/plugins/cache/*/claude-seo/*/skills/seo-local/SKILL.md and following it on the live source URL (references/voxel/claude-seo-authoring.md §1)",
+      "evidence": "/tmp/BASELINE-<slug>.md plus the native skill name or dynamically resolved seo-local/SKILL.md source path used on the live source URL (references/voxel/claude-seo-authoring.md §1)",
       "predicate": "authoring_build ⇒ exists(/tmp/BASELINE-<slug>.md) AND baseline.gap_list is non-empty" },
     { "id": "content-methodology", "scope": "prop", "phase": "plan", "severity": "C", "mode": "authoring",
       "criterion": "Every authored reader/SERP-facing field (h1, hook/meta, description body, faq, conversion-*, post_excerpt) was produced through claude-seo content methodology (Read-fallback of seo-content-brief + seo-local), passing: keyword placement, meta length ≤LEAN_SEO_DESC_LIMIT(155)/target 120–152, stated information-gain vs source, swap-test + ≥500-word/>60%-unique for location pages, E-E-A-T. Not ad-hoc prose.",

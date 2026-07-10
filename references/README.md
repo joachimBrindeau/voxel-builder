@@ -18,9 +18,10 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | Task shape | Reference |
 |---|---|
 | "Site prerequisites / plugin not loaded / why did `TemplateImporter` / `lean_seo_settings_set` fail?" | [`cpt-lifecycle.md`](../workflows/cpt-lifecycle.md) §Phase 0 |
-| "Creating a transactional CPT (RFQ board / leads / inquiries / support tickets)" | [`cpt-lifecycle.md`](../workflows/cpt-lifecycle.md) §Recipe — transactional / private CPT |
+| "Creating a transactional CPT (RFQ board / leads / inquiries / support tickets)" | [`cpt-lifecycle.md`](../workflows/cpt-lifecycle.md) + [`transactional-cpt-recipe.md`](voxel/transactional-cpt-recipe.md) |
 | "Break up bulky single-paragraph text into rich text (bulleted steps) across many records / reformat a `texteditor` field CPT-wide" | [`bulk-rich-text.md`](curation/bulk-rich-text.md) |
 | "Build a glossary / dictionary / defined-term CPT with SEO-perfect JSON-LD (DefinedTerm / DefinedTermSet / sameAs), or write a well-formed definition answer block" | [`seo-defined-terms.md`](voxel/seo-defined-terms.md) |
+| "Write FAQ questions and answers for an article, service page, glossary term, local page, event, product, or Voxel content item" | [`../workflows/faq-authoring.md`](../workflows/faq-authoring.md) + [`faq-authoring.md`](voxel/faq-authoring.md) |
 | "Geolocate a service / create a city version of a page / derive a geolocated service (`exp` under a `geo` city) / mirror a service under a city" | [`seo-geolocation-pages.md`](voxel/seo-geolocation-pages.md) + [`../workflows/geolocation.md`](../workflows/geolocation.md) |
 | "Save/extract a section template / seed a build from a saved hero / reuse a stored section — the store + its conventions" | [`../templates/README.md`](../templates/README.md) + [`../templates/index.md`](../templates/index.md) (store) · [`../workflows/section-templates.md`](../workflows/section-templates.md) (extraction workflow) |
 | "What stays a live dtag vs becomes Lorem Ipsum in a stored template / the placeholder + proper-noun denylist policy" | [`templates/placeholder-policy.md`](templates/placeholder-policy.md) |
@@ -36,7 +37,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "Add a 301 redirect / import redirects / redirect an old URL" | [`lean-seo-redirects.md`](voxel/lean-seo-redirects.md) |
 | "Add Search Console / Bing / Yandex verification, or an analytics tag" | [`lean-seo-code.md`](voxel/lean-seo-code.md) |
 | "WebP / `<picture>` / upload flattening / featured-image renaming" | [`lean-seo-media.md`](voxel/lean-seo-media.md) |
-| "Generate unique featured/hero/OG images for posts/CPTs, attach to WordPress, QA, WebP, nuke AI metadata, verify uniqueness" | [`../workflows/image-generation.md`](../workflows/image-generation.md) + [`image-generation.md`](voxel/image-generation.md); load `seo/claude-seo/extensions/banana/skills/seo-image-gen` for global model/tool logic |
+| "Generate unique featured/hero/OG images for posts/CPTs, attach to WordPress, QA, WebP, nuke AI metadata, verify uniqueness" | [`../workflows/image-generation.md`](../workflows/image-generation.md) + [`image-generation.md`](voxel/image-generation.md); resolve the installed `seo-image-gen` capability for global model/tool logic |
 | "SEO-safe 503 maintenance mode (not noindex)" | [`lean-seo-maintenance.md`](voxel/lean-seo-maintenance.md) |
 | "Cache purge / Last-Modified not updating / invalidate sitemaps after a change" | [`lean-seo-purge.md`](voxel/lean-seo-purge.md) |
 | "Read / modify / debug the lean-seo plugin's PHP source — module architecture, SSOT predicates, a filter hook, why a CPT reaches (or misses) a crawl surface in code" | [`lean-seo-plugin-internals.md`](voxel/lean-seo-plugin-internals.md) + deep source ref [`lean-seo-crawl-permalinks-linking-reference.md`](voxel/lean-seo-crawl-permalinks-linking-reference.md) |
@@ -63,29 +64,32 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "I need to compose multi-source text (fallbacks, currency, relations, math)" | [`dynamic-text.md`](ef/dynamic-text.md) |
 | "I'm building a single/archive template and need to plan sections" | [`page-planning.md`](../workflows/page-planning.md) — Phase 2 sub-pipeline (Field Inventory → SSOT Read → Archetypes → Blueprints → Adversarial review → Reconciliation → Approval) |
 | "How do I verify the render / take a screenshot / assert layout / fetch the production page?" | [`browser.md`](verification/browser.md) — the `agent-browser` CLI protocol (no `mcp__*` browser server) |
-| "What archetypes do I pick from (hero / specs-grid / detail-tabs / sidebar / relation-feed / faq / cta-footer / …)?" | [`page-planning.md`](../workflows/page-planning.md) §2c Archetype Selection |
-| "Which adversarial reviewer catches X failure mode (thin templates / unsurfaced fields / heading hierarchy)?" | [`page-planning.md`](../workflows/page-planning.md) §2e + [`references/subagents/voxel-plan-reviewer.md`](subagents/voxel-plan-reviewer.md) |
+| "What archetypes do I pick from (hero / specs-grid / detail-tabs / sidebar / relation-feed / faq / cta-footer / …)?" | [`page-plan-archetypes.md`](core/page-plan-archetypes.md) |
+| "Which adversarial criterion catches X failure mode (thin templates / unsurfaced fields / heading hierarchy)?" | [`criteria.md`](core/criteria.md) + [`voxel-plan-reviewer.md`](subagents/voxel-plan-reviewer.md) |
 
 ## `core/` — read first, always
 
 | File | What it is |
 |---|---|
 | [`rules.md`](core/rules.md) | The mandatory rules + success-criteria checklist. Read at the start of every build/audit/fix. |
-| [`criteria.json`](core/criteria.json) + [`criteria.schema.json`](core/criteria.schema.json) | **Machine SSOT** for what gets checked, by scope+phase. The orchestrator dispatches one agent per in-scope criterion. |
+| [`criteria.json`](core/criteria.json) + [`criteria.schema.json`](core/criteria.schema.json) | **Machine SSOT** for what gets checked, by scope+phase. Applicable criteria are processed in bounded batches with one result envelope per criterion. |
 | [`criteria.md`](core/criteria.md) | Human-readable view of `criteria.json`. |
 | [`command-surface.md`](core/command-surface.md) | Voxel/Elementor/lean-seo `wpdev` command surface used by this skill. |
 | [`wpdev-ops.md`](core/wpdev-ops.md) | Generic wpdev ops appendix: site lifecycle, DB, backup, remote sync, diagnostics, purge. |
 | [`wpdev-coverage.md`](core/wpdev-coverage.md) | Which CLI verbs are surfaced into the skill and where; drift-gated against `cli/src/index.ts`. |
 | [`parallel-dispatch.md`](core/parallel-dispatch.md) | The atomic-scope subagent contract every fan-out obeys. |
 | [`blueprint-format.md`](core/blueprint-format.md) | The Plan Document blueprint table format. |
+| [`page-plan-contract.md`](core/page-plan-contract.md) · [`page-plan-archetypes.md`](core/page-plan-archetypes.md) | Plan/Blueprint output schema and archetype/vocabulary catalog. |
+| [`elementor-mutation-tools.md`](core/elementor-mutation-tools.md) · [`build-troubleshooting.md`](core/build-troubleshooting.md) | Existing-data write mechanisms and conditional failure recovery. |
 
 ## `ef/` — EF V4 atomic widget reference
 
 | File | What it is |
 |---|---|
 | [`widgets.md`](ef/widgets.md) · [`ef-widgets.md`](ef/ef-widgets.md) | Widget catalog + per-widget prop tables (generated from the schema SSOT). |
-| [`ef-parts.md`](ef/ef-parts.md) · [`actions.md`](ef/actions.md) · [`widgets.md`](ef/widgets.md) | Row surfaces: all parts, the action catalog, the tag-row (now in the widget catalog). |
-| [`ef-helpers.md`](ef/ef-helpers.md) · [`dynamic-text.md`](ef/dynamic-text.md) | `ef_*` helpers and dynamic-text handling. |
+| [`ef-parts.md`](ef/ef-parts.md) · [core](ef/ef-parts-core.md) · [media/nav](ef/ef-parts-media-nav.md) · [row surfaces](ef/ef-parts-row-surfaces.md) | Parts index and its three concern-owned catalogs. |
+| [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |
+| [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` variants and registration behavior. |
 | [`masonry.md`](ef/masonry.md) · [`section-rhythm.md`](ef/section-rhythm.md) | Bento/masonry grid composition (`col_span` / `row_span`, track ratios) and section background/spacing rhythm. |
 | `widget-schemas.json` | The generated schema SSOT mirror (synced by `wpdev elementor:codegen`; do not hand-edit). |
 
@@ -104,10 +108,14 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 
 | File | What it is |
 |---|---|
-| [`voxel-field-inventory.md`](voxel/voxel-field-inventory.md) · [`voxel-field-types.md`](voxel/voxel-field-types.md) · [`voxel-field-visibility.md`](voxel/voxel-field-visibility.md) | Exact field availability (native + voxel-addon), field config, visibility gating. |
-| [`voxel-tags.md`](voxel/voxel-tags.md) | Dynamic-tag syntax (`@post` / `@author` / `@site`) + the `field:` disambiguator. |
-| [`voxel-search.md`](voxel/voxel-search.md) · [`voxel-timeline.md`](voxel/voxel-timeline.md) · [`voxel-commerce.md`](voxel/voxel-commerce.md) | Search/filters, timeline/reviews, commerce. |
-| [`voxel-platform.md`](voxel/voxel-platform.md) · [`template-resolution.md`](voxel/template-resolution.md) · [`ts-widgets.md`](voxel/ts-widgets.md) | Platform internals, template resolution, `ts-*` theme widgets. |
+| [`voxel-field-inventory.md`](voxel/voxel-field-inventory.md) · [field index](voxel/voxel-field-types.md) · [core](voxel/voxel-field-types-core.md) · [advanced](voxel/voxel-field-types-advanced.md) · [patterns](voxel/voxel-field-types-patterns.md) · [visibility](voxel/voxel-field-visibility.md) | Field availability, configuration, selection patterns, storage, and visibility. |
+| [tag index](voxel/voxel-tags.md) · [expressions](voxel/voxel-tags-expressions.md) · [runtime](voxel/voxel-tags-runtime.md) | Dynamic expressions/modifiers and loops/visibility/feeds/relations. |
+| [search index](voxel/voxel-search.md) · [query](voxel/voxel-search-query.md) · [index/maps](voxel/voxel-search-index-maps.md) | Search/filter/sort behavior and index/geospatial storage. |
+| [timeline index](voxel/voxel-timeline.md) · [social](voxel/voxel-timeline-social.md) · [messaging](voxel/voxel-timeline-messaging.md) | Timeline/review/social behavior and direct messaging/notifications. |
+| [commerce index](voxel/voxel-commerce.md) · [products](voxel/voxel-commerce-products.md) · [plans](voxel/voxel-commerce-plans.md) · [payments](voxel/voxel-commerce-payments.md) | Products/bookings, memberships/listings, and payment/provider behavior. |
+| [platform index](voxel/voxel-platform.md) · [content model](voxel/voxel-platform-content-model.md) · [widgets/relations](voxel/voxel-platform-widgets-relations.md) · [runtime](voxel/voxel-platform-runtime.md) | Platform catalog split by content model, UI/data relations, and runtime services. |
+| [`template-resolution.md`](voxel/template-resolution.md) · [`ts-widgets.md`](voxel/ts-widgets.md) | Template resolution and `ts-*` widget behavior. |
+| [`transactional-cpt-recipe.md`](voxel/transactional-cpt-recipe.md) · [`cpt-lifecycle-operations.md`](voxel/cpt-lifecycle-operations.md) | Transactional/private CPT deltas and conditional lifecycle operations. |
 | [`lean-seo-settings-substrate.md`](voxel/lean-seo-settings-substrate.md) | The shared lean-seo config layer — module registry, `lean_seo_{category}` option store, the `lean_seo_available_field_groups` Voxel field catalog, the `includes/voxel.php` guard/resolver layer, the four token dialects. Read before any lean-seo settings work. |
 | [`lean-seo-metadata.md`](voxel/lean-seo-metadata.md) | lean-seo Meta surface — title/description/canonical/OG/Twitter/noindex; `<kind>_<slug>` scope keys in `lean_seo_meta`; the `%token%` + `%vx()%` dialect; `h1` title-key default; per-post `_lean_seo_*` overrides; Voxel/profile canonicalization. |
 | [`lean-seo-schema.md`](voxel/lean-seo-schema.md) | lean-seo Schema surface — per-target `lean_seo_schema:{target}` JSON-LD; the `prefix:key\|transform` source grammar (22 prefixes); `voxel:` / `relation:` / `relation_field:` / `related:` / `hierarchy:` Voxel resolvers; `@each`/`@map`/`@ref`/`@require` control keys; transforms. |
@@ -118,6 +126,14 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`lean-seo-media.md`](voxel/lean-seo-media.md) | WebP + `<picture>` output-buffer wrap (reaches Voxel/Elementor), upload flattening, featured-image renaming to `{slug}-{post-type}` (feeds OG image + `featured_img`). |
 | [`lean-seo-maintenance.md`](voxel/lean-seo-maintenance.md) | SEO-safe 503 maintenance screen — enabled-state IS the switch; 503 + Retry-After, robots.txt stays 200, never noindex, admin bypass; EF-token theming. |
 | [`lean-seo-purge.md`](voxel/lean-seo-purge.md) | LiteSpeed cache-purge bridge — `lean_seo_purge`/`lean_seo_purge_all`/`lean_seo_bump_cache_epoch` API, the Last-Modified epoch, the WP hooks that trigger purges, the non-purge perf tweaks. |
+| [`voxel-lean-seo-routing.md`](voxel/voxel-lean-seo-routing.md) · [`claude-seo-authoring.md`](voxel/claude-seo-authoring.md) | Voxel-to-lean-seo ownership routing and optional source-supported authoring handoff. |
+
+## Specialized Supporting References
+
+| File | Exclusive purpose |
+|---|---|
+| [`emcp-wordpress-mcp.md`](core/emcp-wordpress-mcp.md) | Optional WordPress MCP transport when the local `wpdev` path is unavailable. |
+| [`content-quality-worker.md`](verification/content-quality-worker.md) | Evidence contract for delegated visible-copy quality checks. |
 | [`lean-seo-plugin-internals.md`](voxel/lean-seo-plugin-internals.md) | The plugin's **source architecture** (for reading/modifying/debugging its PHP) — module registry, unified settings store, the SSOT crawl predicates, meta/schema token grammars, the agnostic field-catalog seam, author↔profile seam, and code-level gotchas. |
 | [`lean-seo-crawl-permalinks-linking-reference.md`](voxel/lean-seo-crawl-permalinks-linking-reference.md) | Exhaustive **source-verified** reference for the crawl / permalinks / linking modules — exact function names, file paths, option keys, hooks, and Voxel interactions. The deepest developer reference. |
 
@@ -147,7 +163,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | **Browser verification** | [`references/verification/browser.md`](verification/browser.md) | The `agent-browser` CLI protocol (SSOT) — parallel `--session` isolation, command table, mandatory computed-style layout assertions, read-the-screenshot rule, production-page baseline, browser-unavailable fallback. Tool surface for Phase 6 / audit Stream D / migration Phase 5. No MCP browser server. |
 | **Audit pipeline** | [`../workflows/audit.md`](../workflows/audit.md), [`references/audit/briefs.md`](audit/briefs.md) | Top-down walk, bottom-up fix, brief templates, silent-failure detection probes, confirmed/suspected confidence gate |
 | **Behavior Contract** | [`references/verification/behavior-contract.md`](verification/behavior-contract.md) | Pre-mutation gate for existing-data fixes — triple + DOM-text baseline falsifier, command-host authored |
-| **EF widgets** | [`references/ef/ef-widgets.md`](ef/ef-widgets.md), [`references/ef/widgets.md`](ef/widgets.md) | All 6 EF widgets with deep schema + thin router |
+| **EF widgets** | [`references/ef/ef-widgets.md`](ef/ef-widgets.md), [`references/ef/widgets.md`](ef/widgets.md) | All 4 registered EF widgets/elements with deep schema + thin router |
 | **EF layout** | [`references/ef/masonry.md`](ef/masonry.md), [`references/ef/section-rhythm.md`](ef/section-rhythm.md) | Bento/masonry grid composition, anchor-card spans, section background ladder, surface/spacing rhythm |
 | **TS widgets** | [`references/voxel/ts-widgets.md`](voxel/ts-widgets.md) | Voxel theme `ts-*` widget settings — Voxel-native vs EA4V-extension split, `ts-create-post` deep-dive |
 | **EF parts** | [`references/ef/ef-parts.md`](ef/ef-parts.md) | All EF parts — 10 user-facing (Action_Slot, Actions, Banner, Field, Headings, Heading_Enums, Icon, Media, Nav_Item, Tags) + base contracts, Media handlers, Nav traits |
@@ -157,6 +173,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | **Dynamic** | [`references/voxel/voxel-tags.md`](voxel/voxel-tags.md), [`references/ef/dynamic-text.md`](ef/dynamic-text.md) | Tag syntax / loops / visibility, text-composition recipes |
 | **Resolution** | [`references/voxel/template-resolution.md`](voxel/template-resolution.md) | Voxel option keys, template resolution order, revision distinctions |
 | **Defined terms (SEO)** | [`references/voxel/seo-defined-terms.md`](voxel/seo-defined-terms.md) | Glossary/DefinedTerm CPT recipe — answer-block field model, DefinedTerm + DefinedTermSet + sameAs schema, flat URLs, anti-thin-content long-form body, E-E-A-T |
+| **FAQ authoring (SEO)** | [`../workflows/faq-authoring.md`](../workflows/faq-authoring.md), [`references/voxel/faq-authoring.md`](voxel/faq-authoring.md), [`references/subagents/voxel-faq-author.md`](subagents/voxel-faq-author.md) | Visible FAQ Q&A workflow for one content source - natural-language questions, answer-first self-contained answers, source evidence, page-type gates, and read-only subagent authoring |
 | **Geolocated pages (SEO)** | [`references/voxel/seo-geolocation-pages.md`](voxel/seo-geolocation-pages.md) + [`../workflows/geolocation.md`](../workflows/geolocation.md) | Derive an `exp` service into a per-city mirror under a `geo` post — city-nested URL, city-aware breadcrumb/title/schema `areaServed` gate, field-enforced uniqueness (anti-doorway swap test), local-SEO checklist scope split, Phase 0→4 workflow |
 | **Curation** | [`../workflows/curation.md`](../workflows/curation.md), [`references/curation/cli-map.md`](curation/cli-map.md), [`references/curation/field-semantics.md`](curation/field-semantics.md), [`references/curation/bulk-rich-text.md`](curation/bulk-rich-text.md), [`references/curation/content-surgery.md`](curation/content-surgery.md), [`references/curation/backup-diff-and-surgical-restore.md`](curation/backup-diff-and-surgical-restore.md), [`references/curation/telegraphic-fragment-repair-field-harness.md`](curation/telegraphic-fragment-repair-field-harness.md), [`references/curation/klarc-french-copy-corruption.md`](curation/klarc-french-copy-corruption.md), [`references/curation/voxel-dynamic-content-surgery.md`](curation/voxel-dynamic-content-surgery.md), [`references/curation/sitewide-ai-marker-cleanup.md`](curation/sitewide-ai-marker-cleanup.md), [`references/curation/lifecycle-checklists.md`](curation/lifecycle-checklists.md), [`references/curation/merge-delete-safety.md`](curation/merge-delete-safety.md) | Voxel entity-data curation — 4-phase pipeline (Discover → Plan → Execute → Verify) with merge/delete safety gate; create/edit/merge/delete records, bulk rich-text reformatting of `texteditor` fields (QA-gated fan-out), profile↔user invariant, relation rewiring; **plus content surgery** — repair corrupted/degraded visible copy with backup-diff + surgical token restore, telegraphic-fragment repair harness, Voxel dynamic-field source-map, and the site-wide de-AI marker cleanup scan |
 | **Content surgery** | [`references/curation/content-surgery.md`](curation/content-surgery.md) | Repair corrupted/degraded WordPress visible copy with minimal auditable edits (no batch restore) — scope public content, backup-as-intent, exact field/post patches, corruption-pattern scan, live verify; SAFE-vs-FLAGGED token restore, missing-noun vs voluntary-rewrite disambiguation, full-corpus quality-audit escalation |

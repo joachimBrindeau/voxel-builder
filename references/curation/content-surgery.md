@@ -80,7 +80,8 @@ Pitfalls.
   baseline-minus-the-deleted-token → verbatim restore OK. FLAGGED = live was ALSO legitimately
   edited since baseline → reinsert ONLY the missing token into the CURRENT live text, never restore
   the whole field. Word-level `difflib.SequenceMatcher` on baseline-vs-live tokens tells them
-  apart; FLAGGED reinsertion needs per-post judgment (dispatch one reasoning agent per post).
+  apart; FLAGGED reinsertion needs per-post judgment. Batch 5-10 post packets per
+  reasoning worker and require a separate field decision for every post.
 - **A missing NOUN is not a voluntary adjective drop — restore it even amid a rewrite.** A bad
   replace eats nouns (`experts`, `expertise`, `clé`) leaving dangling `d' `/`l' `, subject-less
   verbs, or truncated NPs, while a voluntary cleanup runs in the SAME field. Keep voluntary edits;
@@ -119,7 +120,8 @@ Pitfalls.
   keyword-first, benefit-driven, zero-telegraphic, typography, preserve-voluntary-edits) and make
   agents read it as source of truth; do not encode per-post facts in it. Then build ONE audit
   packet per content post carrying live+baseline for ALL surfaces (title, excerpt, post_content,
-  every source meta). One reasoning agent per post audits all four surfaces in order (title → H1 →
+  every source meta). Batch 5-10 homogeneous post packets per reasoning worker; each post
+  retains an independent result covering all four surfaces in order (title → H1 →
   excerpt → prose). Full escalation recipe in
   [`telegraphic-fragment-repair-field-harness.md`](telegraphic-fragment-repair-field-harness.md).
 - **Collateral damage lives in fields where the target token count is unchanged — scan for

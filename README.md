@@ -1,14 +1,13 @@
 # voxel-builder
 
-Schema-driven Voxel CPT lifecycle and Elementor V4 atomic build/audit pipeline, as a
-**portable agent skill** (`~/.agents/skills/` form — usable by any agent host that reads
-the SKILL.md convention: opencode, codex, cursor, gemini-cli, github-copilot, zed, Claude
-Code, …). Backed by the `wpdev` CLI. Ships eight subagent role-briefs, a built-in
-**curation route** (Voxel entity-data create/edit/merge/delete — see below), and atomic
-golden `_elementor_data` fixtures.
+A routed workflow skill for building, auditing, migrating, repairing, curating, and
+verifying WordPress sites that use Voxel and Elementor Framework V4. It selects one
+source-owning workflow per task, delegates bounded batches through nine leaf-specialist
+briefs, centralizes authoritative writes, and verifies both stored and rendered state
+through `wpdev`.
 
 Every Voxel field type (33/33), every documented Voxel feature surface (36/36), every EF
-V4 widget (6/6), every EF part (10/10 user-facing + base/Media/Nav helpers), and the full
+V4 widget/element (4/4), every EF part (10/10 user-facing + base/Media/Nav helpers), and the full
 `ef_*` helper catalogue live in `./references/` (knowledge) and `./workflows/` (phased
 processes). The page-planning sub-pipeline (Field Inventory → SSOT Read → Archetype
 Selection → Section Blueprints → adversarial review → reconciliation → computed §2g gate)
@@ -17,7 +16,7 @@ See [`CHANGELOG.md`](CHANGELOG.md) for version history.
 
 ## Prerequisites
 
-This skill drives real infrastructure — confirm before use (see also SKILL.md §Prerequisites):
+This skill drives real infrastructure; confirm these prerequisites before use:
 
 - **`wpdev` CLI on `PATH`** — the engine behind every command (from the wpdev repo).
 - **A WordPress site running the Voxel theme + `lean-seo` + the `elementor-framework` (EF V4) plugin.**
@@ -26,26 +25,28 @@ This skill drives real infrastructure — confirm before use (see also SKILL.md 
 Verify the runtime prerequisites at any time:
 
 ```bash
-./scripts/verify-install.sh
+./scripts/verify-install.sh <site>
 ```
 
-## Host-agnostic by design
+## Cross-host capability mapping
 
-The skill is written in capability language, not product names. Where it says:
+The core workflows and leaf briefs are written in capability language. Map their
+declarations to equivalent host capabilities. Where the workflow says:
 
 - **"dispatch a subagent"** → use your host's subagent/Task facility, or read the brief under [`references/subagents/`](references/subagents/) and do its scoped work inline.
 - **"run steps in parallel" / "a workflow"** → any deterministic parallel-step runner your host offers, or a scripted/sequential loop.
 - **"ask the user"** → your host's clarification mechanism.
 
-The atomic-scope contract (one widget / section / criterion per subagent) and the
-judgment-gates-stay-with-the-orchestrator rule are host-independent — see
+The atomic-output contract (one independently attributable result per widget, section,
+criterion, URL, or entity), 5-10-leaf batch rule, and orchestrator-owned judgment gates
+are host-independent — see
 [`references/core/parallel-dispatch.md`](references/core/parallel-dispatch.md).
 
 ## What's inside
 
-- **SKILL.md** — the router: request-shape → workflow/reference mapping, the eight rules, subagent role table, orchestration model.
-- **`references/`** — knowledge: `core/` (rules, command-surface, parallel-dispatch, criteria, blueprint-format), `voxel/` (field types, visibility, timeline, commerce, search, platform, tags, template-resolution, **seo-defined-terms**), `ef/` (widgets, parts, helpers, masonry, section-rhythm, dynamic-text), `icons/` (Material Symbols lookup), and `subagents/` (the eight role-briefs).
-- **`workflows/`** — phased processes: cpt-lifecycle, build, migrate, audit, page-planning, card-actions, curation, fix-known, section-templates.
+- **SKILL.md** — the MECE router: source owner and intent to exactly one primary workflow.
+- **`references/`** — knowledge: `core/` (rules, command-surface, parallel-dispatch, criteria, blueprint-format), `voxel/` (field types, visibility, timeline, commerce, search, platform, tags, template-resolution, SEO/content guidance), `ef/` (widgets, parts, helpers, masonry, section-rhythm, dynamic-text), `icons/` (Material Symbols lookup), and `subagents/` (the nine role-briefs).
+- **`workflows/`** — 15 primary phased workflows plus the supporting page-planning pipeline, indexed with exclusive ownership and exit artifacts in [`workflows/README.md`](workflows/README.md).
 - **`templates/`** — the reusable section-template store: extracted, sanitized `_elementor_data` subtrees (`global` / `section` / `page` scope) agents can splice into new builds. See `templates/README.md` for the on-disk shape and `templates/index.md` for the master catalog.
 - **`examples/`** — four golden `_elementor_data` fixtures (ef-card, ef-wrapper, ts-create-post, ts-post-feed).
 - **`scripts/`** — `lint.sh` (portable lint), `verify-install.sh` (prereq check), `action-spec.sh`, `generate-icon-reference.ts`.
@@ -80,8 +81,9 @@ Anything else falls through to the SKILL.md decision flow.
 bash scripts/lint.sh
 ```
 
-Checks portability (no Claude-Code coupling), SKILL.md size, absolute-path hygiene, and
-(when `lychee` is installed) that every relative link + `#anchor` resolves.
+Checks portability, strict skill/workflow/reference size limits, route/index set equality,
+phase Entry/action/Exit structure, leaf-role tool boundaries, bounded fan-out language,
+wpdev command coverage, templates, and every relative link/anchor.
 
 ## License
 

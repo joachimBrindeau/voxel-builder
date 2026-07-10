@@ -66,7 +66,7 @@ The heading-title permalink link is a *content-block* concern — the action sui
 
 1. List the candidate types and their required cells from the SSOT:
    ```bash
-   scripts/action-spec.sh          # all
+   <voxel-builder-skill-root>/scripts/action-spec.sh          # all
    ```
    Map the desired outcome to a `type` via [`actions.md`](../references/ef/actions.md)
    §"Common patterns by use case".
@@ -95,7 +95,7 @@ The heading-title permalink link is a *content-block* concern — the action sui
 
 1. For each chosen type, dump its required cells + field specs:
    ```bash
-   scripts/action-spec.sh <type>
+   <voxel-builder-skill-root>/scripts/action-spec.sh <type>
    ```
    Collect a value for **every** required cell — never invent extras the resolver
    ignores.
@@ -148,14 +148,14 @@ The heading-title permalink link is a *content-block* concern — the action sui
 
 **Entry:** the envelope from Phase 3.
 
-Write through the CLI loop, never a raw postmeta poke. Prefer the atomic mutator
+1. Write through the CLI loop, never a raw postmeta poke. Prefer the atomic mutator
 (lint → CSS regen → cache purge → optional fetch):
 ```bash
 wpdev elementor:mutate <site> <post_id> <mutator.php>   # mutator sets settings.ts_actions
 # or, for a whole-card replace:
 wpdev elementor:import <site> <post_id> <file.json>     # passes the pre-write schema gate
 ```
-The mutator/import must emit clean JSON via the canonical write path (direct SQL by
+2. Require the mutator/import to emit clean JSON via the canonical write path (direct SQL by
 `meta_id`, `JSON_UNESCAPED_UNICODE`) — see `cli/src/utils/elementor/write.ts`.
 
 **Exit:** `ts_actions` written; CSS regenerated; caches purged.

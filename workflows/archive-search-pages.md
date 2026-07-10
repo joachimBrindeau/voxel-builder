@@ -1,83 +1,62 @@
-# Archive/search pages
+# Archive And Search Page Workflow
 
-Use this workflow when building or fixing a public searchable archive page for a Voxel post type. New listing surfaces must use Elementor Framework widgets (`ef-*`) and `ef-wrapper` template/loop composition; Voxel search/feed widgets are preservation-only legacy nodes, not new build targets.
+Build or repair the public searchable page for one Voxel post type. This route owns the
+archive/search URL and result surface; general templates stay in the build route.
 
-## Entry criteria
+## Entry Criteria
 
-- Target site is known.
-- Target post type key is known.
-- Existing archive/search pages have been inspected before any write.
-- Desired URL is known and checked against sibling URLs.
+1. Site, post type, search-root page, desired URL, and intended legacy-preservation policy
+   are known.
 
-## Mistake guards
+## Phase 0 - Inspect Sibling Pattern
 
-- Do not disable a Voxel archive to fix a URL conflict; search pages need archive/search wiring.
-- Do not invent archive structure from scratch when sibling `recherche/*` pages exist.
-- Do not reuse a standalone marketing page as the search archive unless siblings do the same.
-- Do not hardcode project-specific titles, page IDs, slugs, or post type keys in this workflow.
-- Do not add or rebuild Voxel `ts-*` widgets. Preserve existing ones verbatim only when the task explicitly keeps the legacy search page pattern.
+**Entry:** Entry criteria are met; no write has occurred.
 
-## Phase 0 — Inspect sibling pages
+1. List search-root children and inspect at least two sibling Elementor trees.
+2. Select the closest sibling by URL role, filters, result shape, and empty state.
+3. Export that sibling and the target page when it already exists.
 
-1. List children of the search root page:
+**Exit:** Sibling pattern, source page id, target page id/status, and rollback exports exist.
 
-   ```bash
-   ./wpdev wp <site> post list --post_type=page --post_parent=<search_root_id> --fields=ID,post_title,post_name,post_parent --format=csv
-   ```
+## Phase 1 - Define URL And Ownership
 
-2. Inspect at least two sibling Elementor trees:
+**Entry:** Phase 0 sibling evidence exists.
 
-   ```bash
-   ./wpdev elementor:tree <site> <sibling_page_id>
-   ```
+1. Record target `post_parent`, slug, localized title, canonical URL, and post type.
+2. Check conflicts with native archives, standalone marketing pages, and sibling routes.
+3. Keep native Voxel archive/search wiring enabled; do not solve conflicts by disabling it.
 
-3. Export the closest sibling page before copying:
+**Exit:** One non-conflicting URL/page owner is recorded and existing landing pages remain
+separate unless the sibling pattern proves otherwise.
 
-   ```bash
-   ./wpdev elementor:export <site> <sibling_page_id>
-   ```
+## Phase 2 - Retarget Elementor Data
 
-## Phase 1 — Preserve URL pattern
+**Entry:** Phase 1 ownership is unambiguous.
 
-For Klarc-style archives, searchable archive pages live under the search root, e.g. `recherche/<plural-slug>`, matching siblings such as `recherche/services`, `recherche/recrutement`, and `recherche/glossaire`.
+1. Copy the sibling tree and update hero/result copy without importing project-specific ids.
+2. Configure an EF wrapper loop/template surface for the target post type.
+3. Preserve existing `ts-search-form`/`ts-post-feed` nodes verbatim only when legacy search
+   behavior is explicitly retained; never add new `ts-*` nodes.
+4. Validate offline, then import with `--save` and read `_elementor_data` back.
 
-Create or update a child page of the search root with:
+**Exit:** Stored target data matches the retargeted tree, sibling layout remains intentional,
+and result/filter ownership points to the target CPT.
 
-- `post_parent` = search root page ID
-- `post_name` = target archive slug
-- title = `Recherche de …` / localized equivalent
+## Phase 3 - Reindex And Verify
 
-## Phase 2 — Copy and retarget Elementor data
+**Entry:** Phase 2 read-back passes.
 
-Copy the closest sibling archive page. In copied `_elementor_data`:
+1. Run `wpdev rebuild <site> --only reindex,css,purge --recreate`.
+2. Verify tree, Voxel index/published counts, HTTP 200, canonical URL, browser heading,
+   filters/results, empty state, and console/page errors.
+3. Compare a complete and sparse result record so visibility/fallback behavior is exercised.
 
-- update hero card heading/body copy
-- configure an EF `ef-wrapper` loop/template surface for `<post_type>` results
-- preserve any existing Voxel `ts-search-form` / `ts-post-feed` nodes verbatim only when the task is to keep legacy search behavior
-- preserve wrapper/card layout from sibling page
+**Exit:** The archive/search URL, EF/approved legacy surface, index, results, and browser
+assertions all pass.
 
-Use `./wpdev elementor:import <site> <page_id> <json> --save` when it writes successfully. If import gate passes but page meta remains empty, write `_elementor_data`, `_elementor_edit_mode=builder`, and `_elementor_template_type=wp-page`, then regenerate CSS and purge caches.
+## Rationalizations To Reject
 
-## Phase 3 — Rebuild and verify
-
-Run:
-
-```bash
-./wpdev rebuild <site> --only reindex,css,purge --recreate
-./wpdev elementor:tree <site> <page_id>
-```
-
-Verify:
-
-- URL returns HTTP 200.
-- Canonical URL equals target `recherche/<slug>`.
-- tree shows the EF loop/template wrapper for `<post_type>` results, or unchanged preserved legacy Voxel search/feed nodes when explicitly retained.
-- Voxel index status for the post type is `ok` and published count equals indexed count.
-- Browser-rendered page shows heading and search/filter UI.
-
-## Exit criteria
-
-- Archive/search page exists at expected `recherche/<slug>` URL.
-- Elementor data follows sibling archive pattern.
-- Voxel post type remains indexed/searchable.
-- Related standalone landing pages, if any, are not silently repurposed.
+- Do not invent a new archive pattern before inspecting siblings.
+- Do not repurpose a marketing page silently.
+- Do not add Voxel search/feed widgets to a new EF build.
+- Do not report success from a tree or HTTP check without rendered result/filter evidence.

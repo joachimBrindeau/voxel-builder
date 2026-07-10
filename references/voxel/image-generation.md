@@ -1,6 +1,9 @@
 # Voxel / Joachim image-generation specifics
 
-This reference carries the site-specific and operator-specific rules. Use it with `../workflows/image-generation.md`. For global model/tool behavior, load `seo/claude-seo/extensions/banana/skills/seo-image-gen`.
+This reference carries the site-specific and operator-specific rules. Use it with
+[`../../workflows/image-generation.md`](../../workflows/image-generation.md). For global
+model/tool behavior, resolve the installed `seo-image-gen` capability through the host's
+skill catalog or configured-root read fallback.
 
 ## Model and backend preference
 

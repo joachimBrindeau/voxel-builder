@@ -1,10 +1,10 @@
 {
-  "source": "plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints",
+  "source": "../../wordpress/plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json",
   "count": 4253,
   "format": "ms:ms ms-<name>",
   "googleMetadata": {
     "source": "https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols",
-    "sourceEntries": 3885,
+    "sourceEntries": 3894,
     "enriched": 3879,
     "generatedFallback": 374
   },

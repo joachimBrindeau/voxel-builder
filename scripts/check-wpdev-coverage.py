@@ -8,12 +8,34 @@ in-scope command has a row in references/core/wpdev-coverage.md.
 from __future__ import annotations
 
 import re
+import os
+import shutil
 import sys
 from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 COVERAGE = SKILL_ROOT / "references/core/wpdev-coverage.md"
-WPDEV_INDEX = Path.home() / "Development/wordpress/cli/src/index.ts"
+
+
+def find_wpdev_index() -> Path | None:
+    """Resolve wpdev source from an override, cwd, or the wpdev executable."""
+    candidates: list[Path] = []
+    if root := os.environ.get("WPDEV_ROOT"):
+        candidates.append(Path(root))
+
+    candidates.extend([Path.cwd(), *Path.cwd().parents])
+    if executable := shutil.which("wpdev"):
+        executable_dir = Path(executable).resolve().parent
+        candidates.extend([executable_dir, *executable_dir.parents])
+
+    for root in candidates:
+        index = root / "cli/src/index.ts"
+        if index.is_file():
+            return index
+    return None
+
+
+WPDEV_INDEX = find_wpdev_index()
 
 PREFIXES = (
     "elementor:",
@@ -23,9 +45,9 @@ PREFIXES = (
 )
 BARE = {"headings", "quality", "perf", "purge", "rebuild", "smoke"}
 
-if not WPDEV_INDEX.exists():
-    print(f"SKIP wpdev coverage: missing {WPDEV_INDEX}")
-    sys.exit(0)
+if WPDEV_INDEX is None:
+    print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT")
+    sys.exit(1)
 
 index = WPDEV_INDEX.read_text()
 coverage = COVERAGE.read_text()

@@ -9,34 +9,30 @@ produces weaker, drifting copy and silently skips the anti-doorway / E-E-A-T / m
 gates. This reference is the portable recipe; the per-surface gates live in
 [`../core/criteria.md`](../core/criteria.md) (`claude-seo-baseline`, `content-methodology`).
 
-## This host cannot run `/claude-seo` — use the Read-fallback
+## Resolve the upstream SEO capability
 
-There is **no runnable `/claude-seo` tool** on this host and **no `mcp__claude-seo__*`
-server**. Citing one is a phantom-tool bug. The only correct invocation is the
-**Read-fallback**: `Read` the relevant `SKILL.md` by absolute path and **follow it inline**.
-On a Claude Code host the same skills can be invoked natively; the Read-fallback works
-everywhere. **MUST NOT claim a claude-seo skill "ran" if it did not** — say "applied the
-claude-seo `<skill>` methodology via Read-fallback".
+1. Prefer the host's installed `seo-local`, `seo-content-brief`, `seo-content`,
+   `seo-page`, `seo-schema`, or `seo-image-gen` skill by name.
+2. If native invocation is unavailable, inspect the host's advertised skill catalog
+   or configured skill roots, locate the routed skill's `SKILL.md`, read it, and follow
+   it inline. Do not assume a Claude cache, Codex home, or fixed filesystem path.
+3. If neither the routed skill nor its source file is available, stop the authoring
+   route and report the missing upstream capability. Do not silently replace it with
+   ad-hoc SEO prose.
 
-## Where the skills live
-
-Base (version may advance — glob to resolve, do not hardcode the version):
-
-```bash
-ls -d ~/.claude/plugins/cache/*/claude-seo/*/skills/
-# → /Users/<you>/.claude/plugins/cache/agricidaniel-claude-seo/claude-seo/<ver>/skills/
-```
+Never claim an upstream skill ran when its methodology was only read and applied inline.
+Record `applied <skill> methodology via read fallback`, including the resolved source path.
 
 ## Surface → claude-seo skill routing
 
-| You are authoring… | Read + follow (Read-fallback) |
+| You are authoring… | Resolve this capability |
 |---|---|
-| Local / geolocated page (geo-child), local schema, NAP, doorway/swap-test judgement | `skills/seo-local/SKILL.md` |
-| The page copy itself — outline, per-section word counts, keyword placement, meta length, **information gain**, E-E-A-T | `skills/seo-content-brief/SKILL.md` |
-| Content-quality / E-E-A-T audit of an existing page | `skills/seo-content/SKILL.md` |
-| Single-page on-page audit (title/H1/meta/schema/images) | `skills/seo-page/SKILL.md` |
-| JSON-LD structured-data shape/validation | `skills/seo-schema/SKILL.md` |
-| Featured/OG/hero image generation | `extensions/banana/skills/seo-image-gen/SKILL.md` |
+| Local / geolocated page (geo-child), local schema, NAP, doorway/swap-test judgement | `seo-local` |
+| The page copy itself — outline, per-section word counts, keyword placement, meta length, **information gain**, E-E-A-T | `seo-content-brief` |
+| Content-quality / E-E-A-T audit of an existing page | `seo-content` |
+| Single-page on-page audit (title/H1/meta/schema/images) | `seo-page` |
+| JSON-LD structured-data shape/validation | `seo-schema` |
+| Featured/OG/hero image generation | `seo-image-gen` |
 
 ## The two mandatory moments
 

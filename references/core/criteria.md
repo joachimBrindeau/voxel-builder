@@ -2,7 +2,7 @@
 
 > **Machine SSOT: [`criteria.json`](criteria.json)** (schema: [`criteria.schema.json`](criteria.schema.json)). That structured file is what the orchestrator loads and dispatches from — `{id, scope, phase, severity, criterion, evidence, predicate}` per row. **This markdown is the human-readable view of the same rows; when the two disagree, `criteria.json` wins.** Add/remove/retune a check by editing a row in the JSON (validate against the schema), then mirror it here.
 
-**The checklist is the single source of truth for what gets checked, at which scope, in which phase.** The workflow does not hardcode a fixed set of reviewer personas or a fixed browser checklist; instead the orchestrator reads the catalog, **selects every criterion whose `scope` is in play and whose `phase` matches the current step, and dispatches one verification agent per selected criterion** (the generic [`voxel-plan-reviewer`](../../references/subagents/voxel-plan-reviewer.md) agent, given a single `criterion_id`). Adding, removing, or retuning a check means editing a row — never editing the pipeline. That is the whole point: the workflow is generic; the criteria are data.
+**The checklist is the single source of truth for what gets checked, at which scope, in which phase.** The orchestrator selects every applicable row and sends them to bounded reviewer batches using [`parallel-dispatch.md`](parallel-dispatch.md). Adding, removing, or retuning a check means editing a row, never the pipeline.
 
 ## Model
 
@@ -11,12 +11,12 @@
 - **Severity** — `C` (Critical — blocks approval / fails verification), `I` (Improvement — must get a reconciliation outcome), `K` (Cosmetic — batch-acknowledge).
 - **Evidence** — the read/CLI/browser action that produces proof for the finding. The agent runs it; it never asserts from memory.
 
-Each agent checks **exactly one criterion**, reads no other criterion's brief, and returns findings only within its remit. The orchestrator aggregates (and catches what falls between criteria).
+Each returned leaf checks exactly one criterion and stays within that remit. A worker may process 5-10 criterion leaves, returning a separate envelope for each.
 
 ## Dispatch rule
 
-1. **Plan review (§2e):** select every row with `phase ∈ {plan, both}` whose `scope` is in play. Dispatch all of them in a single message, one agent per criterion. Default = the full applicable set; drop a criterion only with a stated reason recorded in the plan.
-2. **Browser verification (Phase 6):** select every row with `phase ∈ {render, both}` whose `scope` is in play. Dispatch one browser agent per criterion across the sampled posts.
+1. **Plan review (§2e):** select every row with `phase ∈ {plan, both}` whose `scope` is in play. Batch 5-10 criteria per reviewer and require one leaf envelope per criterion. Drop a criterion only with a stated reason recorded in the plan.
+2. **Browser verification (Phase 6):** select every row with `phase ∈ {render, both}` whose `scope` is in play. Batch 5-10 URL/surface leaves per verifier while preserving per-criterion results.
 3. **Re-run** the applicable set whenever the artifact (plan or rendered page) has materially changed; stop when it converges; surface residuals to the operator if it won't.
 
 ## The catalog
@@ -34,7 +34,7 @@ Each agent checks **exactly one criterion**, reads no other criterion's brief, a
 | `pattern-reuse` | plan | I | Archetypes and dynamic-heading phrasings match the conventions peer templates already use; any new shape is justified by a peer comparison. | `wpdev elementor:tree <site> <peer_id>` + heading-curator palette |
 | `rebuild-vs-revise` | plan | I | The Phase 0 rebuild-vs-revise call is recorded and justified — greenfield when the existing tree is worse than starting clean, otherwise in-place. | Plan Document Phase 0 note + `wpdev elementor:tree` |
 | `migration-preservation` | plan | C | *(migration only)* Every information unit on the production page appears in a blueprint cell OR is acknowledged in the §2d Improvements log. Silent drops fail; declared rewrites/removals pass. | production rendered text via `agent-browser` (see [`browser.md`](../verification/browser.md)) |
-| `claude-seo-baseline` | plan | C | *(authoring builds — geo derivation / CPT-single copy / bulk excerpt-meta / content-surgery)* A claude-seo BASELINE gap-list was captured on the LIVE **source** page via the Read-fallback **before** authoring. Advisory intent ≠ satisfied — a written `/tmp/BASELINE-<slug>.md` must exist. See [`../voxel/claude-seo-authoring.md`](../voxel/claude-seo-authoring.md) §1. | `/tmp/BASELINE-<slug>.md` from Read-ing `…/claude-seo/*/skills/seo-local/SKILL.md` on the live source URL |
+| `claude-seo-baseline` | plan | C | *(authoring builds — geo derivation / CPT-single copy / bulk excerpt-meta / content-surgery)* A claude-seo BASELINE gap-list was captured on the LIVE **source** page via native skill invocation or the read fallback **before** authoring. Advisory intent ≠ satisfied — a written `/tmp/BASELINE-<slug>.md` must exist. See [`../voxel/claude-seo-authoring.md`](../voxel/claude-seo-authoring.md) §1. | `/tmp/BASELINE-<slug>.md` plus the native skill name or dynamically resolved `seo-local/SKILL.md` path used on the live source URL |
 
 ### Scope: section (plan)
 

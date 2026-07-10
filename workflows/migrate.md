@@ -92,103 +92,87 @@ Collapse a whole functional region into the single purpose-built EF widget — d
 3. Browser verification passes on representative production URL sample.
 4. Behavior Contract diff shows no Forbidden Semantic Delta.
 
-## Phased workflow
+## Phased Workflow
 
-### Phase 0 — Backup + survey + production content baseline
-- **Regenerate + drift-check the SSOT first:** `wpdev elementor:codegen`, then `wpdev elementor:codegen --check`. The computed §2g gate (rule 1) asserts this passed at entry, and migration touches the legacy data most likely to have drifted against the current EF V4 schema — never skip it on the migration path.
-- `wpdev elementor:export <site> <post_id>` (durable restore point).
-- `wpdev elementor:tree <site> <post_id>` + `wpdev elementor:dump <site> all --post <post_id> --json` to map the real structure (the audit's labels can be wrong — trust the data).
-- Run `wpdev elementor:revisions:prune <site> --post <id>` unconditionally (snapshot, then prune all revisions to the latest) per [`rules.md`](../references/core/rules.md) rule 6.
-- **Resolve a representative sample of production URLs** for the page being migrated (one is never enough). `./wpdev remote:list` returns the live host; the URL is simply `https://<prod_host>/?p=<post_id>` — WordPress 302-redirects to the canonical permalink regardless of post type or rewrite rules. For archive / page templates that aren't single posts: pick a representative sample of post ids of the affected CPT and use `?p=<id>` for each. These URLs flow into Phase 2 as the migration-preservation baseline for the migration-preservation criterion.
-- **Cache the production rendered text** ahead of Phase 2 if convenient: `agent-browser --session prod-<id> open "<url>"` → `wait --load networkidle` → `get text body` → `/tmp/prod-content-<post_id>-<url_hash>.txt` (recipe in [`browser.md`](../references/verification/browser.md) §Production-page baseline). The criterion will capture fresh if these are absent; pre-caching just saves a round trip.
+### Phase 0 - Backup And Production Baseline
 
-### Phase 1 — Structural skeleton (CLI, mechanical, batch-safe)
-Run the two structural migrators FIRST — they are clean, idempotent, and site-wide-safe:
-```bash
-wpdev elementor:migrate:main <site>              # root <main> container → ef-wrapper(tag=main)
-wpdev elementor:migrate:main <site> --fix --yes
-wpdev elementor:migrate:containers <site> --post <id>            # preview
-wpdev elementor:migrate:containers <site> --post <id> --fix --yes
-```
-- `migrate:main` — every wrapper with `html_tag:main` → clean `ef-wrapper(tag=main)`, settings stripped to `tag`, children preserved. Pixel-identical (root carries no real layout).
-- `migrate:containers` — every `container` → `ef-wrapper`; `tag` = `html_tag` else `div`; `cols` = N equal `1fr` tracks ONLY when `flex_direction:row` (N = direct-child count); all other styling dropped. Recurses every depth. Verify 2-col rows stay side-by-side.
-- Lint + screenshot after.
+**Entry:** Site, post id, role, and representative production URLs are known.
 
-### Phase 2 — Plan the migration (mandatory delegation to page-planning.md)
+1. Run codegen/check, export the source, dump the full tree, and snapshot/prune revisions.
+2. Capture the Behavior Contract and production rendered text for complete, sparse, and
+   typical records using the browser reference.
+3. Inventory every visible information unit, dynamic tag, link, visibility rule, and
+   preserved `ts-*` settings block.
 
-**Same bulletproof sub-pipeline as greenfield build — see [`page-planning.md`](page-planning.md) §2a–§2g — with one structural difference: migration mode adds the `migration-preservation` reviewer to the §2e panel** (default to the full panel — coverage, density, hierarchy, data-wiring, pattern-reuse, relations, ssot-integrity, + migration-preservation when migrating; narrow it only with a stated reason), dispatched in parallel, one concern each. That criterion is the data-loss guard: it walks the legacy `_elementor_data` dump and verifies every leaf with carried data (text, dynamic tag, link, visibility rule, `ts-*` setting) has a target home in the §2d blueprint. Unmapped legacy data = `C`-severity finding the orchestrator must resolve before fan-out.
+**Exit:** Durable rollback, source tree, behavior baseline, and production information-unit
+manifest exist.
 
-The two deterministic fan-outs inside that sub-pipeline — the §2c→2d layout fan-out (heading-curator + one layout-architect per selected section) and the §2e adversarial panel (one plan-reviewer per criterion) — express as Workflow `parallel()` legs when the user has opted into multi-agent orchestration, with single-message Agent dispatch as the always-available fallback (full pattern in [`page-planning.md`](page-planning.md)). For the migration §2e panel specifically:
+### Phase 1 - Mechanical Skeleton
 
-```
-parallel(criteria.map(c => () => agent(reviewerBrief(c), {
-  agentType: 'voxel-builder:voxel-plan-reviewer',
-  schema: FINDINGS,       // findings array, one criterion per call
-})))
-// criteria includes 'migration-preservation' in migration mode
-```
+**Entry:** Phase 0 rollback/baselines exist.
 
-**The judgment gates stay with the orchestrator, NOT inside any Workflow** — the Phase-0 rebuild-vs-revise call, the §2f reconciliation of findings, and the computed §2g gate are orchestrator-owned reasoning between fan-outs. The Workflow runs the mechanical parallel review; the orchestrator reads the schema-validated findings, reconciles, and decides whether to advance. This preserves the author≠reviewer separation and the §2g human-on-exception gate.
+1. Preview, then apply the idempotent structural migrators:
+   ```bash
+   wpdev elementor:migrate:main <site>
+   wpdev elementor:migrate:main <site> --fix --yes
+   wpdev elementor:migrate:containers <site> --post <id>
+   wpdev elementor:migrate:containers <site> --post <id> --fix --yes
+   ```
+2. Lint and screenshot the skeleton before content consolidation.
 
-Migration-specific inputs to the sub-pipeline (in addition to the standard build inputs):
+**Exit:** Root/main and containers use valid EF wrappers; child content remains present; the
+intermediate tree is lint-clean and visually captured.
 
-- `wpdev elementor:dump <site> all --post <id> --json > /tmp/before-<id>.json` (the migration-preservation criterion's source-of-truth).
-- `wpdev elementor:tree <site> <id> > /tmp/before-tree-<id>.txt` (the structural skeleton the §2c Archetype Selection maps over).
-- The Behavior Contract triple + DOM-text baseline (from [`behavior-contract.md`](../references/verification/behavior-contract.md)) — the command-host authors this BEFORE entering Phase 2; the Plan Document cites it; the re-audit (Phase 4) uses the baseline as the Forbidden-Semantic-Delta check.
+### Phase 2 - Plan With Preservation Gate
 
-Migration-specific §2d blueprint expectation:
+**Entry:** Phase 1 skeleton and Phase 0 information manifest exist.
 
-- **Every `ts-*` node** in the legacy dump appears verbatim in a §2d blueprint row, with its FULL settings JSON spliced (not re-described, not summarized). The migration-preservation criterion flags any blueprint that references a `ts-*` widget without the verbatim settings block.
-- **Every `_voxel_visibility_rules` array** in the legacy dump is translated to a `_vx_visibility: {$$type: vx-visibility, value: {behavior, rules}}` envelope cell in the blueprint, copied from the local header's `ef-navbar` action rows (the local envelope SSOT). The migration-preservation criterion flags drops or shape errors.
-- **Every dynamic-tag expression** is preserved byte-for-byte. The data-wiring criterion checks this; the migration-preservation criterion doubles the check against the legacy dump.
+1. Execute `workflows/page-planning.md` in migration mode.
+2. Include `migration-preservation` in the applicable criteria set.
+3. Require every legacy information unit to appear in a Blueprint cell or an explicit
+   Improvements-log rewrite/removal.
+4. Preserve `ts-*` settings and dynamic expressions byte-for-byte unless an approved
+   replacement owns them; translate legacy visibility only from an authoritative envelope.
 
-### Phase 3 — Content consolidation (parallel fan-out — reads the approved §2d blueprints)
+**Exit:** Plan contract validates, migration-preservation has positive coverage evidence,
+and the computed gate is green or explicitly approved on the exception path.
 
-Once Phase 2's §2g gate is green (auto or operator-`APPROVED`), fan out one `voxel-widget-builder` (build mode) per section. This per-section fan-out is the deterministic parallel leg of the migration ([`parallel-dispatch.md`](../references/core/parallel-dispatch.md)) — atomic scope is **one section per builder**.
+### Phase 3 - Consolidate In Bounded Batches
 
-**Preferred path (Workflow tool, when the user has opted into multi-agent orchestration** — ultracode on, the keyword `ultracode`, or an explicit "use a workflow" request): express the per-section fan-out as a single `parallel()` over the approved §2d rows, dispatching the named builder subagent with a schema that pins the return to a widget-JSON node:
+**Entry:** Phase 2 gate is open.
 
-```
-parallel(rows.map(r => () => agent(builderBrief(r), {
-  agentType: 'voxel-builder:voxel-widget-builder',
-  schema: NODE,           // one ef-wrapper(section) subtree per call
-})))
-// → orchestrator reads the structured nodes, assembles + imports (gate stays outside the Workflow)
-```
+1. Partition 5-10 homogeneous section/widget leaves per `voxel-widget-builder` build batch.
+2. Give each leaf its Blueprint rows, source node ids, current settings, and authoritative
+   schema/dump. Require one envelope per leaf; workers never import.
+3. Validate bounded waves, retry rejected leaves at most twice, and keep passing siblings.
+4. Assemble replacement subtrees by node id and import once with `--save`.
 
-(Rationale + orphan caveat: [`parallel-dispatch.md`](../references/core/parallel-dispatch.md) §Expressing a fan-out through the Workflow tool.)
+**Exit:** Every planned leaf is represented exactly once; the assembled tree is imported,
+read back, lint-clean, and CSS-regenerated.
 
-**Fallback path (always available** — small fan-outs, or when Workflow isn't opted into): dispatch all `voxel-widget-builder` subagents **in a single message** ([`parallel-dispatch.md`](../references/core/parallel-dispatch.md)) and aggregate the returned nodes in the orchestrator. For a short fan-out whose result is needed immediately in the same reasoning step, this inline path is simpler and avoids the orphan risk.
+### Phase 4 - Deduplicate And Normalize
 
-Either path, the contract is identical:
+**Entry:** Phase 3 read-back passes.
 
-1. **Extract a golden ef-card** from the SAME page (`wpdev elementor:dump` → a real `ef-card` node) → `/tmp/golden-ef-card.json`. This is the envelope SSOT; every builder copies its `$$type` scaffolding and swaps only leaf values. Never synthesize envelopes from memory (Rule 1).
-2. Each builder receives: golden template path, the section's node id (to reuse), and **its blueprint row(s) from the Plan Document § 2d verbatim** — the row carries the exact content + dynamic tags + visibility + links + verbatim `ts-*` settings. The builder does NOT re-decide; it serializes the approved row to widget JSON.
-3. Builders write `/tmp/<section>.json` (a complete replacement `ef-wrapper(section)` subtree) — they do NOT import. (Under Workflow, the `schema: NODE` return carries the same subtree; if builders write files instead, isolate per-section so concurrent writes don't collide.)
-4. Orchestrator splices by node id (replace the section subtree, keep the rest), writes once, imports — **this assembly + import is orchestrator-owned, outside any Workflow**:
-```bash
-wpdev elementor:import <site> <post_id> /tmp/post-new.json --save   # --save regenerates per-post CSS
-```
-5. Verify (Phase 5) before the next batch.
+1. Remove only strict-subset legacy duplicates, empty orphan wrappers, and approved style
+   residue. Preserve the more complete information-bearing source.
+2. Apply removals in one id-keyed transform, then read back and lint again.
 
-### Phase 4 — Dedup + cleanup
-- Remove half-finished prior migrations (a partial EF section duplicating a legacy one) — keep the COMPLETE source, fold all items in, delete the subset. No data lost when the removed node is a strict subset.
-- Delete empty orphan wrappers (0 children) left at root.
-- Splice removals in the same id-keyed transform (a `removeSet` alongside the `replaceMap`).
+**Exit:** No duplicate information surface or empty wrapper remains; no production
+information unit was silently lost.
 
-### Phase 5 — Verification (re-audit + browser)
+### Phase 5 - Independent Verification
 
-Per the verification gates below, plus the Behavior Contract re-audit: diff the post-mutation DOM-text against the baseline captured before Phase 2; any data-bound value the contract pinned that changed is a Forbidden Semantic Delta → roll back the section, return to §2d, re-fan-out.
+**Entry:** Phase 4 normalized tree is stored and representative URLs are stable.
 
-When verifying a representative sample of migrated URLs (archive / page templates span many posts), the per-URL verify fan-out is itself a deterministic parallel leg. **Preferred path under multi-agent opt-in:** express it as a Workflow `parallel()` over the sampled URLs, pinning each verifier's return with a pass/fail schema:
+1. Batch 5-10 URL/surface leaves per verifier, using unique browser sessions per URL.
+2. Run the verification gates below and compare DOM text with the Behavior Contract and
+   production information-unit manifest.
+3. Route only failed scopes back to Phase 2/3. Continue only while the open Critical set
+   strictly shrinks; otherwise escalate the residual.
 
-```
-parallel(urls.map(u => () => agent(verifyBrief(u), { schema: VERDICT })))
-// → orchestrator reads the verdicts; the verify→repair loop is a `while`
-//   on the convergence guard, OWNED BY THE ORCHESTRATOR (not the Workflow)
-```
-
-**Fallback path:** dispatch the per-URL verifiers in a single message and aggregate. Either way, the verify→repair convergence decision — roll back the section on a Forbidden Semantic Delta, return to §2d, re-fan-out, re-verify — is orchestrator-owned reasoning between fan-outs, never folded into the Workflow. Keep each verify Workflow scoped to minutes and watch `/workflows`; a backgrounded run can stall/orphan if the session goes idle or is compacted for a long time mid-run, so for a single-URL check whose verdict is needed immediately, the inline path is simpler.
+**Exit:** All gates pass on every representative URL, or the migration remains explicitly
+failed/blocked with rollback evidence.
 
 ## Verification gates (every batch — mandatory)
 

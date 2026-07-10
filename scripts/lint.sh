@@ -2,9 +2,9 @@
 # Portable lint for the voxel-builder skill (cross-tool ~/.agents/skills form).
 #
 # Keeps the host-independent checks that matter for a portable skill:
-#   1. no Claude-Code-specific coupling leaked back in
-#      (${CLAUDE_PLUGIN_ROOT}, allowed-tools frontmatter, bare /voxel-builder: slash refs)
-#   2. SKILL.md stays lean (<= 500 lines)
+#   1. no host-path/slash-command coupling leaked back in
+#      (${CLAUDE_PLUGIN_ROOT}, bare /voxel-builder: slash refs)
+#   2. SKILL.md stays lean (< 500 lines)
 #   3. every relative link + #anchor resolves (lychee, when available)
 #   4. no hardcoded absolute paths
 #
@@ -29,10 +29,6 @@ leaks=$(grep -rl 'CLAUDE_PLUGIN_ROOT' --include='*.md' . 2>/dev/null | grep -v C
 if [ -z "$leaks" ]; then pass "no \${CLAUDE_PLUGIN_ROOT} in active docs"
 else fail "\${CLAUDE_PLUGIN_ROOT} leaked into: $(echo "$leaks" | tr '\n' ' ')"; fi
 
-at=$(grep -rl '^allowed-tools:' --include='*.md' . 2>/dev/null)
-if [ -z "$at" ]; then pass "no allowed-tools frontmatter (Claude-only)"
-else fail "allowed-tools frontmatter in: $(echo "$at" | tr '\n' ' ')"; fi
-
 slash=$(grep -rl '/voxel-builder:' --include='*.md' . 2>/dev/null | grep -v CHANGELOG.md)
 if [ -z "$slash" ]; then pass "no bare /voxel-builder: slash-command refs in active docs"
 else fail "slash-command refs still in: $(echo "$slash" | tr '\n' ' ')"; fi
@@ -40,7 +36,7 @@ else fail "slash-command refs still in: $(echo "$slash" | tr '\n' ' ')"; fi
 # --- 2. SKILL.md lean --------------------------------------------------------
 heading "Skill size"
 n=$(wc -l < SKILL.md | tr -d ' ')
-if [ "$n" -le 500 ]; then pass "SKILL.md is $n lines (<=500)"; else fail "SKILL.md is $n lines (>500)"; fi
+if [ "$n" -lt 500 ]; then pass "SKILL.md is $n lines (<500)"; else fail "SKILL.md is $n lines (must be <500)"; fi
 
 # --- 3. No hardcoded absolute paths -----------------------------------------
 heading "No hardcoded absolute paths"
@@ -48,11 +44,15 @@ abs=$(grep -rnE '/(Users|home)/[a-zA-Z]' --include='*.md' . 2>/dev/null | grep -
 if [ -z "$abs" ]; then pass "no hardcoded /Users or /home paths"
 else fail "hardcoded absolute path(s):"; printf "%s\n" "$abs" | sed 's/^/        /'; fi
 
-# --- 4. wpdev coverage drift -------------------------------------------------
+# --- 4. Workflow-skill architecture -----------------------------------------
+heading "Workflow structure"
+if python3 scripts/lint-workflow-structure.py; then :; else fail "workflow structure invalid"; fi
+
+# --- 5. wpdev coverage drift -------------------------------------------------
 heading "wpdev coverage drift"
 if python3 scripts/check-wpdev-coverage.py; then :; else fail "wpdev-coverage.md drifted from cli/src/index.ts"; fi
 
-# --- 5. Section-template drift gate -----------------------------------------
+# --- 6. Section-template drift gate -----------------------------------------
 heading "Section-template lint (schema/dtag/denylist/meta/index)"
 if [ -f templates/index.md ] && find templates -type f -name template.json | grep -q .; then
   tl_out=$(bash scripts/lint-templates.sh 2>&1)
@@ -67,7 +67,7 @@ else
   printf "  \033[33mSKIP\033[0m  no templates to lint\n"
 fi
 
-# --- 6. Deep link + anchor check (lychee, optional) -------------------------
+# --- 7. Deep link + anchor check (lychee, optional) -------------------------
 heading "Deep link check (lychee)"
 if command -v lychee >/dev/null 2>&1; then
   md_files=$(find . -name '*.md' -not -path './node_modules/*')

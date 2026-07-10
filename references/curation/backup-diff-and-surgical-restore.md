@@ -87,8 +87,8 @@ been legitimately rewritten. Split them:
 
 Never programmatically bulk-reinsert into FLAGGED fields: it takes judgment (is the
 token's absence actually breaking meaning/SEO, e.g. `Jeune Entreprise` vs the legal
-status `Jeune Entreprise Innovante` = JEI?). Dispatch one reasoning agent per post
-(see below).
+status `Jeune Entreprise Innovante` = JEI?). Batch 5-10 homogeneous post packets per
+reasoning worker and keep one independent decision envelope per post (see below).
 
 ### Collateral words (the bad replace ate a NEIGHBOUR too)
 
@@ -154,8 +154,8 @@ from a file) avoid terminal mangling of long HTML/JSON field values.
 
 Build one JSON packet per affected post (`{post_id, type, title, field_data:{key:{live,
 baseline}}}`, `__content__` key for post_content). Write ONE shared brief encoding the
-decision rules + typography + exact helper usage, then dispatch one `medium` subagent
-per post (batches up to the concurrency cap). Each agent: reads packet, decides field
+decision rules + typography + exact helper usage, then assign 5-10 homogeneous packets
+per worker in bounded waves. Each worker returns one envelope per post: reads packet, decides field
 by field (restore only where meaning/SEO broke; keep voluntary edits), writes via the
 helper, verifies `ok=True`, reports in the site's language. Respond in the user's
 language — state it in the agent context.

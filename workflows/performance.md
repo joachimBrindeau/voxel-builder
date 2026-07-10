@@ -10,18 +10,21 @@ Improve performance in a Voxel + Elementor Framework WordPress workspace using s
 
 ## Phase 1 — Baseline
 
-Entry: target URL exists.
+**Entry:** Target URL exists.
 
 1. Capture same-state request timing: status, TTFB, total time, HTML size, cache headers.
 2. Capture browser evidence when relevant: Lighthouse JSON, console/network resource inventory, LCP/CLS/TBT/main-thread breakdown, visual UX issue.
 3. Capture backend evidence when relevant: project perf command, query count/time, duplicate query groups, PHP time.
 4. Record cache state (`x-litespeed-cache`, generated CSS presence, object-cache status) so before/after comparisons use the same state.
 
-Exit: bottleneck has reproducible evidence and a baseline artifact or notes.
+**Exit:** Bottleneck has reproducible evidence and a baseline artifact or notes.
 
 ## Phase 2 — Classify Bottleneck
 
-Entry: baseline exists.
+**Entry:** Baseline exists.
+
+1. Select exactly one primary bottleneck class from the table; split independent classes
+   into separate tasks so before/after attribution remains valid.
 
 | Class | Examples | Preferred Fix Layer |
 |---|---|---|
@@ -34,11 +37,11 @@ Entry: baseline exists.
 | Duplicate DB queries | attachment URL lookup, Voxel relation N+1 | request-local cache/batch priming/shared resolver |
 | Backend TTFB | slow queries, remote HTTP, autoload/options | backend profiling and plugin/source fix |
 
-Exit: one bottleneck class is selected for the next repair loop.
+**Exit:** One bottleneck class is selected for the next repair loop.
 
 ## Phase 3 — Repair Durable Source
 
-Entry: bottleneck class selected.
+**Entry:** Bottleneck class selected.
 
 1. Prefer shared plugin/framework fixes over page-specific edits.
 2. For generated assets, fix source/config and regenerate; do not hand-edit generated output except for temporary live recovery.
@@ -46,22 +49,22 @@ Entry: bottleneck class selected.
 4. For Elementor/EF runtime fixes, read live widget/source shape before patching assumptions into code.
 5. For backend query fixes, prove the exact caller stack and add request-local caching or batch priming at the narrow shared resolver.
 
-Exit: one source-level fix is applied and scoped to the selected bottleneck.
+**Exit:** One source-level fix is applied and scoped to the selected bottleneck.
 
 ## Phase 4 — Purge, Regenerate, Warm
 
-Entry: source change is applied.
+**Entry:** Source change is applied.
 
 1. Purge the correct cache layer. `wpdev purge` may not clear LiteSpeed full-page cache; use LiteSpeed purge when present.
 2. Regenerate Elementor CSS/assets if purge or code changes require it.
 3. Confirm linked generated CSS/JS URLs return the right status and MIME type before browser verification.
 4. Warm once after a real miss when comparing cached HTML behavior.
 
-Exit: the page is served from the intended cache state and generated assets are valid.
+**Exit:** The page is served from the intended cache state and generated assets are valid.
 
 ## Phase 5 — Verify Delta
 
-Entry: fresh render state is available.
+**Entry:** Fresh render state is available.
 
 1. Re-run the exact baseline probes.
 2. Compare only same-state measurements; do not mix cache-hit and cache-miss numbers without labeling them.
@@ -69,7 +72,7 @@ Entry: fresh render state is available.
 4. For query fixes, verify duplicate query groups/caller stacks shrink or disappear.
 5. If canonical test suites are blocked by unrelated environment issues, create a temporary `hermes-verify-*` ad-hoc assertion and delete it after running. Report it as ad-hoc verification, not suite green.
 
-Exit: the performance change is validated, blocked with evidence, or queued for another focused loop.
+**Exit:** The performance change is validated, blocked with evidence, or queued for another focused loop.
 
 ## High-Impact Patterns
 

@@ -5,15 +5,33 @@ All notable changes to the voxel-builder skill are documented here. The format f
 ## [Unreleased]
 
 ### Added
+- **Workflow-architecture structural lint** — `scripts/lint-workflow-structure.py`
+  enforces the router/index ownership set, explicit no-match fallback, strict document
+  size limits, numbered phase Entry/action/Exit contracts, leaf-role tool boundaries,
+  and the ban on worker-per-item fan-out.
 - **Reusable section-template library** (`templates/`) — a portable store of extracted, sanitized `_elementor_data` subtrees agents can splice into new builds instead of synthesizing from scratch every time. Three-tier scope model (`global` / `section` / `page`); each template ships a `template.json` + a `meta.yml` (id, scope, type, tags, widgets, dtags_used, requires_plugins, source_note, breakpoints) and is cataloged in `templates/index.md`. See `templates/README.md` for the on-disk shape, naming rule, and SSOT-wins discipline — the SSOT (`cli/src/generated/widget-schemas.json`) always wins over a template's shape; templates are starting trees, never authoritative spec.
 - **`references/templates/placeholder-policy.md`** — the sanitization SSOT: an 8-entry allowlist of universal dynamic tags safe to keep live in a stored template (`parent.title`, `slug`, `title`, `h1`, `:excerpt`, `author.display_name`, `author.profile.*`, featured-image id) plus a denylist (site TLDs, emails, phone numbers, real URLs, curated proper nouns). Every other static string or non-allowlisted dtag is replaced with Lorem Ipsum before a template is stored.
 - **`workflows/section-templates.md`** — the extraction+sanitization procedure (postId resolve → export → subtree select → recursive id-regen → sanitize → normalize → meta.yml → index row → lint gate) for turning a live page section into a stored template. Routed from `SKILL.md` ("Save/extract a section template", "turn this hero into a reusable template").
 - **Two seeded section templates** — `hero-services-search` and `hero-city-geo`, extracted end-to-end from a real production Voxel site and sanitized against the placeholder policy (zero denylisted proper nouns; only allowlisted dtags survive).
 - **`scripts/lint-templates.sh`** — the schema-aware drift/verification gate for the template store: validates every `template.json` against the live EF schema via `wpdev elementor:validate --file`, plus dtag allowlist/denylist scans and `meta.yml`↔JSON dtag-set equality in both directions. Wired into `scripts/lint.sh` as a new check that runs whenever templates exist.
 - **Build-workflow wiring** — `workflows/build.md` Phase 0 gains a third rebuild-vs-revise branch ("seed from a saved section template"), and Phase 2 §2d blueprints may now bind a section to a saved template by id instead of full widget-by-widget synthesis; both paths stay subordinate to the schema SSOT and still get patched/validated prop-by-prop. `SKILL.md` and `references/README.md` gain routing and reference-index entries pointing at the new store.
+- **FAQ authoring workflow** — `workflows/faq-authoring.md`, `references/voxel/faq-authoring.md`, and the read-only `voxel-faq-author` subagent turn one article, service page, glossary term, local page, event, product, or Voxel content item into source-supported visible FAQ rows. The workflow uses `docs/seo-checklist.db` writing rules only: natural-language questions, answer-first self-contained answers, 40-80 word default, concrete evidence, and page-type specificity; schema and rich-result guidance stay out of scope.
 
 ### Changed
+- Reworked routing and orchestration around MECE source ownership: each task has exactly
+  one primary workflow, composite work uses named exit-artifact handoffs, specialists
+  process bounded batches of 5-10 homogeneous leaves, and every leaf retains its own
+  evidence/output envelope while authoritative writes remain centralized.
+- Split oversized workflow and reference monoliths into concern-owned indexes and shards;
+  all workflows are under 300 lines, all references under 400 lines, and all specialist
+  briefs under 300 lines. The Material Symbols generator now shards oversized prefixes
+  deterministically and emits the current `lookup-and-repair.md` name.
+- Improved skill portability and executability: Codex-compatible frontmatter and explicit scope boundaries, current-directory-independent wpdev/catalog discovery, site-aware prerequisite verification, capability-based SEO/image routing, and repaired stale fixture/reference paths.
 - Reframed `voxel-builder` as an orchestrator-first skill: `SKILL.md` now makes named subagent dispatch a core principle and mandatory reference read, `rules.md` promotes the main agent to route/gate/aggregate/write-once duties, and the build/audit workflows now describe leaf work as delegated to atomic subagent briefs instead of performed inline by the main agent.
+- Extended orchestrator-first routing to FAQ content work: the main agent resolves
+  source/owner, plans questions, dispatches `voxel-faq-author` in bounded homogeneous
+  batches with one result envelope per content item, then validates length, evidence,
+  page-type fit, and write/read-back status.
 - Tightened the glossary/defined-term FAQ policy across the skill: on-page FAQ content is optional and must be genuine term-specific Q&A; `FAQPage` schema is not emitted for glossary/definition CPTs; the migration workflow no longer tells agents to re-add legacy FAQPage markup for rich-result eligibility after Google's 2026-05-07 deprecation.
 - Surfaced the new `wpdev voxel:field-schema` command in the CPT lifecycle and command surface as the corruption-proof runtime patch path for Voxel field-definition attributes, while preserving the blueprint/source-first rule. Added coverage-map rows for `voxel:field-schema` and `elementor:fetch-phosphor` so the skill lint tracks the live CLI registry again.
 - **Merged the `voxel-curator` skill in as the curation route.** The two sibling skills are now one. Voxel entity-data curation (create/edit/merge/delete records, taxonomies, profiles, linked WordPress users, organizations, locations, relationships) is reached from the SKILL.md routing table and runs as `workflows/curation.md` — a 4-phase Sequential-Pipeline (Discover → Plan → Execute → Verify) with a merge/delete safety gate. The curator's `_shared/*` moved to `references/curation/*`; `voxel-curator-agent` joins the subagent set (9 briefs). The SKILL.md description now carries both build and curation triggers. Routing table dropped its stale slash-command column. The standalone `voxel-curator` skill is removed.
