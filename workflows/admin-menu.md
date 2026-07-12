@@ -15,10 +15,14 @@ and registered UI taxonomies are discovery inputs.
 - Use `wpdev voxel:admin-menu`; do not hand-author option JSON.
 - Every registered Voxel CPT shown in wp-admin gets one Content entry with
   `List`, `Create`, and `Edit` children.
-- Sort top-level groups and every group of navigational siblings
-  alphabetically by the label users see. Compare accent-insensitively so
-  localized labels sort naturally. Preserve intentional ref-child action
-  sequences such as `List`, `Create`, `Edit` rather than alphabetizing them.
+- A top-level `Tags` group sits immediately after `Content` and contains every
+  taxonomy term-management ref (`edit-tags.php?...`), including preserved core
+  refs such as Categories and Tags plus discovered Voxel taxonomies.
+- Sort top-level groups and every group of navigational siblings alphabetically
+  by the label users see, then pin `Tags` immediately after `Content`. Compare
+  accent-insensitively so localized labels sort naturally. Preserve intentional
+  ref-child action sequences such as `List`, `Create`, `Edit` rather than
+  alphabetizing them.
 - Materialize inferred native labels into unlabeled refs before sorting when a
   stable post-type, taxonomy, core, or known-plugin label is available. This
   prevents the stored sort key from differing from the label users actually
@@ -36,9 +40,15 @@ and registered UI taxonomies are discovery inputs.
 
 1. Run `wpdev voxel:status <site>` and confirm both plugins are available.
 2. Read `lean_admin_metamenu` and `voxel:post_types` through `wpdev wp <site>`.
-3. Run `wpdev voxel:admin-menu <site> --dry --json`.
-4. Compare the reported `postTypes` and `taxonomies` with the Content group's
-   direct refs. Record missing, non-standard, and preserved custom entries.
+3. Run `wpdev voxel:admin-menu <site> --tree` for a shell-style comparison of
+   the exact stored `Original menu` and normalized `Active menu (planned)`.
+   Use `--json` when orchestration needs exportable `originalTree` and
+   `activeTree` arrays instead of formatted text.
+4. Run `wpdev voxel:admin-menu <site> --dry --json`.
+5. Compare reported `postTypes` with Content refs and reported `taxonomies`
+   with Tags refs. Also inventory every existing `edit-tags.php?...` ref: core
+   taxonomy refs may exist in stored menu even when runtime discovery omits
+   them, and must migrate to Tags rather than remain under Content.
 
 **Exit:** The current tree, discovered Voxel types, intended aligned tree, and
 whether the operation is `created` or `aligned` are known.
@@ -78,11 +88,14 @@ unmanaged menu choices.
 1. Read `lean_admin_metamenu` back through `wpdev wp <site>`.
 2. Assert every discovered Voxel CPT has exactly one direct Content ref and its
    children are exactly `List`, `Create`, and `Edit` with CPT-correct slugs.
-3. Assert the before snapshot's unmanaged nodes still exist and every group of
+3. Assert Content contains no `edit-tags.php?...` ref; Tags contains every
+   discovered taxonomy ref and every preserved pre-write taxonomy ref exactly
+   once, with `Tags` immediately after `Content` at top level.
+4. Assert the before snapshot's unmanaged nodes still exist and every group of
    navigational siblings is alphabetically ordered by its displayed label.
-4. Assert every ref-child action sequence retains its declared order, notably
+5. Assert every ref-child action sequence retains its declared order, notably
    `List`, `Create`, `Edit`.
-5. Rerun the dry-run and require `changed: false`.
+6. Rerun the dry-run and require `changed: false`.
 
 **Exit:** Stored configuration matches the inventory, preserves unmanaged
 choices, and is idempotent.
@@ -92,7 +105,10 @@ choices, and is idempotent.
 **Entry:** The persisted and idempotence checks pass.
 
 1. Open any authenticated wp-admin screen with `agent-browser` in an isolated
-   session and inspect the rendered Lean Admin sidebar.
+   session and inspect the rendered Lean Admin sidebar. Use a cache-busting
+   query parameter on the verification URL after a menu write; reopening the
+   identical URL can reuse the browser's previous admin document even when the
+   web process and option store already hold the new tree.
 2. Expand every rendered top-level group and nested subgroup. Confirm visible
    sibling labels are alphabetically ordered using accent-insensitive
    comparison.
@@ -116,6 +132,7 @@ dry-run reports no change.
 
 - The authoritative option is `lean_admin_metamenu`.
 - Every current Voxel CPT is standardized under Content exactly once.
+- Tags sits immediately after Content and owns every taxonomy term screen.
 - All navigational sibling groups are alphabetized while action sequences keep
   their intentional order.
 - Existing unmanaged choices are preserved; a new site receives the baseline.
