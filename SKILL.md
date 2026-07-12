@@ -99,6 +99,7 @@ single-command lookup.
 | Configure or debug lean-seo output | metadata, schema, markdown, sitemap, permalink, redirect, verification tag | `workflows/settings.md` |
 | Create or align the WordPress admin menu | lean-admin, Content menu, standardized CPT submenu, missing CPT menu | `workflows/admin-menu.md` |
 | Improve measured runtime performance | Lighthouse, CWV, N+1, payload, generated CSS, cache | `workflows/performance.md` |
+| Audit and converge the Cloudflare edge (SSL/TLS, DNS, cache, Worker, crawlability) | cloudflare, edge, CDN, DNSSEC, CAA, cache rule, WAF, `a.<domain>` analytics proxy | `workflows/cloudflare.md` |
 | Set/change the EF brand color palette | brand color, primary/accent green, brand purple, `--ef-color-*`, `_light` tint, match production colors | `workflows/design-tokens.md` |
 | Lookup only; no mutation or full audit | schema shape, icon name, Voxel version/feature | `references/README.md` |
 

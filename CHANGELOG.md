@@ -5,6 +5,7 @@ All notable changes to the voxel-builder skill are documented here. The format f
 ## [Unreleased]
 
 ### Added
+- **Cloudflare edge workflow** — `workflows/cloudflare.md` autonomously audits and converges the Cloudflare zone in front of a Voxel/Elementor site: SSL/TLS hardening (min TLS 1.2, TLS 1.3, Always-HTTPS, strict SSL), DNS integrity (DNSSEC, add-only CAA across all active edge/origin CAs), sitemap/search cache-bypass, HSTS/security-header reuse, performance toggles (Brotli/HTTP3/Early-Hints/0-RTT), analytics-proxy Worker least-privilege verification, and edge crawlability. Token is read from the environment and never disclosed; only safe reversible edge/DNS changes auto-apply, while origin lockdown and Worker/registrar steps are staged as manual/risky with rollback and read-back verification. Routed from `SKILL.md` and indexed in `workflows/README.md`.
 - **Workflow-architecture structural lint** — `scripts/lint-workflow-structure.py`
   enforces the router/index ownership set, explicit no-match fallback, strict document
   size limits, numbered phase Entry/action/Exit contracts, leaf-role tool boundaries,

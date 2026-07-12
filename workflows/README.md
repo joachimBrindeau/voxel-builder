@@ -25,6 +25,7 @@ workflow and never compete at intake.
 | [`settings.md`](settings.md) | lean-seo output configuration/debugging | Read-back-equal settings + live output validation |
 | [`admin-menu.md`](admin-menu.md) | WordPress Lean Admin menu creation/alignment | `lean_admin_metamenu`-owned menu verified against Voxel CPTs |
 | [`performance.md`](performance.md) | Measured runtime performance repair | Same-state before/after delta + behavior proof |
+| [`cloudflare.md`](cloudflare.md) | Cloudflare edge audit/convergence for the site zone | Read-back-verified edge posture + staged manual/risky plan |
 | [`design-tokens.md`](design-tokens.md) | EF brand color palette (`--ef-color-*` SSOT + `_light`) | Read-back-equal cascade + tint/base browser proof |
 
 ## Supporting Sub-Pipeline
