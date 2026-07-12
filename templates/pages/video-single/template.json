@@ -1,0 +1,5066 @@
+[
+  {
+    "id": "e2f5343",
+    "elType": "ef-wrapper",
+    "settings": {
+      "classes": {
+        "$$type": "classes",
+        "value": []
+      },
+      "attributes": {
+        "$$type": "attributes",
+        "value": []
+      },
+      "row_span": {
+        "$$type": "ef-responsive-number",
+        "value": {
+          "desktop": {
+            "$$type": "number",
+            "value": 1
+          },
+          "tablet": {
+            "$$type": "number",
+            "value": 0
+          },
+          "mobile": {
+            "$$type": "number",
+            "value": 0
+          }
+        }
+      },
+      "sticky": {
+        "$$type": "ef-responsive-boolean",
+        "value": {
+          "desktop": {
+            "$$type": "boolean",
+            "value": false
+          },
+          "tablet": {
+            "$$type": "boolean",
+            "value": false
+          },
+          "mobile": {
+            "$$type": "boolean",
+            "value": false
+          }
+        }
+      },
+      "tag": {
+        "$$type": "string",
+        "value": "main"
+      },
+      "cols": {
+        "$$type": "ef-responsive-string",
+        "value": {
+          "desktop": {
+            "$$type": "string",
+            "value": "1fr"
+          },
+          "tablet": {
+            "$$type": "string",
+            "value": ""
+          },
+          "mobile": {
+            "$$type": "string",
+            "value": ""
+          }
+        }
+      },
+      "rows": {
+        "$$type": "ef-responsive-number",
+        "value": {
+          "desktop": {
+            "$$type": "number",
+            "value": 1
+          },
+          "tablet": {
+            "$$type": "number",
+            "value": 1
+          },
+          "mobile": {
+            "$$type": "number",
+            "value": 1
+          }
+        }
+      },
+      "col_span": {
+        "$$type": "ef-responsive-number",
+        "value": {
+          "desktop": {
+            "$$type": "number",
+            "value": 1
+          },
+          "tablet": {
+            "$$type": "number",
+            "value": 1
+          },
+          "mobile": {
+            "$$type": "number",
+            "value": 1
+          }
+        }
+      }
+    },
+    "elements": [
+      {
+        "id": "0d331cc",
+        "elType": "ef-wrapper",
+        "settings": {
+          "classes": {
+            "$$type": "classes",
+            "value": []
+          },
+          "attributes": {
+            "$$type": "attributes",
+            "value": []
+          },
+          "row_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 0
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 0
+              }
+            }
+          },
+          "sticky": {
+            "$$type": "ef-responsive-boolean",
+            "value": {
+              "desktop": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "tablet": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "mobile": {
+                "$$type": "boolean",
+                "value": false
+              }
+            }
+          },
+          "tag": {
+            "$$type": "string",
+            "value": "header"
+          },
+          "bg_color": {
+            "$$type": "string",
+            "value": "primary_light"
+          },
+          "bg_pattern": {
+            "$$type": "boolean",
+            "value": true
+          },
+          "cols": {
+            "$$type": "ef-responsive-string",
+            "value": {
+              "desktop": {
+                "$$type": "string",
+                "value": "1fr"
+              },
+              "tablet": {
+                "$$type": "string",
+                "value": ""
+              },
+              "mobile": {
+                "$$type": "string",
+                "value": ""
+              }
+            }
+          },
+          "rows": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          },
+          "bg_media_enabled": {
+            "$$type": "boolean",
+            "value": true
+          },
+          "bg_media_type": {
+            "$$type": "string",
+            "value": "color"
+          },
+          "col_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          }
+        },
+        "elements": [
+          {
+            "id": "722986c",
+            "elType": "ef-card",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 0
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "layout": {
+                "$$type": "ef-responsive-string",
+                "value": {
+                  "desktop": {
+                    "$$type": "string",
+                    "value": "horizontal"
+                  },
+                  "tablet": {
+                    "$$type": "string",
+                    "value": ""
+                  },
+                  "mobile": {
+                    "$$type": "string",
+                    "value": ""
+                  }
+                }
+              },
+              "content_blocks": {
+                "$$type": "ef-content-block-rows",
+                "value": [
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "tag"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "@tags()@post(parent.title)@endtags()"
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": "primary"
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": "action_link"
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": "#"
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "@tags()@post(h1)@endtags()"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h1"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "byline"
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": "__AUTHOR_NAME_RAW_TAG__"
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": "__AUTHOR_JOB_RAW_TAG__"
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": "action_link"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": "@tags()@author(profile.permalink)@endtags()"
+                          }
+                        }
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": {
+                          "src": {
+                            "$$type": "image-src",
+                            "value": {
+                              "id": null,
+                              "url": {
+                                "$$type": "vx",
+                                "value": "__AUTHOR_AVATAR_TAG__"
+                              }
+                            }
+                          },
+                          "size": {
+                            "$$type": "string",
+                            "value": "thumbnail"
+                          }
+                        }
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "media_enabled": {
+                "$$type": "boolean",
+                "value": true
+              },
+              "media_type": {
+                "$$type": "string",
+                "value": "video"
+              },
+              "media_video_url": {
+                "$$type": "ef-source-value",
+                "value": {
+                  "source": {
+                    "$$type": "string",
+                    "value": "custom"
+                  },
+                  "value": {
+                    "$$type": "string",
+                    "value": "__VIDEO_URL_TAG__"
+                  }
+                }
+              },
+              "media_caption": {
+                "$$type": "vx",
+                "value": "Lorem ipsum dolor sit amet"
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          }
+        ],
+        "isInner": true,
+        "interactions": [],
+        "editor_settings": [],
+        "version": "0.0"
+      },
+      {
+        "id": "9294cb8",
+        "elType": "ef-wrapper",
+        "settings": {
+          "classes": {
+            "$$type": "classes",
+            "value": []
+          },
+          "attributes": {
+            "$$type": "attributes",
+            "value": []
+          },
+          "row_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 0
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 0
+              }
+            }
+          },
+          "sticky": {
+            "$$type": "ef-responsive-boolean",
+            "value": {
+              "desktop": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "tablet": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "mobile": {
+                "$$type": "boolean",
+                "value": false
+              }
+            }
+          },
+          "tag": {
+            "$$type": "string",
+            "value": "section"
+          },
+          "cols": {
+            "$$type": "ef-responsive-string",
+            "value": {
+              "desktop": {
+                "$$type": "string",
+                "value": "1fr 1fr"
+              },
+              "tablet": {
+                "$$type": "string",
+                "value": ""
+              },
+              "mobile": {
+                "$$type": "string",
+                "value": ""
+              }
+            }
+          },
+          "rows": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          },
+          "col_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          }
+        },
+        "elements": [
+          {
+            "id": "2597206",
+            "elType": "ef-card",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 0
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "variant": {
+                "$$type": "string",
+                "value": "primary"
+              },
+              "layout": {
+                "$$type": "ef-responsive-string",
+                "value": {
+                  "desktop": {
+                    "$$type": "string",
+                    "value": "horizontal"
+                  },
+                  "tablet": {
+                    "$$type": "string",
+                    "value": ""
+                  },
+                  "mobile": {
+                    "$$type": "string",
+                    "value": ""
+                  }
+                }
+              },
+              "content_blocks": {
+                "$$type": "ef-content-block-rows",
+                "value": [
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "@tags()@author(display_name)@endtags()"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h2"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": "ph:ph ph-user-focus"
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "group"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": "date"
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_inline": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "dtag": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "media_enabled": {
+                "$$type": "boolean",
+                "value": true
+              },
+              "media_type": {
+                "$$type": "string",
+                "value": "image"
+              },
+              "media_image": {
+                "$$type": "image",
+                "value": {
+                  "src": {
+                    "$$type": "image-src",
+                    "value": {
+                      "id": null,
+                      "url": {
+                        "$$type": "vx",
+                        "value": "__AUTHOR_AVATAR_TAG__"
+                      }
+                    }
+                  },
+                  "size": {
+                    "$$type": "string",
+                    "value": "thumbnail"
+                  }
+                }
+              },
+              "media_image_alt": {
+                "$$type": "string",
+                "value": ""
+              },
+              "media_image_loading": {
+                "$$type": "string",
+                "value": "auto"
+              },
+              "media_caption": {
+                "$$type": "string",
+                "value": ""
+              },
+              "media_fit": {
+                "$$type": "string",
+                "value": "cover"
+              },
+              "logo_enabled": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "ts_actions": {
+                "$$type": "ef-action-rows",
+                "value": [
+                  {
+                    "$$type": "ef-action-row",
+                    "value": {
+                      "_id": {
+                        "$$type": "string",
+                        "value": "ea66e49"
+                      },
+                      "label": {
+                        "$$type": "string",
+                        "value": "@tags()@author(display_name)@endtags()"
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": "action_link"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": "@tags()@author(profile.permalink)@endtags()"
+                          }
+                        }
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": "primary"
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tooltip": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      }
+                    }
+                  }
+                ]
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          },
+          {
+            "id": "9c05699",
+            "elType": "ef-card",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "content_blocks": {
+                "$$type": "ef-content-block-rows",
+                "value": [
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": "ms:ms ms-list_alt"
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h2"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "@tags()@post(:excerpt)@endtags()"
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "span"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Duration"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "__VIDEO_DURATION_TAG__"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Statistiques"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "__VIDEO_STATS_TAG__"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Duration"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "__VIDEO_DURATION_TAG__"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Lien"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": "action_link"
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": "__VIDEO_URL_TAG__"
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Published"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "__DATE_CREATED_TAG__"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "datafield"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "datafield_label": {
+                        "$$type": "string",
+                        "value": "Updated"
+                      },
+                      "datafield_value": {
+                        "$$type": "string",
+                        "value": "__DATE_MODIFIED_TAG__"
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          }
+        ],
+        "isInner": true,
+        "interactions": [],
+        "editor_settings": [],
+        "version": "0.0"
+      },
+      {
+        "id": "fd70a39",
+        "elType": "ef-wrapper",
+        "settings": {
+          "classes": {
+            "$$type": "classes",
+            "value": [
+              "s-c6037b0-0"
+            ]
+          },
+          "attributes": {
+            "$$type": "attributes",
+            "value": []
+          },
+          "row_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          },
+          "sticky": {
+            "$$type": "ef-responsive-boolean",
+            "value": {
+              "desktop": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "tablet": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "mobile": {
+                "$$type": "boolean",
+                "value": false
+              }
+            }
+          },
+          "tag": {
+            "$$type": "string",
+            "value": "section"
+          },
+          "mode": {
+            "$$type": "string",
+            "value": ""
+          },
+          "bg_color": {
+            "$$type": "string",
+            "value": "primary_light"
+          },
+          "cols": {
+            "$$type": "ef-responsive-string",
+            "value": {
+              "desktop": {
+                "$$type": "string",
+                "value": "1fr 1fr"
+              },
+              "tablet": {
+                "$$type": "string",
+                "value": ""
+              },
+              "mobile": {
+                "$$type": "string",
+                "value": ""
+              }
+            }
+          },
+          "rows": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          },
+          "bg_media_enabled": {
+            "$$type": "boolean",
+            "value": true
+          },
+          "bg_media_type": {
+            "$$type": "string",
+            "value": "color"
+          },
+          "_cssid": {
+            "$$type": "string",
+            "value": "chapitres"
+          },
+          "_vx_visibility": {
+            "$$type": "vx-visibility",
+            "value": {
+              "behavior": "show",
+              "rules": [
+                [
+                  {
+                    "type": "dtag",
+                    "tag": "__CHAPTER_TITLE_RAW_TAG__",
+                    "compare": "is_not_empty",
+                    "arguments": []
+                  }
+                ]
+              ]
+            }
+          },
+          "col_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          }
+        },
+        "elements": [
+          {
+            "id": "52854a3",
+            "elType": "ef-card",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": [
+                  "s-9f93738-0"
+                ]
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": true
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "variant": {
+                "$$type": "string",
+                "value": "primary"
+              },
+              "content_blocks": {
+                "$$type": "ef-content-block-rows",
+                "value": [
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "Video chapters"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h2"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      }
+                    }
+                  }
+                ]
+              },
+              "media_enabled": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "logo_enabled": {
+                "$$type": "boolean",
+                "value": true
+              },
+              "logo_type": {
+                "$$type": "string",
+                "value": "image"
+              },
+              "logo_image": {
+                "$$type": "image",
+                "value": {
+                  "src": {
+                    "$$type": "image-src",
+                    "value": {
+                      "id": null,
+                      "url": {
+                        "$$type": "vx",
+                        "value": "__SITE_LOGO_TAG__"
+                      }
+                    }
+                  },
+                  "size": {
+                    "$$type": "string",
+                    "value": "medium_large"
+                  }
+                }
+              },
+              "logo_image_alt": {
+                "$$type": "string",
+                "value": "Klarc logo"
+              },
+              "logo_fit": {
+                "$$type": "string",
+                "value": "contain"
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "styles": {
+              "s-9f93738-0": {
+                "id": "876f8b1",
+                "type": "class",
+                "label": "Lorem ipsum dolor sit amet",
+                "variants": [
+                  {
+                    "meta": {
+                      "breakpoint": "desktop",
+                      "state": null
+                    },
+                    "props": [],
+                    "custom_css": null
+                  },
+                  {
+                    "meta": {
+                      "breakpoint": "tablet",
+                      "state": null
+                    },
+                    "props": [],
+                    "custom_css": null
+                  },
+                  {
+                    "meta": {
+                      "breakpoint": "mobile",
+                      "state": null
+                    },
+                    "props": {
+                      "grid-column": {
+                        "$$type": "string",
+                        "value": "auto"
+                      }
+                    },
+                    "custom_css": null
+                  }
+                ]
+              }
+            },
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          },
+          {
+            "id": "848dc73",
+            "elType": "ef-wrapper",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "rows": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [
+              {
+                "id": "d6ee285",
+                "elType": "ef-card",
+                "settings": {
+                  "classes": {
+                    "$$type": "classes",
+                    "value": [
+                      "s-364a943-0"
+                    ]
+                  },
+                  "attributes": {
+                    "$$type": "attributes",
+                    "value": []
+                  },
+                  "row_span": {
+                    "$$type": "ef-responsive-number",
+                    "value": {
+                      "desktop": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "tablet": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "mobile": {
+                        "$$type": "number",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "sticky": {
+                    "$$type": "ef-responsive-boolean",
+                    "value": {
+                      "desktop": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "tablet": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      }
+                    }
+                  },
+                  "variant": {
+                    "$$type": "string",
+                    "value": "white"
+                  },
+                  "content_blocks": {
+                    "$$type": "ef-content-block-rows",
+                    "value": [
+                      {
+                        "$$type": "ef-content-block-row",
+                        "value": {
+                          "kind": {
+                            "$$type": "string",
+                            "value": "heading"
+                          },
+                          "text": {
+                            "$$type": "string",
+                            "value": "__CHAPTER_TITLE_TAG__"
+                          },
+                          "tag": {
+                            "$$type": "string",
+                            "value": "h3"
+                          },
+                          "style": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      {
+                        "$$type": "ef-content-block-row",
+                        "value": {
+                          "kind": {
+                            "$$type": "string",
+                            "value": "rich_text"
+                          },
+                          "body": {
+                            "$$type": "string",
+                            "value": "Lorem ipsum dolor sit amet"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "logo_enabled": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "logo_type": {
+                    "$$type": "string",
+                    "value": "image"
+                  },
+                  "_vx_loop": {
+                    "$$type": "vx-loop",
+                    "value": {
+                      "tag": "__CHAPTERS_LOOP_TAG__",
+                      "limit": null,
+                      "offset": null
+                    }
+                  },
+                  "col_span": {
+                    "$$type": "ef-responsive-number",
+                    "value": {
+                      "desktop": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "tablet": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "mobile": {
+                        "$$type": "number",
+                        "value": 1
+                      }
+                    }
+                  }
+                },
+                "elements": [],
+                "isInner": false,
+                "interactions": [],
+                "editor_settings": [],
+                "version": "0.0"
+              }
+            ],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          }
+        ],
+        "isInner": true,
+        "styles": {
+          "s-c6037b0-0": {
+            "id": "f1d31e3",
+            "type": "class",
+            "label": "Lorem ipsum dolor sit amet",
+            "variants": [
+              {
+                "meta": {
+                  "state": null,
+                  "breakpoint": "desktop"
+                },
+                "props": {
+                  "gap": {
+                    "$$type": "size",
+                    "value": {
+                      "size": "var(--ef-gap-l)",
+                      "unit": "custom"
+                    }
+                  }
+                },
+                "custom_css": null
+              },
+              {
+                "meta": {
+                  "state": null,
+                  "breakpoint": "tablet"
+                },
+                "props": {
+                  "display": {
+                    "$$type": "string",
+                    "value": "grid"
+                  },
+                  "gap": {
+                    "$$type": "size",
+                    "value": {
+                      "size": "var(--ef-gap-l)",
+                      "unit": "custom"
+                    }
+                  },
+                  "grid-template-columns": {
+                    "$$type": "string",
+                    "value": "Lorem ipsum dolor sit amet"
+                  }
+                },
+                "custom_css": null
+              },
+              {
+                "meta": {
+                  "state": null,
+                  "breakpoint": "mobile"
+                },
+                "props": {
+                  "gap": {
+                    "$$type": "size",
+                    "value": {
+                      "size": "var(--ef-gap-l)",
+                      "unit": "custom"
+                    }
+                  }
+                },
+                "custom_css": null
+              }
+            ]
+          }
+        },
+        "interactions": [],
+        "editor_settings": [],
+        "version": "0.0"
+      },
+      {
+        "id": "76d35ea",
+        "elType": "ef-wrapper",
+        "settings": {
+          "classes": {
+            "$$type": "classes",
+            "value": []
+          },
+          "attributes": {
+            "$$type": "attributes",
+            "value": []
+          },
+          "row_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 0
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 0
+              }
+            }
+          },
+          "sticky": {
+            "$$type": "ef-responsive-boolean",
+            "value": {
+              "desktop": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "tablet": {
+                "$$type": "boolean",
+                "value": false
+              },
+              "mobile": {
+                "$$type": "boolean",
+                "value": false
+              }
+            }
+          },
+          "tag": {
+            "$$type": "string",
+            "value": "aside"
+          },
+          "cols": {
+            "$$type": "ef-responsive-string",
+            "value": {
+              "desktop": {
+                "$$type": "string",
+                "value": "1fr 1fr"
+              },
+              "tablet": {
+                "$$type": "string",
+                "value": ""
+              },
+              "mobile": {
+                "$$type": "string",
+                "value": ""
+              }
+            }
+          },
+          "rows": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          },
+          "bg_media_enabled": {
+            "$$type": "boolean",
+            "value": false
+          },
+          "col_span": {
+            "$$type": "ef-responsive-number",
+            "value": {
+              "desktop": {
+                "$$type": "number",
+                "value": 1
+              },
+              "tablet": {
+                "$$type": "number",
+                "value": 1
+              },
+              "mobile": {
+                "$$type": "number",
+                "value": 1
+              }
+            }
+          }
+        },
+        "elements": [
+          {
+            "id": "2a7a25e",
+            "elType": "ef-card",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 0
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "variant": {
+                "$$type": "string",
+                "value": "transparent"
+              },
+              "content_blocks": {
+                "$$type": "ef-content-block-rows",
+                "value": [
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "tag"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "variant": {
+                        "$$type": "string",
+                        "value": "primary"
+                      },
+                      "icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 2
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_primary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_secondary": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "separator_variant": {
+                        "$$type": "string",
+                        "value": "full"
+                      },
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "byline_avatar_type": {
+                        "$$type": "string",
+                        "value": "image"
+                      },
+                      "byline_avatar_image": {
+                        "$$type": "image",
+                        "value": []
+                      },
+                      "byline_avatar_image_alt": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_video_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "byline_avatar_icon": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "byline_avatar_fit": {
+                        "$$type": "string",
+                        "value": "cover"
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "heading"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h2"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      }
+                    }
+                  }
+                ]
+              },
+              "_vx_visibility": {
+                "$$type": "vx-visibility",
+                "value": {
+                  "behavior": "show",
+                  "rules": [
+                    [
+                      {
+                        "type": "dtag",
+                        "tag": "__RELATED_VIDEO_ID_TAG__",
+                        "compare": "is_not_empty",
+                        "arguments": []
+                      }
+                    ]
+                  ]
+                }
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 2
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          },
+          {
+            "id": "04e72f9",
+            "elType": "ef-wrapper",
+            "settings": {
+              "classes": {
+                "$$type": "classes",
+                "value": []
+              },
+              "attributes": {
+                "$$type": "attributes",
+                "value": []
+              },
+              "row_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "sticky": {
+                "$$type": "ef-responsive-boolean",
+                "value": {
+                  "desktop": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "tablet": {
+                    "$$type": "boolean",
+                    "value": false
+                  },
+                  "mobile": {
+                    "$$type": "boolean",
+                    "value": false
+                  }
+                }
+              },
+              "mode": {
+                "$$type": "string",
+                "value": "template"
+              },
+              "template_id": {
+                "$$type": "string",
+                "value": "21588"
+              },
+              "rows": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              },
+              "_vx_loop": {
+                "$$type": "vx-loop",
+                "value": {
+                  "tag": "__RELATED_VIDEOS_LOOP_TAG__",
+                  "limit": null,
+                  "offset": null
+                }
+              },
+              "col_span": {
+                "$$type": "ef-responsive-number",
+                "value": {
+                  "desktop": {
+                    "$$type": "number",
+                    "value": 0
+                  },
+                  "tablet": {
+                    "$$type": "number",
+                    "value": 1
+                  },
+                  "mobile": {
+                    "$$type": "number",
+                    "value": 1
+                  }
+                }
+              }
+            },
+            "elements": [],
+            "isInner": false,
+            "interactions": [],
+            "editor_settings": [],
+            "version": "0.0"
+          }
+        ],
+        "isInner": true,
+        "interactions": [],
+        "editor_settings": [],
+        "version": "0.0"
+      }
+    ],
+    "isInner": false,
+    "interactions": [],
+    "editor_settings": [],
+    "version": "0.0"
+  }
+]

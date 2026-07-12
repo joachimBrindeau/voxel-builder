@@ -1,0 +1,17 @@
+id: video-single
+scope: page
+type: single
+name: "Voxel video single"
+tags: [video, single, chapters, author, related-content, wrapper]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+  - "@tags()@post(h1)@endtags()"
+  - "@tags()@post(:excerpt)@endtags()"
+  - "@tags()@author(display_name)@endtags()"
+  - "@tags()@author(profile.permalink)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Canonical wrapper-based video single extracted from Klarc template 21583. Static copy is Lorem Ipsum. Before import replace documented __VIDEO_*__, __CHAPTER*__, __RELATED_*__, __AUTHOR_*__, __DATE_*__, and __SITE_LOGO_TAG__ tokens with target CPT dynamic tags. Root is one ef-wrapper tagged main; no root-level sibling widgets."
+breakpoints: [desktop, tablet, mobile]

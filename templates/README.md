@@ -98,12 +98,11 @@ Order: **normalize → `elementor:import <site> <postId> --save` → re-`element
 
 ## Empty slots
 
-`global/` and `pages/` carry a `.gitkeep` and are **documented-but-empty for v1**. The scope shape exists so agents know where those templates land, but seeding them is deferred to a follow-up (per the plan's Scope Boundaries):
+`global/` carries a `.gitkeep` and is **documented-but-empty**. The scope shape exists so agents know where those templates land, but seeding is deferred to a follow-up:
 
 - **`global/`** — header/footer templates (one active per site, `location: header|footer`). Fill when a saved global becomes reusable across sites.
-- **`pages/`** — full-page compositions. Fill when a whole-page starting tree is worth storing.
 
-Only `sections/` is seeded in v1. `preview.png` generation is likewise deferred.
+`sections/` and `pages/` are seeded; `preview.png` generation is deferred.
 
 ## Adding a template
 

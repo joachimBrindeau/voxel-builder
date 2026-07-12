@@ -1,0 +1,16 @@
+id: glossary
+scope: page
+type: glossary
+name: "Glossary hub with A–Z term index"
+tags: [glossary, dictionary, defined-terms, az-index, loop, hub]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+  - "@tags()@post(h1)@endtags()"
+  - "@tags()@post(title)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+  - voxel-addon
+source_note: "Full-page composition extracted from Klarc glossary hub page 12540. All Klarc/legal/static wording replaced with Lorem Ipsum; all URLs replaced with #. Before import replace __ALPHA_LOOP_TAG__ with @site(loop_alpha), __GLOSSARY_LOOP_TAG__ with @site(loop_<glossary_cpt_key>), __ALPHA_VALUE__ with @site(loop_alpha.value), and __TERM_INITIAL__ with @post(title).substr(0,1)."
+breakpoints: [desktop, tablet, mobile]

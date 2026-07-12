@@ -1,0 +1,14 @@
+id: archive
+scope: page
+type: archive
+name: "Voxel CPT search archive"
+tags: [archive, search, results, cpt, voxel]
+widgets: [ef-wrapper, ef-card, ts-search-form, ts-post-feed]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+  - "@tags()@post(h1)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Canonical hierarchy-driven CPT archive page. Replace every __POST_TYPE__ token, including JSON object keys, with target Voxel CPT key before import. Use as a child of the Search page. Keep Voxel archive template assignment empty."
+breakpoints: [desktop, tablet, mobile]

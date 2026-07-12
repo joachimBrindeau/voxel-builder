@@ -1,0 +1,14 @@
+id: search-hub-index
+scope: page
+type: search-hub
+name: "Search hub index"
+tags: [search, hub, index, cpt, archive-replacement]
+widgets: [ef-wrapper, ef-card]
+dtags_used:
+  - "@tags()@post(parent.title)@endtags()"
+  - "@tags()@post(h1)@endtags()"
+requires_plugins:
+  - elementor-framework
+  - voxel
+source_note: "Full-page composition adapted from Klarc search hub page 12432. Brand copy removed, parent permalink replaced with #, and static copy sanitized per placeholder policy. Instantiate as a child of Home; create CPT result pages beneath it."
+breakpoints: [desktop, tablet, mobile]

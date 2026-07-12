@@ -5,6 +5,7 @@ All notable changes to the voxel-builder skill are documented here. The format f
 ## [Unreleased]
 
 ### Added
+- **Seeded page-scope templates + page-first reliance** — the `templates/pages/` store is now seeded with four complete, agnostic whole-page compositions (`archive`, `glossary`, `search-hub-index`, `video-single`); each is placeholder-clean (only allowlisted dtags survive, static copy is Lorem Ipsum) and carries documented `__TOKEN__` slots re-bound to the target CPT before import. Page building now relies on them: `workflows/build.md` Phase 0 checks the **Pages** table first for a matching `scope: page` composition, `references/core/page-plan-archetypes.md` adds a whole-page lookup ahead of the per-section lookup, and `workflows/page-planning.md` §2c records the page-scope binding. `templates/README.md` §Empty slots and `templates/index.md` no longer describe `pages/` as empty (only `global/` remains deferred).
 - **Cloudflare edge workflow** — `workflows/cloudflare.md` autonomously audits and converges the Cloudflare zone in front of a Voxel/Elementor site: SSL/TLS hardening (min TLS 1.2, TLS 1.3, Always-HTTPS, strict SSL), DNS integrity (DNSSEC, add-only CAA across all active edge/origin CAs), sitemap/search cache-bypass, HSTS/security-header reuse, performance toggles (Brotli/HTTP3/Early-Hints/0-RTT), analytics-proxy Worker least-privilege verification, and edge crawlability. Token is read from the environment and never disclosed; only safe reversible edge/DNS changes auto-apply, while origin lockdown and Worker/registrar steps are staged as manual/risky with rollback and read-back verification. Routed from `SKILL.md` and indexed in `workflows/README.md`.
 - **Workflow-architecture structural lint** — `scripts/lint-workflow-structure.py`
   enforces the router/index ownership set, explicit no-match fallback, strict document
@@ -17,6 +18,10 @@ All notable changes to the voxel-builder skill are documented here. The format f
 - **`scripts/lint-templates.sh`** — the schema-aware drift/verification gate for the template store: validates every `template.json` against the live EF schema via `wpdev elementor:validate --file`, plus dtag allowlist/denylist scans and `meta.yml`↔JSON dtag-set equality in both directions. Wired into `scripts/lint.sh` as a new check that runs whenever templates exist.
 - **Build-workflow wiring** — `workflows/build.md` Phase 0 gains a third rebuild-vs-revise branch ("seed from a saved section template"), and Phase 2 §2d blueprints may now bind a section to a saved template by id instead of full widget-by-widget synthesis; both paths stay subordinate to the schema SSOT and still get patched/validated prop-by-prop. `SKILL.md` and `references/README.md` gain routing and reference-index entries pointing at the new store.
 - **FAQ authoring workflow** — `workflows/faq-authoring.md`, `references/voxel/faq-authoring.md`, and the read-only `voxel-faq-author` subagent turn one article, service page, glossary term, local page, event, product, or Voxel content item into source-supported visible FAQ rows. The workflow uses `docs/seo-checklist.db` writing rules only: natural-language questions, answer-first self-contained answers, 40-80 word default, concrete evidence, and page-type specificity; schema and rich-result guidance stay out of scope.
+
+
+### Fixed
+- **`templates/pages/archive` filter key** — `ts_filter_list____POST_TYPE__` (double separator) corrected to `ts_filter_list___POST_TYPE__` so `__POST_TYPE__` substitution yields the valid Voxel key `ts_filter_list_<cpt>` instead of a malformed `ts_filter_list__<cpt>`.
 
 ### Changed
 - Reworked routing and orchestration around MECE source ownership: each task has exactly

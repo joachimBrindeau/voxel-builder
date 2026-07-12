@@ -35,9 +35,15 @@ and known-defect repair do not enter here first.
    wpdev elementor:tree <site> <id> > /tmp/before-tree-<id>.txt
    wpdev elementor:revisions:prune <site> --post <id>
    ```
-3. Inspect `templates/index.md` and choose exactly one strategy:
-   - `adapt-template`: a matching saved section exists;
-   - `rebuild-greenfield`: current structure is a thin/broken/legacy liability;
+3. Inspect `templates/index.md` and choose exactly one strategy. For a full page or
+   single/archive/hub template, check the **Pages** table FIRST: when a `scope: page`
+   composition matches the target archetype, adopt it as the whole-page starting tree
+   rather than synthesizing the composition from loose sections.
+   - `adapt-template`: a matching saved template exists — a `scope: page` composition for
+     a whole page/single/archive/hub, else `scope: section` parts assembled into the page.
+     Splice the stored tree, then replace its documented `__TOKEN__` slots and re-bind
+     loop/source dtags to the target CPT (per each template's `source_note`);
+   - `rebuild-greenfield`: no matching template and current structure is a thin/broken/legacy liability;
    - `revise`: current structure is sound and the change is local.
 4. Compute the run fingerprint from fields, schema hash, sample ids, and plan body. An
    unchanged stored fingerprint is a verified no-op.
