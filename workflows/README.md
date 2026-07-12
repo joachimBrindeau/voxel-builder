@@ -13,6 +13,7 @@ workflow and never compete at intake.
 | [`cpt-repair.md`](cpt-repair.md) | Existing CPT config/runtime/template-resolution repair | Source-owner repair + all affected surfaces verified |
 | [`migrate.md`](migrate.md) | Legacy Elementor V3 to EF V4 conversion | Preserved-information EF tree + browser proof |
 | [`build.md`](build.md) | General EF `_elementor_data` creation/modification | Read-back-equal, linted, browser-verified tree |
+| [`site-port.md`](site-port.md) | Cross-site page/template/section/widget adaptation | Adaptation manifest + target-native lint/read-back/browser proof |
 | [`archive-search-pages.md`](archive-search-pages.md) | Public archive/search URL and result surface | Canonical searchable page + index/browser proof |
 | [`section-templates.md`](section-templates.md) | Reusable section-store extraction/refresh | Sanitized, indexed, linted template package |
 | [`card-actions.md`](card-actions.md) | `ts_actions` / navbar action-row strip | Schema-valid actions with runtime destinations |
@@ -20,6 +21,8 @@ workflow and never compete at intake.
 | [`curation.md`](curation.md) | Voxel records, fields, relations, users, visible copy | Per-record read-back + invariant verification |
 | [`video-content-backfill.md`](video-content-backfill.md) | Imported Video drafts missing editorial/source-supported content | Evidence-complete Video records + publish/read-back/browser proof |
 | [`faq-authoring.md`](faq-authoring.md) | Visible FAQ rows for existing content | Supported FAQ rows or verified curation handoff |
+| [`content-generation.md`](content-generation.md) | CPT field content generation/backfill applied to the site | On-spec field values + per-record gated apply + rendered proof |
+| [`content-review.md`](content-review.md) | QA of existing CPT field content against field-scoped spec | Per-field verdict report + routed fix list (read-only) |
 | [`geolocation.md`](geolocation.md) | Canonical service to city-child derivation | Unique geo-child/subtree + SEO/browser gates |
 | [`image-generation.md`](image-generation.md) | Content-image generation/attachment | Unique optimized attachments + rendered proof |
 | [`settings.md`](settings.md) | lean-seo output configuration/debugging | Read-back-equal settings + live output validation |

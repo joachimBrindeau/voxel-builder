@@ -26,6 +26,7 @@ inside a role brief.
 | [`voxel-heading-curator`](voxel-heading-curator.md) | One site/plan-level production phrasing palette | Read-only | 1-4 plans |
 | [`voxel-curator-agent`](voxel-curator-agent.md) | Entity, relation, taxonomy, profile, and user investigation | Read-only | 5-10 entities |
 | [`voxel-faq-author`](voxel-faq-author.md) | Source-supported visible FAQ rows | Read-only authoring | 5-10 content items |
+| [`voxel-content-author`](voxel-content-author.md) | Source-supported CPT field content (definition/hook/excerpt/sources/body) | Build (candidate values) or review (verdicts) | 5-10 records |
 
 ## Mode Boundaries
 

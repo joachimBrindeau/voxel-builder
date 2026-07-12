@@ -34,6 +34,21 @@ length bounds are the whole point — they are enforced by Voxel `maxlength`/
 | `sameas` | repeater `{source select, url}` | no | max ~6 | `sameAs` | entity resolution |
 | `faq` | repeater `{question, answer}` | no | — | **none** (optional on-page only) | optional on-page Q&A |
 
+### Defined-term identity contract
+
+For every glossary record, keep the three identity surfaces distinct and enforce
+them independently:
+
+- `post_title` is the exact canonical term, with no suffix, definition, or SEO copy.
+- `post_name` is `sanitize_title(post_title)` and therefore the term itself slugified.
+- `h1` is individually authored by the LLM from the record's evidence packet. It
+  starts with the exact term, stays natural and descriptive, and is at most 70
+  characters. Never derive sibling H1s through a mechanical suffix/template swap.
+
+Validate all three after every write. A descriptive `post_title`, an inherited old
+slug, or a mechanically generated H1 fails the record gate even when page copy is
+otherwise valid.
+
 Mark `h1`, `hook`, `definition`, **and `content`** as `required: true` **and** set the length bounds — required-ness alone lets an empty string save; the `minlength`/`maxlength` pair is what enforces quality. **`content` is required, not optional**: a term that is only an answer block is a thin page (see the **Tier 4** section below).
 
 `faq` is optional and content-gated. Add rows only when a specific term has real

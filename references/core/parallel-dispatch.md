@@ -31,6 +31,7 @@ the other seven fail.
 | `voxel-schema-detective` | Schema questions with source evidence | Remembered/invented shapes or mutations |
 | `voxel-curator-agent` | Entity/relation/user investigation leaves | Database writes or merge/delete approval |
 | `voxel-faq-author` | Source-supported FAQ rows per content item | WordPress writes or schema guidance |
+| `voxel-content-author` | Source-supported CPT field content values/verdicts per record | WordPress writes or raw meta/SQL apply |
 
 ## Dispatch Modes
 

@@ -87,6 +87,7 @@ single-command lookup.
 | Repair an existing CPT definition/runtime | missing CPT, field drift, template resolution, registration | `workflows/cpt-repair.md` |
 | Convert legacy Elementor data to EF V4 | migrate, V3 to V4, legacy containers/widgets | `workflows/migrate.md` |
 | Create or change general EF `_elementor_data` | build template/page, wrapper, feed, loop, card tree | `workflows/build.md` |
+| Port an artifact between sites and adapt it | copy/clone page, template, section, widget; translate; retarget CPT fields | `workflows/site-port.md` |
 | Create or repair an archive/search page | archive, search root, `recherche/*` | `workflows/archive-search-pages.md` |
 | Extract/refresh the reusable section store | save/extract/reuse section template | `workflows/section-templates.md` |
 | Define only `ts_actions` / navbar action rows | action button, CTA row, `ts_actions` | `workflows/card-actions.md` |
@@ -94,6 +95,8 @@ single-command lookup.
 | Mutate Voxel records, fields, relations, users, or visible copy | create/edit/merge/delete entity, content surgery, excerpt batch | `workflows/curation.md` |
 | Complete imported Video records from source evidence | video backfill, transcript, presenter, service, FAQ, imported drafts | `workflows/video-content-backfill.md` |
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
+| Generate/backfill/improve CPT field content and apply it | write/backfill/regenerate definition, hook, excerpt, sources, h1, body copy; bulk field authoring | `workflows/content-generation.md` |
+| Review/QA existing CPT field content against spec | audit/score/verify field content quality, prove backfill quality | `workflows/content-review.md` |
 | Derive a canonical service into a city child | geolocate, city version, geo-child | `workflows/geolocation.md` |
 | Generate/optimize/attach content images | featured, hero, OG, unique image | `workflows/image-generation.md` |
 | Configure or debug lean-seo output | metadata, schema, markdown, sitemap, permalink, redirect, verification tag | `workflows/settings.md` |

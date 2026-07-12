@@ -94,9 +94,30 @@ with ThreadPoolExecutor(max_workers=8) as ex, open("/tmp/out.jsonl","w") as f:
         f.write(json.dumps(fut.result(),ensure_ascii=False)+"\n")
 ```
 
-## Apply (idempotent, no purge cascade)
+## Apply — sanctioned gated path only (core rule 9)
 
-Read `/tmp/out.jsonl`; for `field==hook` → `update_post_meta`, else `$wpdb->update($wpdb->posts,['post_excerpt'=>$t],['ID'=>$id]); clean_post_cache($id);`. Skip rows already equal (report APPLIED/ALREADY/FAILED). Disable purge hooks in the loop (`remove_all_actions('save_post'|'post_updated'|'edit_post')`, `add_filter('litespeed_can_purge','__return_false',99)`), then ONE `wp litespeed-purge all` at the end. See [`lean-seo-excerpt-meta-descriptions.md`](lean-seo-excerpt-meta-descriptions.md) LSCache pitfall.
+The generated `/tmp/out.jsonl` is candidate material, not a license to bulk-write. Apply
+through the **sanctioned entity-data write path**, per record, with the core-rule-9 gate —
+a raw `wp eval` loop of `update_post_meta` / `$wpdb->update` over field or meta content is
+FORBIDDEN even at 250 records (it silently skips the Voxel field API, index, and read-back
+that make the write correct). Route each field to its owner:
+
+| Generated `field` | Sanctioned write |
+|---|---|
+| a Voxel field or arbitrary meta (e.g. `hook`) | `wpdev voxel:set-field <site> --id=<id> --set '{"<field>":"<text>"}'` |
+| `post_excerpt` / `post_title` / `post_content` (core columns) | `wpdev wp <site> post update <id> --post_excerpt="<text>"` |
+
+**Per-record gate (every row, not a sample):** capture `wpdev voxel:data <site> --id=<id>`
+(or the core-column value) before and after; assert the targeted key changed to the generated
+value and every unrelated key is byte-identical; skip rows already equal (report
+`APPLIED/ALREADY/FAILED`); reindex. `voxel:set-field` reindexes by default; a `post update`
+batch ends with one reindex pass. The proven *cache* discipline still applies — do the writes,
+then ONE `wpdev rebuild <site> --only purge` (or `wp litespeed-purge all`) at the end rather
+than a per-row purge cascade; see [`lean-seo-excerpt-meta-descriptions.md`](lean-seo-excerpt-meta-descriptions.md)
+LSCache pitfall. The idempotent re-run design (write only rows that differ) is unchanged and is
+what lets a capped run resume. **Content-quality gate:** the generated text must be authored to
+the field's scoped spec (see [`../../workflows/content-generation.md`](../../workflows/content-generation.md)
+and the field-scoped reference it routes to), never a mechanical transform of a sibling field.
 
 ## Verify
 

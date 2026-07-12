@@ -21,7 +21,7 @@ mandatory **safety gate** before any merge or delete.
 
 ## Essential principles
 
-- Use `wpdev voxel:*` first; raw `wp`, SQL, or PHP eval comes last.
+- **Entity-data writes go through `wpdev voxel:*` only.** `wpdev voxel:set-field` (fields + meta) and `wpdev wp <site> post update` (core columns) are the ONLY sanctioned write paths. A raw `wp eval` / `update_post_meta` / SQL write of field or meta content is FORBIDDEN (core rule 9); `wp eval` is read-only-inspection and non-entity maintenance (reindex, cache/transient bust) only. There is no "small enough to eval" exception — 128 rows is a fan-out of the Edit route, not a license to bulk-mutate.
 - Preserve data evidence: capture before/after with `voxel:data` for every mutation.
 - Keep patches narrow: set only changed fields, never re-write sampled whole-record blobs.
 - Treat profile/user links as one invariant: profile `post_author` and user meta
@@ -111,6 +111,12 @@ wpdev voxel:data <site> --id=<id> > /tmp/after.json
 ```
 
 Verify the changed fields moved and the unrelated fields did not.
+
+**Write-path gate (enforced — a violation is a rejected result, not a warning).** Before any field/meta mutation, and for EVERY record in a batch:
+1. **Path:** the write is a `wpdev voxel:set-field` (fields/meta) or `wpdev wp <site> post update` (`post_title`/`post_content`/`post_excerpt`) call. If you are typing `update_post_meta`, `$wpdb`, or SQL to change entity data, STOP — you are off the sanctioned path.
+2. **Per-record before/after:** capture `voxel:data --id=<id>` (or the core-column value) before and after; prove the targeted key changed and every unrelated key is byte-identical. A batch is verified only when every record passes; writing first and spot-checking a sample afterward is rejected.
+3. **Content, not just fill:** the value is authored to the owning editorial/SEO spec from source evidence — never a mechanical transform of a sibling field (`wp_strip_all_tags(definition)`→`hook`, `substr(post_content)`→`post_excerpt`). A deterministically-derived value is a filled column, not correct content, and fails this gate. For definitional/glossary content, the authoring spec is the SEO skill's glossary criteria (answer-block length, term-as-subject, dictionary-neutral prose); route the authoring through the matching subagent brief, one record's meaning at a time.
+4. **Reindex after:** reindex mutated records so search/loops/TermIndex reflect the new values.
 
 #### Bulk rich-text reformat (many records)
 
