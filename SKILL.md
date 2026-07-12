@@ -1,6 +1,6 @@
 ---
 name: voxel-builder
-description: "Build, audit, migrate, repair, curate, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, and runtime issues; Elementor Framework V4 data and widgets; source-supported FAQ and visible-copy work; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, or lean-seo on a Voxel site. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
+description: "Build, audit, migrate, repair, curate, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, WordPress admin-menu organization, and runtime issues; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, video content backfill, lean-admin menus, or lean-seo on a Voxel site. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
 allowed-tools: Bash Read Write Glob Grep AskUserQuestion Task TaskCreate TaskList TaskUpdate TodoRead TodoWrite
 license: MIT
 ---
@@ -92,11 +92,14 @@ single-command lookup.
 | Define only `ts_actions` / navbar action rows | action button, CTA row, `ts_actions` | `workflows/card-actions.md` |
 | Apply a documented defect-class repair | known bug, action-row loop, cascade signature | `workflows/fix-known.md` |
 | Mutate Voxel records, fields, relations, users, or visible copy | create/edit/merge/delete entity, content surgery, excerpt batch | `workflows/curation.md` |
+| Complete imported Video records from source evidence | video backfill, transcript, presenter, service, FAQ, imported drafts | `workflows/video-content-backfill.md` |
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
 | Derive a canonical service into a city child | geolocate, city version, geo-child | `workflows/geolocation.md` |
 | Generate/optimize/attach content images | featured, hero, OG, unique image | `workflows/image-generation.md` |
 | Configure or debug lean-seo output | metadata, schema, markdown, sitemap, permalink, redirect, verification tag | `workflows/settings.md` |
+| Create or align the WordPress admin menu | lean-admin, Content menu, standardized CPT submenu, missing CPT menu | `workflows/admin-menu.md` |
 | Improve measured runtime performance | Lighthouse, CWV, N+1, payload, generated CSS, cache | `workflows/performance.md` |
+| Set/change the EF brand color palette | brand color, primary/accent green, brand purple, `--ef-color-*`, `_light` tint, match production colors | `workflows/design-tokens.md` |
 | Lookup only; no mutation or full audit | schema shape, icon name, Voxel version/feature | `references/README.md` |
 
 ### Route Precedence

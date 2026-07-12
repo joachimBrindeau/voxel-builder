@@ -29,6 +29,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "Configure the lean-seo plugin's SEO output for a CPT (meta / schema / markdown / sitemap / permalinks)" — the phased process | [`../workflows/settings.md`](../workflows/settings.md) |
 | "Repair an existing Voxel CPT", "runtime post-type drift", "CTA placeholders", "archive/search duplication", "Event JSON-LD status wrong" | [`../workflows/cpt-repair.md`](../workflows/cpt-repair.md) |
 | "Improve Voxel/Elementor performance", "generated CSS", "LSCache", "N+1 queries", "frontend payload", "Lighthouse/CWV" | [`../workflows/performance.md`](../workflows/performance.md) + [`performance-patterns.md`](voxel/performance-patterns.md) |
+| "Set the site brand colors / primary green + brand purple as EF tokens / add a `_light` tint / match production colors into `--ef-color-*`" | [`../workflows/design-tokens.md`](../workflows/design-tokens.md) + [`ef/ef-color-tokens.md`](ef/ef-color-tokens.md) |
 | "How does lean-seo store settings / read Voxel fields / which token dialect does a surface use?" | [`lean-seo-settings-substrate.md`](voxel/lean-seo-settings-substrate.md) |
 | "Set up / fix lean-seo title, description, canonical, OG/Twitter, per-CPT noindex" | [`lean-seo-metadata.md`](voxel/lean-seo-metadata.md) |
 | "Configure lean-seo JSON-LD schema, map a Voxel relation/field into the graph, `@each` over a relation" | [`lean-seo-schema.md`](voxel/lean-seo-schema.md) |
@@ -91,6 +92,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 |---|---|
 | [`widgets.md`](ef/widgets.md) · [`ef-widgets.md`](ef/ef-widgets.md) | Widget catalog + per-widget prop tables (generated from the schema SSOT). |
 | [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) | Generated-schema, atomic-node, compatibility, icon, variant, and token ownership rules. |
+| [`ef-color-tokens.md`](ef/ef-color-tokens.md) | Brand palette SSOT (`EF_Tokens_Runtime_Facade::DEFAULTS`), `_light` 10% white-tint derivation, system slots vs custom colors, live-CSS extraction, token guardrails. |
 | [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) | Editor iframe parity, batch preview refresh, view dispatch, bindings, and teardown contract. |
 | [`ef-parts.md`](ef/ef-parts.md) · [core](ef/ef-parts-core.md) · [media/nav](ef/ef-parts-media-nav.md) · [row surfaces](ef/ef-parts-row-surfaces.md) | Parts index and its three concern-owned catalogs. |
 | [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |

@@ -18,11 +18,14 @@ workflow and never compete at intake.
 | [`card-actions.md`](card-actions.md) | `ts_actions` / navbar action-row strip | Schema-valid actions with runtime destinations |
 | [`fix-known.md`](fix-known.md) | Exact known defect signatures | Two-gate mechanical repair + verification/rollback |
 | [`curation.md`](curation.md) | Voxel records, fields, relations, users, visible copy | Per-record read-back + invariant verification |
+| [`video-content-backfill.md`](video-content-backfill.md) | Imported Video drafts missing editorial/source-supported content | Evidence-complete Video records + publish/read-back/browser proof |
 | [`faq-authoring.md`](faq-authoring.md) | Visible FAQ rows for existing content | Supported FAQ rows or verified curation handoff |
 | [`geolocation.md`](geolocation.md) | Canonical service to city-child derivation | Unique geo-child/subtree + SEO/browser gates |
 | [`image-generation.md`](image-generation.md) | Content-image generation/attachment | Unique optimized attachments + rendered proof |
 | [`settings.md`](settings.md) | lean-seo output configuration/debugging | Read-back-equal settings + live output validation |
+| [`admin-menu.md`](admin-menu.md) | WordPress Lean Admin menu creation/alignment | `lean_admin_metamenu`-owned menu verified against Voxel CPTs |
 | [`performance.md`](performance.md) | Measured runtime performance repair | Same-state before/after delta + behavior proof |
+| [`design-tokens.md`](design-tokens.md) | EF brand color palette (`--ef-color-*` SSOT + `_light`) | Read-back-equal cascade + tint/base browser proof |
 
 ## Supporting Sub-Pipeline
 
