@@ -82,7 +82,7 @@ Collapse a whole functional region into the single purpose-built EF widget — d
 
 1. Target post or template has legacy Elementor/Voxel structure that should become EF V4 atomic widgets.
 2. A representative production URL sample exists (`?p=<post_id>` is acceptable for singles).
-3. `wpdev elementor:codegen` and `wpdev elementor:codegen --check` pass before mutation.
+3. `wpdev elementor:codegen` ran (regenerating the schema SSOT) as the first step per [`rules.md`](../references/core/rules.md) rule 1, and `wpdev elementor:codegen --check` passes before mutation.
 4. Backup/export path is writable and rollback target can be captured.
 
 ## Exit criteria
@@ -185,7 +185,7 @@ failed/blocked with rollback evidence.
    - **Expected text** renders for each migrated cluster.
    - **Accordion caveat**: `innerText` EXCLUDES collapsed `<details>` content — assert accordion questions/answers with `textContent`, not `innerText`, inside the same `eval` block, or they read as missing (false negative).
    - **Before/after** (optional, high-value): `diff screenshot --baseline` against the pre-migration render to confirm nothing the Iron Law meant to keep visibly vanished.
-4. Widget-count drop is the consolidation receipt (e.g. 73→24). Lint-clean + count-drop + screenshot = done.
+4. Widget-count drop is corroborating evidence of consolidation (e.g. 73→24), not a substitute for the `migration-preservation` information-unit pass — a count drop can co-occur with a silent drop. Done = information-unit pass + lint-clean + layout assertions + screenshot-read; count-drop corroborates.
 
 ## Known losses (flag, don't silently accept)
 

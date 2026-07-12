@@ -122,7 +122,7 @@ EOF
 agent-browser --session prod-<post_id> close
 ```
 
-The criterion decomposes the saved text into information units (claims / facts / offers / CTAs / features / services / prices / instructions / headings), drops the nav/footer (text before the first `h1` and after the last `h2`), and checks each unit against the §2d blueprint cells + Improvements log. See [`page-planning.md`](../../workflows/page-planning.md) §2e criterion 8 and [`migrate.md`](../../workflows/migrate.md) §Iron Law.
+The criterion decomposes the saved text into information units (claims / facts / offers / CTAs / features / services / prices / instructions / headings), drops the nav/footer (text before the first `h1` and after the last `h2`), and checks each unit against the §2d blueprint cells + Improvements log. See [`page-planning.md`](../../workflows/page-planning.md) §2e `migration-preservation` criterion and [`migrate.md`](../../workflows/migrate.md) §Iron Law.
 
 ## Before/after visual regression (optional, high-value on migrations)
 
