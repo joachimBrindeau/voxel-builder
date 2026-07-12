@@ -87,6 +87,7 @@ single-command lookup.
 | Repair an existing CPT definition/runtime | missing CPT, field drift, template resolution, registration | `workflows/cpt-repair.md` |
 | Convert legacy Elementor data to EF V4 | migrate, V3 to V4, legacy containers/widgets | `workflows/migrate.md` |
 | Create or change general EF `_elementor_data` | build template/page, wrapper, feed, loop, card tree | `workflows/build.md` |
+| Create or rebuild complete CPT preview cards | preview cards, small/medium/large/link cards, main card | `workflows/preview-cards.md` |
 | Port an artifact between sites and adapt it | copy/clone page, template, section, widget; translate; retarget CPT fields | `workflows/site-port.md` |
 | Create or repair an archive/search page | archive, search root, `recherche/*` | `workflows/archive-search-pages.md` |
 | Extract/refresh the reusable section store | save/extract/reuse section template | `workflows/section-templates.md` |

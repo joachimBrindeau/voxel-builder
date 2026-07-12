@@ -13,6 +13,7 @@ workflow and never compete at intake.
 | [`cpt-repair.md`](cpt-repair.md) | Existing CPT config/runtime/template-resolution repair | Source-owner repair + all affected surfaces verified |
 | [`migrate.md`](migrate.md) | Legacy Elementor V3 to EF V4 conversion | Preserved-information EF tree + browser proof |
 | [`build.md`](build.md) | General EF `_elementor_data` creation/modification | Read-back-equal, linted, browser-verified tree |
+| [`preview-cards.md`](preview-cards.md) | Complete CPT small/medium/large/link card family | Command-pushed registry + LLM-mutated cards + large main + runtime proof |
 | [`site-port.md`](site-port.md) | Cross-site page/template/section/widget adaptation | Adaptation manifest + target-native lint/read-back/browser proof |
 | [`archive-search-pages.md`](archive-search-pages.md) | Public archive/search URL and result surface | Canonical searchable page + index/browser proof |
 | [`section-templates.md`](section-templates.md) | Reusable section-store extraction/refresh | Sanitized, indexed, linted template package |

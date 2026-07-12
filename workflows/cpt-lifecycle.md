@@ -243,14 +243,17 @@ Schema is config-only. Do not rely on or recreate hardcoded fallbacks for Organi
 Templates are built in the Elementor editor. Provide the user with:
 
 1. **Template URLs** for each of the 4 templates (from Phase 1 IDs).
-2. **Preview cards** — for the `card` role, scaffold variants programmatically: `wpdev voxel:cards <site> --type <key>` produces `{key}-small` / `{key}-large` `ef-card` widgets, registered as `custom_templates.card[]` with `{Singular} - small/large` labels.
+2. **Preview cards** — for the `card` role, follow `references/ef/card-scaffolding.md`.
+   `wpdev voxel:cards <site> --type <key>` produces small, medium, large, and link
+   `ef-card` widgets, registers all four in `custom_templates.card[]`, and the generated
+   large template must then be assigned as the base/main `templates.card`. A replacement
+   is complete only after delete/export discipline, assignment read-back, registry audit,
+   and four-card lint.
 3. **For single / archive widget JSON**: run the page-planning sub-pipeline first ([`page-planning.md`](page-planning.md) §2a–§2g — Field Inventory → SSOT Read → Archetype Selection → Section Blueprints → adversarial review → reconciliation → computed §2g gate), then hand off to the [Elementor build pipeline](build.md) for schema-driven, parallel-subagent construction. Both steps are mandatory per [`rules.md`](../references/core/rules.md) rule 8 — never hand-write widget JSON from memory and never skip the Plan Document.
 4. **Remind** the user that programmatically-written templates need an Elementor editor save to generate CSS/JS.
 
 **Exit:** User informed of template URLs. Preview cards scaffolded if applicable. For non-trivial single/archive builds, a gated Plan Document (§2g green — auto or operator-`APPROVED`) exists at `/tmp/plan-<post_id>.md` before any widget fan-out begins.
-
 ## Phase 7 — Verification
-
 **Entry:** Phase 6 complete.
 
 1. Create a test post with sample data in all fields
@@ -262,7 +265,6 @@ Templates are built in the Elementor editor. Provide the user with:
    - Parent page: renders at `/<key>/`
 3. **Visual smoke-test** the new CPT's templates (single + card-in-feed) using [`build.md`](build.md) Phase 6: batch representative URL leaves, keep unique browser sessions per URL, and confirm dynamic tags, CSS, layout assertions, and console/page errors.
 4. Delete test post
-
 **Exit:** All verifications pass. CPT is production-ready (pending template visual design).
 
 ## Transactional / Private CPT Variant
@@ -271,7 +273,6 @@ When the CPT represents RFQs, leads, inquiries, support tickets, or other privat
 workflow records, read `references/voxel/transactional-cpt-recipe.md` before Phase 2.
 That reference owns only the field/access/template deltas; this lifecycle still owns
 registration, application order, and verification.
-
 ## Operational Reference
 
 Field conventions, mandatory option overrides, failure recovery, modified-file ownership,
@@ -284,7 +285,6 @@ condition occurs; do not load it for every lifecycle run.
 - Never configure Voxel fields manually when a blueprint is the SSOT.
 - Never create posts before permalink defaults/parent pages are set.
 - Never skip reindex/search/schema/sitemap verification after field or filter changes.
-
 ## Success criteria
 
 - [ ] CPT registered with correct settings (has_archive disabled, hierarchical enabled)
