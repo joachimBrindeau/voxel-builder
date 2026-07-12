@@ -85,6 +85,9 @@
       ],
       "mega-row": [
         "loop"
+      ],
+      "recipient-row": [
+        "loop"
       ]
     }
   },
@@ -259,6 +262,533 @@
     }
   },
   "widgets": [
+    {
+      "meta": {
+        "category": "voxel",
+        "description": "Adds one action button.",
+        "icon": "eicon-button",
+        "keywords": [
+          "button",
+          "link",
+          "action"
+        ],
+        "renderer": {
+          "phpClass": "EF\\Widgets\\Button",
+          "stylesheets": []
+        },
+        "title": "Button"
+      },
+      "name": "ef-button",
+      "props": {
+        "action_address": {
+          "control": {
+            "kind": "text",
+            "label": "Address",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Address for directions.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "get_directions"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_desc": {
+          "control": {
+            "kind": "text",
+            "label": "Event description",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event details.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_end_date": {
+          "control": {
+            "kind": "text",
+            "label": "Event end",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Event end date and time.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_location": {
+          "control": {
+            "kind": "text",
+            "label": "Event location",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event location.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_start_date": {
+          "control": {
+            "kind": "text",
+            "label": "Event start",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Event start date and time.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_title": {
+          "control": {
+            "kind": "text",
+            "label": "Event title",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Calendar event title.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_gcal",
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cal_url": {
+          "control": {
+            "kind": "source",
+            "label": "Event URL",
+            "section": "content"
+          },
+          "description": "Existing calendar file link.",
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_ical"
+                ]
+              }
+            ]
+          }
+        },
+        "action_cart_text": {
+          "control": {
+            "kind": "text",
+            "label": "Cart text",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Button text after adding.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "add_to_cart"
+                ]
+              }
+            ]
+          }
+        },
+        "action_email": {
+          "control": {
+            "kind": "email",
+            "label": "Email",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Email address to contact.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "send_email"
+                ]
+              }
+            ]
+          }
+        },
+        "action_icon_active": {
+          "control": {
+            "kind": "icon",
+            "label": "Active icon",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Icon shown after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_follow",
+                  "action_follow_post",
+                  "action_save"
+                ]
+              }
+            ]
+          }
+        },
+        "action_label_active": {
+          "control": {
+            "kind": "text",
+            "label": "Active label",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Text shown after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_follow",
+                  "action_follow_post",
+                  "action_save"
+                ]
+              }
+            ]
+          }
+        },
+        "action_link": {
+          "control": {
+            "kind": "source",
+            "label": "Link",
+            "section": "content"
+          },
+          "description": "Page or link to open.",
+          "primitive": "source",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "action_link"
+                ]
+              }
+            ]
+          }
+        },
+        "action_modal_id": {
+          "control": {
+            "kind": "select",
+            "label": "Modal",
+            "section": "content"
+          },
+          "default": "",
+          "description": "On-page modal or saved template to open.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "open_modal"
+                ]
+              }
+            ]
+          }
+        },
+        "action_phone": {
+          "control": {
+            "kind": "phone",
+            "label": "Phone",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Phone number to call.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "call"
+                ]
+              }
+            ]
+          }
+        },
+        "action_scroll_to": {
+          "control": {
+            "kind": "text",
+            "label": "Section ID",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Section to scroll to.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "scroll_to_section"
+                ]
+              }
+            ]
+          }
+        },
+        "action_toast_message": {
+          "control": {
+            "kind": "text",
+            "label": "Toast message",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Short message after click.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "share_post"
+                ]
+              }
+            ]
+          }
+        },
+        "action_tooltip": {
+          "control": {
+            "kind": "text",
+            "label": "Tooltip",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Short hover text.",
+          "primitive": "string"
+        },
+        "action_type": {
+          "control": {
+            "kind": "select",
+            "label": "Action",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Choose what opens on click.",
+          "enum": [
+            "",
+            "action_link",
+            "get_directions",
+            "call",
+            "send_email",
+            "open_modal",
+            "scroll_to_section",
+            "action_gcal",
+            "action_ical",
+            "share_post",
+            "add_to_cart",
+            "promote_post",
+            "action_follow_post",
+            "action_follow",
+            "action_save",
+            "edit_post",
+            "delete_post",
+            "unpublish_post",
+            "publish_post",
+            "show_post_on_map",
+            "view_post_stats",
+            "go_back",
+            "back_to_top",
+            "action_login",
+            "action_logout",
+            "direct_message",
+            "direct_message_user",
+            "open_vx_inbox",
+            "open_vx_notifications",
+            "open_vx_cart",
+            "open_vx_user_menu",
+            "open_vx_quick_search",
+            "access_markdown",
+            "vote_upvote",
+            "vote_downvote"
+          ],
+          "enumLabels": {
+            "": "None",
+            "access_markdown": "Access Markdown",
+            "action_follow": "Follow post author",
+            "action_follow_post": "Follow post",
+            "action_gcal": "Google Calendar",
+            "action_ical": "iCal",
+            "action_link": "Link",
+            "action_login": "Log in",
+            "action_logout": "Log out",
+            "action_save": "Save post",
+            "add_to_cart": "Add to cart",
+            "back_to_top": "Back to top",
+            "call": "Phone call",
+            "delete_post": "Delete post",
+            "direct_message": "Message post",
+            "direct_message_user": "Message post author",
+            "edit_post": "Edit post",
+            "get_directions": "Directions",
+            "go_back": "Go back",
+            "open_modal": "Open modal",
+            "open_vx_cart": "Open cart",
+            "open_vx_inbox": "Open inbox",
+            "open_vx_notifications": "Open notifications",
+            "open_vx_quick_search": "Open quick search",
+            "open_vx_user_menu": "Open user menu",
+            "promote_post": "Promote post",
+            "publish_post": "Publish post",
+            "scroll_to_section": "Scroll to section",
+            "send_email": "Email",
+            "share_post": "Share post",
+            "show_post_on_map": "Show on map",
+            "unpublish_post": "Unpublish post",
+            "view_post_stats": "View post stats",
+            "vote_downvote": "Downvote",
+            "vote_upvote": "Upvote"
+          },
+          "primitive": "string"
+        },
+        "action_vote_field_key": {
+          "control": {
+            "kind": "text",
+            "label": "Vote field key",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Vote field to update. Leave empty to use the first one.",
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "action_type"
+                ],
+                "value": [
+                  "vote_upvote",
+                  "vote_downvote"
+                ]
+              }
+            ]
+          }
+        },
+        "label": {
+          "control": {
+            "kind": "text",
+            "label": "Label",
+            "section": "content"
+          },
+          "default": "",
+          "description": "Button text.",
+          "dynamic": true,
+          "primitive": "string"
+        },
+        "variant": {
+          "control": {
+            "kind": "select",
+            "label": "Variant",
+            "options": "variants",
+            "section": "content"
+          },
+          "default": "primary",
+          "description": "Choose the colors.",
+          "enum": [
+            "transparent",
+            "white",
+            "primary",
+            "secondary",
+            "negative",
+            "positive"
+          ],
+          "primitive": "string"
+        }
+      },
+      "rows": {}
+    },
     {
       "meta": {
         "category": "voxel",
@@ -915,26 +1445,6 @@
                   "media_type"
                 ],
                 "value": "map"
-              }
-            ]
-          }
-        },
-        "media_overlay": {
-          "control": {
-            "kind": "segmented",
-            "label": "Overlay",
-            "section": "media"
-          },
-          "default": false,
-          "description": "Add a soft tint over images.",
-          "primitive": "boolean",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
               }
             ]
           }
@@ -3098,6 +3608,19 @@
           "description": "Add hidden spam protection.",
           "primitive": "boolean"
         },
+        "recipients": {
+          "control": {
+            "kind": "repeater",
+            "label": "Recipients",
+            "section": "recipients"
+          },
+          "default": [],
+          "description": "Users or addresses receiving a copy of this form submission.",
+          "primitive": "string",
+          "repeater": {
+            "rowPart": "recipient-row"
+          }
+        },
         "success_message": {
           "control": {
             "kind": "textarea",
@@ -3240,6 +3763,21 @@
             }
           },
           "title": "Field row"
+        },
+        "recipient-row": {
+          "name": "recipient-row",
+          "props": {
+            "email": {
+              "control": {
+                "kind": "email",
+                "label": "Email"
+              },
+              "default": "",
+              "description": "Email address receiving a copy.",
+              "primitive": "string"
+            }
+          },
+          "title": "Recipient row"
         }
       }
     },
