@@ -2,7 +2,7 @@
 
 A routed workflow skill for building, auditing, migrating, repairing, curating, and
 verifying WordPress sites that use Voxel and Elementor Framework V4. It selects one
-source-owning workflow per task, delegates bounded batches through nine leaf-specialist
+source-owning workflow per task, delegates bounded batches through named leaf-specialist
 briefs, centralizes authoritative writes, and verifies both stored and rendered state
 through `wpdev`.
 
@@ -45,8 +45,8 @@ are host-independent — see
 ## What's inside
 
 - **SKILL.md** — the MECE router: source owner and intent to exactly one primary workflow.
-- **`references/`** — knowledge: `core/` (rules, command-surface, parallel-dispatch, criteria, blueprint-format), `voxel/` (field types, visibility, timeline, commerce, search, platform, tags, template-resolution, SEO/content guidance), `ef/` (widgets, parts, helpers, masonry, section-rhythm, dynamic-text), `icons/` (Material Symbols lookup), and `subagents/` (the nine role-briefs).
-- **`workflows/`** — 15 primary phased workflows plus the supporting page-planning pipeline, indexed with exclusive ownership and exit artifacts in [`workflows/README.md`](workflows/README.md).
+- **`references/`** — knowledge: `core/` (rules, command-surface, parallel-dispatch, criteria, blueprint-format), `voxel/` (field types, visibility, timeline, commerce, search, platform, tags, template-resolution, SEO/content guidance), `ef/` (widgets, parts, helpers, masonry, section-rhythm, dynamic-text), `icons/` (Material Symbols lookup), and `subagents/` (MECE role briefs indexed in `references/subagents/README.md`).
+- **`workflows/`** — primary phased workflows plus supporting pipelines, indexed with exclusive ownership and exit artifacts in [`workflows/README.md`](workflows/README.md).
 - **`templates/`** — the reusable section-template store: extracted, sanitized `_elementor_data` subtrees (`global` / `section` / `page` scope) agents can splice into new builds. See `templates/README.md` for the on-disk shape and `templates/index.md` for the master catalog.
 - **`examples/`** — four golden `_elementor_data` fixtures (ef-card, ef-wrapper, ts-create-post, ts-post-feed).
 - **`scripts/`** — `lint.sh` (portable lint), `verify-install.sh` (prereq check), `action-spec.sh`, `generate-icon-reference.ts`.

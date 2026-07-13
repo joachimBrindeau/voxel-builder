@@ -43,8 +43,11 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
    URL, entity, or schema question. Batch 5-10 homogeneous leaves per worker and run at
    most the host concurrency cap in waves; every returned leaf remains independently
    attributable and rejectable.
-5. **Surface-matched verification.** Validate stored data and the affected runtime
-   surface. DB equality alone cannot prove rendering, schema, behavior, or performance.
+5. **Native, surface-matched output.** Validate stored data and the affected runtime surface;
+   DB equality alone cannot prove rendering, schema, behavior, or performance. Express site
+   content through native Voxel/Elementor Framework settings, variants, tokens, layout props,
+   and source templates — never custom CSS, inline styles, ad-hoc classes, Elementor overrides,
+   or screenshot patches. Report native capability gaps at their component/source owner.
 
 ## Intake And Routing
 
@@ -76,7 +79,9 @@ single-command lookup.
   whole page/workflow into one inline pass.
 - **Writes stay centralized.** Read-only subagents return findings/evidence only.
   Build subagents return scoped JSON/patch material. The orchestrator validates
-  scope, assembles, writes once, then dispatches verification.
+  scope, assembles, writes once, then dispatches verification. Field-definition UX
+  metadata routes to `voxel-field-metadata-author`; stored record content routes to
+  `voxel-content-author`; unknown field support may use `voxel-schema-detective` read-only.
 
 ## Primary Route Ownership
 
@@ -85,6 +90,7 @@ single-command lookup.
 | Read-only diagnosis of a rendered page/template | audit, review, inspect, what is wrong | `workflows/audit.md` |
 | Create a new Voxel CPT definition | create/new CPT, blueprint from scratch | `workflows/cpt-lifecycle.md` |
 | Repair an existing CPT definition/runtime | missing CPT, field drift, template resolution, registration | `workflows/cpt-repair.md` |
+| Converge CPT field-definition UX metadata recursively | description/placeholder/limits, repeater subfields, blueprint/live metadata alignment, self-documenting forms | `workflows/field-metadata.md` |
 | Convert legacy Elementor data to EF V4 | migrate, V3 to V4, legacy containers/widgets | `workflows/migrate.md` |
 | Create or change general EF `_elementor_data` | build template/page, wrapper, feed, loop, card tree | `workflows/build.md` |
 | Create or rebuild complete CPT preview cards | preview cards, small/medium/large/link cards, main card | `workflows/preview-cards.md` |

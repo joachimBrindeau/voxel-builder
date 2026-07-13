@@ -8,7 +8,7 @@ The `wpdev` CLI is the source of truth for everything Voxel- and Elementor-relat
 
 ```bash
 wpdev voxel:fields <site> <cpt_key>            # field list — valid @post(<key>) tags
-wpdev voxel:field-schema <site> --key <field> --patch '<json>' [--cpts <cpt_key>] [--dry-run] # safe field-definition patch; mirror the blueprint/source first
+wpdev voxel:field-schema <site> --key=<field> --cpts=<cpt_key> --no-insert-if-missing --patch='<json>' --dry-run # top-level field-definition merge; drop --dry-run to apply
 wpdev voxel:sample <site> <cpt_key>            # export the MOST-COMPLETE posts (ranked) to a temp folder
 wpdev voxel:data   <site> --id <example_id>    # rendered field VALUES on a real post
 wpdev voxel:templates <site>                   # all template assignments (single, card, archive, …)
@@ -22,9 +22,11 @@ wpdev voxel:cache  <site> clear                # invalidate Voxel's cached bluep
 wpdev voxel:backfill-authors <site>            # restore stale or missing post_author values
 wpdev voxel:settings <site> ensure-field --type <cpt_key> --fieldKey icon --fieldType icon --label Icon --dry  # provision/check a CPT icon field
 wpdev voxel:settings <site> get [<path>] --json          # read voxel:post_types (all, or a dot/slash path e.g. "<cpt>/fields")
-wpdev voxel:settings <site> set <path> --value=@<file.json> [--dry]  # write a path (CRUD on voxel:post_types); back up with `get --json` first
+wpdev voxel:settings <site> set "<cpt>/<nested-field-path>/<attribute>" --value='<json-scalar>' --dry # nested scalar; replace --dry with --yes to apply
 wpdev voxel:settings <site> delete <path>                # remove a path
 ```
+
+`voxel:field-schema` owns top-level field merges: scope one CPT/key, keep update-only mode, and never include nested `fields`/`subfields` arrays. `voxel:settings set` owns nested scalar attributes; `<nested-field-path>` repeats `fields/<resolved-index>` for every repeater depth. Resolve each index from live keys before dry-run and apply. Validate identifiers, pass argv-safe JSON scalars (never `eval`/concatenate candidate commands), and abort on concurrent option drift. Both writers safely re-encode `voxel:post_types`; back up first and never replace them with raw option/SQL writes. Metadata workflow: [`field-metadata.md`](../../workflows/field-metadata.md).
 
 ## Voxel Index_Table — PHP API
 

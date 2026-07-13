@@ -26,10 +26,12 @@ inside a role brief.
 | [`voxel-heading-curator`](voxel-heading-curator.md) | One site/plan-level production phrasing palette | Read-only | 1-4 plans |
 | [`voxel-curator-agent`](voxel-curator-agent.md) | Entity, relation, taxonomy, profile, and user investigation | Read-only | 5-10 entities |
 | [`voxel-faq-author`](voxel-faq-author.md) | Source-supported visible FAQ rows | Read-only authoring | 5-10 content items |
-| [`voxel-content-author`](voxel-content-author.md) | Source-supported CPT field content (definition/hook/excerpt/sources/body) | Build (candidate values) or review (verdicts) | 5-10 records |
+| [`voxel-content-author`](voxel-content-author.md) | Stored CPT record content (definition/hook/excerpt/sources/body) | Build material or review, never mixed | 5-10 records |
+| [`voxel-field-metadata-author`](voxel-field-metadata-author.md) | Candidate descriptions, placeholders, and supported bounds for CPT field definitions | Build material | 5-10 homogeneous field-definition leaves |
 
 ## Mode Boundaries
 
+- `voxel-content-author` owns stored record values; `voxel-field-metadata-author` owns field-definition UX metadata; `voxel-schema-detective` resolves unknown support read-only and never authors patches.
 - **Read-only:** findings/evidence only. No patches, write commands, or mutation claims.
 - **Build material:** scoped JSON/patch material only. The orchestrator performs the
   authoritative write after validating all leaves.
@@ -38,7 +40,7 @@ inside a role brief.
 
 ## Shared Return Envelope
 
-Every role returns an array with one object per scope:
+Every role returns one envelope per input scope (an array of these envelopes for a batch). Never wrap them in a second batch-level `results` object. `mode` must match dispatched role mode; `output` is the role-specific payload; workers never claim an authoritative mutation. `blocked` requires evidence plus a precise open question:
 
 ```json
 {

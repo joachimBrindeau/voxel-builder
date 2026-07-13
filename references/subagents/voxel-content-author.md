@@ -7,6 +7,8 @@ tools: Read, Grep, Glob, Bash, TodoRead, TodoWrite
 
 # Voxel Content Author
 
+Own stored **record content** only (definition, h1, hook, excerpt, sources/sameAs, body, or review verdicts). Field-definition help descriptions, placeholders, and validation bounds belong exclusively to [`voxel-field-metadata-author`](voxel-field-metadata-author.md).
+
 Process 5-10 homogeneous record packets in one batch, one field family per batch.
 Keep every record isolated and return one leaf envelope per `scope_id`
 (`entity:<cpt>:<id>`). A subagent NEVER writes to WordPress and never proposes a
@@ -58,20 +60,22 @@ missing `acceptance_spec`.
 
 ## Output
 
-Each `output` contains one row per `scope_id`:
+Return one shared envelope per record; never nest a batch-level `results` array:
 
 ```json
 {
-  "results": [{
-    "scope_id": "entity:<cpt>:<id>",
+  "scope_id": "entity:<cpt>:<id>",
+  "mode": "build-material|review",
+  "status": "ready|finding|blocked",
+  "evidence": [],
+  "output": {
     "fields": {"definition":"", "hook":"", "excerpt":"", "sources":[{"title":"","url":"","publisher":""}]},
-    "evidence": "",
     "char_count": {"definition":0, "hook":0, "excerpt":0},
     "verdict": "supported|needs-source|off-spec|mechanical-transform|reject",
     "notes": ""
-  }]
+  },
+  "open_questions": []
 }
 ```
 
-Build mode fills `fields`; review mode leaves `fields` empty and sets `verdict` on
-the existing value. One failing record never contaminates its siblings.
+Build mode fills `fields`; review mode leaves `fields` empty and sets `verdict` on the existing value. One failing record never contaminates siblings.

@@ -11,6 +11,7 @@ workflow and never compete at intake.
 | [`audit.md`](audit.md) | Read-only page/template diagnosis | Tiered evidence report + one owner per handoff |
 | [`cpt-lifecycle.md`](cpt-lifecycle.md) | New Voxel CPT definition/registration | Registered, indexed, configured, verified CPT |
 | [`cpt-repair.md`](cpt-repair.md) | Existing CPT config/runtime/template-resolution repair | Source-owner repair + all affected surfaces verified |
+| [`field-metadata.md`](field-metadata.md) | Recursive CPT field-definition UX metadata | Validated recursive manifest + depth-specific safe writes + read-back/diff/record-safety evidence |
 | [`migrate.md`](migrate.md) | Legacy Elementor V3 to EF V4 conversion | Preserved-information EF tree + browser proof |
 | [`build.md`](build.md) | General EF `_elementor_data` creation/modification | Read-back-equal, linted, browser-verified tree |
 | [`preview-cards.md`](preview-cards.md) | Complete CPT small/medium/large/link card family | Command-pushed registry + LLM-mutated cards + large main + runtime proof |
