@@ -124,6 +124,18 @@ wpdev audit               <site> [--scope technical|a11y|wordpress|db-content|el
 wpdev voxel:status        <site>                                     # CPT index health
 ```
 
+## Content writes
+
+```bash
+wpdev voxel:data <site> --id=<id>                                      # Voxel field values plus core.post_title/post_excerpt/post_content
+wpdev voxel:set-field <site> --id=<id> --set='{"field":"value"}'     # single-field path; title→post_title, description→post_content; reindexes by default
+wpdev voxel:apply-content <site> --manifest /tmp/content.json --rollback /tmp/rollback.json       # manifest preflight/dry run
+wpdev voxel:apply-content <site> --manifest /tmp/content.json --rollback /tmp/rollback.json --yes # apply; saves rollback, read-backs/reindexes each row, auto-rolls back failures
+wpdev rebuild <site> --only purge                                      # once after whole content batch
+```
+
+Use `voxel:apply-content` after candidate validation for multi-record content. Each manifest record needs `id`, `expectedBeforeSha256`, `post_excerpt`, and `fields`; aliases `title` and `description` route to core columns. Omit `--yes` first: expected SHA mismatch aborts before write. `--rollback` is required for apply and stores originals for automatic all-row rollback on failure. Use `voxel:set-field` for one record/field. `wpdev wp <site> post update` is fallback or explicit core-key path, not required for aliases. Never raw `wp eval`/meta/SQL writes.
+
 ## Write + verify
 
 ```bash

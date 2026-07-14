@@ -97,23 +97,32 @@ with ThreadPoolExecutor(max_workers=8) as ex, open("/tmp/out.jsonl","w") as f:
 ## Apply — sanctioned gated path only (core rule 9)
 
 The generated `/tmp/out.jsonl` is candidate material, not a license to bulk-write. Apply
-through the **sanctioned entity-data write path**, per record, with the core-rule-9 gate —
+through the **sanctioned entity-data write path**, with the core-rule-9 gate —
 a raw `wp eval` loop of `update_post_meta` / `$wpdb->update` over field or meta content is
 FORBIDDEN even at 250 records (it silently skips the Voxel field API, index, and read-back
-that make the write correct). Route each field to its owner:
+that make the write correct).
 
-| Generated `field` | Sanctioned write |
+**Preferred: `wpdev voxel:apply-content` manifest batch.** Convert `/tmp/out.jsonl` rows
+(after Phase 3 validation) into a manifest — `id`, `expectedBeforeSha256` (from a preflight
+read), `post_excerpt`, and `fields` (Voxel field/meta keys, `title`/`description` aliases
+route to `post_title`/`post_content` automatically). Dry-run to preflight all 250+ SHAs, then
+`--yes --rollback /tmp/rollback.json` to apply; it read-backs and reindexes every row
+internally and auto-restores all rows from the bundle if any row fails. Single-record fallback
+routes each field to its owner instead:
+
+| Generated `field` | Sanctioned single-record write |
 |---|---|
 | a Voxel field or arbitrary meta (e.g. `hook`) | `wpdev voxel:set-field <site> --id=<id> --set '{"<field>":"<text>"}'` |
-| `post_excerpt` / `post_title` / `post_content` (core columns) | `wpdev wp <site> post update <id> --post_excerpt="<text>"` |
+| `post_excerpt` / `post_title` / `post_content` (core columns), or the `title`/`description` aliases | `wpdev voxel:set-field <site> --id=<id> --set '{"<field>":"<text>"}'` (routes aliases itself); `wpdev wp <site> post update <id> --post_excerpt="<text>"` is fallback/explicit-core-key only |
 
 **Per-record gate (every row, not a sample):** capture `wpdev voxel:data <site> --id=<id>`
-(or the core-column value) before and after; assert the targeted key changed to the generated
-value and every unrelated key is byte-identical; skip rows already equal (report
-`APPLIED/ALREADY/FAILED`); reindex. `voxel:set-field` reindexes by default; a `post update`
-batch ends with one reindex pass. The proven *cache* discipline still applies — do the writes,
-then ONE `wpdev rebuild <site> --only purge` (or `wp litespeed-purge all`) at the end rather
-than a per-row purge cascade; see [`lean-seo-excerpt-meta-descriptions.md`](lean-seo-excerpt-meta-descriptions.md)
+(its `core` block carries `post_title`/`post_excerpt`/`post_content`) before and after; assert
+the targeted key changed to the generated value and every unrelated key is byte-identical; skip
+rows already equal (report `APPLIED/ALREADY/FAILED`); reindex. `voxel:apply-content` does this
+per row internally; `voxel:set-field` reindexes by default for the single-record path. The
+proven *cache* discipline still applies — do the writes, then ONE
+`wpdev rebuild <site> --only purge` (or `wp litespeed-purge all`) at the end rather than a
+per-row purge cascade; see [`lean-seo-excerpt-meta-descriptions.md`](lean-seo-excerpt-meta-descriptions.md)
 LSCache pitfall. The idempotent re-run design (write only rows that differ) is unchanged and is
 what lets a capped run resume. **Content-quality gate:** the generated text must be authored to
 the field's scoped spec (see [`../../workflows/content-generation.md`](../../workflows/content-generation.md)

@@ -24,7 +24,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `voxel:cards` | `surfaced` | the cards flow (`workflows/build.md` §Cards), `workflows/build.md` §Cards | Mandatory by rule 3 — never hand-write the card role. |
 | `voxel:comparator` | `surfaced` | `references/voxel/voxel-field-visibility.md` §Choosing the right comparator for dtag visibility rules | Resolves the correct dtag visibility comparator (`is_equal_to` vs `contains`) for a Voxel field / repeater sub-field from its field type — the SSOT for the "fragile vis-gate on structured fields" fix class. |
 | `voxel:create` | `surfaced` | the CPT lifecycle (`workflows/cpt-lifecycle.md`), `workflows/cpt-lifecycle.md` Phase 1 | Creates CPT + 4 blank templates. |
-| `voxel:data` | `surfaced` | `voxel-widget-builder` (data introspection step), `voxel-schema-detective` (CPT-key fallback) | Reads rendered field VALUES on a real post. |
+| `voxel:data` | `surfaced` | `voxel-widget-builder` (data introspection step), `voxel-schema-detective` (CPT-key fallback), `workflows/content-generation.md` / `workflows/curation.md` write gates | Reads rendered field values and `core` (`post_title`, `post_excerpt`, `post_content`) on a real post; required before/after evidence for content writes. |
 | `voxel:delete` | `out-of-scope` | n/a | Destructive operational tooling. The plugin's mission is build/audit/lifecycle, not CPT teardown. |
 | `voxel:empty` | `surfaced` | `voxel-page-auditor` `[G]`-tier (advisory) | Finds Voxel fields with no data across published posts — surfaces unused fields as audit Improvement findings. |
 | `voxel:export` | `defer` | n/a | Cross-site CPT migration. Useful but not part of the audit/build mission. Revisit when usage data justifies. |
@@ -34,7 +34,8 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `voxel:heading-curator` | `surface-pending` | will surface in the `voxel-heading-curator` agent (read the cache instead of re-extracting) | Extracts production heading phrasings from peer single templates and writes a per-site cache the `voxel-heading-curator` agent should consume — replaces re-running `voxel:templates` + `elementor:dump` extraction on every plan dispatch. |
 | `voxel:openapi` | `defer` | n/a | Exports or inspects a Voxel OpenAPI surface. API documentation tooling, not part of page/template build, audit, or icon selection workflows. Surface only if a future API-reference workflow needs it. |
 | `voxel:sample` | `surfaced` | the build workflow (`workflows/build.md`) Phase 1, `page-planning.md` §2a | Ranks published posts of a CPT by completeness (filled fields + relations + repeaters); exports the top N to a temp folder so the Field Inventory samples the richest real data. |
-| `voxel:set-field` | `defer` | n/a | Writes field values on a Voxel post (text/meta, post-relations, core excerpt/title/content) via the Voxel field API. Seeding/operator territory; surface if a CPT-lifecycle recipe needs to populate a sample post deterministically for render testing. |
+| `voxel:apply-content` | `surfaced` | `references/core/rules.md` rule 9; `workflows/content-generation.md` Phase 4; `workflows/curation.md` write-path gate | Manifest-driven batch content apply: preflights `expectedBeforeSha256` per row, dry-runs by default, `--yes --rollback <path>` applies with per-record read-back + reindex and auto-rollback on any row failure. Preferred path for validated multi-record content batches; single-field writes still use `voxel:set-field`. |
+| `voxel:set-field` | `surfaced` | `references/core/rules.md` rule 9; `references/curation/cli-map.md`; `workflows/curation.md`, `workflows/content-generation.md`, `references/curation/bulk-rich-text.md`, `references/curation/field-semantics.md`, `references/curation/lifecycle-checklists.md` | Writes field values on a Voxel post (text/meta, post-relations) via the Voxel field API, and routes the Voxel `title`/`description` aliases to `post_title`/`post_content` via `wp_update_post` itself (no separate core-column call, no silent no-op). Also accepts explicit core keys `post_title`/`post_content`/`post_excerpt`. Single-field write path; sanctioned per core rule 9. |
 | `voxel:settings` | `surfaced` | `references/icons/material-symbols/lookup-and-repair.md` (icon field repair/provisioning companion), `references/core/command-surface.md` | Reads and mutates `voxel:post_types`, including `ensure-field` for icon fields and `--migrate-image-ids` for legacy attachment-backed SVG icon metadata. |
 | `voxel:sorting` | `surfaced` | `references/core/command-surface.md` §CPT introspection; `workflows/audit.md` reindex-after-filter failure class | Audits or upserts the standard Voxel search-order set across one or all CPTs; preserves custom orders by default, can `--replace`, and reindexes changed CPTs unless disabled. |
 | `voxel:page` | `surfaced` | `references/voxel/template-resolution.md` (referenced as introspection helper) | Shows Voxel templates used on a page given its URL path. |
@@ -100,6 +101,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:migrate:containers` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `workflows/migrate.md` Phase 1 | Converts legacy `<container>` nodes to clean `ef-wrapper` (tag from `html_tag`; `cols=N×1fr` only when horizontal). Drops all other styling. |
 | `elementor:migrate:loop-index` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `voxel-elementor-fixer` Pass 2 fork point | Rewrites `@<group>(<path>.index)` (broken) → `@<group>(<path>.title).loop_index()` (Voxel canonical). Run on every CPT page that uses loop iteration indexes. |
 | `elementor:migrate:main` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `workflows/migrate.md` Phase 1 | Converts every root `<main>` container (`html_tag=main`) into a clean `ef-wrapper(tag=main)`, preserving children. Structural Phase 1 of migration. |
+| `elementor:migrate:voxel-feeds` | `surface-pending` | n/a | Converts Voxel `ts-post-feed` instances into EF wrapper template-mode feeds. Keep pending until migrate/build route defines preservation, rollback, and browser proof gates for this broad template mutation. |
 
 ## `elementor:strip:*` namespace (cleanup mutations)
 
@@ -178,10 +180,10 @@ These wpdev namespaces are out of the voxel-builder mission entirely — listed 
 
 ## Coverage summary (post audit)
 
-- `voxel:` namespace: **16 surfaced** (+ `rebuild --only reindex`), 1 surface-pending (heading-curator), 6 deferred/out-of-scope (admin-menu, delete, export, openapi, repair-options, set-field).
+- `voxel:` namespace: **18 surfaced** (+ `rebuild --only reindex`), 1 surface-pending (heading-curator), 5 deferred/out-of-scope (admin-menu, delete, export, openapi, repair-options).
 - `elementor:` namespace: **18 surfaced** (incl. `codegen`, `codegen:verify`, `export` for migration round-trips), 8 deferred / 2 out-of-scope (action-drift, animations, controls:check, loop-filter, rename, fetch-flags, codegen:tokens, schema:check deferred; create, docs:gen out-of-scope), 0 surface-pending.
 - `elementor:ef:*`: **2 surfaced** (`ef:migrate` → cpt-lifecycle Phase 0; `rebuild --only tokens` → elementor-build Phase 6 + fixer Pass 2), 3 deferred / 1 out-of-scope.
-- `elementor:migrate:*`: **3 surfaced** (`containers`, `loop-index`, `main`).
+- `elementor:migrate:*`: **3 surfaced** (`containers`, `loop-index`, `main`) + **1 surface-pending** (`voxel-feeds`).
 - `elementor:strip:*`: **2 surfaced** (`styles`, `wrappers`).
 - `elementor:reset:*`: 1 deferred (`button-variants`).
 - `elementor:revisions:*`: **2 surfaced** (both).
@@ -191,7 +193,7 @@ These wpdev namespaces are out of the voxel-builder mission entirely — listed 
 - `rebuild --only *` / `smoke`: 1 surfaced, 1 deferred.
 - Other: 0 surfaced (`headings` deferred, `quality` out-of-scope, `perf` surfaced in this skill via `voxel-page-auditor` diagnostic findings — not a mission-verb but cross-referenced).
 
-**Total surfaced: 51** of ~60 plugin-relevant commands, with 1 explicit `surface-pending` row (`voxel:heading-curator`) carrying a wiring plan. The per-namespace counts above are a human convenience; the lint gate (see top of file) is the actual completeness guarantee.
+**Total surfaced: 53** of ~60 plugin-relevant commands, with 1 explicit `surface-pending` row (`voxel:heading-curator`) carrying a wiring plan. The per-namespace counts above are a human convenience; the lint gate (see top of file) is the actual completeness guarantee.
 
 **Verbs verified absent from the CLI (do NOT reference):**
 

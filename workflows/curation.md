@@ -21,8 +21,8 @@ mandatory **safety gate** before any merge or delete.
 
 ## Essential principles
 
-- **Entity-data writes go through `wpdev voxel:*` only.** `wpdev voxel:set-field` (fields + meta) and `wpdev wp <site> post update` (core columns) are the ONLY sanctioned write paths. A raw `wp eval` / `update_post_meta` / SQL write of field or meta content is FORBIDDEN (core rule 9); `wp eval` is read-only-inspection and non-entity maintenance (reindex, cache/transient bust) only. There is no "small enough to eval" exception — 128 rows is a fan-out of the Edit route, not a license to bulk-mutate.
-- Preserve data evidence: capture before/after with `voxel:data` for every mutation.
+- **Entity-data writes use sanctioned `wpdev` paths only.** Use `wpdev voxel:apply-content` for validated multi-record content manifests; it preflights expected SHA values, writes a rollback bundle, read-backs/reindexes every record, and restores on failure. Use `wpdev voxel:set-field` for a single-field path (fields/meta plus `title` → `post_title` and `description` → `post_content`). `wpdev wp <site> post update` remains fallback or explicit-core-key path. Raw `wp eval` / `update_post_meta` / SQL entity-data writes are FORBIDDEN (core rule 9); `wp eval` is read-only inspection and non-entity maintenance only. No "small enough to eval" exception.
+- Preserve data evidence: capture before/after with `voxel:data` for every mutation; it exposes core values under `core`.
 - Keep patches narrow: set only changed fields, never re-write sampled whole-record blobs.
 - Treat profile/user links as one invariant: profile `post_author` and user meta
   `voxel:profile_id` must agree.
@@ -43,9 +43,21 @@ mandatory **safety gate** before any merge or delete.
    ```
 3. Collect: post-type/taxonomy slug, field keys, expected shapes, author/user/profile links,
    relation targets, duplicates, and index/cache state.
-4. For broad duplicate/relation investigation across many records or types, dispatch the
+4. Before web research or `needs-source` for cross-record business/location/person/service claims,
+   resolve all relevant published CPTs, not samples: live `voxel:fields`, corpus reads, and
+   `./wpdev voxel:data <site> --id=<id>` confirmation for selected records. Search title/core
+   content/excerpt, prose/repeater fields, aliases; traverse discovered and named relations inbound/
+   outbound ≤2 hops cycle-safe. Record snapshot/retrieved_at, CPT/record/field counts, aliases,
+   filters, pagination/truncation, hits, and zero-result proof. Ledger `D##` as
+   `voxel:<site>:<post_type>:<post_id>:<field>[:row]` plus SHA-256, path, dates, classification,
+   approval, redacted excerpt, confidence. Unknown is CONFIDENTIAL; redact before external models;
+   author only PUBLIC or approved INTERNAL_PUBLISHABLE evidence. Set
+   `dataset_resolution_state: PASS|BLOCKED`; self-contained transformations may use
+   `NOT_APPLICABLE` with reason. Acquisition opens only after PASS and exhaustion/gap proof.
+5. For broad duplicate/relation investigation across many records or types, dispatch the
    [`voxel-curator-agent`](../references/subagents/voxel-curator-agent.md) subagent — one
-   entity per dispatch (read-only investigation leaf; see
+   entity per leaf, batched 5-10 homogeneous entity leaves per worker per the standard
+   contract (read-only investigation; see
    [`../references/core/parallel-dispatch.md`](../references/core/parallel-dispatch.md) for
    the dispatch contract). If the host has no subagent facility, read the brief and perform
    its scoped investigation inline.
@@ -100,7 +112,7 @@ the derived name fields.
 
 ### Edit
 
-**`description`-type and `title`-type fields are core columns, not meta — `voxel:set-field --set '{"description":...}'` silently no-ops them.** Voxel maps the `description` field to `post_content` and the `title` field to `post_title`. `voxel:set-field` writes them as meta and the value never lands (the DB shows the field empty on re-read). Set them via the core column instead: `wpdev wp <site> post update <id> --post_content="..."` (description) / `--post_title="..."` (title). The `post_excerpt` (SEO excerpt, surfaced by `@post(excerpt)` in templates/cards) is likewise a core column — `wpdev wp <site> post update <id> --post_excerpt="..."`; posts created via `wp post create` start with an empty excerpt, so a freshly-scaffolded CPT record renders an empty hero byline/card blurb until you set it. After a create-then-populate pass, always re-read `post_content`/`post_excerpt` length, not just the Voxel meta fields.
+**`description`-type and `title`-type fields are core columns, not meta — `voxel:set-field` routes them there itself.** Voxel maps the `description` field to `post_content` and the `title` field to `post_title`; `voxel:set-field --set '{"description":"...","title":"..."}'` detects the alias and writes `post_content`/`post_title` via `wp_update_post`, not meta — no separate call needed. You can also pass the explicit core key directly (`--set '{"post_content":"...","post_title":"..."}'`). `wpdev wp <site> post update <id> --post_content="..." --post_title="..."` remains a valid fallback/explicit path, not mandatory for the aliases. The `post_excerpt` (SEO excerpt, surfaced by `@post(excerpt)` in templates/cards) is a core column too — pass it as `post_excerpt` to either `voxel:set-field --set` or `wp post update <id> --post_excerpt="..."`; posts created via `wp post create` start with an empty excerpt, so a freshly-scaffolded CPT record renders an empty hero byline/card blurb until you set it. After a create-then-populate pass, always re-read `post_content`/`post_excerpt` (via `voxel:data`'s `core` block) length, not just the Voxel meta fields.
 
 **Respect live definition constraints before writing repeater values.** Short-text subfields need semantic labels within their live `maxlength`; texteditor siblings carry prose. Never rely on silent truncation. If content exceeds a bound, shorten it safely or hand the constraint change to [`field-metadata.md`](field-metadata.md); curation does not mutate definitions mid-route. Field-definition semantics: [`field-metadata-spec.md`](../references/voxel/field-metadata-spec.md).
 
@@ -113,7 +125,7 @@ wpdev voxel:data <site> --id=<id> > /tmp/after.json
 Verify the changed fields moved and the unrelated fields did not.
 
 **Write-path gate (enforced — a violation is a rejected result, not a warning).** Before any field/meta mutation, and for EVERY record in a batch:
-1. **Path:** the write is a `wpdev voxel:set-field` (fields/meta) or `wpdev wp <site> post update` (`post_title`/`post_content`/`post_excerpt`) call. If you are typing `update_post_meta`, `$wpdb`, or SQL to change entity data, STOP — you are off the sanctioned path.
+1. **Path:** the write is `wpdev voxel:apply-content` (manifest batch), `wpdev voxel:set-field` (fields/meta, incl. `title`/`description` aliases), or `wpdev wp <site> post update` (fallback/explicit core key: `post_title`/`post_content`/`post_excerpt`). If you are typing `update_post_meta`, `$wpdb`, or SQL to change entity data, STOP — you are off the sanctioned path.
 2. **Per-record before/after:** capture `voxel:data --id=<id>` (or the core-column value) before and after; prove the targeted key changed and every unrelated key is byte-identical. A batch is verified only when every record passes; writing first and spot-checking a sample afterward is rejected.
 3. **Content, not just fill:** the value is authored to the owning editorial/SEO spec from source evidence — never a mechanical transform of a sibling field (`wp_strip_all_tags(definition)`→`hook`, `substr(post_content)`→`post_excerpt`). A deterministically-derived value is a filled column, not correct content, and fails this gate. For definitional/glossary content, the authoring spec is the SEO skill's glossary criteria (answer-block length, term-as-subject, dictionary-neutral prose); route the authoring through the matching subagent brief, one record's meaning at a time.
 4. **Reindex after:** reindex mutated records so search/loops/TermIndex reflect the new values.

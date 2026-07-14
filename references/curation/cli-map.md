@@ -16,7 +16,10 @@ Use from workspace root.
 
 ```bash
 id=$(./wpdev wp <site> post create --post_type=<post_type> --post_status=publish --post_title="..." --porcelain)
-./wpdev voxel:set-field <site> --id="$id" --set='<json>'
+./wpdev voxel:set-field <site> --id="$id" --set='<json>'                                  # one record/field; title→post_title, description→post_content
+./wpdev voxel:apply-content <site> --manifest=/tmp/content.json --rollback=/tmp/rollback.json       # validated batch dry-run/preflight
+./wpdev voxel:apply-content <site> --manifest=/tmp/content.json --rollback=/tmp/rollback.json --yes # apply + rollback bundle + read-back/reindex
+./wpdev rebuild <site> --only purge                                                          # once after batch
 ./wpdev wp <site> post delete <id> --force
 ./wpdev voxel:backfill-authors <site> --post-type=<post_type>
 ```

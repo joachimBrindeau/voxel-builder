@@ -41,17 +41,25 @@ If the field set or record scope is ambiguous, ask one focused question before P
 1. Read the field-scoped authoring reference for every target field from the
    routing table below. That reference owns the spec (length band, structure,
    grammatical form, schema mapping); do not re-derive it.
-2. Resolve each field's write owner via `wpdev voxel:fields`: Voxel field/meta →
-   `voxel:set-field`; `post_title`/`post_content`/`post_excerpt` → `wp post update`
-   (they no-op through `voxel:set-field`). Record repeater subfield shapes and
-   `maxlength`.
+2. Resolve each field's write owner via `wpdev voxel:fields`. `voxel:set-field`
+   writes Voxel fields/meta and routes Voxel `title` → `post_title` and
+   `description` → `post_content`; it also accepts explicit core keys
+   `post_title`/`post_content`/`post_excerpt`. `voxel:data` exposes those core
+   values under `core`. Keep `wpdev wp <site> post update` only as fallback or
+   explicit-core-key path. Record repeater subfield shapes and `maxlength`.
    For a definitional CPT, also load and enforce the identity contract from
    `seo-defined-terms.md`: exact-term `post_title`, slugified-term `post_name`, and
    individually LLM-authored term-first `h1` (maximum 70 characters).
-3. Build a per-record source packet (`/tmp/gen-<cpt>-<id>.json`): `h1`/title, the
-   existing body/`description`, sibling facts, existing values that must be
-   preserved, target language, and the facts that must not be invented.
-4. Capture existing values with `wpdev voxel:data --id=<id>` as rollback evidence.
+3. Before web research or `needs-source`, resolve cross-record business/location/person/service
+   claims across all relevant published CPTs: live `voxel:fields`, Voxel-aware corpus reads,
+   selected `./wpdev voxel:data <site> --id=<id>` confirmation, aliases, and cycle-safe
+   inbound/outbound relations through two hops. Emit `dataset_resolution_state: PASS|BLOCKED`,
+   scope/counts/filters/pagination/zero-result proof, and `D##` locator/SHA-256/relation-path/
+   classification/approval/redacted-excerpt/confidence rows. Unknown is CONFIDENTIAL; redact
+   before external models. Author only from PUBLIC or approved INTERNAL_PUBLISHABLE evidence.
+   Self-contained transformations may record `dataset_resolution_state: NOT_APPLICABLE` with reason.
+4. Build per-record source packet (`/tmp/gen-<cpt>-<id>.json`) from resolved evidence; capture
+   existing values with `wpdev voxel:data --id=<id>` as rollback evidence.
 
 **Field → scoped reference routing:**
 
@@ -63,8 +71,7 @@ If the field set or record scope is ambiguous, ask one focused question before P
 | any reader/SERP copy (methodology + gates) | [`../references/voxel/claude-seo-authoring.md`](../references/voxel/claude-seo-authoring.md) |
 | bulk mechanics (9router concurrent generate + validate-retry) | [`../references/voxel/lean-seo-ninerouter-concurrent-generation.md`](../references/voxel/lean-seo-ninerouter-concurrent-generation.md) |
 
-**Exit:** every target field has its scoped spec loaded, its write owner resolved,
-and a source packet per record.
+**Exit:** every target field has scoped spec, write owner, dataset gate, and source packet.
 
 ## Phase 1 - Load Standards and Methodology
 
@@ -115,8 +122,11 @@ prose rules, source/citation rule, forbidden transforms).
    term-as-subject / answer-first form, neutral prose, no truncation markers, no
    leaked tags/tokens, meta fields under the resolver limit.
 2. Reject any value that is a mechanical transform of a sibling field, any
-   fabricated or unverifiable `sources` row (drop it; empty beats invented), and
-   any `needs-source`/`reject` envelope. Regenerate rejected leaves once.
+    fabricated or unverifiable `sources` row (drop it; empty beats invented), and
+    any `needs-source`/`reject` envelope. Regenerate rejected leaves once. Every review
+    verdict records candidate input SHA-256; reject it if current SHA differs. Fresh review
+    session follows substantive rewrite unless exact SHA proves unchanged.
+
 3. Confirm unrelated fields are untouched in the candidate set (the author only
    returned the targeted fields).
 
@@ -128,13 +138,36 @@ prose rules, source/citation rule, forbidden transforms).
 
 **Actions:**
 
-1. Per record and field, write through the sanctioned owner: `wpdev voxel:set-field`
-   (fields/meta, incl. repeater `sources`) or `wpdev wp <site> post update`
-   (core columns). Never `wp eval`/`update_post_meta`/SQL for entity data (core rule 9).
-2. Enforce the per-record gate: `wpdev voxel:data --id=<id>` before/after proves the
+1. **Preferred: manifest-driven batch via `wpdev voxel:apply-content`** for many
+   candidate records. Build a JSON manifest — one row per record: `id`, the
+   record's current `expectedBeforeSha256` (from a `preflight`/`read` pass, so a
+   concurrent edit aborts the apply), `post_excerpt`, and `fields` (Voxel field/meta
+   keys plus the `title`/`description` aliases the command routes to
+   `post_title`/`post_content`). Dry-run first (omit `--yes`) to preflight every
+   row's SHA and surface mismatches before any write; only then re-run with `--yes`
+   and a `--rollback <path>` bundle. The command captures pre-write originals into
+   the rollback file, applies, and on ANY row failure auto-restores every row from
+   that bundle — inspect `Unrecovered IDs` in the failure output if restore itself
+   fails partially. It performs its own per-record read-back and reindex internally
+   and needs exactly one purge after (`wpdev rebuild <site> --only purge`) covering
+   the whole batch, not a per-row purge cascade:
+   ```bash
+   wpdev voxel:apply-content <site> --manifest /tmp/manifest.json --rollback /tmp/rollback.json           # dry run
+   wpdev voxel:apply-content <site> --manifest /tmp/manifest.json --rollback /tmp/rollback.json --yes      # apply
+   ```
+2. **Single-field path: `wpdev voxel:set-field`.** For a one-off record/field write,
+   `voxel:set-field` remains the direct path — it writes Voxel fields/meta and routes
+   the `title`/`description` aliases to `post_title`/`post_content` itself (no
+   silent no-op, no separate `post update` call needed for aliases). Use
+   `wpdev wp <site> post update` only as fallback, or when writing an explicit core
+   key (`post_title`/`post_content`/`post_excerpt`) outside the alias path. Never
+   `wp eval`/`update_post_meta`/SQL for entity data (core rule 9).
+3. Enforce the per-record gate: `wpdev voxel:data --id=<id>` before/after proves the
    targeted key changed to the generated value and unrelated keys are byte-identical;
-   skip rows already equal; report `APPLIED/ALREADY/FAILED`.
-3. Reindex mutated records, then run ONE cache purge at the end
+   skip rows already equal; report `APPLIED/ALREADY/FAILED`. (`voxel:apply-content`
+   does this internally per row; for `voxel:set-field` calls, capture it yourself.)
+4. Reindex mutated records (`voxel:apply-content` reindexes per row automatically;
+   `voxel:set-field` reindexes by default), then run ONE cache purge at the end
    (`wpdev rebuild <site> --only purge`), not a per-row purge cascade.
 
 **Exit:** every applied record passed the before/after gate; failures are listed
