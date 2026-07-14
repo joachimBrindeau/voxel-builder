@@ -86,9 +86,32 @@ Gate the orchestrator on the returned JSON:
 
 `get box` and `get styles` are the single-element shortcuts when you only need one node; `eval --stdin` is the batch form for the whole section list. Use `get count` to assert feed cards rendered (a feed that silently returns zero is otherwise invisible to a screenshot of an empty band).
 
+For loops, assert a meaningful cardinality rather than `> 0`: record the expected count
+or bounded minimum in the build manifest, count rendered cards, and verify the first and
+last titles. Then assert the first non-loop sibling still contains its heading/copy/form.
+EF/Voxel loop context can leak into following siblings and empty otherwise-valid static
+cards without producing schema findings or console errors.
+
+For navigation and modal UI, include a visible-fixed-overlay scan. Report large visible
+`position: fixed` drawers/dialogs with class, dimensions, and visibility state. Compare an
+untouched source or another target page before blaming the changed artifact; shared header
+state is a separate defect, not evidence that the port itself opened the drawer.
+
 ## The screenshot must be READ, not just captured
 
 Capturing `screenshot --full` is not verification — the subagent's brief MUST instruct it to **read the PNG it saved and describe what it sees**: hero present? sections stacked vertically or side-by-side as planned? sidebar to the right? feed cards filled with data or empty skeletons? A captured-but-unread screenshot is how broken layouts shipped before. The subagent returns the description text alongside the layout-assertion JSON.
+
+Use the live CLI syntax exactly:
+`agent-browser --session <s> screenshot --full /tmp/verify.png`. `--full-page` is not an
+`agent-browser` flag and can be misread as the output path.
+
+## Generated stylesheet verification
+
+After cache purge/rebuild, extract every same-site `/wp-content/litespeed/css/*.css` URL
+from the rendered HTML and fetch each with a bounded timeout. Require HTTP 200 and a
+non-empty body. Use per-URL timeouts and print one final failure table; do not let a warm
+loop spin indefinitely. A missing generated stylesheet makes visual evidence unreliable
+even when Elementor schema lint passes.
 
 ## Standard verification checklist (the subagent returns Pass/Fail per item)
 
@@ -99,7 +122,11 @@ Capturing `screenshot --full` is not verification — the subagent's brief MUST 
 [ ] No JS console errors (agent-browser console — pre-existing warnings OK)
 [ ] No failed network requests for the post's CSS (network requests --filter "**/elementor-post-*.css" shows 200, not 404)
 [ ] Expected dynamic-tag values rendered (title non-empty, byline shows the type label, counts are numbers)
+[ ] Expected feed/card cardinality rendered; first and last expected titles are present
+[ ] First sibling after every loop still renders its heading/copy/form/CTA
 [ ] No literal "@post(" / "@tags(" / "@author(" / "@site(" leakage in the rendered text (get text body)
+[ ] Same-site generated LiteSpeed CSS URLs return HTTP 200 with non-empty bodies
+[ ] No unexpected visible fixed drawer/dialog; shared overlays compared against untouched source
 [ ] LAYOUT ASSERTIONS (eval --stdin block above) all pass — width, grid tracks, inherited --ef-cols, hero tag
 [ ] FULL-PAGE SCREENSHOT saved AND read — subagent describes hero/sections/sidebar/feed
 ```

@@ -297,25 +297,6 @@
       },
       "name": "ef-card",
       "props": {
-        "actions_embedded": {
-          "control": {
-            "kind": "segmented",
-            "label": "Layout",
-            "section": "actions"
-          },
-          "default": "",
-          "description": "Place buttons inside the card or below it.",
-          "enum": [
-            "",
-            "yes",
-            "no"
-          ],
-          "enumLabels": {
-            "no": "Grouped",
-            "yes": "Embedded"
-          },
-          "primitive": "string"
-        },
         "content_blocks": {
           "control": {
             "kind": "repeater",
@@ -362,648 +343,6 @@
           "primitive": "string",
           "responsive": true
         },
-        "logo_caption": {
-          "control": {
-            "after": "fit",
-            "kind": "text",
-            "label": "Caption",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Caption shown with the media.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": [
-                  "image",
-                  "video",
-                  "icon",
-                  "svg"
-                ]
-              }
-            ]
-          }
-        },
-        "logo_enabled": {
-          "control": {
-            "kind": "segmented",
-            "label": "Media",
-            "section": "content"
-          },
-          "default": false,
-          "description": "Show this media area.",
-          "primitive": "boolean"
-        },
-        "logo_fit": {
-          "control": {
-            "kind": "segmented",
-            "label": "Fit",
-            "section": "content"
-          },
-          "default": "cover",
-          "description": "How the image fills the space.",
-          "enum": [
-            "cover",
-            "contain"
-          ],
-          "enumLabels": {
-            "contain": "Contain",
-            "cover": "Cover"
-          },
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": [
-                  "image"
-                ]
-              }
-            ]
-          }
-        },
-        "logo_icon": {
-          "control": {
-            "kind": "icon",
-            "label": "Icon",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Choose an icon.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "icon"
-              }
-            ]
-          }
-        },
-        "logo_image": {
-          "control": {
-            "kind": "image",
-            "label": "Image",
-            "section": "content"
-          },
-          "default": [],
-          "description": "Choose an image.",
-          "primitive": "image",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "logo_image_alt": {
-          "control": {
-            "kind": "text",
-            "label": "Alt text",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Describe the image for screen readers.",
-          "dynamic": true,
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "logo_image_loading": {
-          "default": "auto",
-          "description": "Choose when the image loads.",
-          "enum": [
-            "auto",
-            "lazy",
-            "eager"
-          ],
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "logo_map_pins": {
-          "control": {
-            "kind": "repeater",
-            "label": "Pins",
-            "rowLabel": "Pin",
-            "section": "content"
-          },
-          "default": [],
-          "description": "Add pins to the map.",
-          "primitive": "string",
-          "repeater": {
-            "rowPart": "map-pin-row"
-          },
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "map"
-              }
-            ]
-          }
-        },
-        "logo_map_zoom": {
-          "control": {
-            "kind": "text",
-            "label": "Zoom",
-            "section": "content"
-          },
-          "default": "14",
-          "description": "Starting map zoom level.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "map"
-              }
-            ]
-          }
-        },
-        "logo_svg": {
-          "control": {
-            "kind": "media",
-            "label": "SVG",
-            "section": "content"
-          },
-          "description": "Choose an uploaded vector image.",
-          "primitive": "svg",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "svg"
-              }
-            ]
-          }
-        },
-        "logo_type": {
-          "control": {
-            "kind": "select",
-            "label": "Type",
-            "options": "mediaTypes",
-            "section": "content"
-          },
-          "default": "image",
-          "description": "Choose what kind of media to show.",
-          "dynamic": true,
-          "enum": [
-            "image",
-            "video",
-            "icon",
-            "svg",
-            "map"
-          ],
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              }
-            ]
-          }
-        },
-        "logo_video_url": {
-          "control": {
-            "customOnly": true,
-            "kind": "source",
-            "label": "Video URL",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Video link or file.",
-          "dynamic": true,
-          "primitive": "source",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "logo_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "logo_type"
-                ],
-                "value": "video"
-              }
-            ]
-          }
-        },
-        "media_caption": {
-          "control": {
-            "after": "fit",
-            "kind": "text",
-            "label": "Caption",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Caption shown with the media.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": [
-                  "image",
-                  "video",
-                  "icon",
-                  "svg"
-                ]
-              }
-            ]
-          }
-        },
-        "media_enabled": {
-          "control": {
-            "kind": "segmented",
-            "label": "Media",
-            "section": "content"
-          },
-          "default": false,
-          "description": "Show this media area.",
-          "primitive": "boolean"
-        },
-        "media_fit": {
-          "control": {
-            "kind": "segmented",
-            "label": "Fit",
-            "section": "content"
-          },
-          "default": "cover",
-          "description": "How the image fills the space.",
-          "enum": [
-            "cover",
-            "contain"
-          ],
-          "enumLabels": {
-            "contain": "Contain",
-            "cover": "Cover"
-          },
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": [
-                  "image"
-                ]
-              }
-            ]
-          }
-        },
-        "media_icon": {
-          "control": {
-            "kind": "icon",
-            "label": "Icon",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Choose an icon.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "icon"
-              }
-            ]
-          }
-        },
-        "media_image": {
-          "control": {
-            "kind": "image",
-            "label": "Image",
-            "section": "content"
-          },
-          "default": [],
-          "description": "Choose an image.",
-          "primitive": "image",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "media_image_alt": {
-          "control": {
-            "kind": "text",
-            "label": "Alt text",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Describe the image for screen readers.",
-          "dynamic": true,
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "media_image_loading": {
-          "default": "auto",
-          "description": "Choose when the image loads.",
-          "enum": [
-            "auto",
-            "lazy",
-            "eager"
-          ],
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "image"
-              }
-            ]
-          }
-        },
-        "media_map_pins": {
-          "control": {
-            "kind": "repeater",
-            "label": "Pins",
-            "rowLabel": "Pin",
-            "section": "content"
-          },
-          "default": [],
-          "description": "Add pins to the map.",
-          "primitive": "string",
-          "repeater": {
-            "rowPart": "map-pin-row"
-          },
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "map"
-              }
-            ]
-          }
-        },
-        "media_map_zoom": {
-          "control": {
-            "kind": "text",
-            "label": "Zoom",
-            "section": "content"
-          },
-          "default": "14",
-          "description": "Starting map zoom level.",
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "map"
-              }
-            ]
-          }
-        },
-        "media_svg": {
-          "control": {
-            "kind": "media",
-            "label": "SVG",
-            "section": "content"
-          },
-          "description": "Choose an uploaded vector image.",
-          "primitive": "svg",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "svg"
-              }
-            ]
-          }
-        },
-        "media_type": {
-          "control": {
-            "kind": "select",
-            "label": "Type",
-            "options": "mediaTypes",
-            "section": "content"
-          },
-          "default": "image",
-          "description": "Choose what kind of media to show.",
-          "dynamic": true,
-          "enum": [
-            "image",
-            "video",
-            "icon",
-            "svg",
-            "map"
-          ],
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              }
-            ]
-          }
-        },
-        "media_video_url": {
-          "control": {
-            "customOnly": true,
-            "kind": "source",
-            "label": "Video URL",
-            "section": "content"
-          },
-          "default": "",
-          "description": "Video link or file.",
-          "dynamic": true,
-          "primitive": "source",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "media_type"
-                ],
-                "value": "video"
-              }
-            ]
-          }
-        },
         "tag": {
           "control": {
             "kind": "select",
@@ -1022,20 +361,6 @@
             "header"
           ],
           "primitive": "string"
-        },
-        "ts_actions": {
-          "control": {
-            "kind": "repeater",
-            "label": "Buttons",
-            "rowLabel": "Button",
-            "section": "content"
-          },
-          "default": [],
-          "description": "Add and order buttons.",
-          "primitive": "string",
-          "repeater": {
-            "rowPart": "action-row"
-          }
         },
         "variant": {
           "control": {
@@ -1058,446 +383,6 @@
         }
       },
       "rows": {
-        "action-row": {
-          "name": "action-row",
-          "props": {
-            "address": {
-              "control": {
-                "kind": "text",
-                "label": "Address",
-                "placeholder": "123 Main St, City, Country",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "get_directions"
-                }
-              },
-              "default": "",
-              "description": "Address for directions.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_desc": {
-              "control": {
-                "kind": "text",
-                "label": "Event description",
-                "placeholder": "Détails de l'événement…",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_gcal",
-                    "action_ical"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Calendar event details.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_end_date": {
-              "control": {
-                "kind": "text",
-                "label": "Event end",
-                "placeholder": "YYYY-MM-DD HH:MM:SS",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_gcal",
-                    "action_ical"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Event end date and time.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_location": {
-              "control": {
-                "kind": "text",
-                "label": "Event location",
-                "placeholder": "Centre de conférences, 10 rue du Faubourg, 75011 Paris",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_gcal",
-                    "action_ical"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Calendar event location.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_start_date": {
-              "control": {
-                "kind": "text",
-                "label": "Event start",
-                "placeholder": "YYYY-MM-DD HH:MM:SS",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_gcal",
-                    "action_ical"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Event start date and time.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_title": {
-              "control": {
-                "kind": "text",
-                "label": "Event title",
-                "placeholder": "Conférence annuelle 2026",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_gcal",
-                    "action_ical"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Calendar event title.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "cal_url": {
-              "control": {
-                "kind": "source",
-                "label": "Event URL",
-                "placeholder": "https://example.com/event.ics",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "action_ical"
-                }
-              },
-              "description": "Existing calendar file link.",
-              "dynamic": true,
-              "primitive": "source"
-            },
-            "cart_text": {
-              "control": {
-                "kind": "text",
-                "label": "Cart text",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "add_to_cart"
-                }
-              },
-              "default": "",
-              "description": "Button text after adding.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "email": {
-              "control": {
-                "kind": "email",
-                "label": "Email",
-                "placeholder": "contact@example.com",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "send_email"
-                }
-              },
-              "default": "",
-              "description": "Email address to contact.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "icon": {
-              "control": {
-                "kind": "icon",
-                "label": "Icon",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Icon shown on the button.",
-              "primitive": "string"
-            },
-            "icon_active": {
-              "control": {
-                "kind": "icon",
-                "label": "Active icon",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_follow",
-                    "action_follow_post",
-                    "action_save"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Icon shown after click.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "label": {
-              "control": {
-                "kind": "text",
-                "label": "Label",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Button text.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "label_active": {
-              "control": {
-                "kind": "text",
-                "label": "Active label",
-                "placeholder": "Following",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "action_follow",
-                    "action_follow_post",
-                    "action_save"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Text shown after click.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "link": {
-              "control": {
-                "kind": "source",
-                "label": "Link",
-                "placeholder": "https://example.com",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "action_link"
-                }
-              },
-              "description": "Page or link to open.",
-              "dynamic": true,
-              "primitive": "source"
-            },
-            "modal_id": {
-              "control": {
-                "kind": "select",
-                "label": "Modal",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "open_modal"
-                }
-              },
-              "default": "",
-              "description": "On-page modal or saved template to open.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "phone": {
-              "control": {
-                "kind": "phone",
-                "label": "Phone",
-                "placeholder": "+33 1 23 45 67 89",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "call"
-                }
-              },
-              "default": "",
-              "description": "Phone number to call.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "scroll_to": {
-              "control": {
-                "kind": "text",
-                "label": "Section ID",
-                "placeholder": "#section-id",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "scroll_to_section"
-                }
-              },
-              "default": "",
-              "description": "Section to scroll to.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "toast_message": {
-              "control": {
-                "kind": "text",
-                "label": "Toast message",
-                "placeholder": "Link copied",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": "share_post"
-                }
-              },
-              "default": "",
-              "description": "Short message after click.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "tooltip": {
-              "control": {
-                "kind": "text",
-                "label": "Tooltip",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Short hover text shown on the button.",
-              "primitive": "string"
-            },
-            "type": {
-              "control": {
-                "default": "action_link",
-                "kind": "select",
-                "label": "Type",
-                "section": "content"
-              },
-              "default": "action_link",
-              "description": "Choose what opens on click.",
-              "enum": [
-                "action_link",
-                "get_directions",
-                "call",
-                "send_email",
-                "open_modal",
-                "scroll_to_section",
-                "action_gcal",
-                "action_ical",
-                "share_post",
-                "add_to_cart",
-                "promote_post",
-                "action_follow_post",
-                "action_follow",
-                "action_save",
-                "edit_post",
-                "delete_post",
-                "unpublish_post",
-                "publish_post",
-                "show_post_on_map",
-                "view_post_stats",
-                "go_back",
-                "back_to_top",
-                "action_login",
-                "action_logout",
-                "direct_message",
-                "direct_message_user",
-                "open_vx_inbox",
-                "open_vx_notifications",
-                "open_vx_cart",
-                "open_vx_user_menu",
-                "open_vx_quick_search",
-                "access_markdown",
-                "vote_upvote",
-                "vote_downvote"
-              ],
-              "enumLabels": {
-                "access_markdown": "Access Markdown",
-                "action_follow": "Follow post author",
-                "action_follow_post": "Follow post",
-                "action_gcal": "Google Calendar",
-                "action_ical": "iCal",
-                "action_link": "Link",
-                "action_login": "Log in",
-                "action_logout": "Log out",
-                "action_save": "Save post",
-                "add_to_cart": "Add to cart",
-                "back_to_top": "Back to top",
-                "call": "Phone call",
-                "delete_post": "Delete post",
-                "direct_message": "Message post",
-                "direct_message_user": "Message post author",
-                "edit_post": "Edit post",
-                "get_directions": "Directions",
-                "go_back": "Go back",
-                "open_modal": "Open modal",
-                "open_vx_cart": "Open cart",
-                "open_vx_inbox": "Open inbox",
-                "open_vx_notifications": "Open notifications",
-                "open_vx_quick_search": "Open quick search",
-                "open_vx_user_menu": "Open user menu",
-                "promote_post": "Promote post",
-                "publish_post": "Publish post",
-                "scroll_to_section": "Scroll to section",
-                "send_email": "Email",
-                "share_post": "Share post",
-                "show_post_on_map": "Show on map",
-                "unpublish_post": "Unpublish post",
-                "view_post_stats": "View post stats",
-                "vote_downvote": "Downvote",
-                "vote_upvote": "Upvote"
-              },
-              "primitive": "string"
-            },
-            "variant": {
-              "control": {
-                "cascadeFrom": "variant",
-                "kind": "select",
-                "label": "Variant",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Button colors.",
-              "enum": [
-                "transparent",
-                "white",
-                "primary",
-                "secondary",
-                "negative",
-                "positive"
-              ],
-              "enumLabels": {
-                "negative": "Negative",
-                "positive": "Positive",
-                "primary": "Primary",
-                "secondary": "Secondary",
-                "transparent": "Transparent",
-                "white": "White"
-              },
-              "primitive": "string"
-            },
-            "vote_field_key": {
-              "control": {
-                "kind": "text",
-                "label": "Vote field key",
-                "placeholder": "vote",
-                "section": "content",
-                "when": {
-                  "field": "type",
-                  "value": [
-                    "vote_upvote",
-                    "vote_downvote"
-                  ]
-                }
-              },
-              "default": "",
-              "description": "Vote field to update. Leave empty to use the first one.",
-              "dynamic": true,
-              "primitive": "string"
-            }
-          },
-          "title": "Action row"
-        },
         "content-block-row": {
           "name": "content-block-row",
           "props": {
@@ -1550,7 +435,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -1593,19 +479,36 @@
               "description": "Booking accent color.",
               "primitive": "string"
             },
-            "byline_avatar_enabled": {
+            "button_variant": {
               "control": {
-                "kind": "segmented",
-                "label": "Media",
+                "cascadeFrom": "variant",
+                "kind": "select",
+                "label": "Variant",
                 "section": "content",
                 "when": {
                   "field": "kind",
-                  "value": "byline"
+                  "value": "button"
                 }
               },
-              "default": false,
-              "description": "Show this media area.",
-              "primitive": "boolean"
+              "default": "",
+              "description": "Button colors.",
+              "enum": [
+                "transparent",
+                "white",
+                "primary",
+                "secondary",
+                "negative",
+                "positive"
+              ],
+              "enumLabels": {
+                "negative": "Negative",
+                "positive": "Positive",
+                "primary": "Primary",
+                "secondary": "Secondary",
+                "transparent": "Transparent",
+                "white": "White"
+              },
+              "primitive": "string"
             },
             "byline_avatar_fit": {
               "control": {
@@ -1630,12 +533,6 @@
               "primitive": "string",
               "showWhen": {
                 "conditions": [
-                  {
-                    "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
                   {
                     "path": [
                       "byline_avatar_type"
@@ -1664,12 +561,6 @@
                 "conditions": [
                   {
                     "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
-                  {
-                    "path": [
                       "byline_avatar_type"
                     ],
                     "value": "icon"
@@ -1692,12 +583,6 @@
               "primitive": "image",
               "showWhen": {
                 "conditions": [
-                  {
-                    "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
                   {
                     "path": [
                       "byline_avatar_type"
@@ -1725,12 +610,6 @@
                 "conditions": [
                   {
                     "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
-                  {
-                    "path": [
                       "byline_avatar_type"
                     ],
                     "value": "image"
@@ -1749,12 +628,6 @@
               "primitive": "string",
               "showWhen": {
                 "conditions": [
-                  {
-                    "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
                   {
                     "path": [
                       "byline_avatar_type"
@@ -1783,17 +656,7 @@
                 "video",
                 "icon"
               ],
-              "primitive": "string",
-              "showWhen": {
-                "conditions": [
-                  {
-                    "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  }
-                ]
-              }
+              "primitive": "string"
             },
             "byline_avatar_video_url": {
               "control": {
@@ -1812,12 +675,6 @@
               "primitive": "source",
               "showWhen": {
                 "conditions": [
-                  {
-                    "path": [
-                      "byline_avatar_enabled"
-                    ],
-                    "value": true
-                  },
                   {
                     "path": [
                       "byline_avatar_type"
@@ -1877,7 +734,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -1907,7 +765,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -1937,7 +796,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -1967,7 +827,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -1997,7 +858,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2024,7 +886,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2063,7 +926,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2120,7 +984,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2138,14 +1003,33 @@
                   "kind": "group",
                   "valueCell": "group_name"
                 },
+                "reservedOptions": {
+                  "button": [
+                    {
+                      "label": "None",
+                      "value": ""
+                    },
+                    {
+                      "label": "Default",
+                      "value": "default"
+                    },
+                    {
+                      "label": "Footer",
+                      "value": "footer"
+                    }
+                  ]
+                },
                 "section": "content",
                 "when": {
                   "field": "kind",
-                  "value": "tag"
+                  "value": [
+                    "tag",
+                    "button"
+                  ]
                 }
               },
               "default": "",
-              "description": "Group this tag belongs to.",
+              "description": "Placement / membership for this tag or button. Tags join a Tags Group by name. Buttons choose None (inline in the body at their authored position), Default (ordered standalone strip at card bottom), Footer (embedded footer strip), or a Buttons Group (inline cluster). `default` and `footer` are reserved, built-in options — never user-authored group definition rows.",
               "primitive": "string"
             },
             "group_name": {
@@ -2210,6 +1094,29 @@
               "dynamic": true,
               "primitive": "string"
             },
+            "group_type": {
+              "control": {
+                "default": "tags",
+                "kind": "segmented",
+                "label": "Group type",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": "tags",
+              "description": "Only rows of this type may join the group.",
+              "enum": [
+                "tags",
+                "buttons"
+              ],
+              "enumLabels": {
+                "buttons": "Buttons",
+                "tags": "Tags"
+              },
+              "primitive": "string"
+            },
             "group_visible_rows": {
               "control": {
                 "kind": "number",
@@ -2252,7 +1159,8 @@
                     "value": [
                       "heading",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   },
                   {
@@ -2261,13 +1169,14 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
               },
               "default": "",
-              "description": "Optional leading icon shown on the heading line or in the tag pill.",
+              "description": "Optional leading icon shown on the heading line, tag pill, or button.",
               "primitive": "string"
             },
             "icon_active": {
@@ -2290,7 +1199,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2319,15 +1229,19 @@
                 "datafield",
                 "group",
                 "calendar",
-                "toc"
+                "toc",
+                "button",
+                "media"
               ],
               "enumDescriptions": {
                 "accordion": "Add collapsible content.",
+                "button": "Add an action button.",
                 "byline": "Add author, date, or detail text.",
                 "calendar": "Add a Cal.com booking form.",
                 "datafield": "Add a labeled data row.",
                 "group": "Set rules for matching tags.",
                 "heading": "Add a heading line.",
+                "media": "Add media to the card edge or main area.",
                 "rich_text": "Add formatted body text.",
                 "separator": "Add a divider.",
                 "tag": "Add a pill tag.",
@@ -2335,16 +1249,33 @@
               },
               "enumLabels": {
                 "accordion": "Accordion",
+                "button": "Button",
                 "byline": "Byline",
                 "calendar": "Calendar",
                 "datafield": "Datafield",
                 "group": "Tag group",
                 "heading": "Heading",
+                "media": "Media",
                 "rich_text": "Rich text",
                 "separator": "Separator",
                 "tag": "Tag",
                 "toc": "Table of contents"
               },
+              "primitive": "string"
+            },
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "button"
+                }
+              },
+              "default": "",
+              "description": "Button text.",
+              "dynamic": true,
               "primitive": "string"
             },
             "label_active": {
@@ -2368,7 +1299,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2420,7 +1352,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2428,6 +1361,287 @@
               "description": "Page or link to open.",
               "dynamic": true,
               "primitive": "source"
+            },
+            "media_caption": {
+              "control": {
+                "after": "fit",
+                "kind": "text",
+                "label": "Caption",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "",
+              "description": "Caption shown with the media.",
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": [
+                      "image",
+                      "video",
+                      "icon",
+                      "svg"
+                    ]
+                  }
+                ]
+              }
+            },
+            "media_fit": {
+              "control": {
+                "kind": "segmented",
+                "label": "Fit",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "cover",
+              "description": "How the image fills the space.",
+              "enum": [
+                "cover",
+                "contain"
+              ],
+              "enumLabels": {
+                "contain": "Contain",
+                "cover": "Cover"
+              },
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": [
+                      "image"
+                    ]
+                  }
+                ]
+              }
+            },
+            "media_icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Icon",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "",
+              "description": "Choose an icon.",
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "icon"
+                  }
+                ]
+              }
+            },
+            "media_image": {
+              "control": {
+                "kind": "image",
+                "label": "Image",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": [],
+              "description": "Choose an image.",
+              "primitive": "image",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "media_image_alt": {
+              "control": {
+                "kind": "text",
+                "label": "Alt text",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "",
+              "description": "Describe the image for screen readers.",
+              "dynamic": true,
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "media_image_loading": {
+              "default": "auto",
+              "description": "Choose when the image loads.",
+              "enum": [
+                "auto",
+                "lazy",
+                "eager"
+              ],
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "image"
+                  }
+                ]
+              }
+            },
+            "media_map_pins": {
+              "control": {
+                "kind": "repeater",
+                "label": "Pins",
+                "rowLabel": "Pin",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": [],
+              "description": "Add pins to the map.",
+              "primitive": "string",
+              "repeater": {
+                "rowPart": "map-pin-row"
+              },
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "map"
+                  }
+                ]
+              }
+            },
+            "media_map_zoom": {
+              "control": {
+                "kind": "text",
+                "label": "Zoom",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "14",
+              "description": "Starting map zoom level.",
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "map"
+                  }
+                ]
+              }
+            },
+            "media_svg": {
+              "control": {
+                "kind": "media",
+                "label": "SVG",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "description": "Choose an uploaded vector image.",
+              "primitive": "svg",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "svg"
+                  }
+                ]
+              }
+            },
+            "media_type": {
+              "control": {
+                "kind": "select",
+                "label": "Type",
+                "options": "mediaTypes",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "image",
+              "description": "Choose what kind of media to show.",
+              "dynamic": true,
+              "enum": [
+                "image",
+                "video",
+                "icon",
+                "svg",
+                "map"
+              ],
+              "primitive": "string"
+            },
+            "media_video_url": {
+              "control": {
+                "customOnly": true,
+                "kind": "source",
+                "label": "Video URL",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "",
+              "description": "Video link or file.",
+              "dynamic": true,
+              "primitive": "source",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "video"
+                  }
+                ]
+              }
             },
             "modal_id": {
               "control": {
@@ -2445,7 +1659,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2472,7 +1687,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2480,6 +1696,29 @@
               "default": "",
               "description": "Phone number to call.",
               "dynamic": true,
+              "primitive": "string"
+            },
+            "position": {
+              "control": {
+                "default": "edge",
+                "kind": "select",
+                "label": "Position",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "media"
+                }
+              },
+              "default": "edge",
+              "description": "Choose where this media appears on the card.",
+              "enum": [
+                "edge",
+                "main"
+              ],
+              "enumLabels": {
+                "edge": "On the Edge",
+                "main": "Main media"
+              },
               "primitive": "string"
             },
             "scroll_to": {
@@ -2499,7 +1738,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2610,7 +1850,8 @@
                 "h3",
                 "h4",
                 "h5",
-                "h6"
+                "h6",
+                "small"
               ],
               "enumLabels": {
                 "": "Inherit from tag",
@@ -2619,7 +1860,8 @@
                 "h3": "H3",
                 "h4": "H4",
                 "h5": "H5",
-                "h6": "H6"
+                "h6": "H6",
+                "small": "Small text"
               },
               "primitive": "string"
             },
@@ -2724,7 +1966,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2808,15 +2051,36 @@
               "primitive": "string"
             },
             "tooltip": {
+              "control": {
+                "kind": "text",
+                "label": "Tooltip",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "kind",
+                    "value": "button"
+                  },
+                  {
+                    "field": "kind",
+                    "value": [
+                      "heading",
+                      "byline",
+                      "tag",
+                      "datafield",
+                      "button"
+                    ]
+                  }
+                ]
+              },
               "default": "",
-              "description": "Tooltip cell — data only. action-row authors this as an explicit prop with a panel control.",
+              "description": "Short hover text shown on the button.",
               "primitive": "string"
             },
             "type": {
               "control": {
-                "default": "",
+                "default": "action_link",
                 "kind": "select",
-                "label": "Action",
+                "label": "Type",
                 "section": "content",
                 "when": {
                   "field": "kind",
@@ -2824,14 +2088,14 @@
                     "heading",
                     "byline",
                     "tag",
-                    "datafield"
+                    "datafield",
+                    "button"
                   ]
                 }
               },
-              "default": "",
+              "default": "action_link",
               "description": "Choose what opens on click.",
               "enum": [
-                "",
                 "action_link",
                 "get_directions",
                 "call",
@@ -2868,7 +2132,6 @@
                 "vote_downvote"
               ],
               "enumLabels": {
-                "": "None",
                 "access_markdown": "Access Markdown",
                 "action_follow": "Follow post author",
                 "action_follow_post": "Follow post",
@@ -2923,7 +2186,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2966,7 +2230,8 @@
                       "heading",
                       "byline",
                       "tag",
-                      "datafield"
+                      "datafield",
+                      "button"
                     ]
                   }
                 ]
@@ -2978,65 +2243,6 @@
             }
           },
           "title": "Content block row"
-        },
-        "map-pin-row": {
-          "name": "map-pin-row",
-          "props": {
-            "address": {
-              "control": {
-                "kind": "text",
-                "label": "Address",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Address shown in the popup.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "label": {
-              "control": {
-                "kind": "text",
-                "label": "Label",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Pin popup text.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "lat": {
-              "control": {
-                "kind": "text",
-                "label": "Latitude",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Latitude.",
-              "primitive": "string"
-            },
-            "lng": {
-              "control": {
-                "kind": "text",
-                "label": "Longitude",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Longitude.",
-              "primitive": "string"
-            },
-            "location": {
-              "control": {
-                "kind": "text",
-                "label": "Location",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Pin address or coordinates.",
-              "dynamic": true,
-              "primitive": "string"
-            }
-          },
-          "title": "Map pin row"
         }
       }
     },
@@ -4458,7 +3664,8 @@
           "div",
           "modal",
           "dialog",
-          "popup"
+          "popup",
+          "fullscreen"
         ],
         "renderer": {
           "phpClass": "EF\\Elements\\Wrapper",
@@ -4490,28 +3697,12 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "color"
               }
             ]
           }
-        },
-        "bg_media_enabled": {
-          "control": {
-            "kind": "segmented",
-            "label": "Media",
-            "section": "content"
-          },
-          "default": false,
-          "description": "Show this media area.",
-          "primitive": "boolean"
         },
         "bg_media_fit": {
           "control": {
@@ -4532,12 +3723,6 @@
           "primitive": "string",
           "showWhen": {
             "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
               {
                 "path": [
                   "bg_media_type"
@@ -4562,12 +3747,6 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "icon"
@@ -4586,12 +3765,6 @@
           "primitive": "image",
           "showWhen": {
             "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
               {
                 "path": [
                   "bg_media_type"
@@ -4615,12 +3788,6 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "image"
@@ -4639,12 +3806,6 @@
           "primitive": "string",
           "showWhen": {
             "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
               {
                 "path": [
                   "bg_media_type"
@@ -4671,12 +3832,6 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "map"
@@ -4697,12 +3852,6 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "map"
@@ -4720,12 +3869,6 @@
           "primitive": "svg",
           "showWhen": {
             "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
               {
                 "path": [
                   "bg_media_type"
@@ -4753,17 +3896,7 @@
             "svg",
             "map"
           ],
-          "primitive": "string",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              }
-            ]
-          }
+          "primitive": "string"
         },
         "bg_media_video_url": {
           "control": {
@@ -4780,42 +3913,9 @@
             "conditions": [
               {
                 "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
                   "bg_media_type"
                 ],
                 "value": "video"
-              }
-            ]
-          }
-        },
-        "bg_pattern": {
-          "control": {
-            "after": "bg_color",
-            "kind": "segmented",
-            "label": "Show pattern",
-            "section": "settings"
-          },
-          "default": true,
-          "description": "Add a discreet scattered-shape texture behind the color background.",
-          "primitive": "boolean",
-          "showWhen": {
-            "conditions": [
-              {
-                "path": [
-                  "bg_media_enabled"
-                ],
-                "value": true
-              },
-              {
-                "path": [
-                  "bg_media_type"
-                ],
-                "value": "color"
               }
             ]
           }
@@ -4846,11 +3946,13 @@
             "tabs",
             "carousel",
             "pagination",
-            "masonry"
+            "masonry",
+            "fullscreen"
           ],
           "enumDescriptions": {
             "": "Normal section.",
             "carousel": "Show items in a slider.",
+            "fullscreen": "Fill the visible screen below the header; the page stops scrolling and each block inside scrolls on its own.",
             "masonry": "Arrange items in a variable-height masonry grid (all items shown, no pagination).",
             "modal": "Open as a popup.",
             "pagination": "Split items into pages.",
@@ -4860,6 +3962,7 @@
           "enumLabels": {
             "": "Block",
             "carousel": "Carousel",
+            "fullscreen": "Fullscreen",
             "masonry": "Masonry",
             "modal": "Modal",
             "pagination": "Pagination",
@@ -4995,46 +4098,15 @@
         "map-pin-row": {
           "name": "map-pin-row",
           "props": {
-            "address": {
+            "card_template": {
               "control": {
-                "kind": "text",
-                "label": "Address",
+                "kind": "select",
+                "label": "Card template",
+                "options": "elementorTemplates",
                 "section": "content"
               },
               "default": "",
-              "description": "Address shown in the popup.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "label": {
-              "control": {
-                "kind": "text",
-                "label": "Label",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Pin popup text.",
-              "dynamic": true,
-              "primitive": "string"
-            },
-            "lat": {
-              "control": {
-                "kind": "text",
-                "label": "Latitude",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Latitude.",
-              "primitive": "string"
-            },
-            "lng": {
-              "control": {
-                "kind": "text",
-                "label": "Longitude",
-                "section": "content"
-              },
-              "default": "",
-              "description": "Longitude.",
+              "description": "Per-pin Elementor card template rendered (lazily, on pin click) in the pin's related-post context.",
               "primitive": "string"
             },
             "location": {
@@ -5044,7 +4116,18 @@
                 "section": "content"
               },
               "default": "",
-              "description": "Pin address or coordinates.",
+              "description": "Voxel location JSON or a plain address string.",
+              "dynamic": true,
+              "primitive": "string"
+            },
+            "name": {
+              "control": {
+                "kind": "text",
+                "label": "Name",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Marker label, tooltip, or popup text.",
               "dynamic": true,
               "primitive": "string"
             }

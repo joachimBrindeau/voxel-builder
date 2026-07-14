@@ -113,6 +113,7 @@ The heading-title permalink link is a *content-block* concern — the action sui
 3. Set the per-row presentation cells as needed: `label` (localized — this is a
    French B2B site; e.g. "Voir le profil", "Appeler", "Itinéraire"), `icon`,
    `variant` (`''` inherits the host default; else `primary`/`white`/…), `tooltip`.
+   - **Variant-pairing rule (within ONE action group — a hero's CTAs, a card footer's buttons):** the primary/emphasis button is `primary`; every secondary button beside it is **`white`** (or `transparent`), **NEVER `secondary`**. `primary + white` and `primary + transparent` are the allowed CTA pairs; **`primary + secondary` is forbidden** — pairing the two saturated brand hues fights for attention and reads as two competing primaries. Use `secondary` only as a *standalone* accent surface (e.g. a lone tag/badge), not as the neighbor of a `primary` button. A single-button group may use any variant. The verification pass asserts no action group contains both `primary` and `secondary`.
 4. **Loop / visibility** (contact-method repeaters, per-sub-type rows): use the
    golden `_vx_loop` / `_vx_visibility` envelopes in
    [`actions.md`](../references/ef/actions.md) §"Loopable action-rows". Comparator
@@ -179,9 +180,14 @@ wpdev elementor:import <site> <post_id> <file.json>     # passes the pre-write s
 3. **Runtime actions:** for any non-self-contained type, verify in a real browser
    per [`browser.md`](../references/verification/browser.md) — an inert `<button>` in the live
    DOM means the page is missing the required Voxel piece (Phase 1 gate missed it).
+4. **Variant pairing:** assert no action group carries both `primary` and `secondary`.
+   Collect the group's variants (from the written envelope or the rendered button
+   classes) and fail if `primary` and `secondary` co-occur — the emphasis button is
+   `primary`, its neighbor is `white`/`transparent`.
 
 **Exit:** lint clean; every `action_link` resolves to its permalink; runtime
-actions are live (or consciously accepted as advanced-list-only).
+actions are live (or consciously accepted as advanced-list-only); no group mixes
+`primary` + `secondary`.
 
 ---
 
@@ -197,5 +203,6 @@ actions are live (or consciously accepted as advanced-list-only).
 - A footer `action_link` duplicating the heading's permalink link — adds no value.
 - Selecting a Voxel-runtime action (`add_to_cart`, `action_save`, `show_post_on_map`, `open_vx_*`, …) on a page without its runtime piece — renders an inert button.
 - Adding `ts_actions` to the `link` card variant — it is title-only by design.
+- Pairing `primary` + `secondary` in one action group — the two saturated brand hues compete; the secondary button beside a `primary` is `white`/`transparent`, never `secondary`.
 - Hand-writing `_elementor_data` without the lint gate / CSS regen — use `elementor:mutate` or `elementor:import`.
 - `is_equal_to` on a taxonomy/multiselect/relation sub-field in a loop visibility rule — use `contains`.

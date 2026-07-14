@@ -25,11 +25,12 @@ workflow and never compete at intake.
 | [`faq-authoring.md`](faq-authoring.md) | Visible FAQ rows for existing content | Supported FAQ rows or verified curation handoff |
 | [`content-generation.md`](content-generation.md) | CPT field content generation/backfill applied to the site | On-spec field values + per-record gated apply + rendered proof |
 | [`content-review.md`](content-review.md) | QA of existing CPT field content against field-scoped spec | Per-field verdict report + routed fix list (read-only) |
-| [`geolocation.md`](geolocation.md) | Canonical service to city-child derivation | Unique geo-child/subtree + SEO/browser gates |
+| [`geolocation.md`](geolocation.md) | Canonical service to city-child derivation | Gated city-unique geo-child + Route M/S/C + browser evidence |
 | [`image-generation.md`](image-generation.md) | Content-image generation/attachment | Unique optimized attachments + rendered proof |
 | [`settings.md`](settings.md) | lean-seo output configuration/debugging | Read-back-equal settings + live output validation |
 | [`admin-menu.md`](admin-menu.md) | WordPress Lean Admin menu creation/alignment | `lean_admin_metamenu`-owned menu verified against Voxel CPTs |
 | [`performance.md`](performance.md) | Measured runtime performance repair | Same-state before/after delta + behavior proof |
+| [`database-cleanup.md`](database-cleanup.md) | Ownership-aware WordPress database cleanup | Approved manifest + reversible cleanup + before/after integrity and behavior proof |
 | [`cloudflare.md`](cloudflare.md) | Cloudflare edge audit/convergence for the site zone | Read-back-verified edge posture + staged manual/risky plan |
 | [`design-tokens.md`](design-tokens.md) | EF brand color palette (`--ef-color-*` SSOT + `_light`) | Read-back-equal cascade + tint/base browser proof |
 

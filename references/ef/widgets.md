@@ -1,6 +1,6 @@
 # Widget Catalog (router)
 
-For per-widget detail see [`ef-widgets.md`](ef-widgets.md); for the shared parts they compose see [`ef-parts.md`](ef-parts.md); for the helpers they call see [`ef-helpers.md`](ef-helpers.md); for **masonry / bento layouts** (turning a flat card grid into a size-hierarchy layout via `col_span` + `row_span` + wrapper track ratios like `1fr 2fr`) see [`masonry.md`](masonry.md); for **section background rhythm** (segmenting a page with alternating `transparent`/`secondary` tints via the wrapper `variant`, and the clash rule that keeps tints off colored-card sections) see [`section-rhythm.md`](section-rhythm.md). This file is the **router** — quick "which widget?" lookup plus the canonical cross-widget references (reserved keys, `$$type` envelopes, EF surface-churn timeline) that span every widget.
+For per-widget detail see [`ef-widgets.md`](ef-widgets.md); for the shared parts they compose see [`ef-parts.md`](ef-parts.md); for the helpers they call see [`ef-helpers.md`](ef-helpers.md); for **dedicated `ef-wrapper mode:masonry` vs CSS Grid bento** (automatic CSS Columns packing vs explicit responsive numeric `col_span` + `row_span`) see [`masonry.md`](masonry.md); for **section background rhythm** (segmenting a page with alternating `transparent`/`secondary` tints via the wrapper `variant`, and the clash rule that keeps tints off colored-card sections) see [`section-rhythm.md`](section-rhythm.md). This file is the **router** — quick "which widget?" lookup plus the canonical cross-widget references (reserved keys, `$$type` envelopes, EF surface-churn timeline) that span every widget.
 
 ## EF widget catalog → per-widget detail
 
@@ -106,8 +106,8 @@ The base `EF_Atomic_Widget` / `EF_Atomic_Element` injects these props on every w
 |---|---|---|
 | `classes` | classes | Custom CSS class list. Slot 0 is reserved by the EF style system on `ef-card` / `ef-wrapper` (local-style id). |
 | `attributes` | attributes | HTML attributes — marked `Overridable::ignore` so component overrides don't strip it. |
-| `col_span` | responsive enum | Grid placement. Renders as `ef-col-span-{n}` / `ef-col-t-span-{n}` classes. Enum `2`/`3`/`4`/`full`. See [`masonry.md`](masonry.md) for bento layouts. |
-| `row_span` | enum (non-responsive) | Grid row height. Renders `ef-row-span-{2,3,4}`. No `full`, no responsive variant — single-column mobile collapse makes it inert. Pairs with `col_span` for masonry; see [`masonry.md`](masonry.md). |
+| `col_span` | responsive number | CSS Grid placement, range 1–10; `0` = auto. Renders `ef-col-span-{n}` / breakpoint classes. Use with normal-grid bento, not dedicated masonry. See [`masonry.md`](masonry.md). |
+| `row_span` | responsive number | CSS Grid row span, range 1–10; `0` = auto. Renders `ef-row-span-{n}` / breakpoint classes. Legacy string/non-responsive shapes are not canonical writes. See [`masonry.md`](masonry.md). |
 | `_cssid` | string \| vx | CSS `id` attribute. For Voxel posts: `{$$type: vx, value: '@post(types.slug)-@post(slug)'}`. Lives in the auto-injected General section now (no longer per-widget Settings). **Anchor target = `_cssid`, never raw HTML `id="..."` inside text content** — Elementor strips hand-written `id="..."` attributes during render. To make an anchor target like `#essentiel`, set the widget's `_cssid` to `essentiel`; the rendered DOM gets `id="essentiel"` on the wrapper. |
 | `_vx_loop` | vx-loop (Voxel) | Iteration scope. Modern name (preferred). Voxel-runtime registered. |
 | `_vx_visibility` | vx-visibility (Voxel) | Conditional render rules. Modern name (preferred). |

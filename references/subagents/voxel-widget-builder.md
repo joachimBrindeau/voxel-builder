@@ -33,7 +33,10 @@ work, or more than 10 widgets.
 For each widget:
 
 1. Resolve the exact wire shape from committed SSOT (`ef-*`) or a fresh production dump
-   (`ts-*`).
+   (`ts-*`). For `ef-card`, treat headings/tags/etc. as ordered `content_blocks` kinds,
+   keep outer/card `tag`, row semantic `tag`, and `kind: tag` distinct, and keep
+   `ts_actions` separate. For layout, distinguish `ef-wrapper mode:masonry` from normal
+   CSS Grid bento and query current numeric responsive span envelopes.
 2. Map every Blueprint setting/binding without inventing props or content.
 3. Validate dynamic tags against representative post data and required fallbacks.
 4. Emit one complete widget node and its insertion path.

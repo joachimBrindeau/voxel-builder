@@ -1,257 +1,200 @@
-# Masonry / Bento layouts (col-span + row-span + track ratios)
+# EF Masonry and CSS Grid Bento
 
-How to turn a flat grid of equal cards into a **bento masonry** — a section where
-cell *size* communicates hierarchy. This is the production-safe technique for EF
-V4 (native CSS `grid-lanes`/masonry is not yet production-safe across browsers —
-do not use it). EF builds masonry from three primitives that already ship:
+Two different layout systems. Pick by desired behavior; never combine their rules.
 
-1. **Wrapper track ratios** — the section's `cols` prop (`1fr 1fr 1fr 1fr`, `1fr 2fr`, `3fr 2fr`).
-2. **`col_span`** — a card consuming N column tracks (enum: `2`, `3`, `4`, `full`; responsive `ef-responsive-string`).
-3. **`row_span`** — a card consuming N implicit row tracks (enum: `2`, `3`, `4`; non-responsive plain `string`).
+| Need | Host/settings | Layout engine | Child spans |
+|---|---|---|---|
+| Variable-height items packed automatically | `ef-wrapper`, `mode: masonry`, responsive `cols` | CSS Columns fallback; `grid-lanes` enhancement when supported | Do not use bento span arithmetic |
+| Explicit visual hierarchy with designed rectangles | Normal `ef-wrapper` grid (`mode: ""`) and track-list `cols` | CSS Grid | Responsive numeric `col_span` and `row_span` |
 
-The grid's implicit rows are content-sized and auto-created, so a `row_span:2`
-card grows to occupy two stacked rows' worth of height while its short siblings
-keep their natural height — that height difference is the masonry effect.
+## Dedicated masonry mode
 
-## The bulletproof procedure (do THIS, don't eyeball)
+Use for feeds/cards whose heights vary and whose packing should be automatic. Masonry
+shows all items. It is not carousel or pagination and emits no pager rows.
 
-Masonry looks like an aesthetic problem but EF makes it a **deterministic
-arithmetic problem** — solve it mechanically and it cannot come out wrong. The
-reason: EF wrappers use `grid-auto-flow: row` (the `dense` value is silently
-ignored — see Mechanics). So the browser places cards **strictly in DOM order,
-left-to-right, top-to-bottom, and a card that doesn't fit in the columns left on
-the current row jumps to the next row — leaving a hole behind it.** Therefore the
-ONLY way to avoid holes is: **every grid row's col-spans sum to exactly C**
-(the column count). That is the whole game. Follow these six steps:
+`cols`, `cols_tablet`, and `cols_mobile` remain responsive wrapper settings. Author them
+through current schema envelopes; runtime derives an integer column count from each
+track list. CSS Columns flows top-to-bottom then column-to-column and applies
+`break-inside: avoid`. Browsers supporting `display: grid-lanes` receive row-major native
+enhancement.
 
-### Step 1 — Classify every card by content (build a table)
-For each card, read its actual content (`wpdev elementor:tree <site> <post_id>`
-or its `content_blocks` / `media_*` settings) and assign a **weight class**:
-
-| Weight | Trigger (read the card) | Footprint (cols × rows) |
-|---|---|---|
-| **A — anchor** | the section's thesis / most important card; carries media AND heading+body | `2 × 2` |
-| **B — tall** | carries media (image/video) but is not the anchor | `1 × 2` |
-| **C — wide** | long body (≥3 lines) and no media | `2 × 1` |
-| **D — small** | short body (≤2 lines), no media | `1 × 1` |
-
-Media lives on an A or B card — **never on a D**. If the only image is sitting on
-a small card, move it onto the anchor (Step 6 re-checks the donor).
-
-### Step 2 — Pick the column count C
-`C = 4` for 5–8 cards, `C = 3` for 3–4 cards, `C = 2` for 2 cards. More cards →
-more rows, not more columns (never widen past what content justifies).
-
-### Step 3 — Cell-budget check (necessary condition)
-Sum every card's cells: `T = Σ (cols × rows)`. The block can only be a rectangle
-if **`T` is a multiple of `C`**. `rows_used = T / C`. If `T` isn't a multiple of
-C, change one card's footprint (Step 1 weights have slack: a C↔D or B↔A swap
-shifts T by ±1 or ±2) until it divides. *Example (klarc, C=4): A(4)+B(2)+D(1)+D(1)
-+? — that's 8 so far for the first cards; the last two D cards at 1+1 give T=10,
-not ÷4. Promote both trailing D→C (2+2): T=12=4×3. Rectangle possible.*
-
-### Step 4 — Place cards with the real CSS rule: forward-only cursor in DOM order
-EF grids are `grid-auto-flow: row` (NOT `dense` — see Mechanics). The placement
-cursor moves **forward only**: for each card in DOM order it advances left → right
-then down, and drops the card at the first spot **at or after the cursor** where
-its full `cols × rows` footprint fits. Critically — **a gap the cursor has already
-passed is NEVER backfilled.** (Verified empirically: a 3-wide card that can't fit
-the 2 columns left on a row drops to the next row, and the 2 cells it skipped stay
-**permanently empty** — a later `1×1` lands *after* the cursor, not back in the
-hole. Only `grid-auto-flow: row dense` would backfill, and EF ignores `dense`.)
-
-Consequences you must simulate:
-- A `2×2` anchor placed first occupies cols 0–1 of rows 0 AND 1 — so on rows 0
-  and 1 only cols 2–3 remain for the next cards.
-- A wide card that doesn't fit the columns left on the current row drops to the
-  next row and **leaves a permanent hole** in the skipped cells.
-
-Because there is no backfill, the only safe layout is one where **the cards, in
-DOM order, fill each row to exactly C with no skipped cell** — which is precisely
-what Step 3 (budget ÷ C) and Step 5 (ASCII gate) enforce. DOM order is the lever:
-put the anchor first, then order the remaining cards so each row's running width
-closes to exactly C before the next row begins.
-
-### Step 5 — Draw the ASCII grid and VERIFY (the gate)
-Before writing any `_elementor_data`, render the plan as a `C`-wide character
-grid, one letter per card, one cell per character. Every cell MUST be filled and
-every card's letters must form a solid rectangle of its `cols × rows`:
-
-```
-C = 4, DOM order: A(2×2) B(1×1) C(1×1) D(2×1) E(2×1) F(2×1)
-A A B C     row 1  (A cols1-2 + B + C = 4 ✓)
-A A D D     row 2  (A continues cols1-2; D=2×1 closes cols3-4 = 4 ✓)
-E E F F     row 3  (two 2×1 closers = 4 ✓)
-```
-(This is the verified klarc grid — every letter is a solid rectangle of its
-footprint, every row is exactly 4 wide, no blank cell.)
-If any cell is blank, or a letter isn't a clean rectangle, or a row ≠ C wide →
-**the layout has a hole; go back to Step 3/4.** Do not proceed to write until the
-ASCII grid is a fully-filled C×rows_used block. This drawing step is the
-bullet-proofing: an LLM that draws the grid *cannot* ship the bottom-right hole.
-
-### Step 6 — Emit, then re-verify in a browser screenshot
-Write the spans, render the live page, screenshot the section, and confirm the
-silhouette is a filled rectangle (check the bottom-right corner specifically) and
-each large cell is *full* of content (no empty 2×2). If you moved media in Step 1,
-confirm the donor card didn't end up empty.
-
-The prose below explains *why* these rules hold; the six steps above are *what to
-execute*. When in doubt, draw the ASCII grid.
-
-## The one rule: size = hierarchy
-
-A flat grid where every card is the same size is "a card layout with rounded
-corners, not bento" — the exact failure mode this reference fixes. Hierarchy
-comes from size variation:
-
-- **One anchor per block.** Exactly one hero cell (the most important card) gets
-  the biggest footprint — typically `col_span:2 + row_span:2`. Two heroes per
-  visible block is the practical ceiling; three cancel each other out (the eye
-  loses its anchor).
-- **One or two mid cells.** A card with an image or a longer body earns
-  `row_span:2` (tall) so the image has room and the column stays balanced.
-- **The rest stay 1×1.** Small cards flow around the anchors. Content earns
-  small; don't inflate a one-line card.
-- **Larger cell = more whitespace**, not more crammed content.
-
-If every card is equally important, you don't want masonry — use a plain uniform
-grid. Masonry is a hierarchy tool.
-
-## The non-negotiable rule: the block must tile to a complete rectangle
-
-A bento block's outer silhouette must be a filled rectangle — **no holes, no
-stair-step bottom edge.** A hole (a tall hero leaving the bottom-right cells
-empty) reads as broken, not intentional. Because the grid never backfills (Step
-4), this is purely the arithmetic the procedure already enforces:
-
-> **`Σ (col_span × row_span) over all cards  ==  C × rows_used`** (Step 3), AND
-> **every row fills to exactly C in DOM order** (Step 4), AND
-> **the ASCII grid has no blank cell** (Step 5).
-
-When the budget doesn't divide or a row falls short, widen a card (`col_span`) or
-promote a weight class until the rectangle closes. The Worked example below walks
-the klarc case through all six steps.
-
-## Derive spans from each card's CONTENT, not by position
-
-Don't assign spans by slot — **read what each card holds** and let the content
-type pick the footprint. This is the step that's easy to skip and produces
-"content not recognized" layouts:
-
-| Card content | Footprint | Why |
-|---|---|---|
-| Section thesis / hero statement (longest, most important) | `col_span:2 + row_span:2` | The anchor — earns the dominant cell |
-| Has an **image / media** | `row_span:2` (tall) | The image needs vertical room; a 1×1 crops it to a sliver |
-| Long body (3+ lines) | `row_span:2` *or* `col_span:2` | Give the text room; tall if in a multi-row column, wide if on the closing row |
-| Short body (1–2 lines), no media | `1×1`, or `col_span:2` **only to close the rectangle** | Stays small unless arithmetic needs it wide |
-
-**A large cell must be FILLED, not just big.** The hero footprint (`2×2`) has to
-be earned by enough content to occupy it — ideally **media + text together**. If
-the section has one image and a `2×2` thesis card, put the image *on the hero*
-(media top, heading+body below) so the big cell is full; don't leave the hero as
-a near-empty text card while a *small* card carries the photo (the photo then
-can't breathe and the hero looks hollow — the "media on the wrong card" mistake).
-When you move media onto the hero, re-check the card that lost it: it usually
-drops to `1×1`, which changes the cell arithmetic — re-close the rectangle.
-
-Inspect the actual card before composing: does it carry a media block? how many
-lines is its body? what's its `variant` (a `primary`/branded card is usually the
-hero)? Use `wpdev elementor:tree <site> <post_id>` or read `content_blocks` to
-classify each card, then apply the table — never guess from grid position.
-
-## Worked example (klarc homepage "synergie" block — dogfooded 2026-06-12)
-
-Six cards, originally a flat `1fr 1fr 1fr 1fr` grid of six identical 276×304
-tiles (the bad state). The fix, on the section wrapper + its card children:
-
-| Card | content | col_span | row_span | cells | placement |
-|---|---|---|---|---|---|
-| La synergie (teal `primary`) | hero thesis | `2` | `2` | 4 | rows 1–2, cols 1–2 |
-| Comprendre | has image | — | `2` | 2 | rows 1–2, col 3 |
-| Identifier | short body | — | — | 1 | row 1, col 4 |
-| Agir | short body | — | — | 1 | row 2, col 4 |
-| Piloter | short body | `2` | — | 2 | row 3, cols 1–2 |
-| Notre but | short body | `2` | — | 2 | row 3, cols 3–4 |
-
-Section wrapper at `cols: 1fr 1fr 1fr 1fr`. Cell arithmetic: 4+2+1+1+2+2 = **12 =
-4 cols × 3 rows** → the block tiles to a complete rectangle, no holes. The two
-bottom cards are widened to `col_span:2` *specifically to close row 3* (left at
-1×1 they leave the bottom-right empty — the first wrong attempt). Reading
-hierarchy from size: one 2×2 hero, one 1×2 image card, two 1×1 smalls, two
-half-width closers.
-
-Iteration history (why each step): (1) flat 6×(1×1) → no hierarchy. (2) hero
-`row_span:2` only → "two tall left cards" reads as two anchors, not one. (3) hero
-`col_span:2 + row_span:2` → clear single anchor BUT bottom-right hole (smalls
-left 1×1). (4) bottom two → `col_span:2` → rectangle closes. **The hole in (3)
-is the lesson: a dominant hero forces you to re-balance the remaining cards so
-the silhouette stays rectangular.**
-
-## Track-ratio masonry (the `1fr 2fr` family)
-
-When the asymmetry is *columnar* rather than tile-by-tile, encode it in the
-wrapper `cols` ratio instead of per-card spans:
-
-- `1fr 2fr` / `2fr 1fr` — a narrow rail beside a wide main (text + feature, or
-  sidebar + content). The wide column is the visual anchor; no card spans needed.
-- `3fr 2fr` — a softer split for two near-peer cards where one still leads
-  (already used on klarc's homepage CTA section `b0bbcca`).
-- Combine with spans: a `1fr 1fr 1fr` grid with one `col_span:2` card creates a
-  wide-then-narrow rhythm without a second media query.
-
-Pick track-ratio when the whole column is asymmetric; pick per-card spans when
-individual tiles within an even grid need to pop.
-
-## Mechanics & gotchas
-
-- **`row_span` is a no-op on a single-row grid.** It only produces height when
-  the grid actually has N+ rows of items. On mobile (grid collapses to `1fr`,
-  single column) every span becomes inert and cards stack in DOM order — which
-  is the correct responsive collapse, automatically. No mobile-specific span
-  values needed.
-- **`row_span` is NON-responsive** (one plain-string value at every breakpoint),
-  unlike `col_span` (responsive `ef-responsive-string` with desktop/tablet/mobile).
-  This is intentional: `grid-row: span N` is structural, and the single-column
-  mobile collapse already neutralizes it. Don't look for a `row_span_tablet`.
-- **No `full` for row_span.** A row span is content-count-bounded (implicit rows
-  created on demand), not bounded by a fixed track count, so "span every row"
-  has no stable meaning. `col_span` has `full` (= `1 / -1`); `row_span` does not.
-- **`grid-auto-flow: row dense` does NOT take as a bare wrapper setting** — it's
-  an atomic *style-schema* prop, not a settings key, so setting
-  `settings['grid-auto-flow']` is silently ignored. The flow stays plain `row`,
-  which is **forward-only and never backfills** (Step 4): a cell the cursor
-  passed stays empty forever. So you cannot rely on `dense` to fill gaps — you
-  must lay the cards out (DOM order + spans) so no gap is ever left. This is why
-  the Step 3 budget + Step 5 ASCII gate are mandatory, not optional polish.
-- **DOM order = source order.** EF masonry preserves source order (unlike the old
-  CSS-columns hack), so keyboard/tab order matches the visual reading order. Keep
-  the hero first in the children array.
-
-## Storage shapes (for direct `_elementor_data` writes)
+Representative resolved settings:
 
 ```jsonc
-// col_span — responsive envelope on the card's settings
-"col_span": { "$$type": "ef-responsive-string", "value": {
-  "desktop": { "$$type": "string", "value": "2" },
-  "tablet":  { "$$type": "string", "value": "" },   // "" = inherit/auto
-  "mobile":  { "$$type": "string", "value": "" }
-}}
-
-// row_span — plain string on the card's settings (NON-responsive)
-"row_span": { "$$type": "string", "value": "2" }
+{
+  "elType": "ef-wrapper",
+  "settings": {
+    "mode": { "$$type": "string", "value": "masonry" },
+    "cols": { "$$type": "ef-responsive-string", "value": {
+      "desktop": { "$$type": "string", "value": "repeat(3, minmax(0, 1fr))" },
+      "tablet": { "$$type": "string", "value": "repeat(2, minmax(0, 1fr))" },
+      "mobile": { "$$type": "string", "value": "1fr" }
+    } }
+  },
+  "elements": []
+}
 ```
 
-Empty string = Auto (no modifier class emitted). Frontend classes:
-`ef-col-span-{2,3,4,full}`, `ef-col-t-span-*` (tablet), `ef-row-span-{2,3,4}`.
+Envelope detail can change. Verify target site before writing:
 
-## Checklist before shipping a masonry section
+```bash
+wpdev elementor:schema <site> ef-wrapper --prop mode
+wpdev elementor:schema <site> ef-wrapper --prop cols
+```
 
-- [ ] **Drew the ASCII grid (Step 5) and it is a fully-filled C×rows_used block** — every cell a letter, every card a solid rectangle, every row exactly C wide. This single gate subsumes the arithmetic check and is the bullet-proofing — if you skipped it, stop and draw it.
-- [ ] **Cell budget divides:** `T = Σ(col_span × row_span)` is a multiple of `C`; `rows_used = T/C`. No hole / stair-step bottom edge.
-- [ ] Each card's footprint was **derived from its content** (media → tall, hero thesis → 2×2, short body → 1×1 or widened only to close the rectangle) — not assigned by grid position.
-- [ ] Exactly one hero anchor (biggest footprint); ≤2 heroes total.
-- [ ] Small cards stay 1×1 unless arithmetic needs them wide; no uniform-everywhere grid masquerading as bento.
-- [ ] Hero is first in DOM order (source order = reading order).
-- [ ] Verified the desktop render in a browser screenshot — spans produced size variation AND the block is a filled rectangle (check the bottom-right corner specifically).
-- [ ] Confirmed mobile collapses to a single stacked column (spans inert, DOM order sane).
+Do not add pager structure, `rows`, bento spans, or bare `grid-auto-flow`. Verify all
+items render, no `.ef-pager-track`/`.ef-pager-nav` appears, each breakpoint has expected
+column count, and keyboard reading order remains acceptable despite CSS Columns visual
+flow.
+
+## CSS Grid bento
+
+Use when cell size communicates hierarchy and placement must be explicit. Keep wrapper
+in normal grid mode. `cols` is a CSS track list such as `repeat(4, minmax(0, 1fr))` or
+`1fr 2fr`; it is not masonry column-count guidance.
+
+`col_span` and `row_span` are now **numeric responsive props**. Current runtime range is
+1–10, default 1; `0` means auto/no modifier class. Legacy string enums (`"2"`, `"3"`,
+`"4"`, `"full"`) and non-responsive string `row_span` remain migration/V3 knowledge,
+not canonical new writes.
+
+Representative span shape:
+
+```jsonc
+{
+  "col_span": { "$$type": "ef-responsive-number", "value": {
+    "desktop": { "$$type": "number", "value": 2 },
+    "tablet": { "$$type": "number", "value": 1 },
+    "mobile": { "$$type": "number", "value": 1 }
+  } },
+  "row_span": { "$$type": "ef-responsive-number", "value": {
+    "desktop": { "$$type": "number", "value": 2 },
+    "tablet": { "$$type": "number", "value": 1 },
+    "mobile": { "$$type": "number", "value": 1 }
+  } }
+}
+```
+
+Confirm exact envelope names on target site:
+
+```bash
+wpdev elementor:schema <site> ef-card --prop col_span
+wpdev elementor:schema <site> ef-card --prop row_span
+```
+
+### Bento procedure
+
+1. Read each card's real `content_blocks` and media. Assign one anchor, optional mid
+   cells, and small cells based on content—not array position.
+2. Choose desktop column count and wrapper tracks.
+3. Assign numeric spans. Typical start: anchor 2×2, media/long card 1×2 or 2×1,
+   short card 1×1.
+4. Draw a DOM-order ASCII grid. Every occupied card must form a rectangle and intended
+   outer silhouette must have no accidental holes.
+5. Set tablet/mobile spans explicitly; usually 1×1 for stacked reading order.
+6. Render and screenshot desktop, tablet, mobile. Check hierarchy, gaps, source order,
+   and bottom edge.
+
+Example four-column plan:
+
+```text
+DOM: A(2×2) B(1×1) C(1×1) D(2×1) E(2×1) F(2×1)
+A A B C
+A A D D
+E E F F
+```
+
+Do not teach or rely on `grid-auto-flow`. Placement behavior belongs to CSS Grid and
+browser runtime; author complete source order and spans instead of inventing an atomic
+setting.
+
+## Sticky rail auto-detection
+
+For a two-column layout, compare production geometry before writing. Mark the leading
+card as a desktop-sticky candidate when it is a short thesis/intro card and the peer
+column contains two or more stacked cards or media rows that continue below it.
+
+Use a neutral nested wrapper around that leading card so grid stretch does not inflate
+it. Set `full_height` to `false`; set responsive `sticky` to desktop `true` and
+tablet/mobile `false`. Verify desktop sticky behavior and single-column mobile order in
+browser screenshots. Do not rely only on legacy stored settings: production geometry
+can preserve presentation intent that prior migrations lost.
+
+## Repeated template grid hosts
+
+`ef-wrapper` nodes with `mode: template` emit an identity shell only. Their own `cols`
+setting does not control the layout of repeated `_vx_loop` instances. Never write
+columns directly onto the template-mode loop node and assume they will apply.
+
+For a repeated template grid:
+
+1. keep `_vx_loop`, `mode`, and `template_id` on the template-mode wrapper;
+2. place that node inside a normal `ef-wrapper` grid host;
+3. set responsive `cols` on the normal host;
+4. verify computed `grid-template-columns` and repeated-item widths in the browser.
+
+Use this pattern for brand, product, article, or other saved-card loops. If repeated
+cards render full-width or produce an unexpectedly tall page, inspect the parent host
+before changing card spans or template content.
+
+## Full-page screenshot geometry
+
+EF cards use `content-visibility: auto` with a `300px` intrinsic placeholder. A browser
+full-page screenshot can capture off-screen cards at that placeholder height instead of
+their rendered content height, producing false blank regions and misleading section
+measurements. Scrolling the page is not sufficient proof because the browser can discard
+off-screen layout again before capture.
+
+For visual-comparison and geometry audits, inject this temporary browser-only override
+before measuring or taking the evidence screenshot:
+
+```css
+.ef-card {
+  content-visibility: visible !important;
+  contain-intrinsic-size: none !important;
+}
+```
+
+Never persist this override into site CSS. Compare production and local screenshots with
+the same rendering method. If a card reports exactly `300px` while its body is much
+shorter, treat it as placeholder evidence first—not proof of `full_height`, wrapper rows,
+or excess padding. Inspect the rendered class (`ef-card--no-full-height`), card-body
+height, and grid track after forcing visibility.
+
+The temporary browser override above is verification instrumentation only. Site output
+must never receive custom CSS, inline styles, ad-hoc utility classes, Elementor style
+overrides, or screenshot-targeted patches. Resolve visual differences through native EF
+schema props, variants, tokens, templates, and source-owner fixes.
+
+## Production surface ownership
+
+Match section-wide production color with the top-level semantic wrapper's `bg_color`.
+Do not imitate a continuous section surface by assigning the same card variant to every
+child: that creates separate bordered islands and loses the production grouping. Use
+card variants only for intentional cards inside that surface.
+
+Map colors through live EF token names, not sampled hex values. Wrapper color requires
+the complete color-mode trio: `bg_media_enabled:true`, `bg_media_type:color`, and the
+token-backed `bg_color`; `bg_color` alone is inert. Set `bg_pattern:false` when production
+uses a flat surface. For example, a pale brand-primary section uses wrapper color mode
+with `bg_color: primary_light`; a pale primary card uses card `variant: primary`. Verify
+the actual site's computed token values because `primary`, `secondary`, and their light
+surfaces are site-specific. Preserve production item counts on repeated loops as part of
+geometry: an incorrect loop `limit` changes section height even when grid tracks are
+correct.
+
+## Decision and verification table
+
+| Check | Dedicated masonry | Grid bento |
+|---|---|---|
+| Wrapper mode | `masonry` | `""` normal block/grid |
+| Wrapper columns | Responsive track lists converted to counts at runtime | Responsive track lists define grid tracks |
+| Child size | Natural height, automatic packing | Numeric responsive `col_span` + `row_span` |
+| Ordering | CSS Columns fallback is column-major visually | Explicit CSS Grid placement from source order |
+| Pager | Forbidden/hidden; all items shown | Not implied; add pager mode only as separate design choice |
+| Required proof | Item count, no pager DOM, breakpoint columns, reading order | Schema envelopes, ASCII plan, responsive spans, screenshots |
+
+Authority: `schemas/parts/wrapper-settings.schema.json`, `includes/elements/wrapper.php`,
+`assets/css/widgets/wrapper.css`, and `includes/render/grid.php`. If prose conflicts with
+schema/runtime, schema/runtime wins. Run `wpdev elementor:lint <site> --post <id>` after
+write and verify rendered surface.

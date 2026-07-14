@@ -8,7 +8,7 @@ to the **returned leaf**, not to the number of leaves assigned to a worker.
 | Term | Contract |
 |---|---|
 | Leaf | One independently reviewable widget, section, criterion, URL, entity, or schema question |
-| Batch | 5-10 homogeneous, non-overlapping leaves assigned to one named specialist |
+| Batch | 5-10 homogeneous, non-overlapping leaves assigned to one named specialist; see `batch_exception` below |
 | Wave | At most the host concurrency cap of batches; default to four concurrent workers |
 | Orchestrator | Selects route, partitions leaves, validates returns, owns gates, and performs centralized writes |
 | Worker | Processes one batch in one mode and returns one envelope per leaf |
@@ -16,6 +16,16 @@ to the **returned leaf**, not to the number of leaves assigned to a worker.
 Batching is a scaling mechanism, not permission to combine evidence. If a worker receives
 eight widgets, it returns eight separate widget results. One failed widget does not make
 the other seven fail.
+
+## `batch_exception: oversized_leaf`
+
+Some leaves are individually deep enough that batching 5-10 of them would exceed a
+worker's useful context or blur atomic evidence. These are declared, not defaulted.
+Named exception: `local-page-justification.md` service+location pairs — one pair is one
+oversized leaf (research, evidence ledger, blueprint, and neutralization candidates for
+that pair). A campaign of multiple pairs still batches leaves into waves no larger than
+the host concurrency cap; it does not gain unbounded concurrency. Record
+`batch_exception: oversized_leaf` and the reason in the dispatch manifest whenever used.
 
 ## MECE Responsibility Split
 
@@ -53,7 +63,8 @@ Never mix modes inside a batch. Partition by role, mode, and input shape before 
 2. Prove leaves do not overlap. Shared parent context is read-only and may be repeated;
    owned mutation paths may not overlap.
 3. Group 5-10 homogeneous leaves per batch. Keep a smaller final batch; never pad with
-   unrelated work.
+   unrelated work. Use a declared `batch_exception: oversized_leaf` only where this
+   contract names it.
 4. Order batches into waves no larger than the host concurrency cap (default four).
 
 **Exit:** Every leaf appears exactly once in a batch; no owned path overlaps; every batch

@@ -21,13 +21,21 @@ site focus, CPT bindings, field tags, referenced templates, post IDs, URLs, and 
    kit/tokens, active Voxel post types, and template assignments.
 2. Inspect source with `wpdev elementor:tree` and `wpdev elementor:dump`. Inspect target
    too when replacing or merging existing data.
-3. Run `wpdev voxel:templates`, `wpdev voxel:fields`, and `wpdev voxel:sample` for each
+3. Read `_voxel_page_settings` for both artifacts. Treat page settings as source-owned
+   state even when empty-looking; copy only understood keys and map site-local values.
+4. Run `wpdev voxel:templates`, `wpdev voxel:fields`, and `wpdev voxel:sample` for each
    source CPT used and each plausible target CPT.
-4. Run `wpdev voxel:data` on representative source and target records. Never infer field
+5. Run `wpdev voxel:data` on representative source and target records. Never infer field
    availability or value shape from labels.
-5. Inventory dependencies in one pass: dynamic tags, CPT and field keys, relations,
+6. Inventory dependencies in one pass: dynamic tags, CPT and field keys, relations,
    template/card/post/taxonomy/media IDs, URLs, CSS IDs, global tokens, shortcodes,
    queries, filters, and custom widget types.
+7. Recursively inspect every referenced Elementor template/card. Continue until the
+   dependency graph closes; a clean page payload does not prove its referenced templates
+   are portable.
+8. Flag implicit loop context: `_vx_loop` using `@site(loop_post)` while
+   `_ef_loop_query.post_type` is blank, plus visibility rules comparing
+   `@site(loop_post.type.slug)` to a source CPT. These require explicit target mapping.
 
 **Exit:** evidence bundle contains both site profiles, Elementor trees, CPT/field
 inventories, representative data, and complete dependency inventory.
@@ -46,6 +54,11 @@ inventories, representative data, and complete dependency inventory.
    supported literal/fallback, omit dependent UI, or handoff to `cpt-lifecycle.md`.
    Never invent a field key or bind a merely similar field silently.
 5. Mark unresolved rows `blocked`. Do not write while any critical row is blocked.
+6. Give each implicit loop an explicit target CPT whenever the target artifact is not
+   guaranteed to run inside the same archive/search context. Remove source-CPT visibility
+   gates when the explicit query already provides the required scope.
+7. Decide whether referenced templates are preserved, recursively ported, replaced, or
+   inlined. A numeric target ID without dependency-level evidence is not a valid mapping.
 
 **Exit:** manifest accounts for every dependency and visible-content block; all critical
 rows have evidence-backed target values.
@@ -80,6 +93,8 @@ or untranslated visible copy unless explicitly preserved.
    never mutate source site.
 4. Read target data back immediately. Compare structural counts and every critical mapped
    value against blueprint and manifest.
+5. Save reusable ports as library templates when requested. Keep the final page and each
+   recursively ported dependency independently lintable and rollbackable.
 
 **Exit:** target stores intended artifact, rollback exists, source remains unchanged, and
 read-back matches critical mappings.
@@ -94,7 +109,9 @@ read-back matches critical mappings.
    resolves with correct target shape or declared fallback.
 3. Search written data for source domain, source-only IDs, source CPT/field keys, leaked
    `@post(...)` text, untranslated strings, and Unicode corruption.
-4. Open/save in Elementor when required, regenerate CSS/assets, then purge caches through
+4. Run the same leak scan against every newly created referenced template, not only the
+   target page.
+5. Open/save in Elementor when required, regenerate CSS/assets, then purge caches through
    supported `wpdev rebuild` flow.
 
 **Exit:** lint passes, dependency leak scan is clean, and data bindings resolve.
@@ -106,11 +123,17 @@ read-back matches critical mappings.
 1. Verify target at desktop and mobile widths with a unique browser session.
 2. Check selectors, headings, language, focus, CTAs, dynamic values, forms/filters, links,
    media, responsive layout, console errors, page errors, and literal tag leakage.
-3. For CPT templates, test representative target records including one sparse record to
+3. Assert expected loop cardinality. Count rendered feed/card items and compare with the
+   source behavior or manifest; one featured item does not prove the recent-feed loop ran.
+4. Verify content after every loop. Check the next sibling section's heading, copy, form,
+   and CTA because loop context leakage can silently empty later static cards.
+5. For CPT templates, test representative target records including one sparse record to
    prove fallbacks and conditional visibility.
-4. Capture and read screenshots. Compare with source only for intentionally preserved
+6. Detect visible fixed overlays/drawers and compare the untouched source before assigning
+   ownership; shared header defects must be reported separately from the port verdict.
+7. Capture and read screenshots. Compare with source only for intentionally preserved
    structure; target correctness outranks pixel identity.
-5. Report target IDs, manifest summary, omissions/fallbacks, evidence, and named handoffs
+8. Report target IDs, manifest summary, omissions/fallbacks, evidence, and named handoffs
    to `cpt-lifecycle.md`, `curation.md`, `content-generation.md`, `image-generation.md`,
    or `settings.md`.
 

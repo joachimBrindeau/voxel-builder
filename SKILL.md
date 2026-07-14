@@ -1,6 +1,6 @@
 ---
 name: voxel-builder
-description: "Build, audit, migrate, repair, curate, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, WordPress admin-menu organization, and runtime issues; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, video content backfill, lean-admin menus, or lean-seo on a Voxel site. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
+description: "Build, audit, migrate, repair, curate, clean, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, database cleanup, WordPress admin-menu organization, and runtime issues; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, database cleanup/orphans/autoload/revisions on a Voxel site, video content backfill, lean-admin menus, or lean-seo. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
 allowed-tools: Bash Read Write Glob Grep AskUserQuestion Task TaskCreate TaskList TaskUpdate TodoRead TodoWrite
 license: MIT
 ---
@@ -15,6 +15,7 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
   entity data, relations, or Elementor Framework V4 templates.
 - Configure or debug lean-seo output, visible copy, FAQ content, images, or
   performance for a Voxel/Elementor Framework site.
+- Audit or clean WordPress database state for a Voxel/Elementor Framework site.
 - Inspect rendered behavior or source-of-truth data before a Voxel/Elementor
   mutation, then verify the resulting runtime state.
 - Use the routing table below to select the narrow workflow for the request.
@@ -104,11 +105,12 @@ single-command lookup.
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
 | Generate/backfill/improve CPT field content and apply it | write/backfill/regenerate definition, hook, excerpt, sources, h1, body copy; bulk field authoring | `workflows/content-generation.md` |
 | Review/QA existing CPT field content against spec | audit/score/verify field content quality, prove backfill quality | `workflows/content-review.md` |
-| Derive a canonical service into a city child | geolocate, city version, geo-child | `workflows/geolocation.md` |
+| Derive canonical service into city child | geolocate service, city version, geo-child, page à `<ville>`, mirror service under city | `workflows/geolocation.md` + `references/voxel/seo-geolocation-pages.md` |
 | Generate/optimize/attach content images | featured, hero, OG, unique image | `workflows/image-generation.md` |
 | Configure or debug lean-seo output | metadata, schema, markdown, sitemap, permalink, redirect, verification tag | `workflows/settings.md` |
 | Create or align the WordPress admin menu | lean-admin, Content menu, standardized CPT submenu, missing CPT menu | `workflows/admin-menu.md` |
 | Improve measured runtime performance | Lighthouse, CWV, N+1, payload, generated CSS, cache | `workflows/performance.md` |
+| Audit or clean database state | database cleanup, orphan rows, dangling relationships, revisions, autoload, cron, plugin residue, optimize | `workflows/database-cleanup.md` |
 | Audit and converge the Cloudflare edge (SSL/TLS, DNS, cache, Worker, crawlability) | cloudflare, edge, CDN, DNSSEC, CAA, cache rule, WAF, `a.<domain>` analytics proxy | `workflows/cloudflare.md` |
 | Set/change the EF brand color palette | brand color, primary/accent green, brand purple, `--ef-color-*`, `_light` tint, match production colors | `workflows/design-tokens.md` |
 | Lookup only; no mutation or full audit | schema shape, icon name, Voxel version/feature | `references/README.md` |
@@ -125,6 +127,10 @@ single-command lookup.
    artifact, not implicit shared state.
 5. If no row matches, ask for the target, source owner, and intended mutation. Do not
    improvise a new route.
+
+## Fallback Routing
+
+- Derive geo-child from canonical CPT post → `workflows/geolocation.md`.
 
 ## Reference Index
 

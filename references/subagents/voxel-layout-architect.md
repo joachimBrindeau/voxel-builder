@@ -35,7 +35,21 @@ For each section:
 4. Use spans only when content warrants them; prove the desktop occupancy has no holes or
    overlaps.
 5. Apply section rhythm/tokens; do not author raw colors/spacing or widget copy.
-6. If the content does not fit the assigned archetype, return `blocked` with
+6. For a short thesis card beside a taller stacked column, run sticky-rail detection in
+   `references/ef/masonry.md`; emit desktop sticky plus `full_height:false` only when
+   production geometry confirms the pattern.
+7. For repeated `mode:template` nodes, put column tracks on a normal parent grid host;
+   never assign loop columns only to the template identity shell. Return computed host
+   tracks as verification evidence.
+8. Before trusting full-page screenshot geometry, temporarily force EF cards to
+   `content-visibility:visible` and `contain-intrinsic-size:none` in the browser. Treat an
+   off-screen `300px` card as an intrinsic placeholder until rendered geometry proves
+   otherwise; never persist this verification override into site CSS.
+9. Assign continuous production color through wrapper color mode
+   (`bg_media_enabled:true`, `bg_media_type:color`, token-backed `bg_color`); `bg_color`
+   alone is inert. Use child card variants only for intentional card islands. Resolve
+   live token names and preserve production loop item count before judging density.
+10. If the content does not fit the assigned archetype, return `blocked` with
    `escalate_split` evidence instead of forcing a layout.
 
 ## Output

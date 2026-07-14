@@ -67,3 +67,82 @@ When the user asks to delete every existing preview card and rebuild cleanly:
    each with `wpdev elementor:tree`. A created post without config read-back is not done.
 
 If different card content is needed, run `voxel:cards` first to register the templates, then modify the resulting template via this pipeline (Phase 0 to capture, Phase 1-5 to mutate).
+
+## Authoring `content_blocks`
+
+`ef-card` is one composite widget. Headings, prose, bylines, separators, accordions,
+tags, data rows, tag groups, calendars, and tables of contents are **content rows** in
+ordered `settings.content_blocks`; they are not separate widgets. Current row kinds:
+
+| `kind` | Use | Core cells to inspect in schema | Verify |
+|---|---|---|---|
+| `heading` | Semantic heading or text line | `text`, `tag`, `style`; optional row action | Heading level matches page outline |
+| `rich_text` | Formatted body | `body` | Prose renders, no invented heading widget |
+| `byline` | Author/date/detail | `byline_primary`, `byline_secondary`, `byline_avatar_*`; optional row action | Dynamic tags resolve on representative post |
+| `separator` | Decorative divider | `separator_variant`, `separator_spacing`, `separator_color` | Divider has no content/action role |
+| `accordion` | Collapsible heading + body | `text`, `tag`, `style`, `body`, `accordion_variant`, `accordion_open` | Summary toggles; no row action |
+| `tag` | One pill tag | `text`, `variant`, `icon`, `group`; optional row action | Group name matches a `group` row when grouped |
+| `datafield` | Label/value detail row | `datafield_label`, `datafield_value`, `icon`; optional row action | Label and dynamic value both render |
+| `group` | Rules for matching pill rows | `group_name`, `group_over_media`, visible/overflow cells | Matching `kind: tag` rows cluster correctly |
+| `calendar` | Cal.com embed | `calendar_url`, `layout`, `theme`, `brand_color`, mobile/detail switches | Booking URL and embed load |
+| `toc` | Links to page headings | `text`, `toc_scope`, `toc_max_heading`, `toc_variant` | Scope ID exists; links target rendered headings |
+
+### Three different `tag` meanings
+
+| Surface | Meaning | Allowed/current values |
+|---|---|---|
+| Card outer `settings.tag` | Card root HTML element | `div`, `section`, `article`, `aside`, `li`, `header` |
+| Content-row `value.tag` | Semantic element for `heading` or `accordion` title | `h1`–`h6`, `p`, `span`, `address` |
+| Content-row `value.kind: tag` | Pill-tag content component | Uses `text`/`variant`/`icon`/`group`; it is not an HTML tag selector |
+
+`settings.ts_actions` stays a separate action repeater/footer. Never place it inside
+`content_blocks`, and never classify it as a content-block kind. Row-level optional
+actions on actionable content rows do not replace the separate footer action strip.
+
+### Representative shapes, not a generated-schema copy
+
+```jsonc
+{
+  "elType": "ef-card",
+  "settings": {
+    "tag": { "$$type": "string", "value": "article" },
+    "content_blocks": {
+      "$$type": "ef-content-block-rows",
+      "value": [
+        { "$$type": "ef-content-block-row", "value": {
+          "kind": { "$$type": "string", "value": "heading" },
+          "text": { "$$type": "string", "value": "Card title" },
+          "tag": { "$$type": "string", "value": "h3" },
+          "style": { "$$type": "string", "value": "" }
+        } },
+        { "$$type": "ef-content-block-row", "value": {
+          "kind": { "$$type": "string", "value": "tag" },
+          "text": { "$$type": "string", "value": "Featured" },
+          "variant": { "$$type": "string", "value": "primary" },
+          "group": { "$$type": "string", "value": "Status" }
+        } },
+        { "$$type": "ef-content-block-row", "value": {
+          "kind": { "$$type": "string", "value": "group" },
+          "group_name": { "$$type": "string", "value": "Status" },
+          "group_over_media": { "$$type": "boolean", "value": false }
+        } }
+      ]
+    },
+    "ts_actions": { "$$type": "ef-action-rows", "value": [] }
+  },
+  "elements": []
+}
+```
+
+Envelope names and injected row cells are volatile. Before authoring, query the target
+site instead of copying this sketch:
+
+```bash
+wpdev elementor:schema <site> ef-card --prop content_blocks
+wpdev elementor:schema <site> ef-card --prop ts_actions
+```
+
+Then run `wpdev elementor:lint <site> --post <id>` and inspect every kind on the
+rendered card. Committed authority is
+`schemas/parts/rows/content-block-row.schema.json` plus `schemas/widgets/card.schema.json`;
+the generated atomic envelope catalog explains runtime-injected row cells.
