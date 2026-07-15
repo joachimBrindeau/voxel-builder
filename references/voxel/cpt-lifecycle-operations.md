@@ -10,6 +10,23 @@
 | `faq` (repeater: `question`/`answer`) | `lean_seo_get_repeater()` | optional on-page Q&A only — **do NOT emit `FAQPage` schema** for glossary/definition CPTs (Google deprecated FAQ rich results 2026-05-07) |
 | `content` | Standard WYSIWYG | Template content via `@post(content)` |
 
+### Admin step convention
+
+- Keep existing public/core fields in their original step.
+- Add `ui-admin` after the last core field, then place native WordPress/admin-owned fields beneath it.
+- Default `ui-admin.visibility_rules` to `[[{"type":"user:role","value":"administrator"}]]`.
+- Preserve explicit user-defined `visibility_rules`; absence alone triggers the administrator default.
+- Use Voxel `visibility_rules`, never `conditions`, for role-based visibility.
+
+```bash
+wpdev voxel:field-schema <site> --cpts=<cpt> --key=ui-admin \
+  --patch='{"type":"ui-step","label":"Admin","key":"ui-admin"}'
+wpdev voxel:field-schema <site> --cpts=<cpt> --key=ui-admin \
+  --patch='{}' --move-after=<last-core-field>
+```
+
+`voxel:field-schema` supplies the administrator rule only when neither stored schema nor requested patch defines `visibility_rules`.
+
 ### Voxel settings that must override defaults
 
 | Setting | Default | Required | Why |

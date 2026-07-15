@@ -101,7 +101,7 @@ If admin needs UI to **re-assign** a post's author (e.g. move a quotation betwee
 }
 ```
 
-A complete transactional blueprint groups these fields into three `ui-step` sections (`step-request`, `step-identity`, `step-workflow`) so the admin edit screen visually separates buyer-facing fields from identity / workflow concerns.
+A complete transactional blueprint groups buyer-facing fields under their original steps, then adds `ui-admin` after the last core field for workflow/admin-owned fields. Unless the user explicitly supplies different rules, set `ui-admin.visibility_rules` to `[[{"type":"user:role","value":"administrator"}]]`; preserve explicit rules and use `visibility_rules`, not `conditions`.
 
 ### Phase 3 deltas — none
 

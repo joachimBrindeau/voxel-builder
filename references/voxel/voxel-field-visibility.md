@@ -135,6 +135,35 @@ wpdev voxel:comparator <site> status              # select        → is_equal_t
 
 ## Worked examples
 
+### Admin step convention
+
+Use `ui-admin` as the dedicated step for native WordPress/admin-owned fields. By default, this step is visible only to administrators:
+
+```json
+{
+  "type": "ui-step",
+  "label": "Admin",
+  "key": "ui-admin",
+  "visibility_rules": [
+    [
+      {"type": "user:role", "value": "administrator"}
+    ]
+  ]
+}
+```
+
+- Use `visibility_rules`, not value-based `conditions`.
+- Preserve explicit user-defined `visibility_rules`; never replace them with the administrator default.
+- Keep public/core fields under their original step. Place `ui-admin` after the last core field, then place admin fields beneath it.
+- `wpdev voxel:field-schema` injects the administrator rule only when creating or updating `ui-admin` without existing or requested `visibility_rules`.
+
+```bash
+wpdev voxel:field-schema <site> --cpts=<cpt> --key=ui-admin \
+  --patch='{"type":"ui-step","label":"Admin","key":"ui-admin"}'
+wpdev voxel:field-schema <site> --cpts=<cpt> --key=ui-admin \
+  --patch='{}' --move-after=<last-core-field>
+```
+
 ### Example 1 — Admin-only field (a moderation `<field>` on a user-submitted `<cpt>`)
 
 Hide the `status` field from buyer-facing `ts-create-post` submissions; show it only when an administrator is rendering or editing the form.
