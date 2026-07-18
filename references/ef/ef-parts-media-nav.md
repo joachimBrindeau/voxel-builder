@@ -114,25 +114,25 @@ The table below is generated from `plugins/custom/elementor-framework/schemas/pa
 | Part | Title | Prefix | Owned props | Options | Sub-parts | Composed by |
 |---|---|---|---|---|---|---|
 | `action-slot` | Action slot | yes | 2 (`action_tooltip`, `action_type`) | — | — | `ef-navbar` (via sub-part) |
-| `actions` | Buttons | yes | 1 (`ts_actions`) | `default_variant_key`, `embedded` | `action-row` | `ef-card`; `ef-navbar` (prefix=`cta`) |
+| `actions` | Buttons | yes | 1 (`ts_actions`) | `default_variant_key`, `embedded` | `action-row` | `ef-navbar` (prefix=`cta`) |
 | `banner` | Banner | yes | 3 (`action_label`, `background`, `message`) | — | `action-slot` | `ef-navbar` (prefix=`banner`) |
-| `card-actions-embedded` | Card actions layout | no | 1 (`actions_embedded`) | — | — | `ef-card` |
+| `button-label` | Button label | no | 1 (`label`) | — | — | — |
+| `card-actions-embedded` | Card actions layout | no | 1 (`actions_embedded`) | — | — | — |
 | `card-full-height` | Card full height toggle | no | 1 (`full_height`) | — | — | `ef-card` |
-| `card-logo-position` | Card logo position | no | 1 (`logo_position`) | — | — | `ef-card` |
-| `card-media-overlay` | Card media overlay toggle | no | 1 (`media_overlay`) | — | — | `ef-card` |
 | `form-button` | Form button text | no | 1 (`button_text`) | — | — | `ef-form` |
 | `form-fields` | Form fields | no | 1 (`fields`) | — | `field-row` | `ef-form` |
 | `form-honeypot` | Form honeypot | no | 1 (`honeypot`) | — | — | `ef-form` |
+| `form-recipients` | Form recipients | no | 1 (`recipients`) | — | `recipient-row` | `ef-form` |
 | `form-success-message` | Form success message | no | 1 (`success_message`) | — | — | `ef-form` |
 | `headings` | Headings | yes | 1 (`content_blocks`) | — | — | `ef-card` |
-| `layout` | Layout | no | 1 (`layout`) | `default_layout`, `layouts` | — | `ef-card` |
-| `media` | Media slot | yes | 12 (`caption`, `enabled`, `fit`, `icon`, `image`, `image_alt`, `image_loading`, `map_pins`, `map_zoom`, `svg`, `type`, `video_url`) | `caption`, `default_enabled`, `default_type`, `enabled_types`, `type_labels` | — | `ef-card` (prefix=`media`); `ef-card` (prefix=`logo`); `ef-wrapper` (prefix=`bg_media`) |
+| `layout` | Layout | no | 1 (`layout`) | `default_layout`, `layouts` | — | — |
+| `media` | Media slot | yes | 11 (`caption`, `fit`, `icon`, `image`, `image_alt`, `image_loading`, `map_pins`, `map_zoom`, `svg`, `type`, `video_url`) | `caption`, `default_type`, `enabled_types`, `type_labels` | — | `ef-wrapper` (prefix=`bg_media`) |
 | `nav-item` | Nav item | no | — | — | — | — |
 | `navbar-breadcrumb` | Navbar breadcrumb toggle | no | 1 (`show_breadcrumb`) | — | — | `ef-navbar` |
 | `navbar-nav-items` | Navbar nav items | no | 1 (`nav_items`) | — | `mega-row` | `ef-navbar` |
 | `tag` | HTML tag | no | 1 (`tag`) | `allowed_tags`, `default_tag` | — | `ef-card`; `ef-wrapper` |
 | `variant` | Variant | no | 1 (`variant`) | `default_variant`, `variants` | — | `ef-card`; `ef-form`; `ef-navbar` |
-| `wrapper-settings` | Wrapper settings | no | 9 (`autoplay`, `bg_color`, `bg_pattern`, `cols`, `loop`, `mode`, `modifiers`, `tab_variant`, `template_id`) | — | — | `ef-wrapper` |
+| `wrapper-settings` | Wrapper settings | no | 7 (`bg_color`, `cols`, `mode`, `modifiers`, `rows`, `tab_variant`, `template_id`) | — | — | `ef-wrapper` |
 
 <!-- AUTO-GENERATED:ef-parts-index END -->
 

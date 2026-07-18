@@ -163,55 +163,27 @@ The tables below are generated from `cli/src/generated/widget-schemas.json` (the
 
 ### `ef-card` — generated prop table
 
-PHP class `EF\Widgets\Card`. 33 props.
+PHP class `EF\Widgets\Card`. 4 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `actions_embedded` | enum: `''` \| `yes` \| `no` | `''` | actions | Place buttons inside the card or below it |
 | `content_blocks` | repeater `ef-content-block-rows` | `[]` | content | Add and order card content |
 | `full_height` | `boolean` | `true` | settings | Make cards in a row match height |
-| `layout` | enum: `vertical` \| `horizontal` | `vertical` | content | Choose the layout |
-| `logo_caption` | `string` | `''` | content | Caption shown with the media |
-| `logo_enabled` | `boolean` | `false` | content | Show this media area |
-| `logo_fit` | enum: `cover` \| `contain` | `cover` | content | How the image fills the space |
-| `logo_icon` | `string` | `''` | content | Choose an icon |
-| `logo_image` | `image` | `[]` | content | Choose an image |
-| `logo_image_alt` | `string` (dynamic) | `''` | content | Describe the image for screen readers |
-| `logo_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | — | Choose when the image loads |
-| `logo_map_pins` | repeater `ef-map-pin-rows` | `[]` | content | Add pins to the map |
-| `logo_map_zoom` | `string` | `14` | content | Starting map zoom level |
-| `logo_position` | enum: `''` \| `card-edge` \| `media-edge` | `''` | media | Logo position on the card |
-| `logo_svg` | `svg` | — | content | Choose an uploaded vector image |
-| `logo_type` | enum: `image` \| `video` \| `icon` \| `svg` \| `map` | `image` | content | Choose what kind of media to show |
-| `logo_video_url` | `source` (dynamic) | `''` | content | Video link or file |
-| `media_caption` | `string` | `''` | content | Caption shown with the media |
-| `media_enabled` | `boolean` | `false` | content | Show this media area |
-| `media_fit` | enum: `cover` \| `contain` | `cover` | content | How the image fills the space |
-| `media_icon` | `string` | `''` | content | Choose an icon |
-| `media_image` | `image` | `[]` | content | Choose an image |
-| `media_image_alt` | `string` (dynamic) | `''` | content | Describe the image for screen readers |
-| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | — | Choose when the image loads |
-| `media_map_pins` | repeater `ef-map-pin-rows` | `[]` | content | Add pins to the map |
-| `media_map_zoom` | `string` | `14` | content | Starting map zoom level |
-| `media_overlay` | `boolean` | `false` | media | Add a soft tint over images |
-| `media_svg` | `svg` | — | content | Choose an uploaded vector image |
-| `media_type` | enum: `image` \| `video` \| `icon` \| `svg` \| `map` | `image` | content | Choose what kind of media to show |
-| `media_video_url` | `source` (dynamic) | `''` | content | Video link or file |
 | `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` | `div` | settings | Choose what kind of container this is |
-| `ts_actions` | repeater `ef-action-rows` | `[]` | content | Add and order buttons |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `secondary` \| `negative` \| `positive` | `white` | content | Choose the colors |
+| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `white` | content | Choose the colors |
 
 ### `ef-form` — generated prop table
 
-PHP class `EF\Widgets\Form`. 5 props.
+PHP class `EF\Widgets\Form`. 6 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `button_text` | `string` | `Envoyer` | submit | Submit button text |
 | `fields` | repeater `ef-field-rows` | `[]` | fields | Add and order fields |
 | `honeypot` | `boolean` | `true` | submit | Add hidden spam protection |
+| `recipients` | repeater `ef-recipient-rows` | `[]` | recipients | Users or addresses receiving a copy of this form submission |
 | `success_message` | `string` | `Merci ! Votre message a bien été envoyé.` | submit | Message shown after sending |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `secondary` \| `negative` \| `positive` | `primary` | content | Choose the colors |
+| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `primary` | content | Choose the colors |
 
 ### `ef-navbar` — generated prop table
 
@@ -244,17 +216,15 @@ PHP class `EF\Widgets\Navbar`. 26 props.
 | `cta_ts_actions` | repeater `ef-action-rows` | `[]` | content | Add and order buttons |
 | `nav_items` | repeater `ef-mega-rows` | `[]` | nav_items | Add and order menu links |
 | `show_breadcrumb` | `boolean` | `false` | settings | Show page path links |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `secondary` \| `negative` \| `positive` | `transparent` | content | Choose the colors |
+| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `transparent` | content | Choose the colors |
 
 ### `ef-wrapper` — generated prop table
 
-PHP class `EF\Elements\Wrapper`. 21 props.
+PHP class `EF\Elements\Wrapper`. 18 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `autoplay` | `boolean` | `false` | settings | Move automatically |
 | `bg_color` | `string` | `transparent` | settings | Background color token |
-| `bg_media_enabled` | `boolean` | `false` | content | Show this media area |
 | `bg_media_fit` | enum: `cover` \| `contain` | `cover` | content | How the image fills the space |
 | `bg_media_icon` | `string` | `''` | content | Choose an icon |
 | `bg_media_image` | `image` | `[]` | content | Choose an image |
@@ -263,14 +233,13 @@ PHP class `EF\Elements\Wrapper`. 21 props.
 | `bg_media_map_pins` | repeater `ef-map-pin-rows` | `[]` | content | Add pins to the map |
 | `bg_media_map_zoom` | `string` | `14` | content | Starting map zoom level |
 | `bg_media_svg` | `svg` | — | content | Choose an uploaded vector image |
-| `bg_media_type` | enum: `color` \| `image` \| `video` \| `icon` \| `svg` \| `map` | `image` | content | Choose what kind of media to show |
+| `bg_media_type` | enum: `''` \| `color` \| `image` \| `video` \| `icon` \| `svg` \| `map` | `''` | content | Choose what kind of media to show |
 | `bg_media_video_url` | `source` (dynamic) | `''` | content | Video link or file |
-| `bg_pattern` | `boolean` | `true` | settings | Add a discreet scattered-shape texture behind the color background |
 | `cols` | `string` (responsive) | `1fr` | settings | Columns for each screen size |
-| `loop` | `boolean` | `false` | settings | Restart after the last item |
-| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` | `''` | settings | Choose how this wrapper works |
+| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `fullscreen` | `''` | settings | Choose how this wrapper works |
 | `modifiers` | `string` (responsive) | `''` | settings | Active modifiers per breakpoint (comma-joined flags): sticky, reversed |
-| `tab_variant` | enum: `transparent` \| `white` \| `primary` \| `secondary` \| `negative` \| `positive` | `primary` | settings | Active tab colors |
+| `rows` | `number` (responsive) | `1` | settings | Number of rows per page |
+| `tab_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `primary` | settings | Active tab colors |
 | `tag` | enum: `div` \| `main` \| `section` \| `article` \| `aside` \| `header` \| `footer` \| `nav` | `div` | settings | Choose what kind of container this is |
 | `template_id` | `string` | `''` | settings | Saved template to show here |
 
