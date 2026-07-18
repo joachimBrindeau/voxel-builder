@@ -160,3 +160,24 @@ A `post-relation` field is configured to point at one or many target CPTs (the `
 ### How to detect single-vs-multi
 
 Run `wpdev voxel:fields <site> <cpt_key>`. The `RELATION TARGET` column reports `single → <cpt>`, `multi → <cpt>, <cpt>`, or `(no target configured)` for every `post-relation` field. Single-type relations are then expanded below the table with the full list of traversable `@post(<relation>.<field>)` expressions for that target — copy-paste ready.
+
+## Dynamic Picker Ordering
+
+Two ordering owners exist — patch only the correct one:
+
+- **Nested groups/choices** — sort only at the export choke points:
+  `Exporter::export_group` and `Data_Object` / `Data_Object_List::export`. Do
+  not add parallel sorting in callers.
+- **Top-level groups** — order and labels are caller-owned registration state
+  in `dynamic-data.php` / `elementor-controller`; exported groups carry no
+  server-side label field.
+
+Verify all three layers: focused export-order tests, top-level registration
+wiring, and rendered picker order. Accessibility snapshots may omit nested
+picker rows — when they do, inspect the rendered modal and
+`Dynamic_Data_Store.groups` instead of trusting source-only or
+accessibility-only checks.
+
+Do not apply plain lexical sorting to human-numbered labels (`Last 30 days`
+sorts before `Last 7 days`); define the intended numeric/natural order in the
+test fixture.
