@@ -76,6 +76,8 @@ call site and parity test.
 
 1. Change the schema/source owner.
 2. Run `wpdev elementor:codegen` and `--check`.
-3. Query the touched prop or inspect a current live dump.
-4. Validate/import through `wpdev`; never author remembered envelopes.
-5. Run focused unit/schema tests and browser verification.
+3. Query the touched prop or inspect a current live dump; never author remembered envelopes.
+4. For save-path defects, capture the `save_builder` request and compare its target subtree with raw post-save `_elementor_data` to localize client versus server loss.
+5. Route scalar atomic props through `wrapScalar()` before strict validation; prune only when the generated Contract marks the cell optional and its value equals the canonical default. Never infer dead data from an inactive discriminator.
+6. Validate/import through `wpdev`, then verify the target subtree after save, reload, and re-save; do not use whole-document hashes because Elementor rewrites unrelated node metadata.
+7. Run focused unit/schema tests and browser verification.
