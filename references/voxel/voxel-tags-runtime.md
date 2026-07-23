@@ -172,12 +172,18 @@ Two ordering owners exist — patch only the correct one:
   in `dynamic-data.php` / `elementor-controller`; exported groups carry no
   server-side label field.
 
-Verify all three layers: focused export-order tests, top-level registration
-wiring, and rendered picker order. Accessibility snapshots may omit nested
-picker rows — when they do, inspect the rendered modal and
-`Dynamic_Data_Store.groups` instead of trusting source-only or
-accessibility-only checks.
+Verify all three layers:
 
-Do not apply plain lexical sorting to human-numbered labels (`Last 30 days`
-sorts before `Last 7 days`); define the intended numeric/natural order in the
-test fixture.
+1. Run focused tests against the export choke points.
+2. Trace top-level registration order and labels through caller wiring.
+3. Inspect rendered nested choices recursively; record the list count and
+   maximum depth checked.
+
+Accessibility snapshots may omit nested picker rows. When they do, inspect the
+rendered modal and `Dynamic_Data_Store.groups` instead of trusting source-only
+or accessibility-only checks.
+
+Treat ordering of human-numbered labels as an explicit product decision. Plain
+string ordering puts `Last 30 days` before `Last 7 days`; if natural numeric
+order is required, define that sequence in the export-order test before
+changing the export owner. Never compensate with a parallel caller-side sort.

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Check whitespace
+        run: git show --check --format= HEAD
+      - name: Validate skill structure and data contracts
+        run: |
+          python3 scripts/lint-workflow-structure.py
+          python3 scripts/check-field-metadata-contract.py
+          python3 scripts/test-field-metadata-run-validator.py
+          python3 scripts/test-geo-payload-validator.py
