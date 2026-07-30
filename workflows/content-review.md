@@ -1,7 +1,7 @@
 # Content Review Workflow
 
 Audit existing Voxel CPT field content — `definition`, `h1`, `hook`,
-`post_excerpt`, `sources`/`sameas`, `faq`, body/`description` — against the
+`post_excerpt`, `sources`, `faq`, body/`description` — against the
 **field-scoped spec**, and report per-field, per-record verdicts with evidence.
 This workflow is read-only: it produces findings and a fix list, never writes.
 
@@ -16,6 +16,8 @@ This workflow is read-only: it produces findings and a fix list, never writes.
 
 - Generating or fixing the content itself - use
   [`content-generation.md`](content-generation.md).
+- Auditing or populating entity-equivalence links - use
+  [`identity-linking.md`](identity-linking.md).
 - Rendered-page/layout audit of Elementor data - use [`audit.md`](audit.md).
 - Schema JSON-LD validity only - use the lean-seo/schema route.
 
