@@ -31,7 +31,7 @@ length bounds are the whole point — they are enforced by Voxel `maxlength`/
 | `hook` | text | **yes** | **35-120** | — | **meta description** |
 | `definition` | texteditor | **yes** | **200-400** (≈40-60 words) | `DefinedTerm.description` | **answer block** (Featured Snippet / AI Overview) |
 | `content` | texteditor | **yes** | **min ~2500 chars (≈400-800 words)** | — | **deep body — the anti-thin-content requirement** |
-| `sameas` | repeater `{source select, url}` | no | max ~6 | `sameAs` | entity resolution |
+| `sameAs` | repeater `{url}` | no | max ~30 | `sameAs` | entity resolution |
 | `faq` | repeater `{question, answer}` | no | — | **none** (optional on-page only) | optional on-page Q&A |
 
 ### Defined-term identity contract
@@ -180,12 +180,12 @@ The DefinedTerm-specific worked graph:
     {
       "@type": "DefinedTerm",
       "@id": "@ref:self#definedterm",
-      "name": "meta:h1",
-      "alternateName": "meta:acronym",
-      "description": "meta:definition|strip_tags",
-      "termCode": "meta:acronym",
+      "name": "voxel:h1",
+      "alternateName": "voxel:acronym",
+      "description": "voxel:definition|strip_tags",
+      "termCode": "voxel:acronym",
       "url": "post:permalink",
-      "sameAs": { "@each": "meta:sameas", "@map": "row:url" },
+      "sameAs": { "@each": "voxel:sameAs", "@map": "row:url" },
       "inDefinedTermSet": "@ref:site#definedtermset"
     }
   ]
@@ -193,11 +193,14 @@ The DefinedTerm-specific worked graph:
 ```
 
 Key points:
-- **`sameAs` via `@map`.** `{ "@each": "meta:sameas", "@map": "row:url" }` projects
-  the `sameas` repeater to a flat URL array. `@map` is the repeater→scalar-list
+- **`sameAs` via `@map`.** `{ "@each": "voxel:sameAs", "@map": "row:url" }` projects
+  the `sameAs` repeater to a flat URL array. `@map` is the repeater→scalar-list
   projection (each row resolves one source string, empties dropped, de-duplicated).
   Requires current lean-seo. Without `@map`, `@each` only yields object/`@ref`
   arrays — wrong shape for a plain URL list.
+- **Identity curation is not citation curation.** Follow
+  [`sameas-identity-links.md`](sameas-identity-links.md); never promote a related
+  source, broad topic, disambiguation page, or category/list page into `sameAs`.
 - **`alternateName` + `termCode` both from `acronym`.** When the acronym is empty
   the renderer prunes both keys (no empty strings emitted).
 - **`|strip_tags`** on `description` because `definition` is a texteditor field
@@ -266,7 +269,7 @@ wpdev voxel:settings <site> get --json > /tmp/voxel-post_types.backup.json
 wpdev voxel:settings <site> set "<cpt>/fields" --value=@/tmp/<cpt>-fields.json --dry   # preview
 wpdev voxel:settings <site> set "<cpt>/fields" --value=@/tmp/<cpt>-fields.json         # apply
 #   fields JSON: h1 maxlength 70; definition minlength 200 maxlength 400;
-#   acronym text max 12; hook 35-120; sameas repeater {source select, url}.
+#   acronym text max 12; hook 35-120; sameAs repeater {required url}.
 
 # 2. Title + description templates (bounded field for meta description)
 #    title_template = "%title% : <suffix>"   desc_template = "%hook%"
@@ -331,7 +334,7 @@ setup produces a thin page — the content + linking rows are what make it survi
 - [ ] **`content` set, 400-800 words**, real domain-expert body (mechanism, criteria,
       worked example, edge cases) — passes the "only an expert could write this" test.
 - [ ] `acronym` set where the term has one (→ `termCode` + `alternateName`).
-- [ ] `sameas` rows for canonical entities (Wikidata / Wikipédia) where they exist.
+- [ ] `sameAs` rows pass the exact-equivalence workflow for canonical entities where they exist.
 - [ ] If `faq` rows exist, each question is a genuine term-specific follow-up
       (not template filler), renders after the main body, and emits no `FAQPage`.
 - [ ] Parented to the **CPT landing page** (flat URL) — not to a category post.
@@ -343,6 +346,8 @@ setup produces a thin page — the content + linking rows are what make it survi
 
 ## Related
 
+- Entity-equivalence research and population: [`../../workflows/identity-linking.md`](../../workflows/identity-linking.md)
+- `sameAs` acceptance rules: [`sameas-identity-links.md`](sameas-identity-links.md)
 - Field-type config keys: [`voxel-field-types.md`](voxel-field-types.md)
 - Schema DSL SSOT + CLI: [`../core/command-surface.md`](../core/command-surface.md) §Schema (lean-seo)
 - Full CPT lifecycle: [`../../workflows/cpt-lifecycle.md`](../../workflows/cpt-lifecycle.md) (Phase 4 points here for defined-term CPTs)

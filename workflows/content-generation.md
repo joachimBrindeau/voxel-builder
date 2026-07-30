@@ -1,7 +1,7 @@
 # Content Generation Workflow
 
 Generate reader-facing / SERP-facing field content for one or many Voxel CPT
-records — `definition`, `h1`, `hook`, `post_excerpt`, `sources`/`sameas`, `faq`,
+records — `definition`, `h1`, `hook`, `post_excerpt`, `sources`, `faq`,
 or a body/`description` field — from source evidence, authored to the **field-scoped
 spec** and applied through the sanctioned gated write path. This workflow produces
 content values; it never invents schema and never writes raw meta/SQL.
@@ -21,6 +21,8 @@ content values; it never invents schema and never writes raw meta/SQL.
 - Elementor `_elementor_data` widget/layout content - use [`build.md`](build.md).
 - Schema-only / meta-resolver config with no copy authored - use
   [`settings.md`](settings.md).
+- Entity-equivalence research or `sameAs` population - use
+  [`identity-linking.md`](identity-linking.md).
 
 ## Entry Criteria
 
@@ -65,7 +67,7 @@ If the field set or record scope is ambiguous, ask one focused question before P
 
 | Target field | Field-scoped reference |
 |---|---|
-| `definition` (answer block) + `h1` + `hook` + `sameas`/`sources` on a definitional CPT | [`../references/voxel/seo-defined-terms.md`](../references/voxel/seo-defined-terms.md) |
+| `definition` (answer block) + `h1` + `hook` + `sources` on a definitional CPT | [`../references/voxel/seo-defined-terms.md`](../references/voxel/seo-defined-terms.md) |
 | `faq` repeater | [`../references/voxel/faq-authoring.md`](../references/voxel/faq-authoring.md) |
 | `post_excerpt` / meta-description field (incl. `hook` used as meta) | [`../references/voxel/lean-seo-excerpt-meta-descriptions.md`](../references/voxel/lean-seo-excerpt-meta-descriptions.md) |
 | any reader/SERP copy (methodology + gates) | [`../references/voxel/claude-seo-authoring.md`](../references/voxel/claude-seo-authoring.md) |
