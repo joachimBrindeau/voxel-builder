@@ -235,6 +235,8 @@ Source: `themes/voxel/app/widgets/post-feed.php`. Golden fixture: [`../../exampl
 | `manual` | a hand-picked static list of post IDs | `ts_manual_post_type`, `ts_manual_posts[].post_id` |
 | `archive` | the current archive/loop context | `ts_manual_post_type` |
 
+> **`archive` mode requires the taxonomy/CPT to opt into the native query.** The mode reads `$wp_query->posts`, but `Search_Controller::maybe_disable_native_archive_query()` forces `post__in => [0]` on every Voxel-managed term archive and post-type archive unless the owner sets `default_archive_query = enabled` — taxonomy: `voxel:taxonomies` → `<key>.settings.default_archive_query`; CPT: `options.default_archive_query`. Left at the `disabled` default, the page still renders headings and a correct `@term().post_count()`, and only the grid silently falls back to its empty state — so verify a rendered card, never just the count. Flip it with `\Voxel\set( 'taxonomies.<key>.settings.default_archive_query', 'enabled' )`.
+
 > **There is NO `ts_source: "relation"` mode.** A post-relation surface ("the services this request links to", "other companies in this region") is built with **`search-filters` + a relation filter row**, NOT a relation source. The plan-planning `relation-feed` / `related-cpt-feed` archetypes resolve to this recipe.
 
 **Relation-feed recipe (surface `@post(<relation>)` as cards):**
@@ -257,7 +259,7 @@ Source: `themes/voxel/app/widgets/post-feed.php`. Golden fixture: [`../../exampl
 
 **Self-exclusion (exclude the current post from its own "related" feed):** `ts_post_exclude: "@tags()@post(:id)@endtags()"` (verified prop, `post-feed.php`). There is no "exclude current" filter type — use `ts_post_exclude`.
 
-**Fallback when no `rel-` filter is registered (and you can't add one):** render the relation as a linked inline list inside an `ef-card` (`@post(<relation>.title).list( • )`), or a `kind: byline`/`kind: tag` row loop — not a feed. This is the path to take when the relation is a scope-limiter facet rather than a primary content surface.
+**Fallback when no `rel-` filter is registered (and you can't add one):** render the relation as a linked inline list inside an `ef-card` (`@post(<relation>.title).list( • )`), or a `kind: heading`/`kind: tag` row loop — not a feed. This is the path to take when the relation is a scope-limiter facet rather than a primary content surface.
 
 > **Node-level `ef-wrapper mode:template + _vx_loop` over a relation** (the alternative "clone a card template per related post" pattern seen in some peer templates) depends on voxel-addon ≥ the per-item `@post`-context-rebind fix (commit `2e2e1a2`); on older addon builds the clones silently render the PARENT post N×. Prefer the `search-filters` feed recipe above unless that addon fix is present. See the [voxel-builder issue tracker] note on template-loop rebind.
 

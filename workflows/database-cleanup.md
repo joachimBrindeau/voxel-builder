@@ -25,9 +25,20 @@ maintenance. Read `references/voxel/database-cleanup.md` before mutation.
    trash, transient, cron, session, and structural-orphan counts.
 5. Capture behavior baselines: home, admin, REST, login, representative Voxel single,
    archive/search, Elementor template, forms/checkout, cron, and error log.
-6. Hard-stop when backup, ownership scope, or restore path is missing.
+6. Stop every background writer that can re-create what you are about to remove, and
+   prove it stopped. On a Voxel Addon site the product importer is such a writer:
+   `wpdev voxel:imports <site> halt` records the halt, and
+   `wpdev voxel:imports <site> verify` proves it by *attempting* to arm both import
+   events with plugins loaded and failing if either survives.
+7. Never treat an emptied cron slot as proof a writer stopped. `ImportWorker` re-arms its
+   maintenance event on every `init`, so deleting the event is undone by the next HTTP
+   request within seconds. Persistent state gates execution; the cron array only reflects
+   it. The same shape applies to any scheduler that self-heals: stop the *source*, then
+   re-read after real traffic.
+8. Hard-stop when backup, ownership scope, or restore path is missing.
 
-**Exit:** Immutable before-state evidence and a usable rollback artifact exist.
+**Exit:** Immutable before-state evidence, a usable rollback artifact, and background
+writers proven halted.
 
 ## Phase 2 — Parallel Ownership Audit
 
@@ -42,8 +53,26 @@ maintenance. Read `references/voxel/database-cleanup.md` before mutation.
    `retention-candidate`, or `unknown`. Unknown means no deletion.
 4. Treat `term_relationships.object_id NOT IN wp_posts` as a candidate only. Taxonomies
    may relate non-post objects; prove taxonomy object ownership before deletion.
-5. Produce a cleanup manifest with candidate query/API, count, owner, proof, risk,
+5. When deletion turns on what a record *is* rather than whether it is orphaned, verify
+   the deciding signal before trusting it, and expect the obvious one to be wrong. On a
+   real Voxel product catalog the taxonomy labeled hoodies, whisks, and books as
+   "Matcha"; the Voxel `product.product_type` meta was the same literal string on every
+   row; and the Shopify `product_type` was empty on more than half and multilingual on
+   the rest. Corroborate at least two independent signals, keep an explicit `ambiguous`
+   bucket, and never let a record be destroyed by a signal you have not spot-checked
+   against the actual titles.
+6. Confirm the post type key against the database (`SELECT DISTINCT post_type`) rather
+   than inferring it from the plugin or the UI label. Voxel product CPTs register as
+   `products`, and a query for `product` silently returns zero rows, which reads exactly
+   like "nothing to clean".
+7. Produce a cleanup manifest with candidate query/API, count, owner, proof, risk,
    rollback unit, batch size, expected side effects, and verification.
+8. For Voxel-managed records and all registered taxonomy terms, run or consume the
+   read-only [`integrity-loop.md`](integrity-loop.md) report. Only confirmed
+   structural `orphan-relation`, `orphan-media`, and explicit owner contradictions
+   may enter the cleanup candidate manifest. Content findings, suspected findings,
+   custom/unsupported shapes, and term-meta unknowns route elsewhere or remain
+   blocked. The integrity report is evidence, never mutation approval.
 
 **Exit:** Every proposed deletion has an owner and proof; unknowns remain excluded.
 
@@ -71,6 +100,9 @@ maintenance. Read `references/voxel/database-cleanup.md` before mutation.
 3. Empty only approved aged trash/auto-drafts through `wp_delete_post()` and
    `wp_delete_comment()` so hooks, terms, metadata, children, and caches are handled.
 4. Remove stale cron through cron APIs/commands, never by editing serialized `cron`.
+   Unscheduling removes an *occurrence*, not a producer: if code re-arms the hook, the
+   event returns. Deleting a live plugin's event is a no-op at best, so halt the owner
+   instead and confirm with a scheduling attempt, not a cron listing.
 5. Destroy sessions only when logout impact is approved; use `WP_Session_Tokens` APIs.
 6. Remove abandoned options through `delete_option()`/`delete_site_option()` and change
    autoload through current WordPress APIs, never raw serialized-value edits.
@@ -184,6 +216,28 @@ re-counted against the frozen manifest.
    SQL hashes, final counts, and follow-up owner work.
 
 **Exit:** Cleanup is evidence-complete, behavior-preserving, and independently reversible.
+
+## Production Database Push Safety
+
+When database cleanup is followed by `wpdev remote:sync:push --db`, treat the push as a
+separate mutation gate rather than a transport detail:
+
+1. Prove every local base table has a primary key before export. WordPress serialized-safe
+   all-table search/replace may refuse keyless tables; repair an owned schema at its source,
+   or preserve an owner-abandoned backup table only after proving its candidate key is unique
+   and non-null. Never bypass the all-table convergence gate.
+2. Stage a complete local export before opening the remote import stream. Export with
+   `--single-transaction --hex-blob`, compress to a temporary artifact, validate it with
+   `gzip -t`, then atomically promote it. A failed or changing local export must leave the
+   remote database untouched.
+3. After import, run serialized-safe replacement across every table for the full local URL,
+   HTTP variant, and bare local domain. Require exact remote `siteurl`/`home` values and an
+   all-table dry-run leftover count of zero.
+4. Re-run production hardening after the database overwrite: remove development users and
+   their public profiles, use `$wpdb->users` rather than a literal `wp_users` table, and
+   prove temporary hardening scripts were removed.
+5. Record the last pre-import safety backup, database check, zero-leftover result, canonical
+   URLs, deleted-user read-backs, cache purge, and browser smoke evidence in the handoff.
 
 ## Non-Negotiable Stops
 

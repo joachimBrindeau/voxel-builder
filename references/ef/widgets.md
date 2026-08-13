@@ -183,7 +183,7 @@ Before adding `_vx_loop`, decide whether the repeated unit is the whole widget o
 
 **FAQ accordion rule:** `ef-card.content_blocks` rows with `kind: accordion` are row-loopable. For a glossary FAQ, put `_vx_loop: @post(faq)` on the accordion row (`settings.content_blocks.value[i].value._vx_loop`), never on the `ef-card` widget. Widget-level placement duplicates the heading/card chrome for every FAQ row and is the wrong scope.
 
-**Mechanical pre-write check:** if a widget has both static sibling rows (for example a byline or h2 heading) and one row referencing `@post(<repeater>.<subfield>)`, then `_vx_loop` belongs on that row, not on the widget. After mutation, dump the template and assert: `widget.settings._vx_loop` absent; exactly the row whose cells reference `@post(<repeater>.<subfield>)` has `value._vx_loop`.
+**Mechanical pre-write check:** if a widget has both static sibling rows (for example an h2 heading) and one row referencing `@post(<repeater>.<subfield>)`, then `_vx_loop` belongs on that row, not on the widget. After mutation, dump the template and assert: `widget.settings._vx_loop` absent; exactly the row whose cells reference `@post(<repeater>.<subfield>)` has `value._vx_loop`.
 
 ## Making a widget prop dynamic-tag-aware
 
@@ -204,7 +204,7 @@ Latest moving parts — none replace the rule "query the schema", but they expla
 - **Loop / visibility key naming** — modern is `_vx_loop` / `_vx_visibility` / `_ef_loop_transform`. Legacy `_voxel_loop` / `_voxel_visibility_rules` still recognised on read but not canonical write targets.
 - **Image envelope must be full-shape** — `{$$type:'image', value:{src:..., size:'string'}}`. Writing `{src}` alone short-circuits the resolver.
 - **`ef-wrapper` carries an action suite** (`action_type` + `action_link` + per-type fields) — replacing the legacy scalar `link` prop (migration step 580). Plus a `bg_media` slot composed via `EF_Part_Media` (full media-type set).
-- **`ef-card` byline_avatar + logo** accept the full media-type set (image / video / lottie / icon), not just image.
+- **`ef-card` inline media (on `heading` rows) + logo** accept the full media-type set (image / video / lottie / icon), not just image.
 - **4 new VX user-bar popup actions** in `ts_actions`: `open_vx_inbox`, `open_vx_notifications`, `open_vx_cart`, `open_vx_user_menu`. They emit `data-ef-vx-popup="<slot>"` and require a Voxel user-bar widget on the same page.
 - **Voxel-tag-aware controls** — full set is `EF_Vx_{Text,Textarea,Select,Switch,Number,Icon}_Control`; bind via `::bind_to('<prop>')`.
 

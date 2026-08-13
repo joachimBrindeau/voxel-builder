@@ -14,7 +14,7 @@ Plugin root referenced below: `plugins/custom/lean-seo/`.
 | `schema` | Schemas | *(per-target options `lean_seo_schema:{target}` + index `lean_seo_schema_targets` — NOT a `schema` category)* | [`lean-seo-schema.md`](lean-seo-schema.md) |
 | `llms` | Markdown Fields | *(none — uses `lean_seo_markdown_field_maps`, a JSON string)* | [`lean-seo-markdown.md`](lean-seo-markdown.md) |
 | `crawl` | Crawl | `crawl`, `noindex`, `ai_crawler` (+ list settings in `tweak`) | [`lean-seo-crawl-permalinks.md`](lean-seo-crawl-permalinks.md) |
-| `permalinks` | Permalinks | `permalink_default` (+ `_lean_seo_uri` post meta) | [`lean-seo-crawl-permalinks.md`](lean-seo-crawl-permalinks.md) |
+| `permalinks` | Permalinks | `permalink_default`, `permalink_nesting` (+ `_lean_seo_uri` post meta) | [`lean-seo-crawl-permalinks.md`](lean-seo-crawl-permalinks.md) |
 | `linking` | Internal Linking | `linking` | [`lean-seo-crawl-permalinks.md`](lean-seo-crawl-permalinks.md) |
 | `code` | Code | `tag` | [`lean-seo-code.md`](lean-seo-code.md) |
 | `redirects` | Redirects | *(custom `lean_seo_redirects` DB table)* | [`lean-seo-redirects.md`](lean-seo-redirects.md) |
@@ -49,6 +49,8 @@ lean_seo_settings_map( $category );                          // flatten to key =
 `tweak` and `variable` categories autoload (read every front-end request); everything else does not (`lean_seo_settings_is_autoload()`). Writes flush the per-request memo via `lean_seo_settings_flush_cache()`.
 
 **Markdown** is the exception: its config is a standalone `lean_seo_markdown_field_maps` option (a JSON string of per-CPT maps), not a settings-store category. **Schema** is also special: one option per target (`lean_seo_schema:{target}`) + an index option, not a `schema` category. **Redirects** uses its own DB table.
+
+**Never give a module a settings category whose `lean_seo_{category}` option name is already owned by another subsystem.** `schema` is the cautionary case: the category option `lean_seo_schema` collides with the Schema Builder's legacy monolithic config, whose `plugins_loaded` migration deletes that option when it does not parse as a schema config. Seeded settings rows therefore vanished on the next request and were re-seeded on every upgrade — silently, since seeding reported success. When auditing settings coverage, verify a seeded row still reads back **on a later request**, not just after the write.
 
 ## The field catalog — the agnostic seam
 

@@ -59,6 +59,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "I'm composing section backgrounds / assigning surface variants / building a masonry bento block" | [`section-rhythm.md`](ef/section-rhythm.md) + [`masonry.md`](ef/masonry.md) |
 | "Map media doesn't load / is blank when scrolled into view, especially with LSCache/performance JS delay" | [`widgets.md`](ef/widgets.md) §Map media runtime (Leaflet / Google) — LSCache-safe lazy load |
 | "Define / fix the card's action buttons (`ts_actions` strip / `cta_ts_actions`) — pick the right action type + cells" | [`card-actions.md`](../workflows/card-actions.md) (process) + [`actions.md`](ef/actions.md) (catalog) |
+| "Populate or repair taxonomy TERM icons (`voxel_icon` term meta, all six EF packs)" | [`lookup-and-repair.md`](icons/material-symbols/lookup-and-repair.md) §Populate taxonomy term icons |
 | "Pick a Material Symbols icon, replace a wrong icon, or audit icon usage in Elementor data" | [`material-symbols/README.md`](icons/material-symbols/README.md) (lookup) + [`lookup-and-repair.md`](icons/material-symbols/lookup-and-repair.md) (repair flow) |
 | "Where does this Voxel option live / which template will render / how do revisions stack?" | [`template-resolution.md`](voxel/template-resolution.md) |
 | "I'm composing a custom widget and need a part (Field, Banner, Headings…)" | [`ef-parts.md`](ef/ef-parts.md) |
@@ -99,7 +100,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |
 | [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` variants and registration behavior. |
 | [`masonry.md`](ef/masonry.md) · [`section-rhythm.md`](ef/section-rhythm.md) | Bento/masonry grid composition (`col_span` / `row_span`, track ratios) and section background/spacing rhythm. |
-| `widget-schemas.json` | The generated schema SSOT mirror (synced by `wpdev elementor:codegen`; do not hand-edit). |
+| schema SSOT | Not stored in this skill. Read `cli/src/generated/widget-schemas.json` in the wpdev workspace (regenerate with `wpdev elementor:codegen`); it is the only schema artifact. |
 
 ## `icons/` — icon lookup + repair
 
@@ -152,7 +153,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | Layer | File | Owns |
 |---|---|---|
 | **Routing** | this file | Request → command/reference mapping |
-| **Rules** | [`references/core/rules.md`](core/rules.md) | Eight rules, success criteria |
+| **Rules** | [`references/core/rules.md`](core/rules.md) | Ten rules, success criteria |
 | **Page planning** | [`../workflows/page-planning.md`](../workflows/page-planning.md) | Phase 2 sub-pipeline — Field Inventory, SSOT Read, Archetype Selection, Section Blueprints, adversarial review (full reviewer panel, parallel, one concern each), reconciliation, computed §2g gate. Mandatory for any non-trivial build or migration. |
 | **CLI** | [`references/core/command-surface.md`](core/command-surface.md), [`references/core/wpdev-ops.md`](core/wpdev-ops.md), [`references/core/wpdev-coverage.md`](core/wpdev-coverage.md) | Voxel/Elementor command surface + generic ops appendix + drift-gated coverage map |
 | **Dispatch** | [`references/core/parallel-dispatch.md`](core/parallel-dispatch.md), §Orchestrating the parallel fan-outs (above) | Atomic-scope subagent contract; Workflow-tool fan-out (preferred when opted in) vs inline single-message dispatch (fallback) |

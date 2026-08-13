@@ -11,7 +11,7 @@ Before invoking this sub-pipeline, Phase 1 must have produced:
 - `wpdev elementor:dump <site> all --post <id> --json` (when modifying existing).
 - `wpdev voxel:fields <site> <cpt_key>` output (the universe of available data).
 - `wpdev voxel:sample <site> <cpt_key>` run — exports the **most-complete posts** (ranked by filled fields + relations + repeaters) to a temp folder, so the inventory is built from the richest real data the CPT has, not a random or single post. `wpdev voxel:data <site> --id <example_post>` then reads rendered values on those sampled posts (one is never enough — the data-wiring and coverage adversaries reject single-post inventories).
-- `wpdev elementor:codegen` was run at the start of the run (regenerates `cli/src/generated/widget-schemas.json` AND syncs it into this skill's `references/ef/widget-schemas.json`). Every widget pick in the plan is validated against that artifact.
+- `wpdev elementor:codegen` was run at the start of the run (regenerates `cli/src/generated/widget-schemas.json`, the only schema artifact). Every widget pick in the plan is validated against that artifact.
 - The **rebuild-vs-revise** call was made in Phase 0 (see [`build.md`](build.md) §Phase 0): when the existing tree is worse than starting clean, the plan is composed greenfield and the existing data is discarded at write; otherwise the plan revises in place.
 - **For migration mode only:** 1-3 production page URL(s) corresponding to the local post being migrated. Resolve trivially via `./wpdev remote:list` (gives the live host) + `?p=<post_id>` — WordPress core resolves `https://<prod_host>/?p=<id>` to the canonical permalink for any post type via 302 redirect (no CLI helper required, no permalink template knowledge needed). For archive / page templates: list 1-3 representative post ids of the same CPT and pass `?p=<id>` for each. The migration-preservation criterion opens these URLs with the `agent-browser` CLI and reads the rendered, visitor-visible text to build the content baseline (it renders JS, so Voxel dynamic tags resolve exactly as a visitor sees them — see [`browser.md`](../references/verification/browser.md) §Production-page baseline).
 
@@ -48,7 +48,7 @@ Only then does Phase 3 (widget fan-out) start. Lack of any of the four is a hard
    | title | title | a title-class field | ✓ | ✓ | ✓ | must | hero |
    | description | texteditor | a long-form body field | ✓ | ✓ | ✓ | must | overview |
    | <relation-field> | post-relation | a relation field | ✓ | ✓ | empty | should | specs-grid + sidebar |
-   | <switcher-field> | switcher | a switcher field | ✓ | ✓ | ✓ | may | byline-conditional |
+   | <switcher-field> | switcher | a switcher field | ✓ | ✓ | ✓ | may | subtitle-conditional |
    | <multiselect-field> | multiselect | a multiselect field | ✓ | empty | ✓ | should | specs-grid |
    | ... | | | | | | | |
 

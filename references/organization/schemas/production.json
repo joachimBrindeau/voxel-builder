@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Product Operations Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "matcha-content", "harvest-location"],
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "matcha-content": {"type": "string", "minLength": 200},
+    "harvest-location": {"type": "string", "minLength": 150}
+  }
+}

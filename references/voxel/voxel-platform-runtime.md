@@ -165,7 +165,7 @@ Quick summary:
 - **API surface**: registration controllers under `controllers/frontend/auth/`. The login form is rendered by `ts-login` widget.
 
 - **Gotchas**:
-  - Social-login providers require HTTPS callback URLs. Local dev requires SSL (Valet `secure` handles this).
+  - Social-login providers require HTTPS callback URLs. Nothing extra is needed here: OpenLiteSpeed already serves every site over HTTPS at its canonical `https://<site>.test/` (see `WEB_SERVER=openlitespeed` / `OLS_PUBLIC_HTTPS_PORT=443` in `wpdev.conf`). This host is Linux and Valet is not installed, so ignore any `valet secure` instruction.
   - 2FA recovery codes are single-use. Once used, they're invalidated — make sure users save them at enablement time.
 
 ---

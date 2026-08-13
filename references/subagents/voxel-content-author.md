@@ -45,13 +45,20 @@ missing `acceptance_spec`.
 
 1. Ground: use only facts in the packet plus any allowed, actually-fetched
    research. Never invent facts, and never fabricate a `sources` URL — cite a page
-   only after fetching it and confirming it describes THIS exact term.
+   only after fetching it and confirming it describes THIS exact term. An empty
+   existing value does NOT mean no evidence exists: when the packet carries a linked
+   canonical post body or sibling facts, author from it. If a record genuinely has no
+   grounding, return `needs-source` — never pad the field with a restatement of its
+   own purpose.
 2. Author (build) each target field to the `acceptance_spec`:
    - `definition`: 40-60 words, opens with the exact term as grammatical subject,
      one context sentence, neutral dictionary prose.
    - `hook`/meta: a single complete sentence under the resolver limit (≤120 chars
      where `hook` feeds the meta description), term-first, no truncation.
-   - `excerpt`: 120-152 chars, factual, complete sentence.
+   - `excerpt`: 120-152 chars, factual, complete sentence. Must state a real property of
+     the subject; never describe the field's own taxonomy/CPT mechanism ("used to classify
+     products", "in this taxonomy", "according to their named <field>") and never restate
+     the term as its own definition. Length compliance is not quality.
    - `sources`/`sameas`: only verified rows `{title,url,publisher}`; empty beats invented.
    - `faq`: defer to the FAQ standard when that field is in scope.
 3. Self-check against every gate; set `confidence` honestly.

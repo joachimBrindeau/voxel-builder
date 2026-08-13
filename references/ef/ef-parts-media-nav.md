@@ -14,7 +14,7 @@ All extend the abstract `EF\Parts\Media\Type` base. Each handler is auto-discove
 - **Render**: emits `<img>` (or `<picture>` when source set is provided) with `loading="lazy"`, sizes, srcset
 - **`supports_caption()`**: yes
 - **`supports_fit()`**: yes
-- **Used by**: every widget Media slot (card media/logo/byline_avatar, wrapper bg_media)
+- **Used by**: every widget Media slot (card media/logo/inline, wrapper bg_media)
 - **Gotchas**: ALWAYS emits both `src` AND `size` envelope cells (the resolver short-circuits on missing size). Lenient prop chain (Lenient_Image → Lenient_Image_Src → Lenient_Image_Attachment_Id + Lenient_Url) preserves dtag templates
 
 ### EF_Part_Media_Video
@@ -138,7 +138,7 @@ The table below is generated from `plugins/custom/elementor-framework/schemas/pa
 
 Notes:
 - `ef-cal` and `ef-toc` are retired standalone widgets; their behavior lives in `ef-card.content_blocks` rows (`kind: calendar` / `kind: toc`).
-- `ef-card` is the most part-heavy widget (Media×3 via `media`/`logo` + `byline_avatar` injected through Headings, plus Headings + Tags + Actions). The byline action is no longer an Action_Slot — it lives on the `byline` content-block row's action suite.
+- `ef-card` is the most part-heavy widget (Media×3 via `media`/`logo` + `inline` injected through Headings, plus Headings + Tags + Actions). A content-block row's action is not an Action_Slot — it lives on that row's own action suite.
 - `ef-wrapper` is not in the table (registered as an *element*, not a widget) — it composes Media (`bg_media`) + Action_Slot (root action) directly in PHP
 - `ef-navbar` is the only consumer of `nav-item` / `banner`; its Nav_Item traits (Roots / Mega) are PHP-only and have no schema row
 - `ef-form` is the only consumer of `field` (via `form-fields`); it does NOT compose `actions` (submit button is widget-owned via `form-button`)

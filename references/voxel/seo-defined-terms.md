@@ -341,8 +341,12 @@ setup produces a thin page — the content + linking rows are what make it survi
 - [ ] Category assigned via **taxonomy** (not `post_parent`).
 - [ ] `siblings` set to 2-4 genuinely related terms (lateral links).
 - [ ] `post_author` = a credentialed profile (E-E-A-T).
-- [ ] Live check: flat URL, breadcrumb `Home > Glossary > Term`, `DefinedTerm` +
-      `WebPage` + `BreadcrumbList`, **no `FAQPage`**, meta description complete.
+- [ ] Live check after release/noindex removal: flat URL, breadcrumb
+      `Home > Glossary > Term`, `DefinedTerm` + `WebPage` + `BreadcrumbList`,
+      **no `FAQPage`**, meta description complete. While an intentional editorial
+      noindex flag remains, Lean SEO must emit no JSON-LD; verify that exact URL
+      and defer the positive schema assertion rather than substituting a
+      post-type-wide validator sample.
 
 ## Related
 

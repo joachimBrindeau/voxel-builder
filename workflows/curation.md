@@ -21,7 +21,7 @@ mandatory **safety gate** before any merge or delete.
 
 ## Essential principles
 
-- **Entity-data writes use sanctioned `wpdev` paths only.** Use `wpdev voxel:apply-content` for validated multi-record content manifests; it preflights expected SHA values, writes a rollback bundle, read-backs/reindexes every record, and restores on failure. Use `wpdev voxel:set-field` for a single-field path (fields/meta plus `title` → `post_title` and `description` → `post_content`). `wpdev wp <site> post update` remains fallback or explicit-core-key path. Raw `wp eval` / `update_post_meta` / SQL entity-data writes are FORBIDDEN (core rule 9); `wp eval` is read-only inspection and non-entity maintenance only. No "small enough to eval" exception.
+- **Entity-data writes use sanctioned `wpdev` paths only.** Use `wpdev voxel:apply-content` for validated multi-record content manifests; it preflights expected SHA values, writes a rollback bundle, read-backs/reindexes every record, and restores on failure. It also supports registered post meta: JSON `null` means delete the row, while `""` remains a stored empty value. Use `wpdev voxel:set-field` for a single-field path (Voxel fields, registered post-meta keys with the same `null` deletion contract, plus `title` → `post_title` and `description` → `post_content`). `wpdev wp <site> post update` remains fallback or explicit-core-key path. Raw `wp eval` / ad-hoc `update_post_meta` / SQL entity-data writes are FORBIDDEN (core rule 9); `wp eval` is read-only inspection and non-entity maintenance only. No "small enough to eval" exception.
 - Preserve data evidence: capture before/after with `voxel:data` for every mutation; it exposes core values under `core`.
 - Keep patches narrow: set only changed fields, never re-write sampled whole-record blobs.
 - Treat profile/user links as one invariant: profile `post_author` and user meta
@@ -112,22 +112,33 @@ the derived name fields.
 
 ### Edit
 
-**`description`-type and `title`-type fields are core columns, not meta — `voxel:set-field` routes them there itself.** Voxel maps the `description` field to `post_content` and the `title` field to `post_title`; `voxel:set-field --set '{"description":"...","title":"..."}'` detects the alias and writes `post_content`/`post_title` via `wp_update_post`, not meta — no separate call needed. You can also pass the explicit core key directly (`--set '{"post_content":"...","post_title":"..."}'`). `wpdev wp <site> post update <id> --post_content="..." --post_title="..."` remains a valid fallback/explicit path, not mandatory for the aliases. The `post_excerpt` (SEO excerpt, surfaced by `@post(excerpt)` in templates/cards) is a core column too — pass it as `post_excerpt` to either `voxel:set-field --set` or `wp post update <id> --post_excerpt="..."`; posts created via `wp post create` start with an empty excerpt, so a freshly-scaffolded CPT record renders an empty hero byline/card blurb until you set it. After a create-then-populate pass, always re-read `post_content`/`post_excerpt` (via `voxel:data`'s `core` block) length, not just the Voxel meta fields.
+**`description`-type and `title`-type fields are core columns, not meta — `voxel:set-field` routes them there itself.** Voxel maps the `description` field to `post_content` and the `title` field to `post_title`; `voxel:set-field --set '{"description":"...","title":"..."}'` detects the alias and writes `post_content`/`post_title` via `wp_update_post`, not meta — no separate call needed. You can also pass the explicit core key directly (`--set '{"post_content":"...","post_title":"..."}'`). `wpdev wp <site> post update <id> --post_content="..." --post_title="..."` remains a valid fallback/explicit path, not mandatory for the aliases. The `post_excerpt` (SEO excerpt, surfaced by `@post(excerpt)` in templates/cards) is a core column too — pass it as `post_excerpt` to either `voxel:set-field --set` or `wp post update <id> --post_excerpt="..."`; posts created via `wp post create` start with an empty excerpt, so a freshly-scaffolded CPT record renders an empty hero subtitle/card blurb until you set it. After a create-then-populate pass, always re-read `post_content`/`post_excerpt` (via `voxel:data`'s `core` block) length, not just the Voxel meta fields.
 
 **Respect live definition constraints before writing repeater values.** Short-text subfields need semantic labels within their live `maxlength`; texteditor siblings carry prose. Never rely on silent truncation. If content exceeds a bound, shorten it safely or hand the constraint change to [`field-metadata.md`](field-metadata.md); curation does not mutate definitions mid-route. Field-definition semantics: [`field-metadata-spec.md`](../references/voxel/field-metadata-spec.md).
 
 ```bash
 wpdev voxel:data <site> --id=<id> > /tmp/before.json
-wpdev voxel:set-field <site> --id=<id> --set='{"field":"value"}'
+wpdev voxel:set-field <site> --id=<id> --set='{"field":"value"}' --yes
 wpdev voxel:data <site> --id=<id> > /tmp/after.json
 ```
 
 Verify the changed fields moved and the unrelated fields did not.
 
+For a registered per-post overlay that must be absent, pass JSON `null` and verify with
+`metadata_exists`/`wp post meta get`; never substitute `""` or `0` when the acceptance
+criterion is deletion. Prefer one guarded `voxel:apply-content` manifest for a multi-record
+release so the exact presence/value state participates in the expected hash and rollback bundle.
+
+For non-interactive or agent-run shells, `--yes` is required on the authoritative
+`voxel:set-field` write. A rendered confirmation prompt is not evidence of mutation:
+require the command's `Updated #<id>` result and the after snapshot before proceeding.
+
 **Write-path gate (enforced — a violation is a rejected result, not a warning).** Before any field/meta mutation, and for EVERY record in a batch:
 1. **Path:** the write is `wpdev voxel:apply-content` (manifest batch), `wpdev voxel:set-field` (fields/meta, incl. `title`/`description` aliases), or `wpdev wp <site> post update` (fallback/explicit core key: `post_title`/`post_content`/`post_excerpt`). If you are typing `update_post_meta`, `$wpdb`, or SQL to change entity data, STOP — you are off the sanctioned path.
+   For field-definition migrations, distinguish PATCH from replacement: `VoxelConfigStore::upsertField()` intentionally merges attributes and therefore cannot remove obsolete keys. When converging a field to an exact blueprint shape, replace that field in the fetched full CPT config and persist once through `upsertPostType()`, with whole-CPT rollback/read-back evidence.
 2. **Per-record before/after:** capture `voxel:data --id=<id>` (or the core-column value) before and after; prove the targeted key changed and every unrelated key is byte-identical. A batch is verified only when every record passes; writing first and spot-checking a sample afterward is rejected.
 3. **Content, not just fill:** the value is authored to the owning editorial/SEO spec from source evidence — never a mechanical transform of a sibling field (`wp_strip_all_tags(definition)`→`hook`, `substr(post_content)`→`post_excerpt`). A deterministically-derived value is a filled column, not correct content, and fails this gate. For definitional/glossary content, the authoring spec is the SEO skill's glossary criteria (answer-block length, term-as-subject, dictionary-neutral prose); route the authoring through the matching subagent brief, one record's meaning at a time.
+   Glossary source rows are durable claim provenance, not a URL bibliography: require source title and URL, author/publisher and publication/update date when available, access date, language, explicit supported claims, and an optional archive URL. Preserve the original URL beside archives; never infer missing dates; identify translations; retain credible conflicting evidence and state uncertainty; and limit commercial/primary sources to claims they can establish. Keep access/claim/archive maintenance metadata out of schema unless the schema vocabulary has a valid property with the same meaning.
 4. **Reindex after:** reindex mutated records so search/loops/TermIndex reflect the new values.
 
 #### Bulk rich-text reformat (many records)

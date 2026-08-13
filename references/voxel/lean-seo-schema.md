@@ -17,12 +17,24 @@ The `schema` module (`modules/schema/`) emits JSON-LD structured data per CPT. C
   truncation behavior.
 - Verify the final JSON-LD on a populated and sparse record. Passing config validation does not
   prove that runtime sources resolve, that fallbacks prune cleanly, or that query limits hold.
+- Verify each touched canonical URL directly. `wpdev schema:validate-live` selects one
+  representative published URL per target, so its PASS does not prove that another touched
+  record emits JSON-LD. Record the sampled URL and never substitute a post-type-wide result for
+  per-record rendered evidence.
+- Lean SEO intentionally emits no singular JSON-LD when the resolved page is noindexed. For an
+  editorially noindexed record, require the expected `noindex, follow` robots output and zero
+  JSON-LD on that exact URL, then defer the positive graph assertion until the guarded release
+  removes noindex. Do not report the intentional absence as a schema defect.
+- After purging a page-cached surface, compare the plain canonical URL with a unique cache-busted
+  fetch. They must serve the same final content and metadata before verification can pass.
 
 ## Config model — per-target `@type` + property→source map
 
 Schema config is keyed by **target**, retrieved via `lean_seo_schema_get_configs()` (two-layer cached: static memo + persistent `schema_configs`, flushed on save/delete). Assignable targets (`lean_seo_schema_get_assignable_targets`): public/queryable post types → key `<post_type>`; public taxonomies → key `taxonomy:<slug>`. Render-time archive targets: `front_page`, `archive:<post_type>`, `taxonomy:<slug>`, `author` (author archives route to the `profile` CPT config — see below).
 
 CRUD: `lean_seo_schema_save_config($target,$config)`, `lean_seo_schema_delete_config($target)`. A stored value counts as a config only if it has `@type` or `@graph` (`lean_seo_schema_is_config`).
+
+Writing a target option **directly** with `update_option()` bypasses that flush, so renders keep serving the day-long cached config and the edit looks inert. Either go through `lean_seo_schema_save_config()` or call `lean_seo_schema_get_configs( true )` before verifying. Verify a graph with `lean_seo_schema_render_graph( $target, $post_id )`, which returns the node list; `lean_seo_schema_render()` returns only the first node, so a property on a later node reads as missing.
 
 Each entry is a JSON-LD skeleton whose leaf values are **source strings** resolved at render time. Reserved keys (`LEAN_SEO_SCHEMA_RESERVED_KEYS`): `@type, @id, @graph, @each, @ref, @filter, @list, @require` (plus `@map` inside `@each` templates). Shape:
 
@@ -48,7 +60,9 @@ A config may be a single node (`@type` + properties) or a `@graph` array of node
 - **`@map: "<source>"`** — inside `@each`, resolve one source per row to a scalar → flat de-duplicated array (e.g. `sameAs`).
 - **`@ref: true|"<fragment>"`** — inside `@each`, each item → `{"@id": "permalink#fragment"}`.
 - **`@filter: "field=value"`** — skip non-matching repeater rows.
-- **`@require: <source|list>`** — node is skipped unless **all** listed sources resolve non-empty (gates optional nodes without PHP).
+- **`@require: <source|list>`** — node is skipped unless **all** listed sources resolve non-empty (gates optional nodes without PHP). "Empty" means `false`, `null`, `''` or `[]` — **`0` is present**. Gating a count (`…total`) therefore does not suppress a zero-valued node; gate on a field that is genuinely null when the record is empty (e.g. an `average` that stays null until the first entry).
+
+**Never restate a scale or derived value Voxel already computes.** Voxel stores review scores on a `-2..2` scale but its dynamic tag and the review-stats widget both present `round(score + 3, 1)` out of 5 — so binding schema to the raw meta emits a rating that contradicts the visible stars. Bind `voxel_tag:` instead, which returns the theme's own rendered value (and an empty string when unreviewed, gating the node for free). Before marking up any Voxel-derived number, check `app/dynamic-data/data-groups/` for a conversion.
 - **`@list: [<source>,...]`** — resolve each to a flat, empties-dropped array.
 - Object pruning: a node with 0 properties, or only static `@value:` literals and no dynamic child, is dropped.
 
@@ -61,6 +75,7 @@ A config may be a single node (`@type` + properties) or a `@graph` array of node
 | `post:` | Core post field (title, permalink, excerpt, date…); `post:children` = published child IDs | sources/post.php |
 | `meta:` | Raw post meta key (auto-JSON-decoded) | sources/post.php |
 | `voxel:` | **Voxel field via `lean_seo_voxel_field_value()`** — handles repeaters/relations/locations; supports dot-path (`voxel:schedule.0.start`) | sources/related.php |
+| `voxel_tag:` | **Voxel dynamic tag rendered by the theme** (`voxel_tag::reviews.average` → `@post(:reviews.average)`). Use when Voxel *derives* a presentation value the stored field does not hold | sources/related.php |
 | `relation:` | **Voxel relation → array of published post IDs** (for `@each`) via `lean_seo_get_related_ids()` | sources/related.php |
 | `relation_field:rel.field` | A field from the **first related** post through relation `rel` | sources/related.php |
 | `related:` | Field from the current `@each` related post (`related:title`, `related:meta:key`) | sources/related.php |
@@ -88,7 +103,7 @@ The relation→`@each`→`related:` triad is how a Voxel post's related items be
 
 ## Transforms
 
-`modules/schema/transforms.php` applies `|`-piped transforms after resolution (`lean_seo_schema_apply_transforms`; null short-circuits). Registry (filter `lean_seo_schema_transforms`): `phone`, `bool`, `float`, `int`, `email`, `date` (→ ISO-8601 `gmdate('c')`), `decode` (`html_entity_decode`), `url_encode`, `strip_tags`, `schema_url` (bare token → `https://schema.org/<token>`, absolute URLs pass through — portable enums like `InStock`), `days` (short day codes → `DayOfWeek` names), plus **site-specific** `contract_type` (FR contract → `employmentType`) and `job_location_type`. Pipe multiple: `voxel:phone|phone`, `post:date|date`. No generic URL-absolutization transform — absolute URLs come from `permalink`/`var` sources.
+`modules/schema/transforms.php` applies `|`-piped transforms after resolution (`lean_seo_schema_apply_transforms`; null short-circuits). Registry (filter `lean_seo_schema_transforms`): `phone`, `bool`, `float`, `int`, `email`, `date` (→ ISO-8601 `gmdate('c')`), `earliest_date` (earliest strict `YYYY-MM-DD` from a scalar/list), `absolute_http_urls` (unique, validated absolute HTTP(S) URLs from a scalar/list), `decode` (`html_entity_decode`), `url_encode`, `strip_tags`, `schema_url` (bare token → `https://schema.org/<token>`, absolute URLs pass through — portable enums like `InStock`), `days` (short day codes → `DayOfWeek` names), plus **site-specific** `contract_type` (FR contract → `employmentType`) and `job_location_type`. Pipe multiple: `voxel:phone|phone`, `post:date|date`. Transforms validate or filter values; they do not turn relative paths into absolute URLs.
 
 ## Hierarchy source detail
 
@@ -125,3 +140,6 @@ Do NOT write a monolithic `lean_seo_schema` option — it's the legacy shape, au
 - **Public-status filter** — related/relation sources drop non-published posts silently; a draft related item simply won't appear.
 - **Non-Voxel fallback** — on a non-Voxel site `voxel:`/`relation:` degrade to `meta:`/JSON-array; don't assume Voxel semantics when writing a portable config.
 - **Dot-paths** are for structured field values only (`lean_seo_schema_resolve_path`), returning null on a missing path — a typo silently drops the property.
+- **Case-sensitive Voxel keys** — use the exact key emitted by the live field catalog (`sameAs` is not `sameas`). The catalog preserves the configured key's case because Voxel field lookup is case-sensitive.
+- **Boolean requirements** — pipe switcher sources through `|bool`. A resolved `false` is empty for `@require` and therefore present for the inverse intent of `@require_not`; do not gate switchers on their raw storage strings.
+- **Mixed contact fields need URL filtering** — a repeater path such as `voxel:contact.*.canal-value` may resolve social URLs, phone numbers, and email addresses together. For URL-list properties such as `sameAs`, pipe `|absolute_http_urls`; it preserves unique absolute HTTP(S) URLs in source order and drops non-URLs, credentials, unsupported schemes, and malformed values.

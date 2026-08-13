@@ -13,7 +13,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
   - `id(string $key): string` — returns `"{$prefix}_{$key}"` when prefix is set, else `$key`. Used everywhere a part needs to read a settings cell.
   - `key_prefix(): string` — returns `"{$prefix}_"` or `''`. Used when spreading prop arrays whose keys are already prefixed.
   - `to_html(array $settings, string $suffix = ''): string` — calls `render()` inside `ef_capture_output()`. Available only on parts that implement `Renderable_Part`.
-- **Why prefix matters**: a single widget can compose the same part class multiple times. `Headings` inside `ef-card` instantiates a `Media` for `byline_avatar` AND `ef-card` itself instantiates a `Media` for `logo` AND for `media` — three live instances, three prefixes, zero key collisions because every prop / control / settings read goes through `id($key)`.
+- **Why prefix matters**: a single widget can compose the same part class multiple times. `ef-card` instantiates a `Media` for `inline` (injected into `Headings`, the per-heading-row inline media) AND for `logo` AND for `media` — three live instances, three prefixes, zero key collisions because every prop / control / settings read goes through `id($key)`.
 
 ### `EF\Parts\Renderable_Part` (`parts/renderable_part.php`)
 
@@ -27,7 +27,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 - **Role**: interface declaring the part produces a structured array for Twig context, not HTML
 - **Signature**: `public function to_context(array $settings): array`
 - **Implementers**: `Headings`, `Tags`
-- **Why a separate contract**: Twig templates for `ef-card` consume `blocks`, `byline_avatar`, and `tags` as structured data (so the template can decide layout, dispatch on each block's `kind`, overflow grouping, etc.). HTML capture would force layout decisions into PHP and re-parse for the template — context arrays preserve the boundary.
+- **Why a separate contract**: Twig templates for `ef-card` consume `blocks` and `tags` as structured data (so the template can decide layout, dispatch on each block's `kind`, overflow grouping, etc.). HTML capture would force layout decisions into PHP and re-parse for the template — context arrays preserve the boundary.
 
 ---
 ## User-facing parts (10)
@@ -46,7 +46,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 - **Used by** (widgets):
   - `ef-wrapper` — root click-through action (slot `$action`, no prefix)
   - `ef-navbar` — banner action (prefix `banner_`, via `Banner`)
-  - (the `ef-card` byline action is NO LONGER an Action_Slot — it lives on the `byline` content-block row's own action suite, resolved via `ef_action_block_from_row()`)
+  - (a content-block row's click-through action is NOT an Action_Slot — it lives on that row's own action suite, resolved via `ef_action_block_from_row()`)
 - **Loop expansion**: no — action slots are single-instance per widget; loop expansion happens at the `Action_Rows` (composite repeater) level, not here
 - **Configuration knobs**: none — prefix-only; the action-type set and field specs are global
 - **Gotchas**:
@@ -121,10 +121,10 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 
 - **Class hierarchy**: `EF\Parts\Headings\Headings extends EF\Parts\Base implements Context_Part`
 - **File**: `parts/headings/headings.php`
-- **Owns**: the `content_blocks` composite repeater (`Content_Block` row definition, `includes/row_definitions/content_block.php`); plus an optional injected `Media` instance for the byline avatar. (No `Action_Slot` is injected anymore — the byline's action lives on the `byline` row's own action suite.)
+- **Owns**: the `content_blocks` composite repeater (`Content_Block` row definition, `includes/row_definitions/content_block.php`); plus an optional injected `Media` instance (`inline`) for per-heading-row inline media. (No `Action_Slot` is injected — a row's action lives on that row's own action suite.)
 - **Prop API**: `Headings::props($prefix = '', $avatar_options = [])` spreads:
   - `content_blocks` — `Content_Block_Rows` (composite repeater of typed `Content_Block` rows; row family `ef-content-block-row(s)`)
-  - Media props for `byline_avatar` (spread from `Media::props('byline_avatar', $avatar_options)`) — the card-level avatar slot, one per card
+  - Media props for `inline` (spread from the injected `Media` instance) — the inline media cells on a `heading` row (`inline_type`, `inline_image`, `inline_icon`, `inline_video_url`, …)
 - **Control API**:
   - `Headings::repeater_control()` returns the `Composite_Repeatable` for `content_blocks` rows
 - **Render contract**: n/a — implements `Context_Part`, not `Renderable_Part`
@@ -133,23 +133,20 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
   {
     blocks: [
       // one resolved block per non-empty row, in row order; shape depends on kind:
-      // heading  : {kind:'heading',   text, tag, visual_class, role, link:{href,attrs}, icon}
+      // heading  : {kind:'heading',   text, subtitle, tag, visual_class, role, link:{href,attrs}, icon, media}
       // rich_text: {kind:'rich_text', body, link:{href,attrs}}
-      // byline   : {kind:'byline',    primary, secondary, link:{href,attrs}}
       // separator: {kind:'separator', variant, spacing}
       // accordion: {kind:'accordion', text, body, accordion_open, tag, visual_class, role, link:{href,attrs}, icon}
       ...
-    ],
-    byline_avatar: { avatar, avatar_type } | null
+    ]
   }
   ```
-  - Each `kind` is the CONTENT discriminator (independent from the action suite's `type`, which is the ACTION discriminator). heading / accordion resolve their tag (h1..h6/p/span via `Heading_Enums::tag_kv_map()`), visual class via `Heading_Enums::visual_class()`, optional inline icon (via `Icon` part), and optional click-through link (via the row's action suite). The byline avatar is the single card-level Media slot (not a per-row cell).
-  - `byline_avatar` resolves to `null` when the injected Media instance has no content; empty blocks drop out of `blocks` (`Content_Block::resolve_row()` returns null).
+  - Each `kind` is the CONTENT discriminator (independent from the action suite's `type`, which is the ACTION discriminator). heading / accordion resolve their tag (h1..h6/p/span via `Heading_Enums::tag_kv_map()`), visual class via `Heading_Enums::visual_class()`, optional inline icon (via `Icon` part), and optional click-through link (via the row's action suite). A `heading` row also carries an optional `subtitle` second line and its own optional inline media, resolved through the `inline` Media instance injected into `Headings` — a per-row cell, not a card-level slot.
+  - Empty blocks drop out of `blocks` (`Content_Block::resolve_row()` returns null). A `heading` row is empty only when it has no `text`, no `subtitle` AND no inline media — subtitle-only and media-only rows are both authored shapes since the `byline` kind folded in (migration step 1336).
 - **Used by** (widgets):
-  - `ef-card` — content-block stack (heading / rich_text / byline / separator / accordion, in row order) + the card-level byline avatar
+  - `ef-card` — content-block stack (heading / rich_text / separator / accordion, in row order); inline media is per heading row
 - **Loop expansion**: yes — per-row `_vx_loop` expansion via `Base::expand_rows($settings, 'content_blocks', new Content_Block_Row_Definition())` (which internally calls `ef_expand_definition()`). Content-block rows iterate the same way card-tag rows do, supporting Voxel post-loop iteration. A looped heading+body unit MUST be a single `accordion` block — a loop on a `heading` block plus a separate `rich_text` peer would not interleave.
 - **Configuration knobs**:
-  - `$avatar_options` — forwarded to `Media::props('byline_avatar', $avatar_options)`; card passes `['caption' => false]` to suppress caption controls on the avatar
 - **Gotchas**:
   - The `accordion` kind retired the standalone `ef-accordion` widget (migration step 530); the collapsible heading+body unit now lives in a `content_blocks` row with `kind: accordion` (replaces the old `body_mode: accordion` on a heading row)
   - `Content_Block_Rows` is loopable AND carries the action suite, EXCEPT for `kind: separator` — the row schema's `$actionsWhen` hides the whole action suite (`type` + per-type cells + `icon`/`tooltip`) when `kind == separator`, so a separator is NEVER actionable
@@ -164,7 +161,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 - **Context contract**: none
 - **API**:
   - `tag_kv_map(): array` — returns `[h1=>'H1', h2=>'H2', ..., h6=>'H6', p=>'P', span=>'Span']`; canonical tag enum for heading rows
-  - `style_kv_map(): array` — visual-style enum including label variants (`label`, `byline_label`); maps style key to translated label
+  - `visual_class(mixed): string` — maps a `style` enum value to its CSS modifier class (`h1`..`h6`, `small` → `ef-<v>-style`; anything else → `''`, inheriting the tag's native typography). The `style`/`tag` enum vocabularies live in the JSON SSOT (`schemas/parts/rows/content-block-row.schema.json`), not in PHP.
   - `visual_class(string $value): string` — maps a style enum value to its CSS modifier class (e.g. `ef-heading--label`); used by Twig to apply visual class without leaking the enum value into the DOM
 - **Used by**:
   - `Headings` (via `to_context()` for `tag` and `visual_class`)
@@ -218,7 +215,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
   - `caption(array $settings): string` — `{prefix}_caption` value
 - **Context contract**: n/a (renders HTML; widgets call `to_html($settings)` to capture)
 - **Used by** (widgets):
-  - `ef-card` — three instances: `media` (main figure), `logo` (logo chip), `byline_avatar` (avatar in byline block, via `Headings`)
+  - `ef-card` — three instances: `media` (main figure), `logo` (logo chip), `inline` (per-heading-row inline media, via `Headings`)
   - `ef-wrapper` — one instance: `bg_media` (background media slot, prefix `bg_media_`)
 - **Loop expansion**: no — Media is a single-instance leaf; loop expansion happens upstream at the widget or row level
 - **Configuration knobs**:

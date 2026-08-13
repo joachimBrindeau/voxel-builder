@@ -94,14 +94,15 @@ Reference: [`lean-seo-schema.md`](../references/voxel/lean-seo-schema.md). Diale
 **Actions:**
 
 1. **Choose the `@type`** (or `@graph` of types) for the CPT from the schema.org vocabulary the module allows (`vocabulary.php`).
-2. **Map each schema property to a source string** using the Phase-0 keys:
+2. **Preflight every referenced live Voxel field definition before a data migration.** Deploying a plugin blueprint does not apply that blueprint to the live `voxel:post_types` registry. If a migration introduces a field, prepare the missing definition through `wpdev voxel:field-schema` or the canonical `VoxelConfigStore`, verify read-back, then restart the WP-CLI process so Voxel reloads its field registry before entity writes.
+3. **Map each schema property to a source string** using the Phase-0 keys:
    - core → `post:title`, `post:permalink`, `post:date|iso8601`
    - Voxel field → `voxel:<key>` (dot-path for structured values, e.g. `voxel:location.address`)
    - Voxel relation as a list → `{ "@each": "relation:<rel_key>", "value": { ... "related:title" ... } }`
    - single related field → `relation_field:<rel_key>.<field_key>`
    - ancestry → `hierarchy:...`; literal → `@value:...`; reference → `@ref:...`
-3. **Validate mentally against `voxel:` vs `meta:`** — always `voxel:` for Voxel fields; `relation:` needs an `@each` wrapper (never assign a bare ID array to a property).
-4. **Write the per-target config** into `lean_seo_schema:<cpt>` (one option per target — do NOT write a monolithic `lean_seo_schema`, it's legacy and auto-deleted):
+4. **Validate mentally against `voxel:` vs `meta:`** — always `voxel:` for Voxel fields; `relation:` needs an `@each` wrapper (never assign a bare ID array to a property).
+5. **Write the per-target config** into `lean_seo_schema:<cpt>` (one option per target — do NOT write a monolithic `lean_seo_schema`, it's legacy and auto-deleted):
    ```bash
    wp option get "lean_seo_schema:<cpt>" > /tmp/schema.json   # edit the config tree
    wp option update "lean_seo_schema:<cpt>" "$(cat /tmp/schema.json)"
@@ -121,8 +122,8 @@ Reference: [`lean-seo-markdown.md`](../references/voxel/lean-seo-markdown.md). D
 
 **Actions:**
 
-1. **Assemble the per-CPT map** from the shapes `text_fields`, `sections`, `repeaters`, `dtag_fields`, `relations` (see reference). Reference only Phase-0 field/relation keys.
-2. **Cover single-template content** the field map can't reach (relation carousels, card loops, static Elementor sections) — rely on the rendered-page fallback; for Elementor-shortcode pages use `@post(lean_seo:rendered_html)` in a `dtag_fields` body. (These are already wired in `markdown.php`; you configure the map, not the code.)
+1. **Assemble the per-CPT map** from the shapes `text_fields`, `sections`, `repeaters`, `dtag_fields`, `relations` (see reference). Reference only Phase-0 field/relation keys. For repeaters whose row keys differ from the conventional `title`/`question` + `description`/`answer` shape, configure an explicit projection with `label`, `title`, `body`, `url`, and optional `columns` (`field_key => reader label`). Keep the legacy `field_key => section label` form only for conventional rows.
+2. **Prefer structured field ownership for reader content.** A CPT with no configured field map always uses the rendered-page HTML-to-Markdown path; this applies uniformly to built-in posts and custom post types and is not a setting. Once any field map is configured, structured fields become the sole output owner; there is no fallback toggle or mixed structured/rendered path. Cover the CPT's complete reader-facing article before saving its first map. For content only available through the rendered template, configure `@post(lean_seo:rendered_html)` explicitly in a `dtag_fields` body. A nonempty `.md` response does not prove a complete map: verify expected repeater rows appear as native reader-facing Markdown sections rather than only inside JSON-LD or incidentally in rendered prose.
 3. **Write the option:**
    ```bash
    wp option update lean_seo_markdown_field_maps "$(python3 -c 'import json;print(json.dumps(json.load(open("/tmp/maps.json")),ensure_ascii=False))')"
@@ -150,8 +151,9 @@ Reference: [`crawl-permalinks-linking-reference.md`](../references/voxel/lean-se
    wp rewrite flush
    ```
 4. **Internal linking** — enable the module; suggestions are generated and require manual approval in the admin.
+5. **Deploy changed sitemap output deliberately** — if the XML sitemap emitter or its image/video extensions changed, deploy the plugin, run `wp rewrite flush`, then purge object/page/LiteSpeed caches. Verify a real `sitemap.xml` and representative `sitemap-<cpt>.xml` response: it must contain the canonical `<image:loc>` for featured images and must not reintroduce deprecated `<image:title>` or `<image:caption>` children.
 
-**Exit:** Config written; **`_lean_seo_uri` backfilled**, **rewrite flushed**, and **cache purged** after any permalink/noindex change.
+**Exit:** Config written; **`_lean_seo_uri` backfilled**, **rewrite flushed**, and **cache purged** after any permalink/noindex or sitemap-output change.
 
 ---
 
@@ -162,15 +164,44 @@ Reference: [`crawl-permalinks-linking-reference.md`](../references/voxel/lean-se
 **Actions:**
 
 1. **Read back the option** and confirm the CPT entry is present and well-formed (`wp option get <option_key>`).
-2. **Render a real sample post** of the CPT and assert the output:
+   For schema, reconcile both layers: `wpdev schema:get <site> --json` must list every valid
+   `lean_seo_schema:<target>` option in `lean_seo_schema_targets`. An empty index beside valid
+   per-target options is derived-index corruption, not "no configs". Repair through the schema
+   store/CLI and preserve the per-target options as the content owner. Migration code must verify
+   the stored readback; WordPress `update_option()` returns `false` for an already-equal value and
+   that is not a failed write.
+2. **For a release batch, capture a strict before-state and rollback bundle before writing.** Export the full-site content audit as JSON and parse its summary, not terminal formatting. Build content changes through `wpdev voxel:apply-content <site> --manifest=<file> --prepare`, dry-run the prepared manifest, then apply with `--rollback=<file> --yes`. A field deletion must be an explicit JSON `null`; omission means preserve the current value. Keep the prepared manifest, rollback file, and apply result as release evidence.
+3. **Render a real sample post** of the CPT and assert the output:
    - Metadata: `wp eval 'echo wp_remote_retrieve_body(wp_remote_get(get_permalink(<id>)));'` → grep `<title>`, `<meta name="description"`, `og:*`, `<link rel="canonical"`.
    - Schema: fetch the page, extract `<script type="application/ld+json">`, confirm properties resolved (no bare source strings, no missing relations).
    - Markdown: `wp eval 'echo lean_seo_generate_markdown(get_post(<id>));'` → assert expected headings/sections present, **no unresolved** `@post(` / `@author(` / `%token%` / `prefix:key` leak.
    - Crawl/permalinks: fetch the sitemap / robots / the post URL; confirm inclusion/exclusion and the parent-nested URL; check no duplicate author/profile URL.
-3. **Cross-check agnosticism** — every key you wrote appears in the Phase-0 catalog; no hardcoded field/relation that only exists on this site's snapshot by accident.
-4. **Purge cache** if the surface is page-cached (metadata, schema, crawl, permalinks).
+4. **Prove every touched public URL, not only one sample.** For each URL, record the final status, canonical, robots/noindex state, expected schema nodes, rendered citations, and redirect history with automatic redirects disabled in the crawler. Exact per-post noindex cleanup means the `_lean_seo_noindex` metadata row is absent; an empty or false-like value is not equivalent proof.
+5. **Cross-check all discovery surfaces separately.** Confirm every intended URL is in the XML sitemap, the bounded curated `/llms.txt` when selected, and the complete `/llms-full.txt`. A pass on one surface does not imply a pass on the others. Regenerate stored Markdown after content or field-map changes and inspect every touched `.md` page for its required headings, body, repeater projections, and citations.
+6. **Verify rendered ownership and accessibility when templates changed.** On representative desktop and mobile viewports, assert exactly one page-level `main`, the intended header/footer landmark ownership, zero Axe violations, and no console or failed-request errors. Fix the source owner of duplicate landmarks; do not hide the symptom with selector exclusions.
+7. **Cross-check agnosticism** — every key you wrote appears in the Phase-0 catalog; no hardcoded field/relation that only exists on this site's snapshot by accident.
+8. **Purge cache** if the surface is page-cached (metadata, schema, crawl, permalinks).
+   After the purge, compare the plain canonical URL with a unique cache-busted fetch; a
+   disagreement is unresolved cache state. For schema, inspect every touched canonical URL
+   directly: `schema:validate-live` samples only one published URL per target. Noindexed singular
+   pages intentionally emit no JSON-LD, so prove their robots/no-schema state and defer positive
+   graph validation until the guarded noindex-removal release.
+   The live validator resolves an indexable published sample for each post-type target; a
+   noindexed first-created record is not representative because singular schema is intentionally
+   suppressed there. If a target has published records but all are noindexed, report the target
+   as runtime-unverifiable and validate the configured graph separately until one is released.
+9. **Complete the recovery lifecycle** — flush rewrites when required, purge caches, regenerate Markdown, then repeat the touched-URL checks against the served runtime. Keep machine-readable evidence plus an independent reviewer verdict for editorial/source-heavy batches.
+10. **Run repository tests for source changes** — `./wpdev test lean-seo --suite=unit`, plus
+   `./wpdev test lean-seo --suite=integration` when the integration environment is installed.
+   The declared `phpunit-integration.xml.dist` suite additionally requires its Composer
+   toolchain and the WordPress test library; if either is absent, report integration as
+   environment-unavailable rather than passed.
+   CLI config validation must run with active plugins loaded so custom
+   `lean_seo_schema_sources` / `lean_seo_schema_transforms` filters participate, and it must fail
+   closed when the validator is unavailable. Verify any page-scoped `page:<id>` target against
+   that exact published page rather than treating the target key as a post type.
 
-**Exit:** Sample render shows the intended output with zero unresolved tokens and zero duplicate URLs; option reads back clean.
+**Exit:** Every touched URL and discovery surface has durable proof, rendered output has zero unresolved tokens or duplicate URLs/landmarks, rollback material exists, and the option reads back clean.
 
 ## Verification quick reference
 

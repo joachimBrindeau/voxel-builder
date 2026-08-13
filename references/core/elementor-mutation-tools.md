@@ -29,7 +29,7 @@ For risky migrations: snapshot revisions first via `wpdev elementor:revisions:pr
 | Bulk same-prop change across many posts | author a `get_posts()`-loop mutator, run via `wp eval-file` (no single post id for `elementor:mutate`) | Batched; purge once at the end with `wpdev rebuild <site>`. |
 | Strip redundant wrapper containers around `ef-*` widgets (incl. single-`ef-card` root) | `wpdev elementor:strip:wrappers <site> --fix --yes` | Site-wide canonical wrapper-cleanup; lint-aware, idempotent; handles single-card-at-root + deeper redundant wrappers in one pass. Snapshot first and use only for an approved site-wide cleanup. |
 | Strip per-node style overrides | `wpdev elementor:strip:styles <site> --post <id> --fix --yes` | When audit flags style overrides that should be globals. |
-| Fix unicode corruption (`u00e9` leaks) | `wpdev elementor:fix:unicode <site> -y` | **Site-wide only** — no `--post` filter exists. Snapshot every Elementor post first via `wpdev elementor:revisions:prune <site>` (no `--post`); run once per fix loop. |
+| Fix unicode corruption (`u00e9` leaks) | `wpdev db:encoding <site> --fix -y` | `elementor:fix:unicode` was retired in `c939f922f`; mojibake repair now lives in `db:encoding`, which works at the DB layer and so covers post meta beyond `_elementor_data`. **Site-wide only** — no `--post` filter exists. Snapshot every Elementor post first via `wpdev elementor:revisions:prune <site>` (no `--post`); run once per fix loop. |
 
 **Hard rule: never use `wp eval '...'` heredoc for `_elementor_data` mutations.** Backslash-escape and PHP-namespace separators inside heredocs parse-fail in shells and have cost multiple sessions a debug round. Always:
 
@@ -56,8 +56,46 @@ $walk = function (&$nodes) use (&$walk) {
 };
 $walk($data);
 
-update_post_meta($post_id, '_elementor_data', wp_slash(wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)));
+$json = wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+// WordPress unslashes only the new value; prev_value is compared RAW.
+update_post_meta($post_id, '_elementor_data', wp_slash($json), $raw);
+if (get_post_meta($post_id, '_elementor_data', true) !== $json) { exit("write conflict\n"); }
 echo "patched\n";
 ```
 
+**Pass `prev_value` raw, never `wp_slash($raw)`.** The compare-and-set arm of
+`update_post_meta` matches `prev_value` against the stored value verbatim, while it
+unslashes only the new value. Slashing both makes every compare miss, so the write is
+skipped and the call still returns without an error — a silent no-op that looks like
+success until a read-back proves otherwise. Always assert the read-back equals the
+encoded JSON before reporting a post as written.
+
 Always `JSON_UNESCAPED_UNICODE` — French accents (`é`, `è`, `ç`) round-trip through WP slashing layers cleanly only with this flag (otherwise `é` can lose its backslash and end up as literal `u00e9`).
+
+### Changing an EF schema default is a data mutation
+
+The EF save normalizer prunes every stored cell equal to its schema default, so a
+default is not a cosmetic fallback — it is the persisted value for every author who
+accepted it. Flipping `default` in `schemas/**/*.schema.json` therefore silently
+rewrites what already-saved documents mean, and no test catches it because fixtures
+and unit suites are regenerated from the new default.
+
+The reference failure: the shared media Part's `default_type` moved from `image` /
+`icon` to the None sentinel `''`. Every slot authored on the old default had been
+stored WITHOUT its `{prefix}_type` cell, so those slots resolved to no handler and
+their media vanished sitewide — image, icon, inline heading media alike.
+
+When a default changes, before merging:
+
+1. Ask whether the old default was *persisted by absence*. If the normalizer prunes
+   that cell, the answer is yes and existing data now reads differently.
+2. Quantify with a read-only `wp eval-file` scan over every `_elementor_data` row —
+   count rows whose cell is absent/empty while the old default's own source cell
+   still carries content. Cover pages, `elementor_library` templates, and every post
+   status, plus nested repeater `children`.
+3. Ship a `migrations/steps/<NNN>-*.php` step in the SAME change that writes the old
+   default back, gated on that source cell still having content so a genuinely empty
+   slot keeps the new default. See
+   `1336-content-row-media-type-none-recovery.php`.
+4. Verify by re-running the scan (expect zero) and by rendering an affected URL —
+   stored equality alone does not prove the handler resolves.

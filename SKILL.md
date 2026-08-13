@@ -1,6 +1,6 @@
 ---
 name: voxel-builder
-description: "Build, audit, migrate, repair, curate, clean, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, database cleanup, WordPress admin-menu organization, and runtime issues; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; CPT-agnostic sameAs identity research and population with Wikipedia, Wikidata, or official profiles; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, sameAs or knowledge-graph identity links, database cleanup/orphans/autoload/revisions on a Voxel site, video content backfill, lean-admin menus, or lean-seo. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
+description: "Build, audit, migrate, repair, curate, clean, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, database cleanup, WordPress admin-menu organization, and runtime issues; complete best-matcha.com Organization profiles; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; CPT-agnostic sameAs identity research and population with Wikipedia, Wikidata, or official profiles; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Also use for EF frontend-runtime defects such as broken scrolling, trapped carousel gestures, frozen or mispositioned overlays, empty widgets, and the plugin-load, autoload, or PHP-vs-TS codegen divergences behind them. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, matcha brand or Organization profiling, sameAs or knowledge-graph identity links, database cleanup/orphans/autoload/revisions, video content backfill, lean-admin, lean-seo, or a Voxel/EF page that scrolls, snaps, hovers, or renders incorrectly. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
 allowed-tools: Bash Read Write Glob Grep AskUserQuestion Task TaskCreate TaskList TaskUpdate TodoRead TodoWrite
 license: MIT
 ---
@@ -15,6 +15,8 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
   entity data, relations, or Elementor Framework V4 templates.
 - Configure or debug lean-seo output, visible copy, FAQ content, images, or
   performance for a Voxel/Elementor Framework site.
+- Research, author, validate, and apply a complete best-matcha.com Organization
+  profile through independent Foundation, Production, Contact, and FAQ lanes.
 - Audit or clean WordPress database state for a Voxel/Elementor Framework site.
 - Inspect rendered behavior or source-of-truth data before a Voxel/Elementor
   mutation, then verify the resulting runtime state.
@@ -90,7 +92,7 @@ single-command lookup.
 |---|---|---|
 | Read-only diagnosis of a rendered page/template | audit, review, inspect, what is wrong | `workflows/audit.md` |
 | Create a new Voxel CPT definition | create/new CPT, blueprint from scratch | `workflows/cpt-lifecycle.md` |
-| Repair an existing CPT definition/runtime | missing CPT, field drift, template resolution, registration | `workflows/cpt-repair.md` |
+| Repair an existing CPT definition/runtime, including renaming a CPT/taxonomy **key** | missing CPT, field drift, template resolution, registration; rename CPT/taxonomy key, change post-type slug/key | `workflows/cpt-repair.md` |
 | Converge CPT field-definition UX metadata recursively | description/placeholder/limits, repeater subfields, blueprint/live metadata alignment, self-documenting forms | `workflows/field-metadata.md` |
 | Convert legacy Elementor data to EF V4 | migrate, V3 to V4, legacy containers/widgets | `workflows/migrate.md` |
 | Create or change general EF `_elementor_data` | build template/page, wrapper, feed, loop, card tree | `workflows/build.md` |
@@ -101,11 +103,13 @@ single-command lookup.
 | Define only `ts_actions` / navbar action rows | action button, CTA row, `ts_actions` | `workflows/card-actions.md` |
 | Apply a documented defect-class repair | known bug, action-row loop, cascade signature | `workflows/fix-known.md` |
 | Mutate Voxel records, fields, relations, users, or visible copy | create/edit/merge/delete entity, content surgery, excerpt batch | `workflows/curation.md` |
+| Research, author, validate, and optionally apply a complete matcha brand Organization profile | organization profile, matcha brand profile, metadescription + tagline + history + production + contacts + FAQ | `workflows/organization-profile.md` |
 | Complete imported Video records from source evidence | video backfill, transcript, presenter, service, FAQ, imported drafts | `workflows/video-content-backfill.md` |
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
 | Research, populate, or audit entity-equivalence links | sameAs, Wikipedia/Wikidata identity, official profiles, knowledge-graph links | `workflows/identity-linking.md` |
 | Generate/backfill/improve CPT field content and apply it | write/backfill/regenerate definition, hook, excerpt, sources, h1, body copy; bulk field authoring | `workflows/content-generation.md` |
 | Review/QA existing CPT field content against spec | audit/score/verify field content quality, prove backfill quality | `workflows/content-review.md` |
+| Scan all Voxel records and registered taxonomy terms for resumable integrity evidence | database-wide integrity, resumable scan, checkpoint, orphan relations/media, duplicate bodies | `workflows/integrity-loop.md` |
 | Derive canonical service into city child | geolocate service, city version, geo-child, page à `<ville>`, mirror service under city | `workflows/geolocation.md` + `references/voxel/seo-geolocation-pages.md` |
 | Generate/optimize/attach content images | featured, hero, OG, unique image | `workflows/image-generation.md` |
 | Configure or debug lean-seo output | metadata, schema, markdown, sitemap, permalink, redirect, verification tag | `workflows/settings.md` |
@@ -114,11 +118,13 @@ single-command lookup.
 | Audit or clean database state | database cleanup, orphan rows, dangling relationships, revisions, autoload, cron, plugin residue, optimize | `workflows/database-cleanup.md` |
 | Audit and converge the Cloudflare edge (SSL/TLS, DNS, cache, Worker, crawlability) | cloudflare, edge, CDN, DNSSEC, CAA, cache rule, WAF, `a.<domain>` analytics proxy | `workflows/cloudflare.md` |
 | Set/change the EF brand color palette | brand color, primary/accent green, brand purple, `--ef-color-*`, `_light` tint, match production colors | `workflows/design-tokens.md` |
+| Populate/repair taxonomy **term** icons (`voxel_icon` term meta) | term icon, taxonomy icon, tag icon, icons for all terms | `references/icons/material-symbols/lookup-and-repair.md` |
 | Lookup only; no mutation or full audit | schema shape, icon name, Voxel version/feature | `references/README.md` |
 
 ### Route Precedence
 
-1. An explicit narrow artifact route (actions, archive, FAQ, image, geo, section store)
+1. An explicit narrow artifact route (actions, archive, complete Organization profile,
+   FAQ, image, geo, section store)
    wins over generic build/curation wording.
 2. Migration wins over build; new CPT creation wins over CPT repair.
 3. Audit is read-only. If the user asks to change state, route to the owning mutation

@@ -29,6 +29,15 @@ set -u
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 SKILL_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+. "$SCRIPT_DIR/lib.sh"
+
+WPDEV_SOURCE_ROOT=$(find_wpdev_root || true)
+if [ -n "$WPDEV_SOURCE_ROOT" ] && [ -x "$WPDEV_SOURCE_ROOT/wpdev" ]; then
+  WPDEV_CMD="$WPDEV_SOURCE_ROOT/wpdev"
+else
+  WPDEV_CMD=$(command -v wpdev 2>/dev/null || true)
+fi
+
 cd "$SKILL_ROOT" || { printf "cannot cd to skill root\n"; exit 1; }
 
 POLICY="references/templates/placeholder-policy.md"
@@ -40,7 +49,7 @@ fail()    { printf "  \033[31mFAIL\033[0m  %s\n" "$1"; fails=$((fails+1)); }
 heading() { printf "\n\033[1m%s\033[0m\n" "$1"; }
 
 command -v python3 >/dev/null 2>&1 || { printf "python3 is required\n"; exit 2; }
-command -v wpdev   >/dev/null 2>&1 || { printf "wpdev is required (check (a) schema gate)\n"; exit 2; }
+[ -n "$WPDEV_CMD" ] || { printf "wpdev is required (check (a) schema gate)\n"; exit 2; }
 [ -f "$POLICY" ] || { printf "policy SSOT not found: %s\n" "$POLICY"; exit 2; }
 [ -f "$INDEX" ]  || { printf "index not found: %s\n" "$INDEX"; exit 2; }
 
@@ -50,7 +59,7 @@ command -v wpdev   >/dev/null 2>&1 || { printf "wpdev is required (check (a) sch
 # responsive → v3-shape, node-shape, unknown-widget, missing-prop) is real drift.
 check_schema() {
   tj="$1"
-  out=$(wpdev elementor:validate --file "$tj" --json 2>/dev/null)
+  out=$("$WPDEV_CMD" elementor:validate --file "$tj" --json 2>/dev/null)
   rc=$?
   if [ $rc -ne 0 ] || [ -z "$out" ]; then
     fail "(a) schema  — elementor:validate --file failed (rc=$rc) on $tj"

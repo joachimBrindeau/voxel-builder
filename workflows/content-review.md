@@ -58,6 +58,11 @@ This workflow is read-only: it produces findings and a fix list, never writes.
    for `sources` whether each URL is present and resolves.
 3. Flag likely mechanical-transform artifacts (e.g. `hook` equals
    `strip_tags(definition)`; `excerpt` equals a `substr` of the body).
+4. For a whole-site or whole-CPT intake, run or consume
+   [`integrity-loop.md`](integrity-loop.md). Its `content-spec-length`,
+   `off-topic-body-suspected`, and `duplicate-body-signature` findings are a
+   deterministic preflight only. Reuse the recorded Voxel field-prop metrics and
+   stable fingerprints; do not rescan the same records merely to reproduce them.
 
 **Exit:** a metrics table per record+field exists.
 
@@ -74,6 +79,9 @@ This workflow is read-only: it produces findings and a fix list, never writes.
    verdict + evidence per record; a reviewer never writes.
 2. Assign each record+field a verdict: `pass`, `off-spec:<reason>`,
    `thin`, `needs-source`, or `mechanical-transform`.
+   An integrity finding with `suspected` confidence still requires this workflow's
+   subjective review before becoming an off-spec verdict. `blocked` and unknown
+   custom shapes stay blocked; they are never counted as invalid content.
 3. Keep verdicts independently attributable; one bad record does not fail its siblings.
 
 **Exit:** every record+field carries a verdict with evidence.

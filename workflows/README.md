@@ -21,11 +21,13 @@ workflow and never compete at intake.
 | [`card-actions.md`](card-actions.md) | `ts_actions` / navbar action-row strip | Schema-valid actions with runtime destinations |
 | [`fix-known.md`](fix-known.md) | Exact known defect signatures | Two-gate mechanical repair + verification/rollback |
 | [`curation.md`](curation.md) | Voxel records, fields, relations, users, visible copy | Per-record read-back + invariant verification |
+| [`organization-profile.md`](organization-profile.md) | Complete best-matcha.com matcha brand Organization profile across four independent lanes | Deterministically merged valid profile + optional gated Voxel apply/runtime proof |
 | [`video-content-backfill.md`](video-content-backfill.md) | Imported Video drafts missing editorial/source-supported content | Evidence-complete Video records + publish/read-back/browser proof |
 | [`faq-authoring.md`](faq-authoring.md) | Visible FAQ rows for existing content | Supported FAQ rows or verified curation handoff |
 | [`identity-linking.md`](identity-linking.md) | CPT-agnostic `sameAs` identity research and record population | Reviewed identity manifest + reversible Voxel apply + settings handoff |
 | [`content-generation.md`](content-generation.md) | CPT field content generation/backfill applied to the site | On-spec field values + per-record gated apply + rendered proof |
 | [`content-review.md`](content-review.md) | QA of existing CPT field content against field-scoped spec | Per-field verdict report + routed fix list (read-only) |
+| [`integrity-loop.md`](integrity-loop.md) | Database-wide read-only Voxel record and taxonomy integrity | Resumable checkpoint + complete evidence report + exclusive owner handoffs |
 | [`geolocation.md`](geolocation.md) | Canonical service to city-child derivation | Gated city-unique geo-child + Route M/S/C + browser evidence |
 | [`image-generation.md`](image-generation.md) | Content-image generation/attachment | Unique optimized attachments + rendered proof |
 | [`settings.md`](settings.md) | lean-seo output configuration/debugging | Read-back-equal settings + live output validation |

@@ -1,6 +1,6 @@
 # Material Symbols Icon Reference
 
-Generated from the Elementor Framework installed icon font at `../../wordpress/plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json`, enriched with Google Symbols metadata from `https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols`. Do not hand-edit generated files; from the skill root run:
+Generated from the Elementor Framework installed icon font at `../../../plugins/custom/elementor-framework/assets/icons/material-symbols/material-symbols.codepoints.json`, enriched with Google Symbols metadata from `https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols`. Do not hand-edit generated files; from the skill root run:
 
 ```bash
 bun run scripts/generate-icon-reference.ts

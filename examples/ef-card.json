@@ -44,15 +44,7 @@
           "value": {
             "kind": {
               "$$type": "string",
-              "value": "byline"
-            },
-            "byline_primary": {
-              "$$type": "string",
-              "value": "@author(display_name)"
-            },
-            "byline_secondary": {
-              "$$type": "string",
-              "value": "@author(profile.job)"
+              "value": "heading"
             },
             "type": {
               "$$type": "string",
@@ -74,33 +66,22 @@
                   "value": "a"
                 }
               }
+            },
+            "text": {
+              "$$type": "string",
+              "value": "@author(display_name)"
+            },
+            "subtitle": {
+              "$$type": "string",
+              "value": "@author(profile.job)"
+            },
+            "tag": {
+              "$$type": "string",
+              "value": "span"
             }
           }
         }
       ]
-    },
-    "byline_avatar_image": {
-      "$$type": "image",
-      "value": {
-        "src": {
-          "$$type": "image-src",
-          "value": {
-            "id": null,
-            "url": {
-              "$$type": "vx",
-              "value": "@author(avatar)"
-            }
-          }
-        },
-        "size": {
-          "$$type": "string",
-          "value": "thumbnail"
-        }
-      }
-    },
-    "byline_avatar_type": {
-      "$$type": "string",
-      "value": "image"
     },
     "col_span": {
       "$$type": "ef-responsive-string",

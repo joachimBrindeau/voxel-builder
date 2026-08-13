@@ -131,7 +131,7 @@ Treat this set as present on every CPT you plan, audit, or bind a card/template 
 | `excerpt` | universal | `wp_posts.post_excerpt` via the voxel-addon `excerpt` field ("Search summary"); the canonical card body. |
 | `permalink` | universal | `@post(permalink)` — the card heading link target. `@post(url)` resolves EMPTY in the current build; only `@post(permalink)` / `@post(:url)` resolve. |
 | `_thumbnail_id` (featured image) | universal | WP featured image; the `large` card's cover/media slot. NOT a logo — the logo binds to a real logo field only (see below), never the featured image. |
-| `author` | universal | Author group tags `@author(display_name)` / `@author(avatar)` (avatar is the bare attachment id, no `.id` suffix); the card byline is the author. `@post(author.*)` resolves EMPTY — use the `@author(...)` group. |
+| `author` | universal | Author group tags `@author(display_name)` / `@author(avatar)` (avatar is the bare attachment id, no `.id` suffix); the card card author line is the author. `@post(author.*)` resolves EMPTY — use the `@author(...)` group. |
 | `parent` | hierarchy-enabled CPTs | `wp_posts.post_parent`. Auto-provisioned only when the CPT is hierarchy-enabled (`voxel_addon_hierarchy_config.cpts[<slug>].enabled`), never on plain CPTs. |
 | `hierarchy-ancestors` | hierarchy-enabled CPTs | Derived ancestors relation. |
 | `hierarchy-children` | hierarchy-enabled CPTs | Derived children relation. |

@@ -82,8 +82,10 @@ evidence for cache/crawl/Worker/origin behavior.
 | TLS 1.3 / HTTPS rewrites / Always HTTPS / SSL mode | on / on / on / `strict` | `settings/*` |
 | HSTS + security headers | HSTS 1y `includeSubDomains`, nosniff, referrer, frame, permissions | header-transform rule (reuse if present) |
 | DNSSEC | enabled + DS at registrar | `dnssec` (DS step is manual) |
+| DNS-AID | `_index._agents.<domain>` and `_mcp._agents.<domain>` SVCB/HTTPS records present, pointing to the site host | DNS SVCB/HTTPS records, add-only |
 | CAA | `issue`+`issuewild` for every active issuer (edge + origin CAs) | DNS CAA records, add-only |
 | Sitemap/search cache | bypass `*sitemap*.xml` and `?s=`/`?p=` | cache-settings ruleset, inserted before any trailing auth bypass |
+| Markdown-for-agents | requests with `Accept: text/markdown` must not be served the cached HTML | cache-settings ruleset: configure Cache Rules `vary` for `accept` with normalized `text/html` + `text/markdown`; otherwise bypass when `http.request.headers["accept"][0] contains "text/markdown"` |
 | Performance | Brotli, HTTP/3, Early Hints, 0-RTT on | `settings/*` |
 | Origin exposure | origin firewalled to Cloudflare IPs (+ AOP) | origin-side, manual/risky |
 | Analytics Worker | only `GET /a.js` + `POST/OPTIONS /api/send`; else 404 | Worker source, manual/risky |
@@ -152,10 +154,31 @@ items and any credential-rotation reminder are reported.
 - **Order matters.** In the cache ruleset, last-match-wins: insert the bypass
   after the HTML-cache rule but before the trailing admin/auth bypass so both
   keep working.
+- **`Vary: Accept` requires explicit edge configuration.** Cloudflare supports
+  Cache Rules `vary` on every plan, but does not consider ordinary origin `Vary`
+  values in caching decisions until a matching Cache Rule enables the behavior.
+  For lean-seo, configure `accept` with `action: normalize` and a media-type
+  allowlist containing `text/html` and `text/markdown`; set the default action to
+  `bypass`. A narrower fallback is to bypass cache when the request `Accept`
+  header contains `text/markdown`. Confirm the stale-HTML failure with
+  `curl -sI -H 'Accept: text/markdown' https://<host>/` returning
+  `content-type: text/html` while the same URL with a cache-busting query string
+  returns `text/markdown`. Fix that split in the cache ruleset, never with an
+  origin `.htaccess` Accept rewrite. Official references:
+  <https://developers.cloudflare.com/cache/concepts/vary/> and
+  <https://developers.cloudflare.com/cache/how-to/cache-rules/settings/#vary>.
 - **CAA breadth.** Cloudflare Universal SSL rotates its edge CA among Google
   (`pki.goog`), Let's Encrypt, SSL.com, and Sectigo; authorize all active edge
   CAs plus the origin's CA (often Let's Encrypt) for both `issue` and `issuewild`
   to avoid renewal breakage.
+- **DNS-AID records.** Publish `_index._agents.<domain>` and `_mcp._agents.<domain>`
+  as SVCB or HTTPS records targeting the site host with `alpn="h2,h3" port=443
+  mandatory=alpn,port`. Cloudflare's API currently rejects unregistered
+  SvcParamKey names (`well-known`, `cap`, `bap`), so records carry connectivity
+  only until those keys are registered. Validate with the
+  [isitagentready.com scanner](https://isitagentready.com/api/scan): `checks.discoverability.dnsAid.status`
+  must be `"pass"` and `dnssecValidated` must be `true`. A passing scan proves
+  both the records exist and the zone is DNSSEC-signed.
 - **Origin and Worker fixes are manual.** Origin lockdown (firewall to Cloudflare
   ranges + Authenticated Origin Pulls) and the Worker least-privilege allow-list
   live outside this API surface and can cause downtime; always stage, never

@@ -13,26 +13,20 @@ The `lean-seo` plugin emits a per-post markdown twin (the "Version markdown pour
    - `repeaters` → `array<field_key, section_label>` — each repeater row expanded.
    - `dtag_fields` → `array<{label, body}>` — free-text dynamic-tag rows; `body` is a dynamic-tag expression (`@post(key)`, `@author(tag)`) or static text, resolved server-side through Voxel's renderer. Label empty = no heading.
    - `relations` → `array<relation_field_key, section_label>` — Voxel `post-relation` fields rendered as a linked-title list.
-3. **Rendered page context** (`lean_seo_rendered_context_for_markdown`) — appended under `## Rendered page content` **only when** the structured body misses visible copy. This is the site-agnostic catch-all.
+3. **Rendered body** (`lean_seo_rendered_markdown_for_post`) — the sole body owner when the CPT has no configured structured fields. It converts the rendered page HTML to Markdown automatically; there is no setting or fallback toggle.
 
-## The critical gap: structured maps miss single-template layout
+## Ownership rule
 
-**A Voxel/Elementor single template is not stored in `post_content`.** Field maps capture the post's own fields, but the theme/builder single template — relation carousels, "related services" card loops, static Elementor hero/CTA sections, glossary "see also" cards — renders from a *separate* template. No generic field map can know those.
+Markdown has exactly one body owner per CPT:
 
-Two-tier fallback closes it, both agnostic:
+- If at least one structured field is configured, the field map owns the body.
+- If no structured field is configured — including an absent map, an empty map, or a legacy flag-only map — rendered HTML-to-Markdown owns the body automatically.
 
-- **`@post(lean_seo:rendered_html)`** (special dtag key) → `lean_seo_post_html()` → `lean_seo_html_to_text()`. Use in a `dtag_fields` body when a **page** stores its content as Elementor Framework shortcodes (`[ef_row]`, `[ef_col]`) rather than raw HTML — raw `post_content` renders empty otherwise.
-- **`lean_seo_frontend_html_for_post()`** → `wp_remote_get( permalink, [timeout=8, sslverify=false] )` → `lean_seo_html_to_text()`. Self-fetches the *public rendered page*, capturing the full single-template layout (loops, cards, relation carousels) for **any** site/CPT/builder. This is what makes `testimonials` (13-item related-avis carousel) and `org` (service card grid) reach parity — their extra content lives only in the template, never in fields.
+"Rendered" means the **public frontend response**, not `post_content`. `lean_seo_rendered_body_for_post()` is the single owner of that resolution: it fetches the live permalink and falls back to the post's own stored/builder HTML only when the loopback fails. This matters because a Voxel CPT or template-driven page renders a full page while its own `post_content` is empty — resolving against stored HTML alone yields a body-less `.md` twin that `regenerate-md` still reports as generated. When auditing markdown coverage, count discoverable posts whose stored `_lean_seo_md` is under the thin threshold; a per-type "N/N regenerated" line does not prove the bodies have content.
 
-`lean_seo_rendered_context_for_markdown` tries the frontend fetch first, falls back to `lean_seo_post_html`, then runs the redundancy guard.
+Saving the first structured field intentionally switches ownership. A Voxel/Elementor single template is not stored in `post_content`, so the configured map must cover all reader-facing content it owns. Use **`@post(lean_seo:rendered_html)`** in `dtag_fields` when rendered template content must be part of that structured map.
 
-## Redundancy guard (avoid double-printing the body)
-
-`lean_seo_markdown_text_is_redundant( $candidate, $existing )`:
-- normalizes both to lowercase token sets (>3 chars);
-- skips the candidate if `$existing` already **contains** the normalized candidate, **or** token overlap ratio > `0.85`.
-
-So a page whose field map already surfaces the full body won't get the whole rendered page appended again; a page whose fields cover only a fraction will.
+Do not append rendered output to a structured body as a second path. Fix the owning map or explicitly map `lean_seo:rendered_html`.
 
 ## Regex gotcha for native `@post()` keys
 
@@ -51,7 +45,7 @@ wp option update lean_seo_markdown_field_maps "$(python3 -c 'import json; print(
 
 The admin UI (`modules/llms/settings.php` + `assets/markdown-fields.js`) exposes `text_fields`, `sections`, `repeaters`, `dtag_fields`, and `relations` tables; the AJAX save (`includes/settings-ajax.php`) sanitizes each. Adding a new map shape = touch all four (PHP renderer, admin UI, JS serializer, AJAX sanitizer).
 
-Two storage caveats: (1) the option is a **JSON string**, not a serialized PHP array — a manual `update_option` with an array breaks `lean_seo_get_md_field_maps()` (it `json_decode`s; legacy arrays tolerated on read only), so always encode. (2) A baked `post` default (`text_fields:['body']`, `repeaters:{faq:'FAQ'}`) merges **under** the stored map and applies even with no stored `post` entry — override by saving an explicit `post` map.
+The option is a **JSON string**, not a serialized PHP array — a manual `update_option` with an array breaks `lean_seo_get_md_field_maps()` (it `json_decode`s; legacy arrays tolerated on read only), so always encode. There are no baked per-CPT maps: every CPT with no configured fields uses rendered HTML-to-Markdown uniformly.
 
 ## Verifying parity
 

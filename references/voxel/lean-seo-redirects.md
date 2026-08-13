@@ -1,59 +1,56 @@
-# lean-seo redirects — 301 manager (custom DB table)
+# lean-seo redirects — transactional one-hop graph
 
-The `redirects` module (`modules/redirects/`) is a 301 redirect manager backed by its own DB table (not the `lean_seo_{category}` option store). It's the companion to the permalink engine: when a post's URL changes, a 301 keeps the old URL's link equity. Read [`lean-seo-settings-substrate.md`](lean-seo-settings-substrate.md) for the shared plugin context.
+The `redirects` module is the path-history companion to Lean SEO's permalink engine. Its `{prefix}lean_seo_redirects` table is the only persisted redirect source; no option/meta shadow store exists.
 
-## Storage — custom table `{prefix}lean_seo_redirects`
+## Repository contract
 
-Table name from `lean_seo_redirects_table()`; schema created by `lean_seo_redirects_create_table()` (`inc/db.php`) via `dbDelta`, version-tracked in option `lean_seo_redirects_version`:
+Every manual, CSV, migration, toggle/delete, and automatic permalink write routes through:
 
-```sql
-CREATE TABLE {prefix}lean_seo_redirects (
-    id         mediumint(9)  NOT NULL AUTO_INCREMENT,
-    old_path   varchar(500)  NOT NULL,
-    new_path   varchar(500)  NOT NULL,
-    created_at datetime      DEFAULT CURRENT_TIMESTAMP,
-    active     tinyint(1)    DEFAULT 1,
-    PRIMARY KEY (id),
-    UNIQUE KEY old_path (old_path),   -- dedup enforced at DB level
-    KEY active (active)
-);
+```php
+lean_seo_redirects_mutate( array $operations ): array;
 ```
 
-**301-only by schema.** `lean_seo_redirects_insert()` accepts a `$code` arg but any non-301 is logged and downgraded to 301 — never dropped. `active=0` rows are stored but excluded from the live map.
+Operations are `upsert`, `delete`, or `toggle`. The repository normalizes same-host absolute/relative paths, rejects external targets and `/` sources, acquires the stale-recoverable `lean_seo_redirect_write_lock`, requires InnoDB transactions, locks all rows in ID order, applies the complete batch, verifies the stored graph, then commits. On failure it rolls back without flushing cache.
 
-## Serving flow
+Active exact redirects are a graph. Each source is compacted to its terminal target in the same transaction, including the full reverse ancestor closure. Source status codes (301/302/307/308) and active flags are preserved. Cycles are rejected atomically. Wildcard rows stay opaque because suffix substitution changes their semantics.
 
-`lean_seo_redirects_handle()` on `template_redirect` **priority 5** (early, before rendering):
+After a successful commit the repository flushes `redirects_active_map` once and purges the distinct affected URLs once. Do not add direct redirect-table mutation SQL outside this repository or its versioned upgrade.
 
-1. Bail if `is_admin()` or `lean_seo_redirects_is_reserved_request()` — this **protects the SEO endpoints** `/sitemap*.xml`, `/sitemap.xsl`, `/llms.txt`, `/llms-full.txt` (and their query vars) from ever being intercepted.
-2. `$path = lean_seo_redirects_sanitize_path( lean_seo_request_path() )` — parse PATH only, force leading `/`, collapse `//+`→`/`, strip trailing slash (so `old-page/` and `/old-page` normalize identically).
-3. Look up `$active_map[$path]`; if empty or equal → return (no-op / loop guard).
-4. Preserve the query string from `REQUEST_URI`, append to `home_url($new_path)`.
-5. `wp_safe_redirect( $new_url, 301 ); exit;`.
+## Automatic permalink history
 
-**Active-map cache:** `lean_seo_redirects_get_active_map()` runs one `SELECT ... WHERE active=1` and stores the `old_path => new_path` map in transient `redirects_active_map` for `DAY_IN_SECONDS` (table capped ~10k rows, fits one cached array). **Every write path calls `lean_seo_redirects_flush_cache()`.**
+When the module is enabled:
 
-## Write API
+1. `pre_post_update` priority 5 snapshots the old public canonical path for the root and its bounded descendant subtree while the old database state is authoritative.
+2. Lean SEO's existing `save_post` priority 20 cascade persists new `_lean_seo_uri` paths.
+3. `save_post` priority 100 consumes the snapshot once and submits all changed exact paths as one transactional 301 batch.
 
-`lean_seo_redirects_insert($old, $new, $code=301, $active=1)` (`inc/db.php`) is the single consolidated writer used by all insert sites (CSV import, add form, PM migration, CLI, the PM URI-divergence emitter): sanitize → reject empty/same/`/`-root → dedup pre-check → `$wpdb->insert` → cache flush. Returns insert id or `false`. Admin edits go through `$wpdb->update` + flush; a separate `lean_seo_redirects_validate()` supplies per-error UX messaging (`empty`/`same`/`duplicate`).
+Managed hierarchical posts use `_lean_seo_uri`; flat/public posts without it use `get_permalink()`. Autosaves, revisions, drafts/private posts, initial publication, unchanged normalized paths, and metadata-only URI repairs create no redirects. A move back to a historical live path first deletes that live path as a redirect source, preventing `A -> B -> A` cycles.
 
-## Admin surface
+The canonical content update is never rolled back if redirect persistence fails. Failure logs a bounded machine code and fires `lean_seo_permalink_redirects_failed`; success fires `lean_seo_permalink_redirects_created` with the created root/descendant rows.
 
-Submenu page `lean_seo_redirects_admin_page` (`inc/admin.php`): add-single form, CSV import, paginated 50/page list table. AJAX inline edit `wp_ajax_lean_seo_update_redirect` → `lean_seo_redirects_handle_update` (nonce `lean_seo_redirects_ajax.nonce`).
+## Existing-data upgrade and serving defense
 
-**CSV import** (`inc/forms.php`): headers must be `path_old,path_new` (external contract; internal columns `old_path`/`new_path`). Max 10,000 rows. Options: `clear_existing` (`TRUNCATE` first) and `skip_duplicates` (default on). Each row routes through `lean_seo_redirects_insert`.
+`lean_seo_redirects_data_version=1` owns the one-time graph upgrade. A deterministic `lean_seo_redirect_cycle_report` records existing cyclic components. Acyclic graphs compact to one-hop terminal targets transactionally; data version is stamped only after verification.
 
-## Permalink-engine (`_lean_seo_uri`) integration
+The frontend keeps defense in depth: exact redirects resolve through at most 32 active exact edges, preserve the original source code, and emit no redirect for cycles or over-depth data. Exact rows beat longest-prefix wildcard rows. Query strings are preserved.
 
-**Migration-time only.** When a managed post's canonical URI diverges from a legacy Permalink Manager URI, `lean_seo_pm_emit_divergence_redirect($pm_uri, $current_uri)` (`includes/migration/permalink-manager-pro.php`) emits a 301 from the old PM path → the current lean-seo URI via `lean_seo_redirects_insert`. This fires during PM import, **not** on live post-save — the redirects module does not subscribe to post URL changes; the permalink module owns `_lean_seo_uri` and resolution (see [`lean-seo-crawl-permalinks.md`](lean-seo-crawl-permalinks.md)). If you rename/re-parent a post post-migration and want a redirect, add it manually.
+## Verification
 
-## Voxel interaction
+For a redirect batch, prove:
 
-None — pure path-based WordPress redirect. Voxel-agnostic.
+- source returns exactly one allowed 3xx;
+- `Location` is same-site and terminal;
+- following it returns the expected final response;
+- no source is a current live canonical;
+- cache/purge occurred once for the committed batch;
+- a failed batch left table/cache state unchanged.
+
+`wpdev seo:url-diff` follows redirects and cannot prove the first status or hop count. Use a hop-aware browser/client assertion for redirect lifecycle verification.
 
 ## Gotchas
 
-- Schema changes need a `lean_seo_redirects_version` bump to re-run `dbDelta`.
-- Query strings are preserved and re-appended: `/old?x=1` → `/new?x=1`.
-- Forgetting `flush_cache` on a new writer = stale redirects for up to a day (the single `insert` API exists precisely to avoid this).
-- 301-only today; per-redirect codes are a deferred feature.
+- Non-InnoDB redirect tables fail closed for writes; existing serving remains read-only. Repair the table engine before retrying.
+- Do not compute old paths after `save_post`; `_lean_seo_uri` has already changed.
+- Flat CPTs may have no URI meta; a meta-only snapshot misses them.
+- Direct SQL post writes or APIs that suppress WordPress hooks cannot be observed.
+- Wildcard redirects never participate in exact-chain compaction.

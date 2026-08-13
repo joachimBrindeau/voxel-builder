@@ -155,6 +155,38 @@ A `studio` CPT linking to multiple `service` posts, any author, no approval gate
 
 ---
 
+## Dispatching on field type — match the class, not the type key
+
+Several Voxel field types are **subclasses of another type**, so any routing built on
+`$field->get_type()` string equality silently skips the subclass:
+
+| Subclass | Extends | `get_type()` returns |
+|---|---|---|
+| `Image_Field` | `File_Field` | `image` |
+| `Profile_Avatar_Field` | `File_Field` | `profile-avatar` |
+| `Profile_Bio_Field` | `Texteditor_Field` | `profile-bio` |
+| `Profile_Name_Field`, `Profile_First_Name_Field`, `Profile_Last_Name_Field` | `Text_Field` | `profile-name`, … |
+
+A check like `in_array( $field->get_type(), [ 'file', 'image' ], true )` therefore misses
+`profile-avatar` even though it sanitizes, validates, and updates exactly like any other
+file field. Prefer `$field instanceof \Voxel\Post_Types\Fields\File_Field`, which
+covers the parent and every present or future subclass. Reserve `get_type()` equality for
+types with no subclasses (e.g. `location`).
+
+Two related traps when writing such a guard:
+
+- **There is no `textarea` field type.** Voxel's `field_types` registry (in
+  `app/config/post-types.config.php` — the authoritative list) maps `texteditor`, never
+  `textarea`, and no `Textarea_Field` class exists. A `Textarea_Field::class` reference
+  resolves to a plain string at compile time and never autoloads, so neither PHPStan nor
+  a passing test suite will flag it. Check the registry before naming a class.
+- **`sanitize()` is not null-safe.** `Location_Field::sanitize()` dereferences
+  `$value['address']` immediately, so passing `null` emits `Trying to access array offset
+  on value of type null` warnings. To clear a field, pass `null` straight to `update()`
+  (which routes to `delete_post_meta()`) and skip `sanitize()` entirely.
+
+---
+
 ## Validation summary
 
 | Type | Server-side | Client-only | Notes |

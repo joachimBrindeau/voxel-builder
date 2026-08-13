@@ -150,7 +150,10 @@ prose rules, source/citation rule, forbidden transforms).
    and a `--rollback <path>` bundle. The command captures pre-write originals into
    the rollback file, applies, and on ANY row failure auto-restores every row from
    that bundle — inspect `Unrecovered IDs` in the failure output if restore itself
-   fails partially. It performs its own per-record read-back and reindex internally
+   fails partially. Candidate hashes are computed from Voxel's canonical sanitized
+   values, including repeater rows where empty optional subfields and unchecked
+   switchers are omitted on storage; do not pre-normalize those rows with a parallel
+   serializer. It performs its own per-record read-back and reindex internally
    and needs exactly one purge after (`wpdev rebuild <site> --only purge`) covering
    the whole batch, not a per-row purge cascade:
    ```bash
@@ -187,6 +190,18 @@ for re-run (the apply is idempotent).
 2. Verify the downstream surface: the meta-description resolver, `DefinedTerm`
    JSON-LD, TermIndex/tooltip, or card/loop render actually serves the new copy
    (curl/browser, not DB alone).
+   - When a record still carries an intentional editorial noindex flag, first
+     confirm the rendered robots directive and confirm that Lean SEO emits no
+     JSON-LD for that exact URL. Treat the absence as the expected noindex state,
+     not as a schema defect. Record schema verification as deferred until the
+     guarded release removes noindex.
+   - Do not use a post-type-wide `schema:validate-live` PASS as proof for a
+     touched record: that command resolves one representative published URL and
+     may select a different, indexable record. Capture the sampled URL, then
+     inspect each touched canonical URL directly after noindex removal.
+   - After the one required purge, compare the plain canonical URL with a unique
+     cache-busted fetch. They must serve the same final content and metadata;
+     differing responses are unresolved cache state, not a completed verify.
 3. Report per-field coverage (`filled/total`), off-spec count (target 0), and any
    records left `needs-source` for human sourcing.
 

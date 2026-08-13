@@ -105,7 +105,7 @@
 
 - **Settings surface**: `admin.php?page=voxel-taxonomies&action=edit-taxonomy&taxonomy=<key>`.
 
-- **Common usage patterns**: search filter `terms-filter` (taxonomy-bound dropdown / multi-select), card byline category, `ts-term-feed` widget for taxonomy-grid rendering.
+- **Common usage patterns**: search filter `terms-filter` (taxonomy-bound dropdown / multi-select), card heading category, `ts-term-feed` widget for taxonomy-grid rendering.
 
 - **Gotchas**:
   - Voxel taxonomies have ADDITIONAL config beyond WP core (e.g. permalink struct). When registering a custom taxonomy programmatically, Voxel won't see it unless declared in `voxel:taxonomies` option.

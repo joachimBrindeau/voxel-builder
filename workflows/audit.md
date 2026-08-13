@@ -62,6 +62,13 @@ recorded.
 **Exit:** Shared stored, data, role, index, and schema evidence is available without
 per-leaf repeated discovery.
 
+When the request expands from a rendered target to every Voxel record or taxonomy
+term, stop this page/template route and hand the target site to
+[`integrity-loop.md`](integrity-loop.md). Consume its report only as record-level
+evidence; this workflow remains the owner for page/template structure and rendered
+behavior. Route each returned record finding by its declared `handoffWorkflow` rather
+than treating the integrity report as authorization to mutate.
+
 ## Phase 2 - Inventory Global And Leaf Scopes
 
 **Entry:** Phase 1 evidence is complete.

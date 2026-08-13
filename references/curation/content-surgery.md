@@ -41,7 +41,8 @@ Pitfalls.
    - For Elementor JSON / static template text, load JSON, replace exact strings or narrow
      substrings, then re-import (`wpdev elementor:import … --save`).
    - For Voxel CPTs, do **not** stop at the rendered page or Elementor loop template. Inspect
-     `wpdev voxel:post_types` and update the **source post meta** field (`h1`, `description`,
+     the CPT's field definitions (`wpdev voxel:fields <site> <post-type>`, or `wpdev voxel:settings`
+     to read the `voxel:post_types` option itself) and update the **source post meta** field (`h1`, `description`,
      `content`, `body`, `faq`, `conversion-*`, `author-name`, …). Rendered `.md`, cards, archives,
      loops, and lean-seo outputs read these dynamic fields. See
      [`voxel-dynamic-content-surgery.md`](voxel-dynamic-content-surgery.md).
@@ -145,7 +146,7 @@ Pitfalls.
   fields into rich text across many records (scope discipline, batch engine, QA gates, TSV
   silent-drop pitfall, write-back + live verify).
 - [`../core/emcp-wordpress-mcp.md`](../core/emcp-wordpress-mcp.md) — clean EMCP / WordPress MCP
-  wiring, app-password validation, OLS/OrbStack pitfalls, streamable-HTTP handshake verification.
+  wiring, app-password validation, which server actually serves a site (two Docker daemons), streamable-HTTP handshake verification.
 
 ## Reporting
 

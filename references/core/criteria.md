@@ -42,7 +42,7 @@ Each returned leaf checks exactly one criterion and stays within that remit. A w
 |---|---|---|---|---|
 | `wrapper-semantics` | plan | C/I | Each section's wrapper tag fits its role (`section` content, `aside` sidebar, `article` self-contained card, `main` root only); `div` at shallow depth is a missed-semantic-tag flag. | §2c/§2d Section wrapper props |
 | `grid-fit` | plan | I | Column count follows the content's hierarchy; **more sections over more columns**; collapses to one column on small screens; no grid that fights the content. | §2d Layout map grid tracks |
-| `section-heading` | plan | I | Each section's first heading is an `h2` naming its purpose; the leading eyebrow (one per card, directly above its heading) is a `kind: byline` row; no other decorative text is a heading. `style: byline_label` is migrated-away (use `kind: byline`) — flag any occurrence (severity `C`). | §2d heading rows + kind/style props |
+| `section-heading` | plan | I | Each section's first heading is an `h2` naming its purpose; a second line under a heading is that heading row's `subtitle` cell; no other decorative text is a heading. `kind: byline` and `byline_*` cells are migrated-away (step 1336 → `kind: heading` + `subtitle`) and any `style` outside the enum `['', h1..h6, small]` (notably `label` / `byline_label`) is invalid — flag any occurrence (severity `C`). | §2d heading rows + kind/style/subtitle props |
 
 ### Scope: widget (plan)
 

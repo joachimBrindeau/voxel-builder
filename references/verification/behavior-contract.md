@@ -24,7 +24,7 @@ Observable behavior, concrete and verifiable — not aspirational. Examples:
 ### 2. Allowed Structural Delta — what IS permitted this pass
 
 Enumerate the moves. Anything outside is forbidden, even "obvious cleanup". Examples:
-- "Add an `action_link` (cell `type` + `link`) to the `byline` content-block row in widget `abc123`."
+- "Add an `action_link` (cell `type` + `link`) to the author-line `heading` content-block row in widget `abc123`."
 - "Strip the single-`ef-card` root wrapper via `elementor:strip:wrappers`."
 
 NOT allowed: renaming a `_cssid`, changing a sibling widget's props, "fixing" an unrelated tag while in the file.
@@ -76,22 +76,48 @@ Every existing-data fix carries one:
 
 ## Worked example — structural fix on a card that contains a loop
 
-Finding `[W-I3]`: wire the `byline` content-block row's action on card widget `abc123` (the byline renders as `<span>`, should be `<a>`). The card also has a `_vx_loop` tags repeater over `@post(hierarchy-ancestors)`.
+Finding `[W-I3]`: wire the author-line `heading` content-block row's action on card widget `abc123` (it renders as `<span>`, should be `<a>`). The card also has a `_vx_loop` tags repeater over `@post(hierarchy-ancestors)`.
 
 **Behavior Contract:**
 - Each `_vx_loop` row in `abc123` resolves to the same ancestor post (same rendered title) as pre-fix.
 - The card's title and image render identical text / src to pre-fix.
 
 **Allowed Structural Delta:**
-- On the `byline` content-block row of `abc123`, set the action suite `type: action_link` + the `link` envelope. Nothing else.
+- On that `heading` content-block row of `abc123`, set the action suite `type: action_link` + the `link` envelope. Nothing else.
 
 **Forbidden Semantic Delta:**
 - `@post(hierarchy-ancestors)` at each `_vx_loop` row index must resolve to the same post as pre-fix.
 - Do NOT alter `_vx_loop.tag`, the loop's inner `text` / `link` tags, the `_cssid`, or any sibling widget.
 
-**Falsifier:** the baseline captures each loop row's `.textContent` pre-fix. After the fix lands, the re-audit re-fetches and diffs — rows unchanged → GREEN. If the byline edit perturbed the loop (for example, a tree walk re-serialized a tag and violated the current [`loop authoring contract`](../voxel/voxel-loop-authoring.md)), the diff shows changed row text → Forbidden Semantic Delta violation → roll back.
+**Falsifier:** the baseline captures each loop row's `.textContent` pre-fix. After the fix lands, the re-audit re-fetches and diffs — rows unchanged → GREEN. If the heading-row edit perturbed the loop (for example, a tree walk re-serialized a tag and violated the current [`loop authoring contract`](../voxel/voxel-loop-authoring.md)), the diff shows changed row text → Forbidden Semantic Delta violation → roll back.
 
 **class:** `structural_only`.
+
+## The negative control — prove the assertion can fail
+
+A regression test that passes against the fixed code has proven nothing: it may
+be asserting a property that was already true. Before a test counts as coverage
+for a fix, run it against the **pre-fix** artifact and watch it fail.
+
+```bash
+# Restore just the pre-fix asset (use the FIX COMMIT's parent, not HEAD~1 —
+# other agents may have committed on top of yours since).
+git show <fix-sha>~1:<path/to/asset> > <path/to/asset>
+<run the test>            # MUST fail; if it passes, the test is not coverage
+git checkout <fix-sha> -- <path/to/asset>
+<run the test>            # MUST pass
+```
+
+When the test passes both ways, do not delete it and do not quietly keep it as
+if it were proof. Either tighten the assertion until it discriminates, or
+relabel it for what it is — a no-regression guard on already-working behavior —
+and say so in a comment next to the test, with the measured numbers. A comment
+claiming a failure mode the test never detects is worse than no comment.
+
+Measure before asserting a threshold. Deriving the bound from a real run (for a
+snap-scrolling carousel: is the delta a fraction of a page, or a whole page?)
+is what separates a bound that discriminates from `not.toBe(0)`, which passes
+on any nonzero drift.
 
 ## Closing rule
 

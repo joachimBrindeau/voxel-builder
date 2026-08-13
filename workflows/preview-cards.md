@@ -44,7 +44,7 @@ valid transport scaffold, not the final editorial card design.
 Design each variant independently:
 
 1. `small`: identity, logo when real, concise differentiator, one primary destination.
-2. `medium`: small content plus one useful metadata/byline cluster and compact actions.
+2. `medium`: small content plus one useful metadata cluster (a heading row with a `subtitle`) and compact actions.
 3. `large`: strongest real cover, logo, identity, richer summary, useful taxonomy/trust
    rows, and complete actions. This is always main.
 4. `link`: accessible inline identity and destination; no decorative noise.

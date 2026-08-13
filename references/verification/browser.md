@@ -105,6 +105,47 @@ Use the live CLI syntax exactly:
 `agent-browser --session <s> screenshot --full /tmp/verify.png`. `--full-page` is not an
 `agent-browser` flag and can be misread as the output path.
 
+## A timeout is not a defect — separate the harness from the page
+
+Two harness failures look exactly like broken pages and must be falsified before
+either is reported:
+
+- **Navigation timeout on a heavy page.** `agent-browser open` gives up on a
+  budget that some image-dense pages exceed, printing `Operation timed out`.
+  Re-probe with a plain `eval 'document.readyState'` after a longer wait: a page
+  that answers `"complete"` with a sane `document.images.length` and no entries
+  in `errors` loaded correctly and merely rendered slowly. Confirm against
+  `curl -w '%{http_code} %{time_total}'`; a 200 in a fraction of a second means
+  the origin is fine and only the browser budget was short.
+- **One long async `eval` that never returns.** A single `eval --stdin` that
+  scrolls the whole page and then measures can exceed the CLI's own budget and
+  return nothing, which is indistinguishable from a page that failed. Split it:
+  scroll with several short `eval` calls, then read counts with one-expression
+  evals. Distrust any "no result" that a simpler call contradicts.
+
+Reusing one `--session` across pages also fabricates errors: state from an
+earlier page (a third-party widget such as reCAPTCHA, for example) surfaces in
+the next page's `errors` buffer and gets attributed to a page that never loaded
+it. Before believing any console/page error, reproduce it in a fresh session
+that visited only that URL.
+
+## Verify against the origin and the edge separately
+
+A site behind a CDN has two answers for every URL, and they disagree for as long
+as the edge TTL allows. Origin-side purges — LiteSpeed, object cache, transients,
+OPcache, Elementor CSS — do not evict the CDN. `wpdev purge <site> --remote` now
+includes a `cloudflare-edge` step, but it no-ops silently when the site has no
+zone id or API token, so confirm the label appears in the purge output rather
+than assuming the edge was dropped.
+
+When a page still shows content you know you fixed, separate the two before
+diagnosing anything else: refetch with a unique query string (`?cb=$RANDOM`) to
+read the origin, and compare against the plain URL. Matching results mean the
+defect is real; differing results mean you are looking at a stale edge, and
+`age:` plus `cf-cache-status:` on the plain response will confirm it. Fixing
+data and re-verifying through a cached edge produces a false failure that can
+send you rewriting correct code.
+
 ## Generated stylesheet verification
 
 After cache purge/rebuild, extract every same-site `/wp-content/litespeed/css/*.css` URL
@@ -112,6 +153,42 @@ from the rendered HTML and fetch each with a bounded timeout. Require HTTP 200 a
 non-empty body. Use per-URL timeouts and print one final failure table; do not let a warm
 loop spin indefinitely. A missing generated stylesheet makes visual evidence unreliable
 even when Elementor schema lint passes.
+
+## Upload parity verification
+
+**Derive the media set from the database, not from rendered pages.** Rendered HTML only
+proves the images one page happened to reference; it cannot show what a deploy omitted.
+The authoritative set is the attachment closure: every `_wp_attached_file` value plus every
+`sizes[*].file` derivative inside `_wp_attachment_metadata`, resolved against the metadata
+`file` directory. Compare that closure against a `find`-based manifest of the deploy source
+and of production. Any closure entry missing from production is a blocking defect, however
+green the pages look.
+
+**The deploy source is the tree the local web server writes to, which is usually not the
+git worktree.** When a site runs on a materialized runtime, the web server mounts only that
+runtime, so every upload WordPress creates over HTTP lands there while the worktree keeps
+only files committed or written by CLI tooling. Neither tree is a superset. Prove which one
+serves before trusting it: fetch a file over local HTTP and compare its hash against the
+same relative path in each candidate tree, or inspect the server's mount/document root.
+Never infer the served root from a vhost config file inside the worktree — a materialized
+runtime has its own copy of that config, and the worktree copy is inert.
+
+Converge the trees before deploying: back up the files unique to each, copy them into the
+tree that serves, then re-derive the closure and require zero missing entries. Where the
+same relative path holds different bytes in each tree, resolve by ownership — query which
+attachment ID the live post actually references (`_thumbnail_id`, post content, Voxel
+fields) and keep that file; the other is an orphan from a superseded import.
+
+After sync, re-inventory production and require: zero closure entries missing, and zero
+size mismatches against the served tree. Then verify over HTTPS. Note that a `HEAD` request
+is not a substitute for `GET` — some CDN-injected assets (for example Cloudflare's
+`/cdn-cgi/scripts/.../email-decode.min.js`) reject `HEAD` with a 404 while serving `GET`
+normally, so confirm any static-asset 404 with a `GET` and a `Referer` header before
+treating it as a defect.
+
+In the browser, scroll lazy-loaded images into view and wait before testing them. Require
+`img.complete === true && img.naturalWidth > 0`; visible alt text with `naturalWidth === 0`
+is a broken-image failure even when the page itself returns HTTP 200 and has no console error.
 
 ## Standard verification checklist (the subagent returns Pass/Fail per item)
 
@@ -121,11 +198,14 @@ even when Elementor schema lint passes.
 [ ] No uncaught page errors (agent-browser errors is empty)
 [ ] No JS console errors (agent-browser console — pre-existing warnings OK)
 [ ] No failed network requests for the post's CSS (network requests --filter "**/elementor-post-*.css" shows 200, not 404)
-[ ] Expected dynamic-tag values rendered (title non-empty, byline shows the type label, counts are numbers)
+[ ] Expected dynamic-tag values rendered (title non-empty, the author-line subtitle shows the type label, counts are numbers)
 [ ] Expected feed/card cardinality rendered; first and last expected titles are present
 [ ] First sibling after every loop still renders its heading/copy/form/CTA
 [ ] No literal "@post(" / "@tags(" / "@author(" / "@site(" leakage in the rendered text (get text body)
 [ ] Same-site generated LiteSpeed CSS URLs return HTTP 200 with non-empty bodies
+[ ] Edge invalidated after the origin was already correct (purge output lists `cloudflare-edge`; plain-URL `age:` reset), and any surviving defect reproduced against a cache-busted origin fetch
+[ ] DB attachment closure (`_wp_attached_file` + metadata `sizes`) has zero entries missing from production, and the deploy source is the tree proven to serve local HTTP
+[ ] Lazy-loaded images were scrolled into view; every loaded image has `complete === true` and `naturalWidth > 0`
 [ ] No unexpected visible fixed drawer/dialog; shared overlays compared against untouched source
 [ ] LAYOUT ASSERTIONS (eval --stdin block above) all pass — width, grid tracks, inherited --ef-cols, hero tag
 [ ] FULL-PAGE SCREENSHOT saved AND read — subagent describes hero/sections/sidebar/feed

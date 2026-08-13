@@ -126,6 +126,25 @@ wpdev quality <plugin> [--tool=phpstan|phpcs|phpmd|insights]
 
 Run narrow checks first. For plugin PHP changes, prefer `wpdev quality <plugin> --tool=<tool>`.
 
+**A red gate is not automatically yours.** `--profile=architecture` (and the
+`oxlint-architecture` tool the pre-commit hook runs on staged files) enforces
+per-file limits — `max-lines` 300, `max-lines-per-function` 50, `complexity` 10
+— that many existing files already exceed. Touching such a file makes the gate
+report failures you did not cause. Establish a baseline by **count** before
+concluding anything:
+
+```bash
+npx oxlint --config .oxlintrc-architecture.json <your changed files>   # after
+mkdir -p base-tmp && git show HEAD:<path> > base-tmp/<file>            # per file
+npx oxlint --config .oxlintrc-architecture.json base-tmp/              # before
+```
+
+Equal counts mean you introduced nothing new; say so explicitly (with the
+number) in the commit message when bypassing the hook. A higher count is yours
+to fix. Never suppress a rule, never reformat unrelated code to make a gate
+green, and never claim "pre-existing" without the two numbers — the default
+`wpdev quality <plugin>` gate must still pass on its own.
+
 ## Remote gotchas
 
 - SSH multiplexing (`ControlMaster=auto`, `ControlPersist=60`) avoids server rate-limit failures on rapid SSH calls.
@@ -133,6 +152,7 @@ Run narrow checks first. For plugin PHP changes, prefer `wpdev quality <plugin> 
 - rsync push uses delete semantics; stale remote files disappear.
 - File sync excludes `.git`, `node_modules`, `vendor`, `.env*`, logs, tests, lockfiles, and known dev-only plugins.
 - URL replacement must handle JSON-escaped Elementor URLs (`https:\/\/...`) after normal `wp search-replace`.
+- Database pushes must run mandatory, serialization-safe `wp search-replace --all-tables --precise --recurse-objects` passes for HTTPS, HTTP, and the bare local domain. A final all-table dry run must report zero replacements; never repair serialized options with raw SQL `REPLACE()`.
 
 ## PHP output-buffer gotcha
 

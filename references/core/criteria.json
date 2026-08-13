@@ -49,9 +49,9 @@
       "evidence": "§2d Layout map grid tracks",
       "predicate": "∀ section s: s.mobile_cols == '1fr' AND grid justified by content" },
     { "id": "section-heading", "scope": "section", "phase": "plan", "severity": "I",
-      "criterion": "Each section's first heading is an h2 naming its purpose; the leading eyebrow is a kind:byline row (one per card); no other decorative text is a heading. style:byline_label is migrated-away (use kind:byline) and is flagged severity C.",
-      "evidence": "§2d heading rows + kind/style props",
-      "predicate": "∀ section s: first_heading(s)==h2 AND ≤1 kind:byline per card AND no decorative h* AND no style:byline_label" },
+      "criterion": "Each section's first heading is an h2 naming its purpose; a second line under a heading is that heading row's subtitle cell; no other decorative text is a heading. kind:byline and byline_* cells are migrated-away (step 1336 → kind:heading + subtitle) and any style outside the enum ['', h1..h6, small] (notably label / byline_label) is invalid; both are flagged severity C.",
+      "evidence": "§2d heading rows + kind/style/subtitle props",
+      "predicate": "∀ section s: first_heading(s)==h2 AND no decorative h* AND no kind:byline AND no byline_* cell AND style ∈ ['', h1..h6, small]" },
 
     { "id": "widget-in-catalog", "scope": "widget", "phase": "plan", "severity": "C",
       "criterion": "Every widget in a blueprint appears in the §2b Widget Catalog (schema SSOT or atomic fixture).",

@@ -205,13 +205,13 @@ Schema is config-only. Do not rely on or recreate hardcoded fallbacks for Organi
 3. **Write config:** `wpdev schema:set <site> <key> @/tmp/<key>-schema.json`. The command runs `schema:validate` automatically before persisting; pass `--force` only when overriding a known-acceptable validation warning.
 4. **Static validation:** `wpdev schema:validate <site>` runs structural validation across all configured targets. Must return clean for all targets the CPT touches.
 5. **Live validation (gating step):** `wpdev schema:validate-live <site>` fetches a real rendered page for each configured target and validates the emitted JSON-LD against the schema config. **Phase 4 does not exit until this returns clean.** A live-validation failure means the rendered page is dropping or malforming a required field — diagnose before proceeding to Phase 5.
-6. **Code-side overlays (when needed):**
+6. **Rich-result validation (gating step):** `wpdev schema:rich-results <site>` validates the same rendered JSON-LD against Google Rich Results rules and reports **dangling `@id` references** — a graph can pass step 5 with every field well-formed yet still fail eligibility because a `@ref` points at a node that is never emitted (the `@ref: true` trap in step 2). **Phase 4 does not exit until this reports 0 blocking.**
+7. **Code-side overlays (when needed):**
    - **Site-specific parent page schema:** Prefer an explicit page target config. If a filter is required, retrieve parent page ID via `lean_seo_settings_map('permalink_default')['<key>']` — NOT `get_page_by_path()`. Memoize with `static $cache`.
    - **No fallback cleanup filters:** Do not add filters that remove auto-emitted FAQ/Breadcrumb/etc.; those nodes should not be auto-emitted.
-7. **Sitemap priority:** Add to `lean_seo_sitemap_high_priority_types` filter.
-8. **Markdown field maps:** Add entry to `lean_seo_markdown_field_maps` filter with text fields and repeaters.
+8. **lean-seo filter registration:** add the CPT to `lean_seo_sitemap_high_priority_types`, and add its text fields and repeaters to `lean_seo_markdown_field_maps`.
 
-**Exit:** Schema renders on CPT pages — `wpdev schema:validate-live <site>` returns clean for the CPT target. Sitemap includes CPT. Markdown field map registered.
+**Exit:** Schema renders on CPT pages — `wpdev schema:validate-live <site>` returns clean and `wpdev schema:rich-results <site>` reports 0 blocking for the CPT target. Sitemap includes CPT. Markdown field map registered.
 
 ## Phase 5 — Index Table + Smart Internal Linking
 

@@ -109,7 +109,7 @@ $schema = array_merge( $schema, ef_atomic_action_props( 'banner' ) );
 // adds banner_action_type, banner_action_link, banner_action_phone, …
 // (live prefix: the ef-navbar banner CTA, composed via Action_Slot)
 ```
-> The retired card byline no longer carries its own scalar `byline_action_*` slot — the byline now lives as a `content_blocks` row and consumes the content-block row's action cells (the shared `loop+actions` envelope), not a flat `ef_atomic_action_props()` spread.
+> The retired card byline carried its own scalar `byline_action_*` slot; it does not exist. Its content folded into the `heading` content-block row (migration step 1336), which consumes the content-block row's action cells (the shared `loop+actions` envelope), not a flat `ef_atomic_action_props()` spread.
 
 ---
 ## Pairs

@@ -57,8 +57,9 @@ Improve performance in a Voxel + Elementor Framework WordPress workspace using s
 
 1. Purge the correct cache layer. `wpdev purge` may not clear LiteSpeed full-page cache; use LiteSpeed purge when present.
 2. Regenerate Elementor CSS/assets if purge or code changes require it.
-3. Confirm linked generated CSS/JS URLs return the right status and MIME type before browser verification.
-4. Warm once after a real miss when comparing cached HTML behavior.
+3. Copy any newly generated `uploads/` assets into the materialized runtime. HTTP is served from the runtime tree, while generators write into the worktree, so a manifest can read back correctly while the files are missing where the request lands. Resolvers that validate their manifest then fail closed and silently serve the unoptimized original.
+4. Confirm linked generated CSS/JS URLs return the right status and MIME type before browser verification.
+5. Warm once after a real miss when comparing cached HTML behavior.
 
 **Exit:** The page is served from the intended cache state and generated assets are valid.
 
@@ -77,6 +78,8 @@ Improve performance in a Voxel + Elementor Framework WordPress workspace using s
 ## High-Impact Patterns
 
 - **Generated CSS after purge:** purge -> regenerate -> verify `200 text/css`; do not run Lighthouse against transient 404s.
+- **Generated uploads vs materialized runtime:** an option/manifest read-back proves the database write, not the delivered bytes. After running any asset generator, verify the URL the page actually requests and its transferred size; a stale runtime copy plus a fail-closed resolver presents as "the tool did nothing."
+- **Oversized icon fonts:** subset before hand-optimizing anything else. Instancing a variable icon font to its used axes and glyphs is usually the single largest win and is fully derived from existing usage, so it needs no content decisions.
 - **Attachment URL lookup N+1:** build a request-local upload-path map, normalize derivative filenames, and avoid repeated `attachment_url_to_postid()` when explicit alt/dimensions are already available.
 - **Voxel relation N+1:** compute the loop window, prime relation/post/attachment caches, set relation frontier before rendering clones, restore state in `finally`.
 - **Map/embed SDKs:** do not hard-depend on Leaflet/Google Maps in the local widget runtime; dynamically load provider scripts when the widget is near viewport and has non-zero layout.

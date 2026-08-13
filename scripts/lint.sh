@@ -52,11 +52,15 @@ if python3 scripts/lint-workflow-structure.py; then :; else fail "workflow struc
 heading "Field-metadata contract"
 if python3 scripts/check-field-metadata-contract.py && python3 scripts/test-field-metadata-run-validator.py; then :; else fail "field-metadata policy or run-artifact contract invalid"; fi
 
-# --- 6. wpdev coverage drift -------------------------------------------------
+# --- 6. Organization profile contract ---------------------------------------
+heading "Organization profile contract"
+if python3 scripts/test-organization-profile-validator.py; then :; else fail "organization profile validation contract invalid"; fi
+
+# --- 7. wpdev coverage drift -------------------------------------------------
 heading "wpdev coverage drift"
 if python3 scripts/check-wpdev-coverage.py; then :; else fail "wpdev-coverage.md drifted from cli/src/index.ts"; fi
 
-# --- 7. Section-template drift gate -----------------------------------------
+# --- 8. Section-template drift gate -----------------------------------------
 heading "Section-template lint (schema/dtag/denylist/meta/index)"
 if [ -f templates/index.md ] && find templates -type f -name template.json | grep -q .; then
   tl_out=$(bash scripts/lint-templates.sh 2>&1)
@@ -71,7 +75,7 @@ else
   printf "  \033[33mSKIP\033[0m  no templates to lint\n"
 fi
 
-# --- 8. Deep link + anchor check (lychee, optional) -------------------------
+# --- 9. Deep link + anchor check (lychee, optional) -------------------------
 heading "Deep link check (lychee)"
 if command -v lychee >/dev/null 2>&1; then
   md_files=$(find . -name '*.md' -not -path './node_modules/*')

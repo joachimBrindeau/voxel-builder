@@ -154,7 +154,7 @@ wpdev rebuild          <site> --only purge           # flush all caches (object 
 ```bash
 wpdev elementor:strip:wrappers      <site> --fix --yes                                # redundant wrapper containers (any depth, incl. root) around ef-* widgets
 wpdev elementor:strip:styles        <site> [--post <id>] [--widget-type <t>] --fix -y # per-node style overrides → globals
-wpdev elementor:fix:unicode         <site> [--post <id>] --fix [--dry] -y             # unicode corruption (u00e9 → é); site-wide unless --post
+wpdev db:encoding                   <site> --fix -y                                   # double-encoded UTF-8 (mojibake); scans every site when <site> is omitted
 wpdev elementor:reset:button-variants <site> [--post <id>] --fix [--dry] -y           # ef-card action buttons → primary (first) / white (rest)
 wpdev elementor:styles              <site> [--post <id>] --fix --dry                  # preview style normalization; drop --dry to apply
 wpdev elementor:styles              <site> --sync-voxel                               # sync Voxel shade tokens into Elementor kit globals

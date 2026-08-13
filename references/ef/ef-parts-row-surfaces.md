@@ -8,10 +8,11 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 ### Row surface `action-row` — Action row
 
-22 cells.
+24 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
+| `addition_id` | `string` (dynamic) | `''` | Base64 add-on selection payload used by Voxel product forms |
 | `address` | `string` (dynamic) | `''` | Address for directions |
 | `cal_desc` | `string` (dynamic) | `''` | Calendar event details |
 | `cal_end_date` | `string` (dynamic) | `''` | Event end date and time |
@@ -26,13 +27,14 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `label` | `string` (dynamic) | `''` | Button text |
 | `label_active` | `string` (dynamic) | `''` | Text shown after click |
 | `link` | `source` (dynamic) | — | Page or link to open |
+| `menu` | `string` (dynamic) | `''` | Menu shown in the user popup |
 | `modal_id` | `string` (dynamic) | `''` | On-page modal or saved template to open |
 | `phone` | `string` (dynamic) | `''` | Phone number to call |
 | `scroll_to` | `string` (dynamic) | `''` | Section to scroll to |
 | `toast_message` | `string` (dynamic) | `''` | Short message after click |
 | `tooltip` | `string` | `''` | Short hover text shown on the button |
-| `type` | enum: `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `action_link` | Choose what opens on click |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `''` | Button colors |
+| `type` | enum: `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `action_link` | Choose what opens on click |
+| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` | `''` | Button colors |
 | `vote_field_key` | `string` (dynamic) | `''` | Vote field to update |
 
 ### Row surface `content-block-row` — Content block row
@@ -43,19 +45,11 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 |---|---|---|---|
 | `accordion_open` | `boolean` | `false` | Open this accordion by default |
 | `accordion_variant` | `string` | `transparent` | Accordion colors |
+| `addition_id` | `string` (dynamic) | `''` | Base64 add-on selection payload used by Voxel product forms |
 | `address` | `string` (dynamic) | `''` | Address for directions |
 | `body` | `richtext` (dynamic) | `''` | Body text with formatting |
 | `brand_color` | `string` | `primary` | Booking accent color |
-| `button_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `''` | Button colors |
-| `byline_avatar_fit` | enum: `cover` \| `contain` | `cover` | How the image fills the space |
-| `byline_avatar_icon` | `string` | `''` | Choose an icon |
-| `byline_avatar_image` | `image` | `[]` | Choose an image |
-| `byline_avatar_image_alt` | `string` (dynamic) | `''` | Describe the image for screen readers |
-| `byline_avatar_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | Choose when the image loads |
-| `byline_avatar_type` | enum: `image` \| `video` \| `icon` | `image` | Choose what kind of media to show |
-| `byline_avatar_video_url` | `source` (dynamic) | `''` | Video link or file |
-| `byline_primary` | `string` (dynamic) | `''` | Main byline text, like author name |
-| `byline_secondary` | `string` (dynamic) | `''` | Secondary byline text, like date or role |
+| `button_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` | `''` | Button colors |
 | `cal_desc` | `string` (dynamic) | `''` | Calendar event details |
 | `cal_end_date` | `string` (dynamic) | `''` | Event end date and time |
 | `cal_location` | `string` (dynamic) | `''` | Calendar event location |
@@ -77,32 +71,40 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `hide_event_details` | `boolean` | `false` | Hide event details |
 | `icon` | `string` | `''` | Optional leading icon shown on the heading line, tag pill, or button |
 | `icon_active` | `string` (dynamic) | `''` | Icon shown after click |
-| `kind` | enum: `heading` \| `rich_text` \| `byline` \| `separator` \| `accordion` \| `tag` \| `datafield` \| `group` \| `calendar` \| `toc` \| `button` \| `media` | `heading` | Choose what this content block shows |
-| `label` | `string` (dynamic) | `''` | Button text |
+| `inline_icon` | `string` | `''` | Choose an icon |
+| `inline_image` | `image` | `[]` | Choose an image |
+| `inline_image_alt` | `string` (dynamic) | `''` | Describe the image for screen readers |
+| `inline_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | Choose when the image loads |
+| `inline_type` | enum: `''` \| `icon` \| `image` \| `video` | `''` | Choose what kind of media to show |
+| `inline_video_url` | `source` (dynamic) | `''` | Video link or file |
+| `kind` | enum: `heading` \| `rich_text` \| `custom_code` \| `separator` \| `accordion` \| `tag` \| `datafield` \| `group` \| `calendar` \| `toc` \| `reviews` \| `button` \| `media` | `heading` | Choose what this content block shows |
 | `label_active` | `string` (dynamic) | `''` | Text shown after click |
 | `layout` | enum: `week_view` \| `month_view` \| `column_view` | `week_view` | Choose the layout |
 | `link` | `source` (dynamic) | — | Page or link to open |
-| `media_caption` | `string` | `''` | Caption shown with the media |
-| `media_fit` | enum: `cover` \| `contain` | `cover` | How the image fills the space |
 | `media_icon` | `string` | `''` | Choose an icon |
 | `media_image` | `image` | `[]` | Choose an image |
 | `media_image_alt` | `string` (dynamic) | `''` | Describe the image for screen readers |
 | `media_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | Choose when the image loads |
 | `media_map_pins` | repeater `ef-map-pin-rows` | `[]` | Add pins to the map |
 | `media_map_zoom` | `string` | `14` | Starting map zoom level |
-| `media_svg` | `svg` | — | Choose an uploaded vector image |
-| `media_type` | enum: `image` \| `video` \| `icon` \| `svg` \| `map` | `image` | Choose what kind of media to show |
+| `media_modifiers` | `string` | `''` | Optional image behavior flags |
+| `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` | `''` | Choose what kind of media to show |
 | `media_video_url` | `source` (dynamic) | `''` | Video link or file |
+| `menu` | `string` (dynamic) | `''` | Menu shown in the user popup |
 | `modal_id` | `string` (dynamic) | `''` | On-page modal or saved template to open |
+| `modifiers` | `string` | `''` | Optional button layout flags |
 | `phone` | `string` (dynamic) | `''` | Phone number to call |
-| `position` | enum: `left-edge` \| `top-edge` \| `left-main` \| `top-main` \| `in-content` | `top-edge` | Choose media placement for each screen size |
+| `position` | enum: `left-edge` \| `top-edge` \| `left-main` \| `top-main` | `top-edge` | Choose media placement for each screen size |
+| `reviews_star_color` | `string` | `yellow` | Filled star color |
 | `scroll_to` | `string` (dynamic) | `''` | Section to scroll to |
 | `separator_color` | `string` | `gray_light` | Divider color |
 | `separator_spacing` | enum: `s` \| `m` \| `l` | `m` | Space above and below the divider |
-| `separator_variant` | enum: `full` \| `centered` \| `partial` | `full` | Divider width |
+| `separator_width` | enum: `full` \| `centered` \| `partial` | `full` | Divider width |
 | `slots_view_mobile` | `boolean` | `true` | Show times first on mobile |
 | `style` | enum: `''` \| `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `small` | `''` | Title size |
+| `subtitle` | `string` (dynamic) | `''` | Optional second line under the heading, like a date, role, or author name |
 | `tag` | enum: `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `p` \| `span` \| `address` | `h3` | Choose the title level |
+| `tag_variant` | enum: `white` \| `transparent` \| `primary_light` \| `primary_white` \| `secondary_light` \| `secondary_white` \| `primary` \| `secondary` \| `positive` \| `negative` | `''` | Tag colors |
 | `text` | `string` (dynamic) | `''` | Main text for this block |
 | `theme` | enum: `light` \| `dark` \| `auto` | `light` | Light, dark, or automatic theme |
 | `toast_message` | `string` (dynamic) | `''` | Short message after click |
@@ -110,8 +112,8 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `toc_scope` | `string` | `''` | Element ID to build the table of contents from |
 | `toc_variant` | enum: `transparent` \| `primary` \| `secondary` \| `negative` \| `positive` | `transparent` | Table-of-contents link colors |
 | `tooltip` | `string` | `''` | Short hover text shown on the button |
-| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `''` | Choose what opens on click |
-| `variant` | enum: `white` \| `transparent` \| `primary_light` \| `secondary_light` \| `primary` \| `secondary` \| `positive` \| `negative` | `''` | Tag colors |
+| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `''` | Choose what opens on click |
+| `variant` | `string` | `''` | Button colors |
 | `vote_field_key` | `string` (dynamic) | `''` | Vote field to update |
 
 ### Row surface `field-row` — Field row

@@ -1,6 +1,6 @@
-# wpdev coverage map
+# Voxel-builder wpdev namespace coverage map
 
-What this is: a structured map of every `wpdev` command in the namespaces this skill's mission covers (`voxel:`, `elementor:`, `elementor:ef:`, `elementor:strip:`, `elementor:migrate:`, `elementor:revisions:`, `elementor:reset:`, `elementor:codegen*`, `elementor:fix:`, `audit*`, `schema:*`, `rebuild --only *`, `headings`, `quality`), with a coverage status and the specific agent / command / reference that surfaces it. Companion to [`command-surface.md`](command-surface.md) — that file is the prose cheatsheet for currently-surfaced commands; this file is the audit table that catches drift.
+What this is: a skill-scoped map, not a repository-wide command inventory or ownership claim. It covers every current `wpdev` command in the namespaces and standalone surfaces this skill's mission selects (`voxel:`, `elementor:`, `audit*`, `schema:*`, `rebuild --only *`, `smoke`, `headings`, `perf`, `quality`), with a coverage status and the specific agent / command / reference that surfaces it. Nested `elementor:*` families are sections of the current `elementor:` namespace, including `elementor:ef:`, `elementor:strip:`, `elementor:migrate:`, `elementor:revisions:`, `elementor:reset:`, and `elementor:codegen*`. Companion to [`command-surface.md`](command-surface.md) — that file is the prose cheatsheet for currently-surfaced commands; this file is the namespace audit table that catches drift.
 
 How to keep this current: when wpdev gains a new command in any of the namespaces above, add a row here. Status taxonomy is a closed set — pick exactly one:
 
@@ -18,6 +18,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | Command | Status | Location | Rationale |
 |---|---|---|---|
 | `voxel:admin-menu` | `defer` | n/a | Reads or adjusts Voxel admin-menu settings. Operator/admin UX territory; surface only if a future curation workflow needs deterministic menu repair. |
+| `voxel:archives` | `surfaced` | `workflows/archive-search-pages.md` (archive scaffolding); pairs with `elementor:verify:loop-render` for the post-build proof | Scaffolds Voxel CPT archive templates as EF query-backed loops (header + paginated results grid). Mission-critical: archives are EF loops, so this is the supported alternative to hand-authoring `_elementor_data`. |
 | `voxel:assign` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 6 | Assigns templates to roles; canonical Phase 6 step. |
 | `voxel:backfill-authors` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 6 | Useful for CPTs whose posts are missing or have stale `post_author`. |
 | `voxel:cache` | `surfaced` | `references/core/command-surface.md`; called after CPT-registry mutations | Site-level Voxel cache clear; companion to `rebuild --only purge`. Only action is `clear`. |
@@ -30,18 +31,26 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `voxel:export` | `defer` | n/a | Cross-site CPT migration. Useful but not part of the audit/build mission. Revisit when usage data justifies. |
 | `voxel:field-schema` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 2; `workflows/field-metadata.md` Phase 4; `references/core/command-surface.md` §CPT introspection | Corruption-proof top-level field-definition merge. Lifecycle owns creation-time blueprint convergence; field-metadata owns recursive UX metadata remediation and verification. |
 | `voxel:fields` | `surfaced` | the CPT lifecycle Phase 2 (`workflows/cpt-lifecycle.md`), `voxel-widget-builder`, `voxel-schema-detective` | Lists CPT fields — valid `@post(<key>)` tags. |
-| `voxel:filters` | `surfaced` | `references/core/command-surface.md` §CPT introspection; `workflows/audit.md` reindex-after-filter failure class | Audits or upserts Voxel CPT search filters (`--mode baseline` universal filters, `--mode derive` per-field filters, `--prune` orphan cleanup); changed filters require recreate+reindex. |
+| `voxel:filters` | `surfaced` | `references/core/command-surface.md` §CPT introspection; `workflows/audit.md` reindex-after-filter failure class | Audits or upserts Voxel CPT search filters (`--mode baseline` universal filters, `--mode derive` per-field filters, `--prune` orphan cleanup); changed filters require recreate+reindex. Scope note: reads only `voxel:post_types[<cpt>].search.filters`, so it never sees stale filter keys stored in `_elementor_data` — audit those separately per `workflows/archive-search-pages.md` §Stored Search Config Drift. |
 | `voxel:heading-curator` | `surface-pending` | will surface in the `voxel-heading-curator` agent (read the cache instead of re-extracting) | Extracts production heading phrasings from peer single templates and writes a per-site cache the `voxel-heading-curator` agent should consume — replaces re-running `voxel:templates` + `elementor:dump` extraction on every plan dispatch. |
+| `voxel:imports` | `surfaced` | `workflows/database-cleanup.md` (halt a running import before cleanup mutates rows underneath it) | Halts, resumes, or inspects Voxel Addon import execution on a site. Use it to stop a running import before mutating the CPT registry underneath it. |
+| `voxel:import-policy` | `surfaced` | `workflows/database-cleanup.md` (the criterion that decides what `voxel:imports` admits) | Shows, sets, or clears the LLM eligibility criterion product imports are screened against (`show`/`set`/`clear`/`check`, `--scope` defaulting to `products:default:all`, which every brand inherits). Pairs with `voxel:imports`: that command controls whether an import runs, this one controls what it is allowed to admit, so a surprising import result is worth checking here before blaming the importer. |
+| `voxel:integrity` | `surfaced` | `references/subagents/voxel-integrity-reviewer.md`, `workflows/integrity-loop.md` | Read-only, resumable integrity scan across all Voxel CPT records and registered taxonomy terms. Read-only, so it is always safe as a first probe. |
 | `voxel:openapi` | `defer` | n/a | Exports or inspects a Voxel OpenAPI surface. API documentation tooling, not part of page/template build, audit, or icon selection workflows. Surface only if a future API-reference workflow needs it. |
+| `voxel:product-price-parity` | `surfaced` | `references/voxel/voxel-commerce-products.md` (price rendering) | Proves `@post(product_price)` matches the `ts-product-price` widget byte-for-byte across real posts, so a dtag-rendered price in an EF card cannot silently diverge from the widget. Reports which pricing branches it actually saw and warns on any branch the sample never exercised, rather than printing a green tick over untested cases. `--source` loads the controller from a voxel-addon checkout for a pre-merge proof, where the default answers the different question of whether the code the site currently runs is correct. |
+| `voxel:products-cleanup` | `defer` | n/a | Classifies Voxel products as matcha / non-matcha / ambiguous and can trash the non-matcha bucket. Site-specific (best-matcha) curation policy rather than a general Voxel verb; revisit if a second site needs the same split. |
 | `voxel:sample` | `surfaced` | the build workflow (`workflows/build.md`) Phase 1, `page-planning.md` §2a | Ranks published posts of a CPT by completeness (filled fields + relations + repeaters); exports the top N to a temp folder so the Field Inventory samples the richest real data. |
 | `voxel:apply-content` | `surfaced` | `references/core/rules.md` rule 9; `workflows/content-generation.md` Phase 4; `workflows/curation.md` write-path gate | Manifest-driven batch content apply: preflights `expectedBeforeSha256` per row, dry-runs by default, `--yes --rollback <path>` applies with per-record read-back + reindex and auto-rollback on any row failure. Preferred path for validated multi-record content batches; single-field writes still use `voxel:set-field`. |
 | `voxel:set-field` | `surfaced` | `references/core/rules.md` rule 9; `references/curation/cli-map.md`; `workflows/curation.md`, `workflows/content-generation.md`, `references/curation/bulk-rich-text.md`, `references/curation/field-semantics.md`, `references/curation/lifecycle-checklists.md` | Writes field values on a Voxel post (text/meta, post-relations) via the Voxel field API, and routes the Voxel `title`/`description` aliases to `post_title`/`post_content` via `wp_update_post` itself (no separate core-column call, no silent no-op). Also accepts explicit core keys `post_title`/`post_content`/`post_excerpt`. Single-field write path; sanctioned per core rule 9. |
 | `voxel:settings` | `surfaced` | `references/icons/material-symbols/lookup-and-repair.md` (icon field repair/provisioning companion), `references/core/command-surface.md` | Reads and mutates `voxel:post_types`, including `ensure-field` for icon fields and `--migrate-image-ids` for legacy attachment-backed SVG icon metadata. |
 | `voxel:sorting` | `surfaced` | `references/core/command-surface.md` §CPT introspection; `workflows/audit.md` reindex-after-filter failure class | Audits or upserts the standard Voxel search-order set across one or all CPTs; preserves custom orders by default, can `--replace`, and reindexes changed CPTs unless disabled. |
 | `voxel:page` | `surfaced` | `references/voxel/template-resolution.md` (referenced as introspection helper) | Shows Voxel templates used on a page given its URL path. |
+| `voxel:product-form` | `surfaced` | `references/voxel/voxel-commerce-products.md` (product-form gotcha) | Read-only gate that every enabled product subfield resolves to a shipped Vue component or create-post template, exiting non-zero when one cannot render. Reach for it after enabling a product module, and before trusting a product edit screen: an enabled module whose component was never shipped does not degrade, it throws while Vue stringifies the bound props, so the Fields metabox renders blank and a save through it writes a null payload over existing product meta. A site with no Voxel product types reports "nothing to check" rather than passing clean. |
+| `voxel:rekey` | `surfaced` | `workflows/cpt-lifecycle.md` (renaming a key after posts exist), `workflows/database-cleanup.md` (orphans left by a partial rename) | Renames a Voxel post-type or taxonomy key everywhere it is stored: registry, posts, Elementor data, plugins, indexes. Reach for this instead of editing the registry key by hand — a manual rename leaves stored `_elementor_data` and index tables pointing at the old key, which surfaces later as empty archives rather than as an error. |
+| `voxel:relation-integrity` | `surfaced` | `workflows/database-cleanup.md` (orphaned relation endpoints), `references/voxel/voxel-platform-widgets-relations.md` | Read-only check over `wp_voxel_relations` for cross-parent bleed, orphaned endpoints, and post-type mismatches. Reach for it when a relation field returns another parent's children: a binder that mutates a shared field prototype produces bleed that is invisible per-post and only shows up as an aggregate. |
 | `voxel:repair-options` | `defer` | n/a | Repairs corrupted Voxel option blobs (post-type registry, template assignments, etc.). Operator territory; surface if a Phase 0 environment check needs it. |
 | `rebuild --only reindex [--recreate]` | `surfaced` | the CPT lifecycle Phase 2 (`workflows/cpt-lifecycle.md`) (mandatory post-write step), `workflows/cpt-lifecycle.md` Phase 2 | Reindexes all Voxel-managed post types in one pass; required after every blueprint write. Use `--recreate` after a blueprint changes search filters — it rebuilds each index table's column set first. (Replaces the retired per-type reindex command.) |
-| `voxel:status` | `surfaced` | `voxel-page-auditor` `[G]`-tier, `voxel-schema-detective` | Shows Voxel index health for all post types — surfaces stale/broken indexes. |
+| `voxel:status` | `surfaced` | `voxel-page-auditor` `[G]`-tier, `voxel-schema-detective`, `references/voxel/voxel-commerce-products.md` (product-form gotcha) | Shows Voxel index health for all post types — surfaces stale/broken indexes. Also proves every enabled product subfield resolves to a shipped form component: a module left enabled in `voxel:product_types` after its component was removed renders the wp-admin Fields metabox entirely blank and can erase product meta on save. |
 | `voxel:templates` | `surfaced` | `voxel-schema-detective`, `references/voxel/template-resolution.md` | Lists Voxel + Elementor templates with usage signals. |
 
 ## `elementor:` namespace
@@ -51,7 +60,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:action-drift` | `defer` | n/a | EF action-type registry drift gate — verifies EF covers every Voxel advanced-list action; exits non-zero on un-accounted drift. Surface if an action-row audit recipe needs the registry-drift signal. |
 | `elementor:anchors` | `surfaced` | `references/core/command-surface.md`; pre-input for `elementor:set-cssid` / `set-value` repair | Read-only anchor-link orphan finder. Its JSON output is the canonical input for the two batch-repair verbs below. |
 | `elementor:animations` | `defer` | n/a | List/remove all Elementor animations and motion effects. Niche; revisit when animation cleanup becomes a recurring task. |
-| `elementor:codegen` | `surfaced` | `rules.md` rule 1 (unconditional regen at start of every build); `page-planning.md` entry criteria; `references/core/command-surface.md` §Schema | Generates the committed SSOT widget-schemas artifact from EF widget-registration source AND syncs the byte-identical mirror into `references/ef/widget-schemas.json`. Run unconditionally at the start of every run. |
+| `elementor:codegen` | `surfaced` | `rules.md` rule 1 (unconditional regen at start of every build); `page-planning.md` entry criteria; `references/core/command-surface.md` §Schema | Generates the committed SSOT widget-schemas artifact (`cli/src/generated/widget-schemas.json`) from EF widget-registration source. Run unconditionally at the start of every run. |
 | `elementor:codegen:tokens` | `defer` | n/a | Sibling codegen for design-token SSOT. Build-time tooling; surface if token-edit recipes need a deterministic regen step. |
 | `elementor:codegen:verify` | `surfaced` | `references/core/rules.md` rule 1 (live-site drift gate, companion to `elementor:codegen --check`) | CI-gated drift check between `cli/src/generated/widget-schemas.json` and live registration. Cited next to rule 1 so agents know how the SSOT stays current. |
 | `elementor:clean-test-pages` | `out-of-scope` | n/a | Deletes orphaned `elementor-widget-test` pages (`ewt-*` slugs). Test-fixture hygiene, not Voxel build/audit/reference work. |
@@ -66,6 +75,8 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:import` | `surfaced` | `workflows/build.md` Phase 5, `references/core/command-surface.md` | Writes `_elementor_data` from a JSON file. The single write path. |
 | `elementor:icon-search` | `surfaced` | `references/icons/material-symbols/lookup-and-repair.md` | Ranked EF Material Symbols lookup over the generated `search.tsv` enriched with Google Symbols metadata. Use before choosing a new icon value. |
 | `elementor:icons` | `surfaced` | `references/icons/material-symbols/lookup-and-repair.md`; `references/icons/material-symbols/README.md` | DB scanner for all stored Elementor icon values across pages and templates; verifies wrong-icon repairs and audits existing icon-library usage. |
+| `elementor:data:converge` | `defer` | n/a | Inventories and converges live `_elementor_data` storage (dry-run by default). Storage-level convergence sits outside the build/audit routes; surface it when a site shows mixed/legacy `_elementor_data` storage shapes rather than per-post prop drift. |
+| `elementor:diagnose` | `defer` | n/a | Runs EF diagnostics for a site or one post. Overlaps `elementor:lint` (per-post schema gate) and `elementor:codegen:verify` (runtime-vs-SSOT); reach for it when the failure is EF-runtime-wide rather than a single post's props. |
 | `elementor:lint` | `surfaced` | `voxel-page-auditor` `[G]`-tier, `workflows/build.md` Phase 4 | Validates against the live schema — catches `unknown-prop` / `type-mismatch`. |
 | `elementor:loop-filter` | `defer` | n/a | Loop-filter inspection / debugging. Niche; revisit when loop-filter audit recipes recur. |
 | `elementor:mutate` | `surfaced` | `workflows/build.md` §Choosing the mutation tool; `commands/fix-known.md` | Canonical single-post scripted-repair wrapper — runs a PHP mutator on `_elementor_data`, then atomically lints → regenerates per-post CSS → purges caches → optionally HTTP-fetches the URL. The single-post mutation path; prefer over raw `wp eval-file`. |
@@ -81,6 +92,9 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:templates` | `surfaced` | `voxel-schema-detective` | Lists Elementor saved templates with usage counts. Companion to `voxel:templates`. |
 | `elementor:tree` | `surfaced` | `voxel-page-auditor` `[G]`-tier, `workflows/build.md`, `command-surface.md` §EMCP vs headless wpdev reads | Headless/raw DB widget-tree summary — audit structural input. For live editor-equivalent single-page structure, prefer EMCP `get-page-structure`. |
 | `elementor:validate` | `defer` | n/a | Offline Ajv validation of `_elementor_data` against the schema SSOT (`--all-sites` validates the whole corpus). The skill uses the live `elementor:lint` as the canonical per-post gate (Phase 4 / `[G]`-tier); surface `elementor:validate` for offline or corpus-wide sweeps (CI-style) when no live site is required. |
+| `elementor:verify:idle-churn` | `surfaced` | `workflows/audit.md` (runtime defect class), companion to `elementor:verify:loop-render` | Browser-verifies that a page settles when idle, failing when a widget runtime keeps mutating its own DOM (runaway ResizeObserver/MutationObserver loops). Catches the defect class that looks fine in a screenshot and in stored data, because it exists only in motion. |
+| `elementor:verify:loop-filter` | `surfaced` | `workflows/archive-search-pages.md` filter step; companion to `elementor:verify:loop-render` | Browser-verifies the EF loop-filter AUTHOR path end to end: authors a filter the way the editor does, then proves the loop is empty before cron and correctly narrowed after. Every cheaper check stops at the PHP boundary — calling the indexer directly proves the indexer works, not that saving a filter registers a predicate, schedules the cold-start backfill, and ends with the right posts. Refuses a predicate that would not split the corpus, so a non-discriminating run cannot pass green. |
+| `elementor:verify:loop-render` | `surfaced` | `workflows/archive-search-pages.md` render-proof step; companion to `voxel:archives` | Browser-verifies a rendered EF query-backed loop: card count, computed grid tracks, pager page size, column offsets, dtag leakage, console/page errors. This is the loop equivalent of a smoke test — it proves the built loop actually renders. |
 | `elementor:widgets` | `surfaced` | `voxel-page-auditor` `[G]`-tier (rare-widget findings), `voxel-schema-detective` (`widget=usage`) | Widget usage across all pages. `--migrate` flag surfaces legacy-widget pages — directly feeds Pass 2 migration fork. |
 
 ## `elementor:ef:*` namespace (EF plugin CLI surfaces)
@@ -123,11 +137,11 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:revisions:prune` | `surfaced` | rule 6 of `rules.md`, all fix-mode dispatches | Mandatory pre-mutation snapshot+delete. |
 | `elementor:revisions:restore` | `surfaced` | `voxel-elementor-fixer` rollback path | Restores from a `revisions:prune` snapshot when a fix Pass needs to be undone. |
 
-## `elementor:fix:*` namespace
+## Current encoding repair command (retired `elementor:fix:*` namespace)
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
-| `elementor:fix:unicode` | `surfaced` | `voxel-elementor-fixer` Pass 2 (when audit finds unicode corruption); `voxel-page-auditor` detects via `elementor:dump` regex grep | Site-wide unicode corruption fix (`u00e9` → `é`). Workspace has documented `u00e9`-leakage history. |
+| `db:encoding` | `surfaced` | `voxel-elementor-fixer` Pass 2 (when audit finds unicode corruption); `voxel-page-auditor` detects via `elementor:dump` regex grep | Site-wide mojibake fix (the `elementor:fix:unicode` verb was retired in `c939f922f`; `db:encoding` replaces it and repairs at the DB layer, so it covers post meta beyond `_elementor_data`) (`u00e9` → `é`). Workspace has documented `u00e9`-leakage history. |
 
 ## `audit*` namespace (workspace-level)
 
@@ -141,6 +155,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
+| `schema` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 (as the way to see what the namespace offers) | Namespace parent: prints the schema subcommands. Runnable in its own right, which is why it needs a row — a namespace with no entry reads as a typo when an agent meets it in output. |
 | `schema:compile` | `defer` | n/a | Schema compilation. Used inside `schema:set`/`validate`; not directly invoked by the plugin. |
 | `schema:delete` | `out-of-scope` | n/a | Destructive operational. CPT lifecycle Phase 4 only sets/validates; deletion is operator territory. |
 | `schema:export` | `defer` | n/a | Cross-site schema migration. Same posture as `voxel:export`. |
@@ -149,8 +164,9 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `schema:set` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 | Writes a new schema config for a CPT target (JSON blob). |
 | `schema:validate` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 | Static validation against JSON-LD shape. |
 | `schema:validate-live` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 (gating step before Phase 5) | Live validation against rendered pages — Phase 4's verification step. |
+| `schema:rich-results` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 (gating step before Phase 5) | Validates emitted JSON-LD against Google Rich Results rules and reports dangling `@id` references — catches the `@ref: true` mis-binding Phase 4 warns about, which `schema:validate-live` does not detect. |
 
-## `cache:*` and `render:*`
+## Current rebuild and smoke commands (retired `cache:*` / `render:*` naming)
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
@@ -169,14 +185,14 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 
 These wpdev namespaces are out of the voxel-builder mission entirely — listed once here so future drift checks don't re-evaluate row by row:
 
-- **Site lifecycle / scaffolding**: `init`, `work`, `new`, `destroy`, `site-rename`, `list`, `link`, `unlink`, `links`, `update`, `open`, `scaffold`, `doctor`, `config`, `mcp`, `plugins`, `themes`, `test`, `plugin:release`.
+- **Site lifecycle / scaffolding**: `init`, `work`, `new`, `destroy`, `site-rename`, `list`, `link`, `unlink`, `links`, `update`, `open`, `scaffold`, `doctor`, `config`, `mcp`, `plugins`, `themes`, `test`.
 - **Database operations** (`db:*`): `db:encoding`, `db:hierarchy`, `db:export`, `db:import`, `db:reset` — DBA territory.
 - **Debug** (`debug:*`): `debug:on`, `debug:off`, `debug:tail` — runtime troubleshooting, not build/audit.
 - **Backup** (`backup:*`): `backup:create`, `backup:delete`, `backup:list`, `backup:remote`, `backup:restore` — pre-deploy safety, not voxel-builder.
 - **Core** (`core:*`): `core:update`, `core:version` — WP core management.
 - **Remote** (`remote:*`): `remote:add`, `remote:edit`, `remote:list`, `remote:remove`, `remote:sql`, `remote:ssh`, `remote:wp`, `remote:tunnel`, `remote:sync:push`, `remote:sync:pull` — deploy / SSH territory.
-- **Uploads / Valet / Settings / Post-import**: `uploads:migrate`, `valet:webp`, `settings:dump`, `settings:pull`, `post-import` — operational tooling.
-- **Scrum** (`scrum:*`): `scrum:install`, `scrum:new`, `scrum:discover`, `scrum:run`, `scrum:audit`, `scrum:review`, `scrum:fix`, `scrum:status`, `scrum:close`, `scrum:write-result` — separate content-review workflow with its own skill.
+- **Uploads / Media / Settings / Post-import**: `uploads:migrate`, `media:prune`, `media:unused`, `settings:dump`, `settings:pull`, `post-import` — operational tooling. WebP backfill lives in `media:prune` (`--no-webp` opts out); there is no `valet:*` namespace, and Valet is not installed on this Linux host.
+- **Scrum** (`scrum:*`): no longer exists. The namespace was removed from the CLI; `scrum` appears nowhere in `cli/src`. Do not reference it.
 
 ## Coverage summary (post audit)
 
@@ -187,7 +203,7 @@ These wpdev namespaces are out of the voxel-builder mission entirely — listed 
 - `elementor:strip:*`: **2 surfaced** (`styles`, `wrappers`).
 - `elementor:reset:*`: 1 deferred (`button-variants`).
 - `elementor:revisions:*`: **2 surfaced** (both).
-- `elementor:fix:*`: **1 surfaced** (unicode).
+- Encoding repair: **1 surfaced** (`db:encoding`; retired `elementor:fix:unicode` is historical context only).
 - `audit*`: 1 surfaced, 2 deferred.
 - `schema:*`: 4 surfaced, 4 deferred/out-of-scope.
 - `rebuild --only *` / `smoke`: 1 surfaced, 1 deferred.

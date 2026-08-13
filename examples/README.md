@@ -8,7 +8,7 @@ The EF widgets (`ef-card`, `ef-wrapper`) are included here only as convenience t
 
 | File | Widget | `elType` / `widgetType` | Source post id (`<site>`) | Role |
 |---|---|---|---|---|
-| `ef-card.json` | `ef-card` | `elType: "ef-card"` (atomic element — NO `widgetType`) | `<post_id>` (Single post template) | EF V4 atomic card — byline avatar, dynamic h1, tags row. Convenience starting tree; SSOT is `widget-schemas.json`. |
+| `ef-card.json` | `ef-card` | `elType: "ef-card"` (atomic element — NO `widgetType`) | `<post_id>` (Single post template) | EF V4 atomic card — heading row with inline media, dynamic h1, tags row. Convenience starting tree; SSOT is `widget-schemas.json`. |
 | `ef-wrapper.json` | `ef-wrapper` | `elType: "ef-wrapper"` | `<post_id>` (Single post template) | EF V4 atomic top-level `<main>` wrapper envelope. Convenience starting tree; SSOT is `widget-schemas.json`. |
 | `ts-create-post.json` | `ts-create-post` | `widgetType: "ts-create-post"` (Voxel theme) | `<post_id>` (Edit profile) | Voxel-theme submission/edit form — no schema introspection; this dump IS the canonical shape reference. |
 | `ts-post-feed.json` | `ts-post-feed` | `widgetType: "ts-post-feed"` (Voxel theme) | `<post_id>` (Archive template) | Voxel-theme post-feed widget — no schema introspection; this dump IS the canonical shape reference. |

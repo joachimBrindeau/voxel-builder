@@ -19,13 +19,13 @@ The command supports four variants (size is a scaffold recipe in `cli/src/utils/
 | Variant | Shape | Use case |
 |---|---|---|
 | `small` | Real logo + linked title + `heading`/`span` summary (`@post(hook)` when the CPT has a hook field, else native `@post(excerpt)`); never rich text | Compact grid items, search results |
-| `medium` | Horizontal logo + linked title + `heading`/`span` summary (hook-or-excerpt) + author byline; never rich text | Mid-density list rows |
-| `large` | Vertical cover + logo + linked title + `heading`/`span` excerpt + author byline + gated hierarchy pills | Hero feeds, archive top-of-fold |
+| `medium` | Horizontal logo + linked title + `heading`/`span` summary (hook-or-excerpt) + author line; never rich text | Mid-density list rows |
+| `large` | Vertical cover + logo + linked title + `heading`/`span` excerpt + author line + gated hierarchy pills | Hero feeds, archive top-of-fold |
 | `link` | One transparent linked `heading`/`span` title with icon; no excerpt or secondary row | Related-post lists, hierarchy/breadcrumb references |
 
 **Logo rule.** The logo binds to a real logo field only — a field labelled "logo", else a `profile-avatar` field (profile CPTs). If the CPT has neither, the card carries NO logo. The featured image is NEVER used as a logo; it is only the `large` card's cover/media slot. So a CPT like `video` (no logo field) renders logo-less cards, with the featured image appearing solely as the large-card cover.
 
-The byline is the **author** — `@author(display_name)` + `@post(date)` + `@author(avatar)` (avatar is the bare attachment id, no `.id`; `@post(author.*)` resolves EMPTY). Because cards render in same-parent loops, only `hierarchy-children` differs per card, so it is the only hierarchy field bound on a card body — see [`../voxel/voxel-field-inventory.md`](../voxel/voxel-field-inventory.md) §Always-present fields. No variant ships a default `ts_actions` strip; add meaningful actions with [`card-actions.md`](../../workflows/card-actions.md).
+The author line is one `kind: heading` row — `text: @author(display_name)`, `subtitle: @post(date)`, `inline_type: image` + `inline_image: @author(avatar)` (avatar is the bare attachment id, no `.id`; `@post(author.*)` resolves EMPTY). Set `tag: span`: the heading kind defaults to `h3`, and an author name is not an outline entry. Because cards render in same-parent loops, only `hierarchy-children` differs per card, so it is the only hierarchy field bound on a card body — see [`../voxel/voxel-field-inventory.md`](../voxel/voxel-field-inventory.md) §Always-present fields. No variant ships a default `ts_actions` strip; add meaningful actions with [`card-actions.md`](../../workflows/card-actions.md).
 
 The command:
 - Creates `{key}-small` / `{key}-medium` / `{key}-large` / `{key}-link` Elementor templates.
@@ -70,15 +70,14 @@ If different card content is needed, run `voxel:cards` first to register the tem
 
 ## Authoring `content_blocks`
 
-`ef-card` is one composite widget. Headings, prose, bylines, separators, accordions,
+`ef-card` is one composite widget. Headings, prose, separators, accordions,
 tags, data rows, tag groups, calendars, and tables of contents are **content rows** in
 ordered `settings.content_blocks`; they are not separate widgets. Current row kinds:
 
 | `kind` | Use | Core cells to inspect in schema | Verify |
 |---|---|---|---|
-| `heading` | Semantic heading or text line | `text`, `tag`, `style`; optional row action | Heading level matches page outline |
+| `heading` | Semantic heading, text line, or two-line block with inline media (absorbed the former `byline`) | `text`, `subtitle`, `tag`, `style`, `inline_*`; optional row action | Heading level matches page outline; `tag` set explicitly (defaults to `h3`) |
 | `rich_text` | Formatted body | `body` | Prose renders, no invented heading widget |
-| `byline` | Author/date/detail | `byline_primary`, `byline_secondary`, `byline_avatar_*`; optional row action | Dynamic tags resolve on representative post |
 | `separator` | Decorative divider | `separator_variant`, `separator_spacing`, `separator_color` | Divider has no content/action role |
 | `accordion` | Collapsible heading + body | `text`, `tag`, `style`, `body`, `accordion_variant`, `accordion_open` | Summary toggles; no row action |
 | `tag` | One pill tag | `text`, `variant`, `icon`, `group`; optional row action | Group name matches a `group` row when grouped |

@@ -23,7 +23,7 @@ Reusable page parts (heroes, feature rows, etc.), many per page.
 | features-services-grid | features | features, services, grid, cards, expertise | ef-wrapper, ef-card | — | — |
 | content-media-split | content | content, media, split, image, text | ef-wrapper, ef-card | — | — |
 | steps-how-it-works | steps | steps, process, how-it-works, timeline, cards | ef-wrapper, ef-card | — | — |
-| testimonials-loop-feed | testimonials | testimonials, loop, feed, reviews, byline | ef-wrapper, ef-card | — | — |
+| testimonials-loop-feed | testimonials | testimonials, loop, feed, reviews, subtitle | ef-wrapper, ef-card | — | — |
 | locations-map-feed | locations | locations, geo, map, loop, feed | ef-wrapper, ef-card | `@post(slug)` | — |
 | posts-latest-feed | feed | feed, posts, blog, loop, articles | ef-wrapper, ef-card | — | — |
 | faq-accordion | faq | faq, accordion, questions, support | ef-wrapper, ef-card | — | — |

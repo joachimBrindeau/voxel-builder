@@ -2,7 +2,7 @@ id: testimonials-loop-feed
 scope: section
 type: testimonials
 name: "Testimonials loop feed"
-tags: [testimonials, loop, feed, reviews, byline]
+tags: [testimonials, loop, feed, reviews, subtitle]
 widgets: [ef-wrapper, ef-card]
 dtags_used: []
 requires_plugins:

@@ -337,14 +337,6 @@
                         "$$type": "boolean",
                         "value": false
                       },
-                      "byline_primary": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "byline_secondary": {
-                        "$$type": "string",
-                        "value": ""
-                      },
                       "separator_variant": {
                         "$$type": "string",
                         "value": "full"
@@ -393,43 +385,6 @@
                       "type": {
                         "$$type": "string",
                         "value": "action_link"
-                      },
-                      "byline_avatar_enabled": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "byline_avatar_type": {
-                        "$$type": "string",
-                        "value": "image"
-                      },
-                      "byline_avatar_image": {
-                        "$$type": "image",
-                        "value": []
-                      },
-                      "byline_avatar_image_alt": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "byline_avatar_video_url": {
-                        "$$type": "ef-source-value",
-                        "value": {
-                          "source": {
-                            "$$type": "string",
-                            "value": "custom"
-                          },
-                          "value": {
-                            "$$type": "string",
-                            "value": ""
-                          }
-                        }
-                      },
-                      "byline_avatar_icon": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "byline_avatar_fit": {
-                        "$$type": "string",
-                        "value": "cover"
                       },
                       "link": {
                         "$$type": "ef-source-value",
@@ -1844,14 +1799,6 @@
                             "$$type": "boolean",
                             "value": false
                           },
-                          "byline_primary": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_secondary": {
-                            "$$type": "string",
-                            "value": ""
-                          },
                           "separator_variant": {
                             "$$type": "string",
                             "value": "full"
@@ -1900,43 +1847,6 @@
                           "type": {
                             "$$type": "string",
                             "value": ""
-                          },
-                          "byline_avatar_enabled": {
-                            "$$type": "boolean",
-                            "value": false
-                          },
-                          "byline_avatar_type": {
-                            "$$type": "string",
-                            "value": "image"
-                          },
-                          "byline_avatar_image": {
-                            "$$type": "image",
-                            "value": []
-                          },
-                          "byline_avatar_image_alt": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_avatar_video_url": {
-                            "$$type": "ef-source-value",
-                            "value": {
-                              "source": {
-                                "$$type": "string",
-                                "value": "custom"
-                              },
-                              "value": {
-                                "$$type": "string",
-                                "value": ""
-                              }
-                            }
-                          },
-                          "byline_avatar_icon": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_avatar_fit": {
-                            "$$type": "string",
-                            "value": "cover"
                           },
                           "link": {
                             "$$type": "ef-source-value",
@@ -2121,14 +2031,6 @@
                             "$$type": "boolean",
                             "value": false
                           },
-                          "byline_primary": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_secondary": {
-                            "$$type": "string",
-                            "value": ""
-                          },
                           "separator_variant": {
                             "$$type": "string",
                             "value": "full"
@@ -2177,43 +2079,6 @@
                           "type": {
                             "$$type": "string",
                             "value": "action_link"
-                          },
-                          "byline_avatar_enabled": {
-                            "$$type": "boolean",
-                            "value": false
-                          },
-                          "byline_avatar_type": {
-                            "$$type": "string",
-                            "value": "image"
-                          },
-                          "byline_avatar_image": {
-                            "$$type": "image",
-                            "value": []
-                          },
-                          "byline_avatar_image_alt": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_avatar_video_url": {
-                            "$$type": "ef-source-value",
-                            "value": {
-                              "source": {
-                                "$$type": "string",
-                                "value": "custom"
-                              },
-                              "value": {
-                                "$$type": "string",
-                                "value": ""
-                              }
-                            }
-                          },
-                          "byline_avatar_icon": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "byline_avatar_fit": {
-                            "$$type": "string",
-                            "value": "cover"
                           },
                           "link": {
                             "$$type": "ef-source-value",

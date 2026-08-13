@@ -15,7 +15,8 @@ workspace source and command registry on 2026-07-10.
 
 Widgets compose parts; parts compose parts/primitives; primitives are leaves. Use `$part`
 and `$primitive` only. Prop shape and editor control belong in the same schema declaration.
-`responsive`, `dynamic`, and `loopable` are modifiers, not parallel primitive families.
+`responsive` and `dynamic` are prop modifiers, not parallel primitive families. Repeater-row
+loop topology belongs to the row Part's `$envelope` declaration.
 Current generated filenames come from `wpdev elementor:codegen`; do not copy older
 `widget-defaults.ts`/`widget-builders.ts`/`widget-validators.ts` inventories from incidents.
 

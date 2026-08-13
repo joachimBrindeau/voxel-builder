@@ -112,6 +112,54 @@ words (de, des, du, le, la, les, et, ou, à, au, aux, en, par, pour, sur…).
 For a concise real-world bulk range audit + SQL verification pattern, see
 [`lean-seo-excerpt-bulk-range-audit.md`](lean-seo-excerpt-bulk-range-audit.md).
 
+### 3a. Anti-vacuous gate — length compliance is NOT quality
+
+A description can pass every length/format check and still be worthless. The failure mode
+is **self-referential filler**: copy that describes the *taxonomy or CPT mechanism* instead
+of the thing itself.
+
+```text
+BAD  Houshun is a tea cultivar in the Uji grouping, identifying matcha products that are
+     categorized according to their named tea cultivar.        # 131 chars, one sentence, passes every mechanical gate
+GOOD Houshun is a Kyoto cultivar bred from Samidori seedlings and registered in 2006,
+     prized for early budding, large soft leaves, and rich umami.
+```
+
+**Root cause, and the rule that prevents it:** this happens when the authoring packet
+forbids outside facts *and* ships no real evidence — the model has nothing true to say, so
+it paraphrases the field's own purpose. Terms with an empty prior description are the
+highest-risk group, and an empty source field is **not** proof that no evidence exists.
+Before authoring, resolve each record's real evidence: on a `%description%`/destination-post
+setup the linked canonical post body usually already contains the breeders, dates, and
+characteristics you need (see the resolver section above). Author from that body; only fall
+back to well-established general knowledge, and never invent a date, breeder, or number.
+
+Add these as **hard rejects** in the validation gate, alongside the length band, and feed the
+matched pattern back to the model on retry:
+
+```python
+VACUOUS = [
+ r'\bin this taxonomy\b', r'\bused to (classify|organize|group|categorize|identify|distinguish)\b',
+ r'\bidentif(y|ies|ying)\b[^.]*\bproducts\b', r'\baccording to (their|its) named\b',
+ r'\bhelping shoppers find\b', r'\bthe named (certification|cultivar|standard|term)\b',
+ r'\bindicat(es|ing) that they are associated with\b', r'\bcategorized according to\b',
+ r'\brepresented in the .* taxonomy\b', r'\blisted (within|under) the\b',
+ r'\bis a (product )?(category|grouping)\b', r'\bbrands may use\b', r'\bfor shoppers seeking\b',
+]
+```
+
+Two checks that catch what regexes miss:
+
+- **Circularity** — if the sentence restates the term's own field name as its defining fact
+  (`X is a cultivar … of cultivar X`), reject it. Say what distinguishes X from its siblings;
+  pass sibling names in the packet so the model can differentiate.
+- **Fact provenance** — after generation, extract every year/proper noun and confirm it
+  appears in the supplied evidence. Anything unsupported is either verified general knowledge
+  or a rejection; never ship it unchecked.
+
+Run this gate over the **whole** corpus, not just records you suspect. A narrower first pass
+under-reported the affected set by a third here; the tightened gate found the rest.
+
 ### 3b. Concurrent LLM generation via 9router (context-aware, not regex cleanup)
 
 When the user wants *rewritten* descriptions "based on page context" (not just marker-stripping),

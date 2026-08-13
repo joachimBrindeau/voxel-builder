@@ -40,6 +40,21 @@ When a single post of CPT `<key>` is rendered, Voxel resolves the `single` templ
 
 The `archive` and `form` roles follow the same custom_templates → templates fallback. `form` rarely uses custom_templates.
 
+### An assigned archive template can still be INERT
+
+`archive.php` resolves the CPT and calls `Post_Type::has_archive_page()`, which requires the
+assigned document to pass `is_built_with_elementor()`. A template that is assigned but EMPTY
+(0-byte `_elementor_data`) fails that check, so Voxel silently falls through to
+`templates/defaults/archive.php`. Auditing "is a template id assigned?" is therefore not
+enough — always check the stored BYTE LENGTH of `_elementor_data` for the resolved id, and
+re-read `has_archive_page()` after writing to prove the gate flipped.
+
+`print_archive_template()` renders the document standalone via
+`get_builder_content_for_display()` and NEVER runs the WordPress loop. A Voxel archive template
+is a page layout, not a loop template: the main query still runs, but nothing in the template
+reads it. Listing posts is entirely the loop/feed widget’s job, which is why an archive with a
+layout but no configured loop renders an empty shell rather than a default post list.
+
 ## Template resolution — preview cards
 
 When a post is rendered as a card inside `ts-post-feed` / `ts-term-feed`:

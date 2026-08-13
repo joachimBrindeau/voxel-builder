@@ -49,14 +49,18 @@ PY
 
 Remove failed/old app passwords after the working one is verified.
 
-## OLS / OrbStack vs Valet pitfall
+## Which server actually serves the site
 
-On wpdev local sites, `valet which` may report a WordPressValetDriver while actual traffic is OrbStack → OpenLiteSpeed. Check real listeners and containers:
+This host is Linux, and Valet is not installed: any instruction to run `valet which` is retired-laptop guidance, and `command -v valet` returns nothing. Traffic goes edge `:443` → the `wpdev-ols` OpenLiteSpeed container, which bind-mounts this workspace directly.
+
+The trap when checking: **this host runs two Docker daemons.** The agent account's default context is the rootless daemon, which owns only throwaway QA and browser-test containers. `wpdev-ols` lives on the **root** daemon, so a bare `docker ps` lists zero matches for it and reads convincingly as "the server is not running". Always use `sudo docker`:
 
 ```bash
-docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}'
-lsof -nP -iTCP:443 -sTCP:LISTEN | head
+sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}'
+sudo docker inspect wpdev-ols --format '{{range .Mounts}}{{.Source}} -> {{.Destination}}{{"\n"}}{{end}}'
 ```
+
+Prove a site is up over its canonical port-free URL only (`curl -skI https://<site>.test/`). Never probe `:8443`/`:8088`: those are private origin ports, firewall-blocked to the agent account, so a refusal there is the firewall working and proves nothing.
 
 For `wpdev-ols`, OLS vhost configs live in:
 
