@@ -34,22 +34,30 @@ Run `wpdev voxel:archives <site> --verify` to assert both, plus registration, da
 and published-post count, for every eligible CPT. It writes nothing and exits non-zero on any
 failure, so it is the gate to cite — do not write a throwaway render probe.
 
-## The Card A Loop Actually Renders
+## The Card An Archive Loop Actually Renders
 
-An archive loop renders the CPT's **primary** card (`templates.card`), not the sized entries in
-`custom_templates.card[]`. Those two can disagree, and when they do the failure is silent: the
-per-size audit reads fully green while `templates.card` points at an empty or deleted document,
-so every result renders as blank markup inside a correctly-built grid. A live archive returning
-HTTP 200 with an empty results `section` is this bug, not a query or routing fault.
+The canonical `voxel:archives` EF loop carries an explicit `template_id`; it does **not**
+implicitly render `templates.card`. The command selects a live card in this order: a registered
+card whose label contains `medium`, then the CPT's primary card (`templates.card`), then the
+first surviving registered card. It writes that selected id into the archive document, so the
+selection stays fixed until the archive is rebuilt.
 
-`wpdev voxel:cards <site> --audit` reports both halves — the sized slots and a "Primary card
+This creates two related but distinct failure classes:
+
+1. A generated archive can point at an empty/deleted card and render blank result markup even
+   when its grid and query are correct. Re-run `wpdev voxel:archives <site> --force` after card
+   repair so the archive receives the current selected card id.
+2. Voxel feeds without an explicit feed-level/card-template override still fall back to the
+   CPT's primary card. A dangling or empty `templates.card` can therefore break other feeds even
+   when a generated archive uses a healthy explicit card.
+
+`wpdev voxel:cards <site> --audit` reports both the sized registry and the "Primary card
 defects" table. Voxel auto-creates an empty `<CPT>: Preview card` placeholder when a CPT is
-created; if nobody ever designs it, it stays empty and silently breaks every feed and archive
-for that CPT. Repair by scaffolding the sized cards (`voxel:cards <site> --type=<cpt>`), which
-also normalizes `templates.card` to the large variant — the convention every CPT here follows.
-Then rebuild the archive with `--force` so its loop picks up the new card id.
+created; if nobody designs it, it can remain an inert default. Repair by scaffolding the sized
+cards (`voxel:cards <site> --type=<cpt>`), which also normalizes `templates.card` to the large
+variant, then rebuild generated archives with `--force`.
 
-Clean up the dead placeholder through `wpdev voxel:templates <site> --incomplete` (which lists
+Clean up dead placeholders through `wpdev voxel:templates <site> --incomplete` (which lists
 empty-but-bound documents) and `--prune` (which trashes marked templates and strips dangling
 option pointers). Do not hand-delete posts or hand-edit the registry.
 

@@ -1,8 +1,14 @@
 ---
 name: voxel-builder
-description: "Build, audit, migrate, repair, curate, clean, and verify WordPress sites that use Voxel and Elementor Framework. Use for Voxel CPT configuration, entity data, templates, archives, search, database cleanup, WordPress admin-menu organization, and runtime issues; complete best-matcha.com Organization profiles; Elementor Framework V4 data and widgets; source-supported FAQ, visible-copy, and imported-video editorial backfill; CPT-agnostic sameAs identity research and population with Wikipedia, Wikidata, or official profiles; SEO/featured/hero/OG images; lean-seo output; and Voxel/Elementor performance work through wpdev, LiteSpeed, generated assets, or source fixes. Also use for EF frontend-runtime defects such as broken scrolling, trapped carousel gestures, frozen or mispositioned overlays, empty widgets, and the plugin-load, autoload, or PHP-vs-TS codegen divergences behind them. Trigger when a request names Voxel, Elementor Framework, EF V4, Voxel CPTs, matcha brand or Organization profiling, sameAs or knowledge-graph identity links, database cleanup/orphans/autoload/revisions, video content backfill, lean-admin, lean-seo, or a Voxel/EF page that scrolls, snaps, hovers, or renders incorrectly. Not for generic WordPress or SEO work without Voxel/Elementor Framework, or for non-WordPress projects."
-allowed-tools: Bash Read Write Glob Grep AskUserQuestion Task TaskCreate TaskList TaskUpdate TodoRead TodoWrite
+description: Build and verify Voxel sites with Elementor Framework.
+version: 1.0.0
+author: Joachim Brindeau (joachimBrindeau), Hermes Agent
 license: MIT
+platforms: [linux, macos]
+metadata:
+  hermes:
+    tags: [WordPress, Voxel, Elementor, Automation]
+    related_skills: [wp-plugin-development, wp-qa-dogfood]
 ---
 
 # Voxel Builder

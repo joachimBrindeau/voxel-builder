@@ -19,6 +19,14 @@ jobs:
         run: git show --check --format= HEAD
       - name: Validate skill structure and data contracts
         run: |
+          python3 scripts/test-skill-contract.py
+          sh scripts/test-lib.sh
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          paths = [str(path) for path in sorted(Path("templates").rglob("template.json"))]
+          subprocess.run(["python3", "scripts/migrate-template-content-rows.py", "--check", *paths], check=True)
+          PY
           python3 scripts/lint-workflow-structure.py
           python3 scripts/check-field-metadata-contract.py
           python3 scripts/test-field-metadata-run-validator.py

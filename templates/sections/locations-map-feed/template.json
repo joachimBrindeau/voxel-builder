@@ -188,7 +188,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -201,6 +201,10 @@
                 "style": {
                   "$$type": "string",
                   "value": ""
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             }

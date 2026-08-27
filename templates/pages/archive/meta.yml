@@ -1,8 +1,8 @@
 id: archive
 scope: page
 type: archive
-name: "Voxel CPT search archive"
-tags: [archive, search, results, cpt, voxel]
+name: "Legacy page-backed Voxel search archive"
+tags: [archive, search, results, cpt, voxel, legacy]
 widgets: [ef-wrapper, ef-card, ts-search-form, ts-post-feed]
 dtags_used:
   - "@tags()@post(parent.title)@endtags()"
@@ -10,5 +10,5 @@ dtags_used:
 requires_plugins:
   - elementor-framework
   - voxel
-source_note: "Canonical hierarchy-driven CPT archive page. Replace every __POST_TYPE__ token, including JSON object keys, with target Voxel CPT key before import. Use as a child of the Search page. Keep Voxel archive template assignment empty."
+source_note: "Legacy page-backed search/archive starter retained for existing surfaces that explicitly preserve ts-search-form and ts-post-feed behavior. Replace every __POST_TYPE__ token, including JSON object keys, with the target Voxel CPT key before import. Use as a child of the Search page and keep the native Voxel archive assignment empty. For a new native CPT archive, use wpdev voxel:archives instead; its generated EF query-backed document is the canonical SSOT."
 breakpoints: [desktop, tablet, mobile]

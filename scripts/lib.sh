@@ -6,8 +6,16 @@
 # Resolve the wpdev source checkout without assuming the caller's CWD. Callers
 # may override discovery with WPDEV_ROOT when wpdev is installed out of tree.
 find_wpdev_root() {
-  if [ -n "${WPDEV_ROOT:-}" ] && [ -f "$WPDEV_ROOT/cli/src/index.ts" ]; then
-    printf "%s" "$WPDEV_ROOT"
+  # An explicit WPDEV_ROOT is authoritative. It lets CI and external skill
+  # checkouts validate against the workspace whose generated schemas they
+  # document, without depending on a possibly stale global `wpdev` shim.
+  if [ -n "${WPDEV_ROOT:-}" ] && [ -x "$WPDEV_ROOT/wpdev" ]; then
+    printf '%s\n' "$WPDEV_ROOT"
+    return 0
+  fi
+
+  if [ -n "${WPDEV_SOURCE_ROOT:-}" ] && [ -f "$WPDEV_SOURCE_ROOT/cli/src/index.ts" ]; then
+    printf '%s\n' "$WPDEV_SOURCE_ROOT"
     return 0
   fi
 

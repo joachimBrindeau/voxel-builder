@@ -38,6 +38,35 @@ heading "Skill size"
 n=$(wc -l < SKILL.md | tr -d ' ')
 if [ "$n" -lt 500 ]; then pass "SKILL.md is $n lines (<500)"; else fail "SKILL.md is $n lines (must be <500)"; fi
 
+heading "Skill contract"
+if python3 scripts/test-skill-contract.py; then
+  pass "SKILL.md frontmatter and router contract"
+else
+  fail "SKILL.md frontmatter or router contract"
+fi
+
+heading "Shared script helpers"
+if sh scripts/test-lib.sh; then
+  pass "wpdev root-discovery overrides"
+else
+  fail "wpdev root-discovery overrides"
+fi
+
+if template_paths=$(python3 - <<'PY'
+from pathlib import Path
+print("\n".join(str(path) for path in sorted(Path("templates").rglob("template.json"))))
+PY
+); then
+  # shellcheck disable=SC2086
+  if [ -n "$template_paths" ] && python3 scripts/migrate-template-content-rows.py --check $template_paths; then
+    pass "stored templates use canonical content-row kinds"
+  else
+    fail "stored templates retain legacy content-row kinds"
+  fi
+else
+  fail "could not enumerate stored templates"
+fi
+
 # --- 3. No hardcoded absolute paths -----------------------------------------
 heading "No hardcoded absolute paths"
 abs=$(grep -rnE '/(Users|home)/[a-zA-Z]' --include='*.md' . 2>/dev/null | grep -v CHANGELOG.md)

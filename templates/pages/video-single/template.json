@@ -292,7 +292,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "tag"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -528,6 +528,14 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "pill"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "action"
                       }
                     }
                   },
@@ -536,7 +544,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -549,6 +557,10 @@
                       "style": {
                         "$$type": "string",
                         "value": ""
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -556,12 +568,24 @@
                     "$$type": "ef-content-block-row",
                     "value": {
                       "kind": {
+                        "$$type": "string",
+                        "value": "text"
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
+                        "$$type": "string",
+                        "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "tag": {
                         "$$type": "string",
                         "value": "rich_text"
                       },
-                      "body": {
+                      "modifiers": {
                         "$$type": "string",
-                        "value": "Lorem ipsum dolor sit amet"
+                        "value": "rich_text"
                       }
                     }
                   },
@@ -570,7 +594,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "type": {
                         "$$type": "string",
@@ -593,15 +617,23 @@
                         "$$type": "string",
                         "value": "__AUTHOR_NAME_RAW_TAG__"
                       },
-                      "subtitle": {
+                      "tag": {
+                        "$$type": "string",
+                        "value": "span"
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "description": {
                         "$$type": "string",
                         "value": "__AUTHOR_JOB_RAW_TAG__"
                       },
-                      "inline_type": {
+                      "media_type": {
                         "$$type": "string",
                         "value": "image"
                       },
-                      "inline_image": {
+                      "media_image": {
                         "$$type": "image",
                         "value": {
                           "src": {
@@ -620,9 +652,26 @@
                           }
                         }
                       },
-                      "tag": {
+                      "media_position": {
+                        "$$type": "ef-responsive-string",
+                        "value": {
+                          "desktop": {
+                            "$$type": "string",
+                            "value": "inline"
+                          },
+                          "tablet": {
+                            "$$type": "string",
+                            "value": "inline"
+                          },
+                          "mobile": {
+                            "$$type": "string",
+                            "value": "inline"
+                          }
+                        }
+                      },
+                      "modifiers": {
                         "$$type": "string",
-                        "value": "span"
+                        "value": "subtitle,media"
                       }
                     }
                   }
@@ -861,7 +910,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -878,6 +927,10 @@
                       "icon": {
                         "$$type": "string",
                         "value": "ph:ph ph-user-focus"
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -886,11 +939,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   },
@@ -912,10 +977,6 @@
                       "toc_variant": {
                         "$$type": "string",
                         "value": "transparent"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "icon": {
                         "$$type": "string",
@@ -1319,7 +1380,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -1340,10 +1401,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "icon": {
                         "$$type": "string",
@@ -1563,6 +1620,10 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -1571,7 +1632,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -1592,10 +1653,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "icon": {
                         "$$type": "string",
@@ -1815,6 +1872,10 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -1823,7 +1884,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "datafield"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -1831,7 +1892,7 @@
                       },
                       "text": {
                         "$$type": "string",
-                        "value": ""
+                        "value": "__VIDEO_DURATION_TAG__"
                       },
                       "toc_variant": {
                         "$$type": "string",
@@ -1844,14 +1905,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "group": {
                         "$$type": "string",
@@ -1888,14 +1941,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "datafield_label": {
-                        "$$type": "string",
-                        "value": "Duration"
-                      },
-                      "datafield_value": {
-                        "$$type": "string",
-                        "value": "__VIDEO_DURATION_TAG__"
                       },
                       "separator_variant": {
                         "$$type": "string",
@@ -2067,6 +2112,18 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Duration"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
                       }
                     }
                   },
@@ -2075,80 +2132,64 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "datafield"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
                         "value": "transparent"
                       },
                       "text": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
-                      "toc_scope": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_max_heading": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_name": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_over_media": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "group_visible_rows": {
-                        "$$type": "number",
-                        "value": 1
-                      },
-                      "group_overflow_suffix": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "tag": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "style": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "body": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "accordion_open": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "datafield_label": {
-                        "$$type": "string",
-                        "value": "Statistiques"
-                      },
-                      "datafield_value": {
                         "$$type": "string",
                         "value": "__VIDEO_STATS_TAG__"
                       },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
                       "separator_variant": {
                         "$$type": "string",
                         "value": "full"
@@ -2319,6 +2360,18 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Statistiques"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
                       }
                     }
                   },
@@ -2327,80 +2380,64 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "datafield"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
                         "value": "transparent"
                       },
                       "text": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
-                      "toc_scope": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_max_heading": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_name": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_over_media": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "group_visible_rows": {
-                        "$$type": "number",
-                        "value": 1
-                      },
-                      "group_overflow_suffix": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "tag": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "style": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "body": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "accordion_open": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "datafield_label": {
-                        "$$type": "string",
-                        "value": "Duration"
-                      },
-                      "datafield_value": {
                         "$$type": "string",
                         "value": "__VIDEO_DURATION_TAG__"
                       },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
                       "separator_variant": {
                         "$$type": "string",
                         "value": "full"
@@ -2571,6 +2608,18 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Duration"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
                       }
                     }
                   },
@@ -2579,7 +2628,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "datafield"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -2587,7 +2636,7 @@
                       },
                       "text": {
                         "$$type": "string",
-                        "value": ""
+                        "value": "Lorem ipsum"
                       },
                       "toc_variant": {
                         "$$type": "string",
@@ -2600,14 +2649,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "group": {
                         "$$type": "string",
@@ -2644,14 +2685,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "datafield_label": {
-                        "$$type": "string",
-                        "value": "Lien"
-                      },
-                      "datafield_value": {
-                        "$$type": "string",
-                        "value": "Lorem ipsum"
                       },
                       "separator_variant": {
                         "$$type": "string",
@@ -2823,6 +2856,18 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Lien"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
                       }
                     }
                   },
@@ -2831,268 +2876,16 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "datafield"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
                         "value": "transparent"
                       },
                       "text": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
-                      "toc_scope": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toc_max_heading": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_name": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "group_over_media": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "group_visible_rows": {
-                        "$$type": "number",
-                        "value": 1
-                      },
-                      "group_overflow_suffix": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "tag": {
-                        "$$type": "string",
-                        "value": "h3"
-                      },
-                      "style": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "body": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "accordion_open": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "datafield_label": {
-                        "$$type": "string",
-                        "value": "Published"
-                      },
-                      "datafield_value": {
                         "$$type": "string",
                         "value": "__DATE_CREATED_TAG__"
                       },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
-                      },
-                      "separator_spacing": {
-                        "$$type": "string",
-                        "value": "m"
-                      },
-                      "separator_color": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "calendar_url": {
-                        "$$type": "ef-source-value",
-                        "value": {
-                          "source": {
-                            "$$type": "string",
-                            "value": "custom"
-                          },
-                          "value": {
-                            "$$type": "string",
-                            "value": ""
-                          }
-                        }
-                      },
-                      "layout": {
-                        "$$type": "string",
-                        "value": "week_view"
-                      },
-                      "theme": {
-                        "$$type": "string",
-                        "value": "light"
-                      },
-                      "brand_color": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "hide_event_details": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "slots_view_mobile": {
-                        "$$type": "boolean",
-                        "value": false
-                      },
-                      "type": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "link": {
-                        "$$type": "ef-source-value",
-                        "value": {
-                          "source": {
-                            "$$type": "string",
-                            "value": "custom"
-                          },
-                          "value": {
-                            "$$type": "string",
-                            "value": ""
-                          }
-                        }
-                      },
-                      "address": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "phone": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "email": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "modal_id": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "scroll_to": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_start_date": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_end_date": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_title": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_desc": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_location": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "cal_url": {
-                        "$$type": "ef-source-value",
-                        "value": {
-                          "source": {
-                            "$$type": "string",
-                            "value": "custom"
-                          },
-                          "value": {
-                            "$$type": "string",
-                            "value": ""
-                          }
-                        }
-                      },
-                      "cart_text": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "menu": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "vote_field_key": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon_active": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "label_active": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "toast_message": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "_vx_loop": {
-                        "$$type": "vx-loop",
-                        "value": {
-                          "tag": "",
-                          "limit": null,
-                          "offset": null
-                        }
-                      },
-                      "_vx_visibility": {
-                        "$$type": "vx-visibility",
-                        "value": {
-                          "behavior": "show",
-                          "rules": []
-                        }
-                      },
-                      "_ef_loop_query": {
-                        "$$type": "ef-loop-query",
-                        "value": {
-                          "post_type": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "order": {
-                            "$$type": "string",
-                            "value": ""
-                          },
-                          "search_form": {
-                            "$$type": "string",
-                            "value": ""
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "$$type": "ef-content-block-row",
-                    "value": {
-                      "kind": {
-                        "$$type": "string",
-                        "value": "datafield"
-                      },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
-                      "text": {
-                        "$$type": "string",
-                        "value": ""
-                      },
                       "toc_variant": {
                         "$$type": "string",
                         "value": "transparent"
@@ -3104,14 +2897,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": ""
-                      },
-                      "icon": {
-                        "$$type": "string",
-                        "value": ""
                       },
                       "group": {
                         "$$type": "string",
@@ -3149,13 +2934,253 @@
                         "$$type": "boolean",
                         "value": false
                       },
-                      "datafield_label": {
+                      "separator_variant": {
                         "$$type": "string",
-                        "value": "Updated"
+                        "value": "full"
                       },
-                      "datafield_value": {
+                      "separator_spacing": {
+                        "$$type": "string",
+                        "value": "m"
+                      },
+                      "separator_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "calendar_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "layout": {
+                        "$$type": "string",
+                        "value": "week_view"
+                      },
+                      "theme": {
+                        "$$type": "string",
+                        "value": "light"
+                      },
+                      "brand_color": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "hide_event_details": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "slots_view_mobile": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "type": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "link": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "address": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "phone": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "email": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "modal_id": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "scroll_to": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_start_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_end_date": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_title": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_desc": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_location": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "cal_url": {
+                        "$$type": "ef-source-value",
+                        "value": {
+                          "source": {
+                            "$$type": "string",
+                            "value": "custom"
+                          },
+                          "value": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "cart_text": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "menu": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "vote_field_key": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "icon_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "label_active": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toast_message": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "_vx_loop": {
+                        "$$type": "vx-loop",
+                        "value": {
+                          "tag": "",
+                          "limit": null,
+                          "offset": null
+                        }
+                      },
+                      "_vx_visibility": {
+                        "$$type": "vx-visibility",
+                        "value": {
+                          "behavior": "show",
+                          "rules": []
+                        }
+                      },
+                      "_ef_loop_query": {
+                        "$$type": "ef-loop-query",
+                        "value": {
+                          "post_type": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "order": {
+                            "$$type": "string",
+                            "value": ""
+                          },
+                          "search_form": {
+                            "$$type": "string",
+                            "value": ""
+                          }
+                        }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Published"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
+                      }
+                    }
+                  },
+                  {
+                    "$$type": "ef-content-block-row",
+                    "value": {
+                      "kind": {
+                        "$$type": "string",
+                        "value": "text"
+                      },
+                      "accordion_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "__DATE_MODIFIED_TAG__"
+                      },
+                      "toc_variant": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "toc_scope": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "toc_max_heading": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "group": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_name": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "group_over_media": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "group_visible_rows": {
+                        "$$type": "number",
+                        "value": 1
+                      },
+                      "group_overflow_suffix": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "h3"
+                      },
+                      "style": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "body": {
+                        "$$type": "string",
+                        "value": ""
+                      },
+                      "accordion_open": {
+                        "$$type": "boolean",
+                        "value": false
                       },
                       "separator_variant": {
                         "$$type": "string",
@@ -3327,6 +3352,18 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "field"
+                      },
+                      "description": {
+                        "$$type": "string",
+                        "value": "Updated"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "field"
                       }
                     }
                   }
@@ -3563,7 +3600,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -3576,6 +3613,10 @@
                       "style": {
                         "$$type": "string",
                         "value": ""
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -3584,11 +3625,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -3837,7 +3890,7 @@
                         "value": {
                           "kind": {
                             "$$type": "string",
-                            "value": "heading"
+                            "value": "text"
                           },
                           "text": {
                             "$$type": "string",
@@ -3850,6 +3903,10 @@
                           "style": {
                             "$$type": "string",
                             "value": ""
+                          },
+                          "appearance": {
+                            "$$type": "string",
+                            "value": "plain"
                           }
                         }
                       },
@@ -3858,11 +3915,23 @@
                         "value": {
                           "kind": {
                             "$$type": "string",
-                            "value": "rich_text"
+                            "value": "text"
                           },
-                          "body": {
+                          "appearance": {
+                            "$$type": "string",
+                            "value": "plain"
+                          },
+                          "text": {
                             "$$type": "string",
                             "value": "Lorem ipsum dolor sit amet"
+                          },
+                          "tag": {
+                            "$$type": "string",
+                            "value": "rich_text"
+                          },
+                          "modifiers": {
+                            "$$type": "string",
+                            "value": "rich_text"
                           }
                         }
                       }
@@ -4150,7 +4219,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "tag"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -4374,6 +4443,10 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "pill"
                       }
                     }
                   },
@@ -4382,7 +4455,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -4395,6 +4468,10 @@
                       "style": {
                         "$$type": "string",
                         "value": ""
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -4403,11 +4480,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }

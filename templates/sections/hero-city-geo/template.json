@@ -215,7 +215,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "tag"
+                  "value": "text"
                 },
                 "accordion_variant": {
                   "$$type": "string",
@@ -451,6 +451,14 @@
                       "value": ""
                     }
                   }
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "pill"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "action"
                 }
               }
             },
@@ -459,7 +467,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -472,6 +480,10 @@
                 "style": {
                   "$$type": "string",
                   "value": ""
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -479,12 +491,24 @@
               "$$type": "ef-content-block-row",
               "value": {
                 "kind": {
+                  "$$type": "string",
+                  "value": "text"
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
+                  "$$type": "string",
+                  "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                },
+                "tag": {
                   "$$type": "string",
                   "value": "rich_text"
                 },
-                "body": {
+                "modifiers": {
                   "$$type": "string",
-                  "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                  "value": "rich_text"
                 }
               }
             },
@@ -493,23 +517,48 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
                   "value": "Lorem ipsum dolor"
                 },
-                "subtitle": {
-                  "$$type": "string",
-                  "value": "Lorem ipsum, dolor sit amet"
-                },
-                "inline_type": {
-                  "$$type": "string",
-                  "value": "image"
-                },
                 "tag": {
                   "$$type": "string",
                   "value": "span"
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "description": {
+                  "$$type": "string",
+                  "value": "Lorem ipsum, dolor sit amet"
+                },
+                "media_type": {
+                  "$$type": "string",
+                  "value": "image"
+                },
+                "media_position": {
+                  "$$type": "ef-responsive-string",
+                  "value": {
+                    "desktop": {
+                      "$$type": "string",
+                      "value": "inline"
+                    },
+                    "tablet": {
+                      "$$type": "string",
+                      "value": "inline"
+                    },
+                    "mobile": {
+                      "$$type": "string",
+                      "value": "inline"
+                    }
+                  }
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "subtitle,media"
                 }
               }
             }

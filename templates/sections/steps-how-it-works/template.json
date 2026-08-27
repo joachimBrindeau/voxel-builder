@@ -192,7 +192,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -205,6 +205,10 @@
                 "style": {
                   "$$type": "string",
                   "value": ""
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -213,11 +217,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }
@@ -477,7 +493,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -490,6 +506,10 @@
                 "style": {
                   "$$type": "string",
                   "value": "h4"
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -498,11 +518,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }
@@ -587,7 +619,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -600,6 +632,10 @@
                 "style": {
                   "$$type": "string",
                   "value": "h4"
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -608,11 +644,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }
@@ -697,7 +745,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -710,6 +758,10 @@
                 "style": {
                   "$$type": "string",
                   "value": ""
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -718,11 +770,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }
@@ -807,7 +871,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -820,6 +884,10 @@
                 "style": {
                   "$$type": "string",
                   "value": ""
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -828,11 +896,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }
@@ -921,7 +1001,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "text": {
                   "$$type": "string",
@@ -934,6 +1014,10 @@
                 "style": {
                   "$$type": "string",
                   "value": "h4"
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -942,11 +1026,23 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "rich_text"
+                  "value": "text"
                 },
-                "body": {
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
+                },
+                "text": {
                   "$$type": "string",
                   "value": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+                },
+                "tag": {
+                  "$$type": "string",
+                  "value": "rich_text"
+                },
+                "modifiers": {
+                  "$$type": "string",
+                  "value": "rich_text"
                 }
               }
             }

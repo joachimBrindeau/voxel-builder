@@ -254,7 +254,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "tag"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -490,6 +490,14 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "pill"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "action"
                       }
                     }
                   },
@@ -498,7 +506,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -511,6 +519,10 @@
                       "style": {
                         "$$type": "string",
                         "value": ""
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -519,9 +531,17 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
+                        "value": "text"
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "tag": {
+                        "$$type": "string",
                         "value": "rich_text"
                       },
-                      "body": {
+                      "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
                       }

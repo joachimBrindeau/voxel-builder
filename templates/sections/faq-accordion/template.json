@@ -205,7 +205,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "accordion_variant": {
                   "$$type": "string",
@@ -218,10 +218,6 @@
                 "toc_variant": {
                   "$$type": "string",
                   "value": "transparent"
-                },
-                "variant": {
-                  "$$type": "string",
-                  "value": ""
                 },
                 "icon": {
                   "$$type": "string",
@@ -433,6 +429,10 @@
                       "value": ""
                     }
                   }
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             },
@@ -441,7 +441,7 @@
               "value": {
                 "kind": {
                   "$$type": "string",
-                  "value": "heading"
+                  "value": "text"
                 },
                 "accordion_variant": {
                   "$$type": "string",
@@ -454,10 +454,6 @@
                 "toc_variant": {
                   "$$type": "string",
                   "value": "transparent"
-                },
-                "variant": {
-                  "$$type": "string",
-                  "value": ""
                 },
                 "icon": {
                   "$$type": "string",
@@ -665,6 +661,10 @@
                       "value": ""
                     }
                   }
+                },
+                "appearance": {
+                  "$$type": "string",
+                  "value": "plain"
                 }
               }
             }

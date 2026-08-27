@@ -271,7 +271,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "tag"
+                        "value": "text"
                       },
                       "accordion_variant": {
                         "$$type": "string",
@@ -507,6 +507,14 @@
                             "value": ""
                           }
                         }
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "pill"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "action"
                       }
                     }
                   },
@@ -515,7 +523,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -528,6 +536,10 @@
                       "style": {
                         "$$type": "string",
                         "value": ""
+                      },
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
                       }
                     }
                   },
@@ -536,11 +548,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -740,7 +764,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -754,9 +778,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -765,11 +789,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -970,7 +1006,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -984,9 +1020,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -995,11 +1031,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -1087,7 +1135,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -1101,9 +1149,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -1112,11 +1160,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -1204,7 +1264,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -1218,9 +1278,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -1229,11 +1289,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -1321,7 +1393,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -1335,9 +1407,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -1346,11 +1418,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }
@@ -1741,7 +1825,7 @@
                         "value": {
                           "kind": {
                             "$$type": "string",
-                            "value": "heading"
+                            "value": "text"
                           },
                           "accordion_variant": {
                             "$$type": "string",
@@ -1754,10 +1838,6 @@
                           "toc_variant": {
                             "$$type": "string",
                             "value": "transparent"
-                          },
-                          "variant": {
-                            "$$type": "string",
-                            "value": ""
                           },
                           "icon": {
                             "$$type": "string",
@@ -1965,6 +2045,10 @@
                                 "value": ""
                               }
                             }
+                          },
+                          "appearance": {
+                            "$$type": "string",
+                            "value": "plain"
                           }
                         }
                       },
@@ -1973,7 +2057,7 @@
                         "value": {
                           "kind": {
                             "$$type": "string",
-                            "value": "heading"
+                            "value": "text"
                           },
                           "accordion_variant": {
                             "$$type": "string",
@@ -1986,10 +2070,6 @@
                           "toc_variant": {
                             "$$type": "string",
                             "value": "transparent"
-                          },
-                          "variant": {
-                            "$$type": "string",
-                            "value": ""
                           },
                           "icon": {
                             "$$type": "string",
@@ -2208,6 +2288,10 @@
                                 "value": "title-asc"
                               }
                             }
+                          },
+                          "appearance": {
+                            "$$type": "string",
+                            "value": "plain"
                           }
                         }
                       }
@@ -2425,7 +2509,7 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "heading"
+                        "value": "text"
                       },
                       "text": {
                         "$$type": "string",
@@ -2439,9 +2523,9 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "type": {
+                      "appearance": {
                         "$$type": "string",
-                        "value": "default"
+                        "value": "plain"
                       }
                     }
                   },
@@ -2450,11 +2534,23 @@
                     "value": {
                       "kind": {
                         "$$type": "string",
-                        "value": "rich_text"
+                        "value": "text"
                       },
-                      "body": {
+                      "appearance": {
+                        "$$type": "string",
+                        "value": "plain"
+                      },
+                      "text": {
                         "$$type": "string",
                         "value": "<p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>"
+                      },
+                      "tag": {
+                        "$$type": "string",
+                        "value": "rich_text"
+                      },
+                      "modifiers": {
+                        "$$type": "string",
+                        "value": "rich_text"
                       }
                     }
                   }

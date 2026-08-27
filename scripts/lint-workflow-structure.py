@@ -35,14 +35,15 @@ def frontmatter(text: str) -> dict[str, str]:
 
 skill_text = SKILL.read_text()
 skill_meta = frontmatter(skill_text)
-for key in ("name", "description", "allowed-tools"):
+for key in ("name", "description"):
     if not skill_meta.get(key):
         fail(SKILL, f"missing frontmatter key {key}")
 
-tools = set(skill_meta.get("allowed-tools", "").split())
-unknown = tools - KNOWN_TOOLS
-if unknown:
-    fail(SKILL, f"unknown allowed-tools: {', '.join(sorted(unknown))}")
+if skill_meta.get("allowed-tools"):
+    tools = set(skill_meta["allowed-tools"].split())
+    unknown = tools - KNOWN_TOOLS
+    if unknown:
+        fail(SKILL, f"unknown allowed-tools: {', '.join(sorted(unknown))}")
 
 for heading in ("## When to Use", "## When NOT to Use", "## Success Criteria"):
     if heading not in skill_text:
