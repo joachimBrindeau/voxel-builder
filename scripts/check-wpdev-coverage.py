@@ -31,6 +31,8 @@ def find_wpdev_index() -> Path | None:
     candidates: list[Path] = []
     if root := os.environ.get("WPDEV_ROOT"):
         candidates.append(Path(root))
+    if source_root := os.environ.get("WPDEV_SOURCE_ROOT"):
+        candidates.append(Path(source_root))
 
     candidates.extend([Path.cwd(), *Path.cwd().parents])
     if executable := shutil.which("wpdev"):
@@ -46,6 +48,13 @@ def find_wpdev_index() -> Path | None:
 
 WPDEV_INDEX = find_wpdev_index()
 
+if "--resolve-index" in sys.argv:
+    if WPDEV_INDEX is None:
+        print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT or WPDEV_SOURCE_ROOT")
+        sys.exit(1)
+    print(WPDEV_INDEX)
+    sys.exit(0)
+
 PREFIXES = (
     "elementor:",
     "voxel:",
@@ -55,7 +64,7 @@ PREFIXES = (
 BARE = {"headings", "quality", "perf", "purge", "rebuild", "smoke"}
 
 if WPDEV_INDEX is None:
-    print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT")
+    print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT or WPDEV_SOURCE_ROOT")
     sys.exit(1)
 
 index = WPDEV_INDEX.read_text()

@@ -23,4 +23,7 @@ actual=$(WPDEV_ROOT="$fixture" find_wpdev_root)
 actual=$(WPDEV_ROOT= WPDEV_SOURCE_ROOT="$fixture" find_wpdev_root)
 [ "$actual" = "$fixture" ] || fail "WPDEV_SOURCE_ROOT did not resolve to the explicit source checkout"
 
-printf 'lib helper tests OK (WPDEV_ROOT and WPDEV_SOURCE_ROOT overrides)\n'
+actual=$(WPDEV_ROOT= WPDEV_SOURCE_ROOT="$fixture" python3 "$SCRIPT_DIR/check-wpdev-coverage.py" --resolve-index)
+[ "$actual" = "$fixture/cli/src/index.ts" ] || fail "coverage check ignored WPDEV_SOURCE_ROOT"
+
+printf 'lib helper tests OK (WPDEV_ROOT and WPDEV_SOURCE_ROOT overrides, including coverage)\n'
