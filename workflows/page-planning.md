@@ -94,7 +94,7 @@ Only then does Phase 3 (widget fan-out) start. Lack of any of the four is a hard
 2. Assign each required information group to one archetype and section id.
 3. Dispatch heading-curator plan leaves and layout-architect section leaves through the
    bounded batch contract; do not create one worker per section.
-4. For a full page/single/archive/hub, first check the **Pages** table in `templates/index.md`: when a `scope: page` template matches the target archetype, bind the whole page to it (its section set/order come pre-composed) and record the page template id. Otherwise assign per-section archetypes/templates.
+4. For a full page/single/hub, first check the **Pages** table in `templates/index.md`: when a non-legacy `scope: page` template matches the target archetype, bind the whole page to it (its section set/order come pre-composed) and record the page template id. The `legacy-page-archive` row is eligible only when the requested artifact is explicitly an existing page-backed search/archive surface; native CPT archives route to `workflows/archive-search-pages.md`. Otherwise assign per-section archetypes/templates.
 5. Record deliberate field exclusions and saved-template bindings (page-scope and section-scope).
 
 **Exit:** Every public field/relation is assigned or excluded; section order, archetypes,

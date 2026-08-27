@@ -14,6 +14,11 @@ except ImportError as exc:  # pragma: no cover - CI/runtime dependency check
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "SKILL.md"
+ARCHIVE_META = ROOT / "templates/pages/archive/meta.yml"
+TEMPLATE_INDEX = ROOT / "templates/index.md"
+BUILD_WORKFLOW = ROOT / "workflows/build.md"
+PLANNING_WORKFLOW = ROOT / "workflows/page-planning.md"
+ARCHETYPE_REFERENCE = ROOT / "references/core/page-plan-archetypes.md"
 
 errors: list[str] = []
 content = SKILL.read_text(encoding="utf-8")
@@ -90,6 +95,21 @@ for marker in (
 ):
     if marker not in content:
         errors.append(f"router missing {marker}")
+
+archive_meta = yaml.safe_load(ARCHIVE_META.read_text(encoding="utf-8"))
+if not isinstance(archive_meta, dict) or archive_meta.get("type") != "legacy-page-archive":
+    errors.append("archive starter metadata must use type legacy-page-archive")
+
+index_content = TEMPLATE_INDEX.read_text(encoding="utf-8")
+if "| archive | legacy-page-archive |" not in index_content:
+    errors.append("template index must classify archive as legacy-page-archive")
+
+for route_file in (BUILD_WORKFLOW, PLANNING_WORKFLOW, ARCHETYPE_REFERENCE):
+    route_content = route_file.read_text(encoding="utf-8")
+    if "legacy-page-archive" not in route_content or "workflows/archive-search-pages.md" not in route_content:
+        errors.append(
+            f"{route_file.relative_to(ROOT)} must exclude the legacy archive starter from native archive routing"
+        )
 
 if len(content) > 100_000:
     errors.append("SKILL.md exceeds 100,000 characters")

@@ -36,11 +36,11 @@ and known-defect repair do not enter here first.
    wpdev elementor:revisions:prune <site> --post <id>
    ```
 3. Inspect `templates/index.md` and choose exactly one strategy. For a full page or
-   single/archive/hub template, check the **Pages** table FIRST: when a `scope: page`
+   single/hub template, check the **Pages** table FIRST: when a non-legacy `scope: page`
    composition matches the target archetype, adopt it as the whole-page starting tree
    rather than synthesizing the composition from loose sections.
    - `adapt-template`: a matching saved template exists — a `scope: page` composition for
-     a whole page/single/archive/hub, else `scope: section` parts assembled into the page.
+     a whole page/single/hub, else `scope: section` parts assembled into the page.
      Splice the stored tree, then replace its documented `__TOKEN__` slots and re-bind
      loop/source dtags to the target CPT (per each template's `source_note`);
    - `rebuild-greenfield`: no matching template and current structure is a thin/broken/legacy liability;
@@ -68,7 +68,10 @@ are recorded.
    wpdev voxel:data <site> --id <example_post_id>
    ```
 3. For loops/templates, read exact `ef-wrapper` loop/template props from committed SSOT.
-4. Preserve existing `ts-*` nodes verbatim only when replacement is outside scope. Verify
+4. The `archive` page template is a `legacy-page-archive` starter for an intentionally
+   retained page-backed search surface only. Never select it for a native CPT archive;
+   leave this workflow and use `workflows/archive-search-pages.md` instead.
+5. Preserve existing `ts-*` nodes verbatim only when replacement is outside scope. Verify
    every referenced post/template id still exists.
 
 **Exit:** Current tree, authoritative widget shapes, valid fields, sample values, and any

@@ -1,6 +1,6 @@
 id: archive
 scope: page
-type: archive
+type: legacy-page-archive
 name: "Legacy page-backed Voxel search archive"
 tags: [archive, search, results, cpt, voxel, legacy]
 widgets: [ef-wrapper, ef-card, ts-search-form, ts-post-feed]

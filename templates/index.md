@@ -38,4 +38,4 @@ Full-page compositions. One row per stored page; splice as a whole-page starting
 | glossary | glossary | glossary, dictionary, defined-terms, az-index, loop, hub | ef-wrapper, ef-card | `@post(parent.title)`, `@post(h1)`, `@post(title)` | — |
 | video-single | single | video, single, chapters, author, related-content, wrapper | ef-wrapper, ef-card | `@post(parent.title)`, `@post(h1)`, `@post(:excerpt)`, `@author(display_name)`, `@author(profile.permalink)` | — |
 | search-hub-index | search-hub | search, hub, index, cpt, archive-replacement | ef-wrapper, ef-card | `@post(parent.title)`, `@post(h1)` | — |
-| archive | archive | archive, search, results, cpt, voxel | ef-wrapper, ef-card, ts-search-form, ts-post-feed | `@post(parent.title)`, `@post(h1)` | — |
+| archive | legacy-page-archive | archive, search, results, cpt, voxel, legacy | ef-wrapper, ef-card, ts-search-form, ts-post-feed | `@post(parent.title)`, `@post(h1)` | — |
