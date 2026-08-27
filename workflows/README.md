@@ -42,6 +42,7 @@ workflow and never compete at intake.
 | Workflow | Called by | Contract |
 |---|---|---|
 | [`page-planning.md`](page-planning.md) | build, migrate, structural repair | Gated Plan Document matching the Blueprint contract |
+| [`local-page-justification.md`](local-page-justification.md) | geolocation | Evidence-resolved service/location justification, mutation gate, and neutralization candidates |
 
 ## Supporting Contracts
 

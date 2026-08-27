@@ -151,8 +151,8 @@ Always-loaded contracts: `references/core/rules.md`, `references/core/criteria.m
 `references/core/parallel-dispatch.md`, and `references/subagents/README.md`.
 Use `workflows/README.md` for workflow entry/exit contracts and `references/README.md`
 for the domain lookup table. Keep loading narrow: open only the selected workflow and
-its declared references. A selected workflow's required-reference list is complete;
-lateral links inside references are optional lookup aids, not required chained reads.
+the references it declares or directly links for the active phase. Lateral links inside
+references are optional lookup aids, not automatically required chained reads.
 
 Saved section templates (reusable hero/section starting trees, one folder per section) live in the `templates/` store — see `templates/README.md` for the on-disk shape, `meta.yml` schema, SSOT-wins discipline, and the refresh/migrate workflow; `templates/index.md` is the master catalog. Templates are starting trees, never authoritative spec.
 

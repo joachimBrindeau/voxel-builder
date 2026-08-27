@@ -22,6 +22,7 @@ All notable changes to the voxel-builder skill are documented here. The format f
 
 
 ### Fixed
+- **Workflow portability and reachability** — replaced installation-layout-dependent Organization validator paths with skill-relative `scripts/` invocations, made the geolocation workflow explicitly invoke and own the local-page-justification sub-pipeline, indexed that sub-pipeline, and narrowed the SKILL reference-loading claim to references a workflow actually declares or links.
 - **Hermes skill and template contracts** — modernized `SKILL.md` frontmatter with a bounded capability description, contributor/version/platform metadata, and resolvable related skills; added executable skill/root-discovery guards; made explicit `WPDEV_ROOT` select the intended workspace instead of a stale global shim; reclassified the bundled archive page as the `legacy-page-archive` starter, excluded it from native archive page-first routing, and documented explicit generated archive card selection; and migrated all 15 stored EF templates from retired content-row kinds to the current canonical schema so the full template lint is green.
 - **`templates/pages/archive` filter key** — `ts_filter_list____POST_TYPE__` (double separator) corrected to `ts_filter_list___POST_TYPE__` so `__POST_TYPE__` substitution yields the valid Voxel key `ts_filter_list_<cpt>` instead of a malformed `ts_filter_list__<cpt>`.
 

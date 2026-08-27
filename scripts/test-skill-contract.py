@@ -19,6 +19,9 @@ TEMPLATE_INDEX = ROOT / "templates/index.md"
 BUILD_WORKFLOW = ROOT / "workflows/build.md"
 PLANNING_WORKFLOW = ROOT / "workflows/page-planning.md"
 ARCHETYPE_REFERENCE = ROOT / "references/core/page-plan-archetypes.md"
+ORGANIZATION_WORKFLOW = ROOT / "workflows/organization-profile.md"
+GEOLOCATION_WORKFLOW = ROOT / "workflows/geolocation.md"
+WORKFLOW_INDEX = ROOT / "workflows/README.md"
 
 errors: list[str] = []
 content = SKILL.read_text(encoding="utf-8")
@@ -110,6 +113,19 @@ for route_file in (BUILD_WORKFLOW, PLANNING_WORKFLOW, ARCHETYPE_REFERENCE):
         errors.append(
             f"{route_file.relative_to(ROOT)} must exclude the legacy archive starter from native archive routing"
         )
+
+organization_content = ORGANIZATION_WORKFLOW.read_text(encoding="utf-8")
+if ".agents/skills/voxel-builder" in organization_content:
+    errors.append("organization workflow must not use an installation-layout path")
+if "python3 scripts/validate-organization-profile.py" not in organization_content:
+    errors.append("organization workflow must use the repo-relative validator path")
+
+geolocation_content = GEOLOCATION_WORKFLOW.read_text(encoding="utf-8")
+workflow_index_content = WORKFLOW_INDEX.read_text(encoding="utf-8")
+if "[`local-page-justification.md`](local-page-justification.md)" not in geolocation_content:
+    errors.append("geolocation workflow must invoke local-page-justification.md")
+if "[`local-page-justification.md`](local-page-justification.md) | geolocation |" not in workflow_index_content:
+    errors.append("workflow index must classify local-page-justification as a geolocation sub-pipeline")
 
 if len(content) > 100_000:
     errors.append("SKILL.md exceeds 100,000 characters")

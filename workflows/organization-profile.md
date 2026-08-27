@@ -154,13 +154,14 @@ lane has written state or authored another lane's fields.
 
 **Entry:** Four lane candidates returned.
 
-1. Save candidates outside the repository and validate each independently:
+1. Save candidates outside the repository and validate each independently through
+   the Hermes `terminal` tool from the skill root:
 
    ```bash
-   python3 .agents/skills/voxel-builder/scripts/validate-organization-profile.py --lane foundation --brand-name "Brand" foundation.json
-   python3 .agents/skills/voxel-builder/scripts/validate-organization-profile.py --lane production --brand-name "Brand" production.json
-   python3 .agents/skills/voxel-builder/scripts/validate-organization-profile.py --lane contact --brand-name "Brand" contact.json
-   python3 .agents/skills/voxel-builder/scripts/validate-organization-profile.py --lane faq --brand-name "Brand" faq.json
+   python3 scripts/validate-organization-profile.py --lane foundation --brand-name "Brand" foundation.json
+   python3 scripts/validate-organization-profile.py --lane production --brand-name "Brand" production.json
+   python3 scripts/validate-organization-profile.py --lane contact --brand-name "Brand" contact.json
+   python3 scripts/validate-organization-profile.py --lane faq --brand-name "Brand" faq.json
    ```
 
 2. Apply the FAQ quality gate from `faq-authoring.md` in addition to schema checks:
@@ -182,14 +183,15 @@ blocked with the failing lane and unresolved errors named.
 
 1. Merge by the ownership table only. All four `title` values must equal
    `brand_name`; disagreement is a validation failure, never normalized silently.
-2. Use the validator's deterministic merge mode, which refuses missing, extra, or
+2. Use the validator's deterministic merge mode through the Hermes `terminal` tool,
+   which refuses missing, extra, or
    cross-owned fields. Pass every evidence-critical proper noun, product name,
    size, price, date, cultivar, and Japanese term from the approved research packet
    as a repeated `--required-term`; this makes accidental rewriting or omission a
    final-gate failure rather than a subjective review finding:
 
    ```bash
-   python3 .agents/skills/voxel-builder/scripts/validate-organization-profile.py \
+   python3 scripts/validate-organization-profile.py \
      --merge foundation.json production.json contact.json faq.json \
      --brand-name "Brand" --required-term "Exact Product 30 g" \
      --required-term "1900-01-01" --output organization-profile.json

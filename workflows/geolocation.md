@@ -52,12 +52,16 @@ schema-fragment prerequisite are evidenced. No page built.
    content, and swap test.
 3. Decide scope: one service × city, or subtree × cities. At 30+ derived pages trigger
    review. At 50+ require documented distinct-value and cannibalisation justification.
-4. Map canonical source ID, target geo ID, intended parent, expected URI, Route M/S/C
+4. Run [`local-page-justification.md`](local-page-justification.md) for each service/city
+   pair before authoring. A blocked dataset, publication, similarity, or mutation gate
+   blocks the corresponding full geo-child mutation; only its explicit emergency
+   neutralization contract may proceed independently.
+5. Map canonical source ID, target geo ID, intended parent, expected URI, Route M/S/C
     changes, rollback snapshot, and read-back proof. Review verdict records candidate input
     file SHA-256. Reject verdict when current SHA differs. Substantive rewrite requires fresh
     review session unless exact SHA proves unchanged.
 
-5. Keep GBP, citations, reviews, NAP operations, and local-link acquisition advisory;
+6. Keep GBP, citations, reviews, NAP operations, and local-link acquisition advisory;
    point owner to claude-seo `seo-local` / `seo-maps` rather than adding build steps.
 
 **Exit:** §2g plan gate green. Plan proves unique city content and records page
