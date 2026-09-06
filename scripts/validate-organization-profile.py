@@ -271,7 +271,7 @@ def merge_lanes(paths: list[Path], brand_name: str | None, required_terms: list[
     if len(paths) != len(LANE_ORDER):
         return None, [f"--merge requires {len(LANE_ORDER)} files in this order: {', '.join(LANE_ORDER)}"]
     lane_data: dict[str, dict[str, Any]] = {}
-    for lane, path in zip(LANE_ORDER, paths, strict=True):
+    for lane, path in zip(LANE_ORDER, paths):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:

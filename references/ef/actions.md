@@ -24,7 +24,7 @@ wpdev elementor:dump <site> ef-card --post <prod_id> --json
 
 The action-type catalog below is generated from `cli/src/generated/ef-catalogs.json` (extracted from `EF_ACTION_*` constants + `ef_action_types()` in `action-types.php`). `Required fields` come from `ef_action_field_specs()`. The per-action behavioural notes (Voxel-runtime caveats, URL wrapping, etc.) live in the prose sections below — only the enumerative catalog is generated.
 
-<!-- MIRRORED:actions START — do not hand-edit. This block is a copy of the AUTO-GENERATED:actions block in plugins/custom/elementor-framework/docs/reference/actions.md. `wpdev elementor:docs:gen` regenerates that file only, never this one, so re-mirror by hand after any action-catalog change. -->
+<!-- AUTO-GENERATED:actions START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
 41 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
 
@@ -74,7 +74,7 @@ Unified action surface — every type works on every action host (slot, heading,
 | `vote_downvote` | Downvote | `vote_field_key` |
 | `vote_upvote` | Upvote | `vote_field_key` |
 
-<!-- MIRRORED:actions END -->
+<!-- AUTO-GENERATED:actions END -->
 
 **Voxel-runtime caveat** (from `action-types.php` header): the resolver returns an empty payload for native Voxel post-state actions (`edit_post`, `delete_post`, `follow*`, `save`, `share_post`, `promote_post`, `add_to_cart`, `select_addition`, `show_post_on_map`, `view_post_stats`, `go_back`, `back_to_top`, publish/unpublish). They render an inert `<button>` outside Voxel's advanced-list template and only become live when the row renders inside it.
 
