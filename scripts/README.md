@@ -23,8 +23,13 @@ don't depend on any specific agent host — but the icon/action ones do call the
 ## Running lint
 
 ```bash
-bash scripts/lint.sh
+WPDEV_ROOT=/path/to/wordpress bash scripts/lint.sh
 ```
+
+`WPDEV_ROOT` (or `WPDEV_SOURCE_ROOT`) is required whenever the skill checkout is
+not inside the WordPress workspace: the `wpdev` coverage gate and the section-
+template schema lint both resolve `cli/src/index.ts` and `wpdev elementor:validate`
+from it, and fail closed without it.
 
 The lint is intentionally lean for the portable form — it dropped the plugin-era
 checks (plugin.json validation, version-drift stamps, component-count-vs-README)
