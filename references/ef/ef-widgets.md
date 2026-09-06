@@ -167,80 +167,67 @@ PHP class `EF\Widgets\Card`. 4 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `content_blocks` | repeater `ef-content-block-rows` | `[]` | content | Add and order card content |
-| `full_height` | `boolean` | `true` | settings | Make cards in a row match height |
-| `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` | `div` | settings | Choose what kind of container this is |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `white` | content | Choose the colors |
+| `content_blocks` | repeater `ef-content-block-rows` (nested vx leaves) | `[]` | content | Add and order card content |
+| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` (direct vx) | `div` | settings | Choose what kind of container this is |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-form` — generated prop table
 
-PHP class `EF\Widgets\Form`. 6 props.
+PHP class `EF\Widgets\Form`. 8 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `button_text` | `string` | `Envoyer` | submit | Submit button text |
-| `fields` | repeater `ef-field-rows` | `[]` | fields | Add and order fields |
-| `honeypot` | `boolean` | `true` | submit | Add hidden spam protection |
-| `recipients` | repeater `ef-recipient-rows` | `[]` | recipients | Users or addresses receiving a copy of this form submission |
-| `success_message` | `string` | `Merci ! Votre message a bien été envoyé.` | submit | Message shown after sending |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `primary` | content | Choose the colors |
+| `fields` | repeater `ef-field-rows` (nested vx leaves) | `[]` | fields | Add and order fields |
+| `honeypot` | `boolean` (direct vx) | `true` | submit | Add hidden spam protection |
+| `label` | `string` (dynamic disabled) | `Send` | submit | Button text |
+| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `recipients` | repeater `ef-recipient-rows` (nested vx leaves) | `[]` | recipients | Users or addresses receiving a copy of this form submission |
+| `success_message` | `string` (direct vx) | `Thank you! Your message has been sent.` | submit | Message shown after sending |
+| `tag` | enum: `div` \| `section` \| `article` \| `aside` (direct vx) | `div` | settings | Choose what kind of container this is |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | submit | Button or pill colors |
 
 ### `ef-navbar` — generated prop table
 
-PHP class `EF\Widgets\Navbar`. 26 props.
+PHP class `EF\Widgets\Navbar`. 12 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `banner_action_address` | `string` | `''` | content | Address for directions |
-| `banner_action_cal_desc` | `string` | `''` | content | Calendar event details |
-| `banner_action_cal_end_date` | `string` | `''` | content | Event end date and time |
-| `banner_action_cal_location` | `string` | `''` | content | Calendar event location |
-| `banner_action_cal_start_date` | `string` | `''` | content | Event start date and time |
-| `banner_action_cal_title` | `string` | `''` | content | Calendar event title |
-| `banner_action_cal_url` | `source` | — | content | Existing calendar file link |
-| `banner_action_cart_text` | `string` | `''` | content | Button text after adding |
-| `banner_action_email` | `string` | `''` | content | Email address to contact |
-| `banner_action_icon_active` | `string` | `''` | content | Icon shown after click |
-| `banner_action_label` | `string` | `''` | content | Banner button text |
-| `banner_action_label_active` | `string` | `''` | content | Text shown after click |
-| `banner_action_link` | `source` | — | content | Page or link to open |
-| `banner_action_modal_id` | `string` | `''` | content | On-page modal or saved template to open |
-| `banner_action_phone` | `string` | `''` | content | Phone number to call |
-| `banner_action_scroll_to` | `string` | `''` | content | Section to scroll to |
-| `banner_action_toast_message` | `string` | `''` | content | Short message after click |
-| `banner_action_tooltip` | `string` | `''` | content | Short hover text |
-| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `''` | content | Choose what opens on click |
-| `banner_action_vote_field_key` | `string` | `''` | content | Vote field to update |
-| `banner_background` | enum: `primary` \| `positive` \| `negative` | `primary` | content | Announcement bar colors |
-| `banner_message` | `string` (dynamic) | `''` | content | Announcement text |
-| `cta_ts_actions` | repeater `ef-action-rows` | `[]` | content | Add and order buttons |
-| `nav_items` | repeater `ef-mega-rows` | `[]` | nav_items | Add and order menu links |
-| `show_breadcrumb` | `boolean` | `false` | settings | Show page path links |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `transparent` | content | Choose the colors |
+| `banner_action_payload` | `action_payload` (nested vx leaves) | — | banner | Fields for the selected action type |
+| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` (direct vx) | `''` | banner | Choose what opens on click |
+| `banner_background` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `primary` | banner | Announcement bar colors |
+| `banner_label` | `string` (direct vx) | `''` | banner | Button text |
+| `banner_message` | `string` (direct vx) | `''` | banner | Announcement text |
+| `banner_require_login` | `boolean` (direct vx) | `false` | banner | Require authentication before this action can resolve or execute |
+| `banner_tooltip` | `string` (direct vx) | `''` | banner | Short hover text shown on the button |
+| `cta_ts_actions` | repeater `ef-action-rows` (nested vx leaves) | `[]` | actions | Add and order buttons |
+| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `nav_items` | repeater `ef-mega-rows` (nested vx leaves) | `[]` | nav_items | Add and order menu links |
+| `tag` | enum: `nav` \| `header` \| `div` (direct vx) | `nav` | settings | Choose what kind of container this is |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-wrapper` — generated prop table
 
-PHP class `EF\Elements\Wrapper`. 18 props.
+PHP class `EF\Elements\Wrapper`. 17 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
-| `bg_color` | `string` | `transparent` | settings | Background color token |
-| `bg_media_fit` | enum: `cover` \| `contain` | `cover` | content | How the image fills the space |
-| `bg_media_icon` | `string` | `''` | content | Choose an icon |
-| `bg_media_image` | `image` | `[]` | content | Choose an image |
-| `bg_media_image_alt` | `string` (dynamic) | `''` | content | Describe the image for screen readers |
-| `bg_media_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | — | Choose when the image loads |
-| `bg_media_map_pins` | repeater `ef-map-pin-rows` | `[]` | content | Add pins to the map |
-| `bg_media_map_zoom` | `string` | `14` | content | Starting map zoom level |
-| `bg_media_svg` | `svg` | — | content | Choose an uploaded vector image |
-| `bg_media_type` | enum: `''` \| `color` \| `image` \| `video` \| `icon` \| `svg` \| `map` | `''` | content | Choose what kind of media to show |
-| `bg_media_video_url` | `source` (dynamic) | `''` | content | Video link or file |
-| `cols` | `string` (responsive) | `1fr` | settings | Columns for each screen size |
-| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `fullscreen` | `''` | settings | Choose how this wrapper works |
-| `modifiers` | `string` (responsive) | `''` | settings | Active modifiers per breakpoint (comma-joined flags): sticky, reversed |
-| `rows` | `number` (responsive) | `1` | settings | Number of rows per page |
-| `tab_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `secondary` \| `secondary_light` \| `positive` \| `negative` | `primary` | settings | Active tab colors |
-| `tag` | enum: `div` \| `main` \| `section` \| `article` \| `aside` \| `header` \| `footer` \| `nav` | `div` | settings | Choose what kind of container this is |
-| `template_id` | `string` | `''` | settings | Saved template to show here |
+| `bg_media_color` | `string` (direct vx) | `transparent` | settings | Background color token painted on the host surface |
+| `bg_media_icon` | `string` (direct vx) | `''` | settings | Choose an icon |
+| `bg_media_image` | `image` (nested vx leaves) | `[]` | settings | Choose an image |
+| `bg_media_image_alt` | `string` (direct vx) | `''` | settings | Describe the image for screen readers |
+| `bg_media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | settings | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `bg_media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | — | Choose when the image loads |
+| `bg_media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | settings | Add pins to the map |
+| `bg_media_map_zoom` | `string` (direct vx) | `14` | settings | Starting map zoom level |
+| `bg_media_modifiers` | `string` (direct vx) | `''` | settings | Optional image behavior flags |
+| `bg_media_type` | enum: `''` \| `color` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | settings | Choose what kind of media to show |
+| `bg_media_video_url` | `source` (nested vx leaves) | `''` | settings | Video link or file |
+| `cols` | `string` (responsive, nested vx leaves) | `1fr` | settings | Columns for each screen size |
+| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `fullscreen` (direct vx) | `''` | settings | Choose how this wrapper works |
+| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `page_size` | `number` (direct vx) | `12` | settings | Number of items on each pagination page |
+| `tag` | enum: `div` \| `main` \| `section` \| `article` \| `aside` \| `header` \| `footer` \| `nav` (direct vx) | `div` | settings | Choose what kind of container this is |
+| `template_id` | `string` (direct vx) | `''` | settings | Saved template to show here |
 
 <!-- AUTO-GENERATED:ef-widgets END -->

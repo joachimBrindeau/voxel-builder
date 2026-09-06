@@ -44,18 +44,20 @@ schema-fragment prerequisite are evidenced. No page built.
 
 **Entry:** Phase 0 gate green.
 
-1. Run relevant `page-planning.md` sections §2a–§2g: field inventory, SSOT read,
+1. Run the mandatory [`local-page-justification.md`](local-page-justification.md) research
+   sub-pipeline for each service/location pair. Require dataset resolution and evidence gates
+   to pass before treating its report as planning input.
+2. Run relevant `page-planning.md` sections §2a–§2g: field inventory, SSOT read,
    archetype, blueprint, adversarial review, reconciliation, computed gate.
-2. Mark seed data versus mandatory unique fields. Seed may preserve structural service
+3. Mark seed data versus mandatory unique fields. Seed may preserve structural service
    facts. Author city-specific `h1`, `hook`, `description`, `faq`, and `conversion-*`
    from verified local evidence. Enforce reference bounds, 500-word body, >60% unique
    content, and swap test.
-3. Decide scope: one service × city, or subtree × cities. At 30+ derived pages trigger
+4. Decide scope: one service × city, or subtree × cities. At 30+ derived pages trigger
    review. At 50+ require documented distinct-value and cannibalisation justification.
-4. Run [`local-page-justification.md`](local-page-justification.md) for each service/city
-   pair before authoring. A blocked dataset, publication, similarity, or mutation gate
-   blocks the corresponding full geo-child mutation; only its explicit emergency
-   neutralization contract may proceed independently.
+   A blocked dataset, publication, similarity, or mutation gate from the justification
+   sub-pipeline blocks the corresponding full geo-child mutation; only its explicit
+   emergency neutralization contract may proceed independently.
 5. Map canonical source ID, target geo ID, intended parent, expected URI, Route M/S/C
     changes, rollback snapshot, and read-back proof. Review verdict records candidate input
     file SHA-256. Reject verdict when current SHA differs. Substantive rewrite requires fresh

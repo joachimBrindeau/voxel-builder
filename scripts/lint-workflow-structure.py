@@ -178,8 +178,16 @@ if errors:
 
 workflow_count = len(list((ROOT / "workflows").glob("*.md"))) - 1
 reference_count = len(list((ROOT / "references").rglob("*.md")))
+machine_reference_count = len(
+    [
+        path
+        for path in (ROOT / "references").rglob("*")
+        if path.is_file() and path.suffix in {".json", ".py", ".tsv"}
+    ]
+)
 agent_count = len(list(subagent_dir.glob("voxel-*.md")))
 print(
     f"  PASS  workflow structure: {workflow_count} workflows, "
-    f"{reference_count} references, {agent_count} leaf briefs"
+    f"{reference_count} Markdown references, {machine_reference_count} machine artifacts, "
+    f"{agent_count} leaf briefs"
 )

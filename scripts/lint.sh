@@ -15,6 +15,8 @@ set -u
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 SKILL_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+# shellcheck source=scripts/lib.sh
+. "$SCRIPT_DIR/lib.sh"
 cd "$SKILL_ROOT" || { printf "cannot cd to skill root\n"; exit 1; }
 
 fails=0
@@ -85,11 +87,31 @@ if python3 scripts/check-field-metadata-contract.py && python3 scripts/test-fiel
 heading "Organization profile contract"
 if python3 scripts/test-organization-profile-validator.py; then :; else fail "organization profile validation contract invalid"; fi
 
-# --- 7. wpdev coverage drift -------------------------------------------------
+# --- 7. Geo-payload contract -------------------------------------------------
+heading "Geo-payload contract"
+if python3 scripts/test-geo-payload-validator.py; then :; else fail "geo-payload validator regression"; fi
+
+# --- 8. wpdev coverage drift -------------------------------------------------
 heading "wpdev coverage drift"
 if python3 scripts/check-wpdev-coverage.py; then :; else fail "wpdev-coverage.md drifted from cli/src/index.ts"; fi
 
-# --- 8. Section-template drift gate -----------------------------------------
+# --- 9. EF generated reference drift ----------------------------------------
+heading "EF generated references"
+ef_generated_root=${EF_GENERATED_ROOT:-}
+if [ -z "$ef_generated_root" ]; then
+  ef_generated_root=$(find_wpdev_root || true)
+fi
+if [ -n "$ef_generated_root" ]; then
+  if python3 scripts/sync-ef-generated-references.py --wpdev-root "$ef_generated_root" --check; then
+    pass "skill schema and generated widget tables match the WordPress workspace"
+  else
+    fail "EF generated references drifted; run wpdev codegen/docs generation, then scripts/sync-ef-generated-references.py"
+  fi
+else
+  fail "WordPress source checkout not found; set EF_GENERATED_ROOT or WPDEV_ROOT"
+fi
+
+# --- 10. Section-template drift gate -----------------------------------------
 heading "Section-template lint (schema/dtag/denylist/meta/index)"
 if [ -f templates/index.md ] && find templates -type f -name template.json | grep -q .; then
   tl_out=$(bash scripts/lint-templates.sh 2>&1)
@@ -104,7 +126,7 @@ else
   printf "  \033[33mSKIP\033[0m  no templates to lint\n"
 fi
 
-# --- 9. Deep link + anchor check (lychee, optional) -------------------------
+# --- 11. Deep link + anchor check (lychee, optional) -------------------------
 heading "Deep link check (lychee)"
 if command -v lychee >/dev/null 2>&1; then
   md_files=$(find . -name '*.md' -not -path './node_modules/*')

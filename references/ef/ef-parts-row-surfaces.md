@@ -8,151 +8,137 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 ### Row surface `action-row` — Action row
 
-24 cells.
+8 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `addition_id` | `string` (dynamic) | `''` | Base64 add-on selection payload used by Voxel product forms |
-| `address` | `string` (dynamic) | `''` | Address for directions |
-| `cal_desc` | `string` (dynamic) | `''` | Calendar event details |
-| `cal_end_date` | `string` (dynamic) | `''` | Event end date and time |
-| `cal_location` | `string` (dynamic) | `''` | Calendar event location |
-| `cal_start_date` | `string` (dynamic) | `''` | Event start date and time |
-| `cal_title` | `string` (dynamic) | `''` | Calendar event title |
-| `cal_url` | `source` (dynamic) | — | Existing calendar file link |
-| `cart_text` | `string` (dynamic) | `''` | Button text after adding |
-| `email` | `string` (dynamic) | `''` | Email address to contact |
-| `icon` | `string` | `''` | Icon shown on the button |
-| `icon_active` | `string` (dynamic) | `''` | Icon shown after click |
-| `label` | `string` (dynamic) | `''` | Button text |
-| `label_active` | `string` (dynamic) | `''` | Text shown after click |
-| `link` | `source` (dynamic) | — | Page or link to open |
-| `menu` | `string` (dynamic) | `''` | Menu shown in the user popup |
-| `modal_id` | `string` (dynamic) | `''` | On-page modal or saved template to open |
-| `phone` | `string` (dynamic) | `''` | Phone number to call |
-| `scroll_to` | `string` (dynamic) | `''` | Section to scroll to |
-| `toast_message` | `string` (dynamic) | `''` | Short message after click |
-| `tooltip` | `string` | `''` | Short hover text shown on the button |
-| `type` | enum: `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `action_link` | Choose what opens on click |
-| `variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` | `''` | Button colors |
-| `vote_field_key` | `string` (dynamic) | `''` | Vote field to update |
+| `flyout_template` | `string` (direct vx) | `''` | Saved Elementor template shown as an anchored interactive flyout |
+| `icon` | `string` (direct vx) | `''` | Icon shown on the button |
+| `label` | `string` (direct vx) | `''` | Button text |
+| `payload` | `action_payload` (nested vx leaves) | — | Fields for the selected action type |
+| `require_login` | `boolean` (direct vx) | `false` | Require authentication before this action can resolve or execute |
+| `tooltip` | `string` (direct vx) | `''` | Short hover text shown on the button |
+| `type` | enum: `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` (direct vx) | `action_link` | Choose what opens on click |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | Button or pill colors |
 
 ### Row surface `content-block-row` — Content block row
 
-72 cells.
+49 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `accordion_open` | `boolean` | `false` | Open this accordion by default |
-| `accordion_variant` | `string` | `transparent` | Accordion colors |
-| `addition_id` | `string` (dynamic) | `''` | Base64 add-on selection payload used by Voxel product forms |
-| `address` | `string` (dynamic) | `''` | Address for directions |
-| `body` | `richtext` (dynamic) | `''` | Body text with formatting |
-| `brand_color` | `string` | `primary` | Booking accent color |
-| `button_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` | `''` | Button colors |
-| `cal_desc` | `string` (dynamic) | `''` | Calendar event details |
-| `cal_end_date` | `string` (dynamic) | `''` | Event end date and time |
-| `cal_location` | `string` (dynamic) | `''` | Calendar event location |
-| `cal_start_date` | `string` (dynamic) | `''` | Event start date and time |
-| `cal_title` | `string` (dynamic) | `''` | Calendar event title |
-| `cal_url` | `source` (dynamic) | — | Existing calendar file link |
-| `calendar_url` | `source` | — | Optional absolute booking URL override |
-| `cart_text` | `string` (dynamic) | `''` | Button text after adding |
-| `datafield_label` | `string` (dynamic) | `''` | Field label, like 'Surface' or 'Bedrooms' |
-| `datafield_value` | `string` (dynamic) | `''` | Field value |
-| `email` | `string` (dynamic) | `''` | Email address to contact |
-| `group` | `string` | `default` | Placement / membership for this tag or button |
-| `group_name` | `string` | `''` | Group name |
-| `group_over_media` | `boolean` | `false` | Place this group over the media |
-| `group_overflow_suffix` | `string` (dynamic) | `''` | Word after the hidden tag count when it is 1 (e.g |
-| `group_overflow_suffix_plural` | `string` (dynamic) | `''` | Word after the hidden tag count when it is 2+ (e.g |
-| `group_type` | enum: `tags` \| `buttons` | `tags` | Only rows of this type may join the group |
-| `group_visible_rows` | `number` | `1` | Lines shown before +N appears |
-| `hide_event_details` | `boolean` | `false` | Hide event details |
-| `icon` | `string` | `''` | Optional leading icon shown on the heading line, tag pill, or button |
-| `icon_active` | `string` (dynamic) | `''` | Icon shown after click |
-| `inline_icon` | `string` | `''` | Choose an icon |
-| `inline_image` | `image` | `[]` | Choose an image |
-| `inline_image_alt` | `string` (dynamic) | `''` | Describe the image for screen readers |
-| `inline_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | Choose when the image loads |
-| `inline_type` | enum: `''` \| `icon` \| `image` \| `video` | `''` | Choose what kind of media to show |
-| `inline_video_url` | `source` (dynamic) | `''` | Video link or file |
-| `kind` | enum: `heading` \| `rich_text` \| `custom_code` \| `separator` \| `accordion` \| `tag` \| `datafield` \| `group` \| `calendar` \| `toc` \| `reviews` \| `button` \| `media` | `heading` | Choose what this content block shows |
-| `label_active` | `string` (dynamic) | `''` | Text shown after click |
-| `layout` | enum: `week_view` \| `month_view` \| `column_view` | `week_view` | Choose the layout |
-| `link` | `source` (dynamic) | — | Page or link to open |
-| `media_icon` | `string` | `''` | Choose an icon |
-| `media_image` | `image` | `[]` | Choose an image |
-| `media_image_alt` | `string` (dynamic) | `''` | Describe the image for screen readers |
-| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` | `auto` | Choose when the image loads |
-| `media_map_pins` | repeater `ef-map-pin-rows` | `[]` | Add pins to the map |
-| `media_map_zoom` | `string` | `14` | Starting map zoom level |
-| `media_modifiers` | `string` | `''` | Optional image behavior flags |
-| `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` | `''` | Choose what kind of media to show |
-| `media_video_url` | `source` (dynamic) | `''` | Video link or file |
-| `menu` | `string` (dynamic) | `''` | Menu shown in the user popup |
-| `modal_id` | `string` (dynamic) | `''` | On-page modal or saved template to open |
-| `modifiers` | `string` | `''` | Optional button layout flags |
-| `phone` | `string` (dynamic) | `''` | Phone number to call |
-| `position` | enum: `left-edge` \| `top-edge` \| `left-main` \| `top-main` | `top-edge` | Choose media placement for each screen size |
-| `reviews_star_color` | `string` | `yellow` | Filled star color |
-| `scroll_to` | `string` (dynamic) | `''` | Section to scroll to |
-| `separator_color` | `string` | `gray_light` | Divider color |
-| `separator_spacing` | enum: `s` \| `m` \| `l` | `m` | Space above and below the divider |
-| `separator_width` | enum: `full` \| `centered` \| `partial` | `full` | Divider width |
-| `slots_view_mobile` | `boolean` | `true` | Show times first on mobile |
-| `style` | enum: `''` \| `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `small` | `''` | Title size |
-| `subtitle` | `string` (dynamic) | `''` | Optional second line under the heading, like a date, role, or author name |
-| `tag` | enum: `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `p` \| `span` \| `address` | `h3` | Choose the title level |
-| `tag_variant` | enum: `white` \| `transparent` \| `primary_light` \| `primary_white` \| `secondary_light` \| `secondary_white` \| `primary` \| `secondary` \| `positive` \| `negative` | `''` | Tag colors |
-| `text` | `string` (dynamic) | `''` | Main text for this block |
-| `theme` | enum: `light` \| `dark` \| `auto` | `light` | Light, dark, or automatic theme |
-| `toast_message` | `string` (dynamic) | `''` | Short message after click |
-| `toc_max_heading` | enum: `h2` \| `h3` \| `h4` \| `h5` \| `h6` | `h3` | Deepest heading level included in the table of contents |
-| `toc_scope` | `string` | `''` | Element ID to build the table of contents from |
-| `toc_variant` | enum: `transparent` \| `primary` \| `secondary` \| `negative` \| `positive` | `transparent` | Table-of-contents link colors |
-| `tooltip` | `string` | `''` | Short hover text shown on the button |
-| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` | `''` | Choose what opens on click |
-| `variant` | `string` | `''` | Button colors |
-| `vote_field_key` | `string` (dynamic) | `''` | Vote field to update |
+| `appearance` | enum: `plain` \| `field` \| `pill` \| `button` (direct vx) | `plain` | Choose the canonical text presentation |
+| `brand_color` | `string` (direct vx) | `primary` | Booking accent color |
+| `button_placement` | enum: `content` \| `footer` (direct vx) | `content` | Place an ungrouped button in the card content or footer |
+| `description` | `string` (direct vx) | `''` | Shared supporting text |
+| `filters` | repeater `ef-filter-item-rows` (nested vx leaves) | `[]` | Ordered visitor filters applied to the selected results loop |
+| `flyout_template` | `string` (direct vx) | `''` | Template-flyout cell — data only |
+| `hide_details` | `boolean` (direct vx) | `false` | Hide event details |
+| `icon` | `string` (direct vx) | `''` | Icon cell — data only |
+| `kind` | enum: `text` \| `media` \| `group` \| `accordion` \| `filter` \| `calendar` \| `toc` \| `reviews` \| `custom_code` \| `auth` (direct vx) | `text` | Choose what this content block shows |
+| `label` | `richtext` (direct vx) | `''` | Human-facing title for accordion, table-of-contents, and filter sort controls |
+| `layout` | enum: `''` \| `inline` \| `stacked` \| `week_view` \| `month_view` \| `column_view` (direct vx) | `''` | Choose the kind-specific content layout |
+| `max_heading` | enum: `h2` \| `h3` \| `h4` \| `h5` \| `h6` (direct vx) | `h3` | Deepest heading level included in the table of contents |
+| `media_icon` | `string` (direct vx) | `''` | Choose an icon |
+| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
+| `media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
+| `media_modifiers` | `string` (direct vx) | `''` | Optional image behavior flags |
+| `media_position` | enum: `inline` \| `top-edge` \| `auto-main` \| `top-main` (responsive, nested vx leaves) | `inline` | Choose the placement of a standalone media row at each screen size |
+| `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
+| `media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
+| `mobile_slots_first` | `boolean` (direct vx) | `true` | Show times first on mobile |
+| `mode` | enum: `login` \| `register` (direct vx) | `login` | Choose the password credential mode this row shows |
+| `modifiers` | `string` (direct vx) | `''` | Kind-scoped behavior flags shared by text and group rows |
+| `open` | `boolean` (direct vx) | `false` | Open this accordion by default |
+| `overflow_limit` | `number` (direct vx) | `1` | Rows shown before the overflow affordance appears |
+| `overflow_suffix` | `string` (direct vx) | `''` | Word after a hidden count of one (for example +1 product) |
+| `overflow_suffix_plural` | `string` (direct vx) | `''` | Word after a hidden count of two or more |
+| `payload` | `action_payload` (nested vx leaves) | — | Fields for the selected action type |
+| `position` | enum: `left` \| `center` \| `right` \| `spread` (direct vx) | `left` | Align inline group members to the left, center, or right, or spread them across the available row |
+| `redirect` | `string` (direct vx) | `''` | Optional URL the visitor lands on after a successful login or registration |
+| `require_login` | `boolean` (direct vx) | `false` | Require authentication before this action can resolve or execute |
+| `reviews_icon` | `string` (direct vx) | `ms:ms ms-star` | Repeated icon used to visualize the aggregate rating |
+| `reviews_star_color` | `string` (direct vx) | `yellow` | Filled rating icon color |
+| `scope` | `string` (direct vx) | `''` | Element ID to build the table of contents from |
+| `social_label` | `string` (direct vx) | `''` | Optional divider label above the provider buttons, for example 'or continue with' |
+| `sorts` | repeater `ef-sort-item-rows` (nested vx leaves) | `[]` | Manifest-authorized orderings for the selected results loop |
+| `style` | enum: `''` \| `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `body` \| `small` (direct vx) | `''` | Choose the visual heading size independently of the semantic tag |
+| `submit_label` | `string` (direct vx) | `''` | Optional submit button label override |
+| `tag` | enum: `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `p` \| `span` \| `address` \| `rich_text` (direct vx) | `h3` | Choose the semantic HTML tag for canonical text, or switch the same Text field to rich-text content |
+| `target` | `string` (dynamic disabled) | `''` | Comma-separated canonical Elementor element IDs of the compatible EF loops this filter updates |
+| `theme` | enum: `light` \| `dark` \| `auto` (direct vx) | `light` | Light, dark, or automatic theme |
+| `tooltip` | `string` (direct vx) | `''` | Short hover text shown on the button |
+| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` (direct vx) | `''` | Choose what opens on click |
+| `url` | `source` (nested vx leaves) | — | Optional absolute booking URL override |
+| `value` | `richtext` (direct vx) | `''` | Primary authored content for text, accordion, and custom-code rows |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | One shared appearance variant for text, accordion, and table-of-contents rows |
 
 ### Row surface `field-row` — Field row
 
-6 cells.
+5 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `accept` | `string` | `.pdf,.doc,.docx` | Allowed upload file types |
-| `label` | `string` | `''` | Field label shown to visitors |
-| `options` | `string` | `''` | Choices, one per line |
-| `placeholder` | `string` | `''` | Hint inside the field |
-| `required` | `boolean` | `false` | Require visitors to fill this in |
-| `type` | enum: `heading` \| `text` \| `email` \| `textarea` \| `select` \| `upload` \| `checkbox` | `text` | Choose the kind of field |
+| `label` | `string` (direct vx) | `''` | Field label shown to visitors |
+| `payload` | `field_payload` | — | Only the active field type's authored configuration |
+| `placeholder` | `string` (direct vx) | `''` | Hint inside the field |
+| `required` | `boolean` (direct vx) | `false` | Require visitors to fill this in |
+| `type` | enum: `heading` \| `text` \| `email` \| `textarea` \| `select` \| `upload` \| `checkbox` \| `combobox` (direct vx) | `text` | Choose the kind of field |
 
-### Row surface `map-pin-row` — Map pin row
+### Row surface `filter-item-row` — Filter item row
 
 3 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `card_template` | `string` | `''` | Per-pin Elementor card template rendered (lazily, on pin click) in the pin's related-post context |
-| `location` | `string` (dynamic) | `''` | Voxel location JSON or a plain address string |
-| `name` | `string` (dynamic) | `''` | Marker label, tooltip, or popup text |
+| `label` | `string` (direct vx) | `''` | Accessible label shown above the visitor's filter control |
+| `options` | `string` (dynamic disabled) | `''` | Optional authored visitor choices, one value per line |
+| `predicate` | `predicate` (nested vx leaves) | — | Indexed predicate source, comparison, and authored arguments |
 
-### Row surface `mega-row` — Mega row
+### Row surface `map-pin-row` — Map pin row
 
-8 cells.
+7 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `link` | `source` | — | Link this item opens |
-| `loop_anchor` | `string` (dynamic) | `''` | Post used for repeated links |
-| `loop_anchor_type` | enum: `''` \| `custom` | `''` | Choose the source for repeated links |
-| `loop_overflow_suffix` | `string` (dynamic) | `''` | Word after the hidden item count when it is 1 (e.g |
-| `loop_overflow_suffix_plural` | `string` (dynamic) | `''` | Word after the hidden item count when it is 2+ (e.g |
-| `loop_visible_rows` | `number` | `0` | Lines shown before +N appears |
-| `meta` | `string` (dynamic) | `''` | Optional subtitle |
-| `text` | `string` (dynamic) | `''` | Menu item text |
+| `label` | `string` (direct vx) | `''` | Marker label, tooltip, or popup text |
+| `location` | `string` (direct vx) | `''` | Voxel location JSON containing numeric latitude and longitude |
+| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `media_type` | enum: `image` (direct vx) | `image` | Fixed image discriminator for the canonical map pin media payload |
+| `template` | `string` (direct vx) | `''` | Per-pin Elementor card template rendered (lazily, on pin click) in the pin's related-post context |
+
+### Row surface `mega-row` — Mega row
+
+20 cells.
+
+| Cell | Type / enum | Default | Brief |
+|---|---|---|---|
+| `description` | `string` (direct vx) | `''` | Optional subtitle |
+| `label` | `string` (direct vx) | `''` | Menu item text |
+| `link` | `source` (nested vx leaves) | — | Link this item opens |
+| `loop_anchor` | `string` (direct vx) | `''` | Post used for repeated links |
+| `loop_anchor_type` | enum: `''` \| `custom` (direct vx) | `''` | Choose the source for repeated links |
+| `media_icon` | `string` (direct vx) | `''` | Choose an icon |
+| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
+| `media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
+| `media_modifiers` | `string` (direct vx) | `''` | Optional image behavior flags |
+| `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
+| `media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
+| `modifiers` | `string` (direct vx) | `''` | Optional row behavior flags |
+| `overflow_limit` | `number` (direct vx) | `0` | Rows shown before the overflow affordance appears |
+| `overflow_suffix` | `string` (direct vx) | `''` | Word after a hidden count of one (for example +1 product) |
+| `overflow_suffix_plural` | `string` (direct vx) | `''` | Word after a hidden count of two or more |
+| `pill_variant` | enum: `dynamic` \| `white` \| `transparent` \| `primary_light` \| `primary_white` \| `secondary_light` \| `secondary_white` \| `primary` \| `secondary` \| `positive` \| `negative` (direct vx) | `dynamic` | Colors for last-level megamenu pills |
 
 ### Row surface `recipient-row` — Recipient row
 
@@ -160,6 +146,16 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `email` | `string` | `''` | Email address receiving a copy |
+| `email` | `string` (direct vx) | `''` | Email address receiving a copy |
+
+### Row surface `sort-item-row` — Sort option row
+
+2 cells.
+
+| Cell | Type / enum | Default | Brief |
+|---|---|---|---|
+| `label` | `string` (direct vx) | `''` | Visitor-facing label for this ordering option |
+| `ordering` | `ordering` (nested vx leaves) | — | Indexed ordering source and direction |
 
 <!-- AUTO-GENERATED:ef-parts END -->
+

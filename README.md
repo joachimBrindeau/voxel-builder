@@ -6,10 +6,9 @@ source-owning workflow per task, delegates bounded batches through named leaf-sp
 briefs, centralizes authoritative writes, and verifies both stored and rendered state
 through `wpdev`.
 
-Every Voxel field type (33/33), every documented Voxel feature surface (36/36), every EF
-V4 widget/element (4/4), every EF part (10/10 user-facing + base/Media/Nav helpers), and the full
-`ef_*` helper catalogue live in `./references/` (knowledge) and `./workflows/` (phased
-processes). The page-planning sub-pipeline (Field Inventory → SSOT Read → Archetype
+The current catalogs and coverage guarantees live under `./references/` (knowledge) and
+`./workflows/` (phased processes) and are checked by `scripts/lint.sh`; avoid copying
+manual coverage totals into prose. The page-planning sub-pipeline (Field Inventory → SSOT Read → Archetype
 Selection → Section Blueprints → adversarial review → reconciliation → computed §2g gate)
 is Phase 2 of the build pipeline, with a Behavior Contract gate for existing-data fixes.
 See [`CHANGELOG.md`](CHANGELOG.md) for version history.
@@ -18,9 +17,12 @@ See [`CHANGELOG.md`](CHANGELOG.md) for version history.
 
 This skill drives real infrastructure; confirm these prerequisites before use:
 
-- **`wpdev` CLI on `PATH`** — the engine behind every command (from the wpdev repo).
+- **`wpdev` CLI on `PATH`** — the engine behind every command (from the wpdev repo). For repository linting that compares command coverage to source, set `WPDEV_ROOT=/path/to/wpdev` when the executable is not inside its checkout.
 - **A WordPress site running the Voxel theme + `lean-seo` + the `elementor-framework` (EF V4) plugin.**
-- **The committed EF V4 SSOT** `cli/src/generated/widget-schemas.json` (regenerated via `wpdev elementor:codegen`).
+- **The skill-local EF V4 SSOT** is `references/ef/widget-schemas.json`. It and the
+  generated widget/action/part tables are synchronized from the WordPress workspace's
+  `wpdev elementor:codegen` + `wpdev elementor:docs:gen` outputs by
+  `scripts/sync-ef-generated-references.py`; `scripts/lint.sh` rejects drift.
 
 Verify the runtime prerequisites at any time:
 
@@ -49,7 +51,7 @@ are host-independent — see
 - **`workflows/`** — primary phased workflows plus supporting pipelines, indexed with exclusive ownership and exit artifacts in [`workflows/README.md`](workflows/README.md).
 - **`templates/`** — the reusable section-template store: extracted, sanitized `_elementor_data` subtrees (`global` / `section` / `page` scope) agents can splice into new builds. See `templates/README.md` for the on-disk shape and `templates/index.md` for the master catalog.
 - **`examples/`** — four golden `_elementor_data` fixtures (ef-card, ef-wrapper, ts-create-post, ts-post-feed).
-- **`scripts/`** — `lint.sh` (portable lint), `verify-install.sh` (prereq check), `action-spec.sh`, `generate-icon-reference.ts`.
+- **`scripts/`** — the canonical lint, EF codegen/docs synchronization, prerequisite checks, validators, and generated-reference tooling.
 
 ### Curation route
 
@@ -58,22 +60,11 @@ edits, relation audits) is a first-class route: [`workflows/curation.md`](workfl
 a 4-phase pipeline (Discover → Plan → Execute → Verify) with a merge/delete safety gate,
 backed by [`references/curation/`](references/curation/).
 
-## When to use
+## Routing
 
-The SKILL.md routing table covers the dominant request shapes:
-
-| Request shape | Goes to |
-|---|---|
-| "Audit page", "review template", "what's wrong with X" | `workflows/audit.md` |
-| "Create CPT", "new post type X" | `workflows/cpt-lifecycle.md` |
-| "Build/modify elementor data", "create ef-card", "add feed/list/loop section" | `workflows/build.md` — EF widgets only; use `ef-wrapper` template/loop wrappers instead of Voxel widgets |
-| "Build a glossary / defined-term CPT with SEO JSON-LD" | `references/voxel/seo-defined-terms.md` |
-| "Migrate page off legacy Elementor" | `workflows/migrate.md` |
-| "Fix known bugs" | `workflows/fix-known.md` |
-| "Find / replace an icon" | `references/icons/material-symbols/lookup-and-repair.md` |
-| "What's the schema of X" | the `voxel-schema-detective` brief (`references/subagents/voxel-schema-detective.md`) |
-
-Anything else falls through to the SKILL.md decision flow.
+`SKILL.md` is the only request-to-primary-workflow router. Start with its **Primary Route
+Ownership** table and precedence rules. Use `references/README.md` only for narrow topic
+lookup after the primary workflow has been selected.
 
 ## Linting
 
@@ -83,7 +74,10 @@ bash scripts/lint.sh
 
 Checks portability, strict skill/workflow/reference size limits, route/index set equality,
 phase Entry/action/Exit structure, leaf-role tool boundaries, bounded fan-out language,
-wpdev command coverage, templates, and every relative link/anchor.
+wpdev command coverage, EF generated schema/reference drift, templates, and every relative
+link/anchor. Set `WPDEV_ROOT` to the wpdev source checkout and, when validating
+against a separately staged/generated corpus, set `EF_GENERATED_ROOT` to that WordPress
+workspace root.
 
 ## License
 

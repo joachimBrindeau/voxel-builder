@@ -21,7 +21,8 @@ the other seven fail.
 
 Some leaves are individually deep enough that batching 5-10 of them would exceed a
 worker's useful context or blur atomic evidence. These are declared, not defaulted.
-Named exception: `local-page-justification.md` service+location pairs — one pair is one
+Named exception: [`local-page-justification.md`](../../workflows/local-page-justification.md)
+service+location pairs — one pair is one
 oversized leaf (research, evidence ledger, blueprint, and neutralization candidates for
 that pair). A campaign of multiple pairs still batches leaves into waves no larger than
 the host concurrency cap; it does not gain unbounded concurrency. Record

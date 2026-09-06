@@ -18,10 +18,10 @@ The atomic-widget catalog below is generated from `cli/src/generated/widget-sche
 
 | Widget | Title | Props | Row surfaces | PHP class |
 |---|---|---|---|---|
-| `ef-card` | Card | 4 | `content-block-row` | `EF\Widgets\Card` |
-| `ef-form` | Form | 6 | `field-row`, `recipient-row` | `EF\Widgets\Form` |
-| `ef-navbar` | Navbar | 26 | `action-row`, `mega-row` | `EF\Widgets\Navbar` |
-| `ef-wrapper` | Wrapper | 18 | `map-pin-row` | `EF\Elements\Wrapper` |
+| `ef-card` | Card | 4 | `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
+| `ef-form` | Form | 8 | `field-row`, `recipient-row` | `EF\Widgets\Form` |
+| `ef-navbar` | Navbar | 12 | `action-row`, `map-pin-row`, `mega-row` | `EF\Widgets\Navbar` |
+| `ef-wrapper` | Wrapper | 17 | `map-pin-row` | `EF\Elements\Wrapper` |
 
 <!-- AUTO-GENERATED:widgets END -->
 
@@ -82,7 +82,7 @@ When a map "doesn't load when it comes into view", check this contract before ch
 
 ## Retired widgets / props — DO NOT dispatch
 
-Two categories: (a) **widgets that once existed and were removed by a migration step** — old `_elementor_data` may still reference them; the migration step rewrites them. (b) **phantom widgets that never had a PHP file** — they show up only in stale prompts / docs / memory; the actual surface is the six widgets at the top of this file.
+Two categories: (a) **widgets that once existed and were removed by a migration step** — old `_elementor_data` may still reference them; the migration step rewrites them. (b) **phantom widgets that never had a PHP file** — they show up only in stale prompts / docs / memory; the actual surface is the four widgets/elements at the top of this file.
 
 | Retired surface | Category | Replacement | Migration step / fix |
 |---|---|---|---|
@@ -199,7 +199,7 @@ Latest moving parts — none replace the rule "query the schema", but they expla
 
 - **`ef-accordion` no longer exists.** Migration step 530 retired the standalone widget; accordion behaviour now lives on `ef-card` `content_blocks` rows via `kind: accordion` (a collapsible heading+body unit).
 - **`ef-icon-heading` no longer exists.** Replaced by `ef-card` with heading enabled; migration step rewrites the widget type on save.
-- **Phantom widgets.** `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-button-group`, `ef-map-pin`, `ef-map` have **no PHP files**. They are not registered. The actual EF surface is the six widgets in [`ef-widgets.md`](ef-widgets.md). Card buttons go through `ef-card.ts_actions`; navbar CTAs through `ef-navbar.cta_ts_actions`.
+- **Phantom widgets.** `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-button-group`, `ef-map-pin`, `ef-map` have **no PHP files**. They are not registered. The actual EF surface is the four widgets/elements in [`ef-widgets.md`](ef-widgets.md). Card buttons go through `ef-card.ts_actions`; navbar CTAs through `ef-navbar.cta_ts_actions`.
 - **General section is auto-injected** on every EF widget — `_cssid`, responsive `col_span`, and a 3-icon **Dynamic affordance band** bound to `_vx_loop` / `_vx_visibility` / `_ef_loop_transform`. EF strips Voxel's three (VX) sections from EF widget panels at filter priority 110.
 - **Loop / visibility key naming** — modern is `_vx_loop` / `_vx_visibility` / `_ef_loop_transform`. Legacy `_voxel_loop` / `_voxel_visibility_rules` still recognised on read but not canonical write targets.
 - **Image envelope must be full-shape** — `{$$type:'image', value:{src:..., size:'string'}}`. Writing `{src}` alone short-circuits the resolver.

@@ -6,7 +6,7 @@ This file documents the data-bearing settings (post-type / behavior / messages /
 
 ---
 
-## Discovery rule (mandatory — [`rules.md`](../core/rules.md) Rule 2 of 8)
+## Discovery rule (mandatory — [`rules.md`](../core/rules.md) Rule 2)
 
 Before writing any `ts-*` widget JSON from scratch, get a known-good shape from a real production instance:
 

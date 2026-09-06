@@ -26,9 +26,9 @@ The action-type catalog below is generated from `cli/src/generated/ef-catalogs.j
 
 <!-- MIRRORED:actions START — do not hand-edit. This block is a copy of the AUTO-GENERATED:actions block in plugins/custom/elementor-framework/docs/reference/actions.md. `wpdev elementor:docs:gen` regenerates that file only, never this one, so re-mirror by hand after any action-catalog change. -->
 
-40 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
+41 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
 
-Unified action surface — every type works on every action host (slot, content-block row, tag, card actions).
+Unified action surface — every type works on every action host (slot, heading, tag, card actions).
 
 | Action ID | Label | Required fields |
 |---|---|---|
@@ -46,6 +46,7 @@ Unified action surface — every type works on every action host (slot, content-
 | `back_to_top` | Back to top | — |
 | `call` | Phone call | `phone` |
 | `claim_post` | Claim post | — |
+| `copy_to_clipboard` | Copy to clipboard | `copy_value`, `copy_event`, `icon_active`, `label_active`, `toast_message` |
 | `delete_post` | Delete post | — |
 | `direct_message` | Message post | — |
 | `direct_message_user` | Message post author | — |
@@ -268,7 +269,7 @@ Voxel's `ts-advanced-list` widget iterates a repeater natively with per-sub-type
 
 The `hierarchy` criterion surfaces structured-field `is_not_empty` rules as severity `I` with a "fragile vis-gate — prefer widget-internal handling or scalar sub-key gate" finding.
 
-**Phase 6 browser verification is the only catcher for these classes.** Action-row loop + visibility bugs (wrong comparator, missing loop, fragile vis-gate) ALL pass `wpdev elementor:lint` because the prop names are valid; the bug is semantic, not schema-level. Seven-rules.md Rule 7 is the gate.
+**Phase 6 browser verification is the only catcher for these classes.** Action-row loop + visibility bugs (wrong comparator, missing loop, fragile vis-gate) ALL pass `wpdev elementor:lint` because the prop names are valid; the bug is semantic, not schema-level. [`rules.md`](../core/rules.md) Rule 7 is the gate.
 
 ## `actions_embedded` (ef-card only)
 
@@ -287,4 +288,5 @@ The `hierarchy` criterion surfaces structured-field `is_not_empty` rules as seve
 - [`widgets.md`](widgets.md) — `tags` repeater on `ef-card` (same loop-envelope inheritance pattern as `ts_actions`).
 - [`ef-widgets.md`](ef-widgets.md) §ef-card — full `ef-card` prop surface including `actions_embedded` and the `cta_*` action-slot props on `ef-navbar`.
 - [`ef-parts.md`](ef-parts.md) §Actions / §Action_Slot — Part-level contracts (`Actions::repeater_control()`, `Action_Slot::props()`, `to_link()`, `to_render_item()`) and the §action-row generated cell table.
-- [`rules.md`](../core/rules.md) (ten rules) — Rule 1 (SSOT-first), Rule 5 (static vs dynamic per render context).
+- [`rules.md`](../core/rules.md) — Rule 1 (SSOT-first), Rule 5 (static vs dynamic per render context).
+

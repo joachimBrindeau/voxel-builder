@@ -1,18 +1,23 @@
 # references/ — knowledge to consult
 
-This skill separates **knowledge** (look-it-up reference) from **process** (follow-the-steps). Reference knowledge lives here in three groups; the phased processes live in [`../workflows/`](../workflows/README.md). The router is [`../SKILL.md`](../SKILL.md).
+This skill separates **knowledge** (look-it-up reference) from **process** (follow-the-steps). References are grouped by concern; phased processes live in [`../workflows/`](../workflows/README.md). The authoritative primary router is [`../SKILL.md`](../SKILL.md). Use this file only for topic lookup after routing.
 
 ```
 ../../
 ├── references/   ← YOU ARE HERE — knowledge to consult
-│   ├── core/   — cross-cutting SSOT, read on every session
-│   ├── ef/     — Elementor Framework V4 atomic widget reference
-│   ├── icons/  — generated Material Symbols lookup + repair workflow
-│   └── voxel/  — Voxel platform / domain reference
+│   ├── core/         — cross-cutting contracts loaded when the workflow names them
+│   ├── audit/        — audit-specific knowledge
+│   ├── curation/     — entity/content mutation knowledge
+│   ├── ef/           — Elementor Framework V4 reference
+│   ├── icons/        — generated Material Symbols lookup
+│   ├── subagents/    — named leaf-specialist briefs
+│   ├── templates/    — reusable-template policies
+│   ├── verification/ — browser and behavior contracts
+│   └── voxel/        — Voxel platform/domain reference
 └── workflows/    — the phased processes (build, plan, migrate, audit, cpt-lifecycle)
 ```
 
-## Task-shape lookup
+## Topic lookup after routing
 
 
 | Task shape | Reference |
@@ -73,7 +78,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "What archetypes do I pick from (hero / specs-grid / detail-tabs / sidebar / relation-feed / faq / cta-footer / …)?" | [`page-plan-archetypes.md`](core/page-plan-archetypes.md) |
 | "Which adversarial criterion catches X failure mode (thin templates / unsurfaced fields / heading hierarchy)?" | [`criteria.md`](core/criteria.md) + [`voxel-plan-reviewer.md`](subagents/voxel-plan-reviewer.md) |
 
-## `core/` — read first, always
+## `core/` — cross-cutting contracts
 
 | File | What it is |
 |---|---|
@@ -153,7 +158,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | Layer | File | Owns |
 |---|---|---|
 | **Routing** | this file | Request → command/reference mapping |
-| **Rules** | [`references/core/rules.md`](core/rules.md) | Ten rules, success criteria |
+| **Rules** | [`references/core/rules.md`](core/rules.md) | Mandatory rules and success criteria |
 | **Page planning** | [`../workflows/page-planning.md`](../workflows/page-planning.md) | Phase 2 sub-pipeline — Field Inventory, SSOT Read, Archetype Selection, Section Blueprints, adversarial review (full reviewer panel, parallel, one concern each), reconciliation, computed §2g gate. Mandatory for any non-trivial build or migration. |
 | **CLI** | [`references/core/command-surface.md`](core/command-surface.md), [`references/core/wpdev-ops.md`](core/wpdev-ops.md), [`references/core/wpdev-coverage.md`](core/wpdev-coverage.md) | Voxel/Elementor command surface + generic ops appendix + drift-gated coverage map |
 | **Dispatch** | [`references/core/parallel-dispatch.md`](core/parallel-dispatch.md), §Orchestrating the parallel fan-outs (above) | Atomic-scope subagent contract; Workflow-tool fan-out (preferred when opted in) vs inline single-message dispatch (fallback) |

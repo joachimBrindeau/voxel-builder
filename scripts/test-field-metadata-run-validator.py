@@ -225,7 +225,7 @@ def main() -> int:
     expect_rejected("source-owner bad read_back", lambda root, data: (lambda value: (value["source_owner"][0].update({"read_back": "pass"}), write(root / "verification.json", value)))(json.loads((root / "verification.json").read_text())))
     expect_rejected("not-applicable bad read_back", lambda root, data: (lambda value: (value["source_owner"][0].update({"read_back": "debt"}), write(root / "verification.json", value)))(json.loads((root / "verification.json").read_text())), owner_state="not-applicable")
     expect_rejected("invalid run proof", lambda root, data: (lambda value: (value.update({"nonce": "reused"}), write(root / "run.json", value)))(json.loads((root / "run.json").read_text())))
-    expect_rejected("hard-linked artifact", lambda root, data: (root / "before-db-link.sql").hardlink_to(root / "before-db.sql"))
+    expect_rejected("hard-linked artifact", lambda root, data: os.link(root / "before-db.sql", root / "before-db-link.sql"))
     expect_rejected("rollback extra key", lambda root, data: (lambda value: (value.update({"extra": True}), write(root / "rollback.json", value)))(json.loads((root / "rollback.json").read_text())), rolled_back=True)
     expect_rejected("rollback option byte divergence", lambda root, data: ((root / "restored-option.json").write_text(canonical(data["before"])), (root / "restored-option.json").chmod(0o600)), rolled_back=True)
     expect_rejected("rollback blueprint byte divergence", lambda root, data: ((root / "restored-blueprint.json").write_text(canonical(data["before"])), (root / "restored-blueprint.json").chmod(0o600)), rolled_back=True, blueprint_managed=True)

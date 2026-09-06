@@ -37,7 +37,7 @@
       "predicate": "plan.phase0.decision ∈ {rebuild, revise} AND has reason" },
     { "id": "migration-preservation", "scope": "page", "phase": "plan", "severity": "C", "mode": "migration",
       "criterion": "Every information unit on the production page appears in a blueprint cell OR is acknowledged in the §2d Improvements log.",
-      "evidence": "production rendered text via agent-browser (build/browser-verify.md)",
+      "evidence": "references/verification/browser.md",
       "predicate": "set(production_info_units) ⊆ set(blueprint_units ∪ improvement_log_units)" },
 
     { "id": "wrapper-semantics", "scope": "section", "phase": "plan", "severity": "C/I",
@@ -97,7 +97,7 @@
       "predicate": "rendered_html does not match /@(post|tags|author|site)\\(/" },
     { "id": "layout-assert", "scope": "section", "phase": "render", "severity": "C",
       "criterion": "Computed section width, grid tracks, inherited --ef-cols, and hero tag match the Layout map.",
-      "evidence": "agent-browser computed-style eval block (build/browser-verify.md)",
+      "evidence": "references/verification/browser.md",
       "predicate": "∀ section s: computed(s).grid_tracks == plan(s).grid_tracks" },
     { "id": "no-console-errors", "scope": "page", "phase": "render", "severity": "C",
       "criterion": "No console errors and no page errors at runtime.",

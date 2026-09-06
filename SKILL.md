@@ -68,24 +68,27 @@ Complete intake before reading route-specific detail:
    ambiguous, ask one focused clarification question before routing.
 3. Select one primary workflow using the precedence rules. For a composite request,
    create ordered tasks and route each task separately.
-4. Read `references/core/rules.md`, `references/core/criteria.md`, the selected workflow,
+4. Read the always-loaded contracts listed under `Reference Index`, the selected workflow,
    and only the references named by that workflow. Follow the selected workflow exactly.
 
 ## Orchestrator Contract
 
-Treat every Voxel Builder run as a routed orchestration unless the task is a trivial
-single-command lookup.
+Treat a Voxel Builder run as routed orchestration when the selected workflow declares
+fan-out through a named specialist. Otherwise execute the selected workflow directly;
+do not invent a generic worker merely to satisfy orchestration ceremony.
 
-- **Main agent owns:** route selection, required reads, shared CLI context, rollback
-  capture, fan-out planning, aggregation, conflict resolution, §2f/§2g gates,
-  write-once assembly, final verification summary, and user-facing decisions.
-- **Subagents own:** bounded homogeneous batches of 5-10 leaves using the named briefs
-  under `references/subagents/`. Each leaf keeps a separate scope id, evidence set, and
-  verdict/output so one failed leaf never contaminates its siblings.
-- **No generic fallback agents.** Dispatch the matching named brief. If the host has
-  no subagent runtime, read the brief and execute that same atomic scope inline as a
-  degraded fallback, recording `subagent-runtime-unavailable`; do not collapse the
-  whole page/workflow into one inline pass.
+- **Main agent always owns:** route selection, required reads, shared CLI context, rollback
+  capture, conflict resolution, authoritative writes, final verification summary, and
+  user-facing decisions. When a workflow fans out, it also owns batch planning,
+  aggregation, and judgment gates.
+- **Named subagents own declared fan-out only:** use the matching brief under
+  `references/subagents/` for bounded homogeneous batches of 5-10 leaves. Each leaf
+  keeps a separate scope id, evidence set, and verdict/output so one failed leaf never
+  contaminates its siblings.
+- **No invented fallback roles.** If a workflow does not declare a matching brief, run
+  it directly. If it does declare one but the host has no subagent runtime, read that
+  brief and execute the same atomic scopes inline, recording
+  `subagent-runtime-unavailable`; do not collapse the workflow into one undifferentiated pass.
 - **Writes stay centralized.** Read-only subagents return findings/evidence only.
   Build subagents return scoped JSON/patch material. The orchestrator validates
   scope, assembles, writes once, then dispatches verification. Field-definition UX
@@ -147,12 +150,13 @@ single-command lookup.
 
 ## Reference Index
 
-Always-loaded contracts: `references/core/rules.md`, `references/core/criteria.md`,
-`references/core/parallel-dispatch.md`, and `references/subagents/README.md`.
-Use `workflows/README.md` for workflow entry/exit contracts and `references/README.md`
-for the domain lookup table. Keep loading narrow: open only the selected workflow and
-the references it declares or directly links for the active phase. Lateral links inside
-references are optional lookup aids, not automatically required chained reads.
+Always load `references/core/rules.md`. Then read the selected workflow and only the
+references it explicitly names. Load `references/core/criteria.md`,
+`references/core/parallel-dispatch.md`, and `references/subagents/README.md` only when
+the selected workflow invokes planning, criteria review, or named fan-out.
+Use `workflows/README.md` to inspect workflow ownership and `references/README.md` only
+as a post-routing topic lookup. Keep loading narrow: lateral links inside references
+are optional lookup aids, not required chained reads.
 
 Saved section templates (reusable hero/section starting trees, one folder per section) live in the `templates/` store — see `templates/README.md` for the on-disk shape, `meta.yml` schema, SSOT-wins discipline, and the refresh/migrate workflow; `templates/index.md` is the master catalog. Templates are starting trees, never authoritative spec.
 
@@ -160,8 +164,9 @@ Saved section templates (reusable hero/section starting trees, one folder per se
 
 - Correct workflow selected and entry criteria satisfied.
 - Exactly one primary route owns each task; composite handoffs name their artifact.
-- Named subagent briefs use bounded batches and return atomic leaf results; inline
-  fallback is recorded only when no subagent runtime exists.
+- Named subagent briefs use bounded batches when the selected workflow declares fan-out;
+  direct workflows do not invent generic roles. Inline fallback is recorded only when a
+  declared specialist cannot run.
 - Source-of-truth owner identified before mutation.
 - Rollback/read-back evidence captured for writes.
 - Rendered output or runtime behavior verified for touched surfaces.

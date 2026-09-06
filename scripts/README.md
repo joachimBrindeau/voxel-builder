@@ -6,7 +6,7 @@ don't depend on any specific agent host — but the icon/action ones do call the
 
 | Script | Purpose | Exit |
 |---|---|---|
-| [`lint.sh`](lint.sh) | Full skill gate: workflow architecture/phase contracts/size ceilings, tool declarations, bounded fan-out language, wpdev coverage, template schemas, portability, and local links/anchors. | `0` = clean, `1` = failures. |
+| [`lint.sh`](lint.sh) | Full skill gate: workflow architecture/phase contracts/size ceilings, tool declarations, bounded fan-out language, field-metadata and geo-payload validators, wpdev coverage, EF generated-reference drift, template schemas, portability, and local links/anchors. | `0` = clean, `1` = failures. |
 | [`lint-workflow-structure.py`](lint-workflow-structure.py) | Deterministic workflow-skill-design checks for SKILL/workflow/reference/subagent structure. | `0` = compliant, `1` = findings. |
 | [`test-skill-contract.py`](test-skill-contract.py) | Validates Hermes frontmatter, description bounds, platform gating, and critical workflow routes. | `0` = compliant, `1` = findings. |
 | [`test-lib.sh`](test-lib.sh) | Regression-tests explicit `WPDEV_ROOT` and `WPDEV_SOURCE_ROOT` checkout discovery, including the Python wpdev-coverage gate. | `0` = clean, `1` = regression. |
@@ -16,6 +16,7 @@ don't depend on any specific agent host — but the icon/action ones do call the
 | [`test-field-metadata-run-validator.py`](test-field-metadata-run-validator.py) | Self-checks valid pass/rolled-back fixtures plus schema, type, evidence, writer/argv, diff, symlink, and path-escape rejection cases. | `0` = clean, `1` = regression. |
 | [`validate-geo-payload.py`](validate-geo-payload.py) | Validates one or more geo candidate JSON payloads: required fields, copy bounds, collection counts, source/evidence IDs and URLs, maintainable stale-URL/risky-claim policy, sibling city-swap similarity, and input SHA-256s. Emits JSON only. | `0` = valid, `1` = findings. |
 | [`test-geo-payload-validator.py`](test-geo-payload-validator.py) | Self-checks valid, malformed, risky/source-invalid, and city-swap payload cases. | `0` = clean, `1` = regression. |
+| [`sync-ef-generated-references.py`](sync-ef-generated-references.py) | Syncs `references/ef/widget-schemas.json` and only the `AUTO-GENERATED` widget/action/part table blocks from the WordPress workspace's EF codegen/docs outputs. `--check` is the drift gate. Set `WPDEV_ROOT`, or `EF_GENERATED_ROOT` in the full lint when the generated corpus is staged separately. | `0` = synchronized/current, `1` = drift or missing source. |
 | [`verify-install.sh`](verify-install.sh) | Check a target site and runtime prerequisites: `wpdev`, Voxel, lean-seo, Elementor Framework, committed EF assets, `agent-browser`, and `jq`. Run as `./scripts/verify-install.sh <site>` before first use on a site. | `0` = all required prereqs OK. |
 | [`action-spec.sh`](action-spec.sh) | Resolve the action-spec for a Voxel `ts_actions` cell (used by the card-actions workflow). | passthrough. |
 | [`generate-icon-reference.ts`](generate-icon-reference.ts) | Regenerate the Material Symbols icon reference (`references/icons/material-symbols/`) from Google's metadata. Run from the skill root; set `WPDEV_ROOT` for a non-sibling WordPress checkout. | passthrough. |

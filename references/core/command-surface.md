@@ -105,7 +105,7 @@ wpdev voxel:create   <site> <key> [--label <Label>]                             
 wpdev voxel:assign   <site> --role <role> [--type <key>] --template <id> [--unset] [-y] # assign (or --unset) template to role
 ```
 
-## Revisions (offer before any modification — see [`rules.md`](rules.md) rule 6)
+## Revisions (mandatory before non-trivial modification — see [`rules.md`](rules.md) rule 6)
 
 ```bash
 wpdev elementor:revisions:prune <site> --post <id> --dry   # count what would be deleted
