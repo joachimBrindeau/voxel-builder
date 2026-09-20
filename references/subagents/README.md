@@ -25,7 +25,8 @@ inside a role brief.
 | [`voxel-layout-architect`](voxel-layout-architect.md) | Section Layout map blocks | Build material | 5-10 sections |
 | [`voxel-heading-curator`](voxel-heading-curator.md) | One site/plan-level production phrasing palette | Read-only | 1-4 plans |
 | [`voxel-curator-agent`](voxel-curator-agent.md) | Entity, relation, taxonomy, profile, and user investigation | Read-only | 5-10 entities |
-| [`voxel-faq-author`](voxel-faq-author.md) | Source-supported visible FAQ rows | Read-only authoring | 5-10 content items |
+| [`voxel-faq-author`](voxel-faq-author.md) | Source-supported visible FAQ rows | Read-only | 5-10 content items |
+| [`voxel-takeaways-author`](voxel-takeaways-author.md) | Source-supported key-takeaway bullets and TL;DR summary blocks | Read-only authoring | 5-10 content items |
 | [`voxel-content-author`](voxel-content-author.md) | Stored CPT record content (definition/hook/excerpt/sources/body) | Build material or review, never mixed | 5-10 records |
 | [`voxel-field-metadata-author`](voxel-field-metadata-author.md) | Candidate descriptions, placeholders, and supported bounds for CPT field definitions | Build material | 5-10 homogeneous field-definition leaves |
 

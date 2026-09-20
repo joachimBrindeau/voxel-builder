@@ -24,6 +24,7 @@ workflow and never compete at intake.
 | [`organization-profile.md`](organization-profile.md) | Complete best-matcha.com matcha brand Organization profile across four independent lanes | Deterministically merged valid profile + optional gated Voxel apply/runtime proof |
 | [`video-content-backfill.md`](video-content-backfill.md) | Imported Video drafts missing editorial/source-supported content | Evidence-complete Video records + publish/read-back/browser proof |
 | [`faq-authoring.md`](faq-authoring.md) | Visible FAQ rows for existing content | Supported FAQ rows or verified curation handoff |
+| [`key-takeaways.md`](key-takeaways.md) | Visible summary block (key takeaways and TL;DR) above existing content | Supported takeaway rows with evidence, or verified curation handoff with placement proof |
 | [`identity-linking.md`](identity-linking.md) | CPT-agnostic `sameAs` identity research and record population | Reviewed identity manifest + reversible Voxel apply + settings handoff |
 | [`content-generation.md`](content-generation.md) | CPT field content generation/backfill applied to the site | On-spec field values + per-record gated apply + rendered proof |
 | [`content-review.md`](content-review.md) | QA of existing CPT field content against field-scoped spec | Per-field verdict report + routed fix list (read-only) |

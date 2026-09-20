@@ -115,6 +115,7 @@ do not invent a generic worker merely to satisfy orchestration ceremony.
 | Research, author, validate, and optionally apply a complete matcha brand Organization profile | organization profile, matcha brand profile, metadescription + tagline + history + production + contacts + FAQ | `workflows/organization-profile.md` |
 | Complete imported Video records from source evidence | video backfill, transcript, presenter, service, FAQ, imported drafts | `workflows/video-content-backfill.md` |
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
+| Author the visible summary block above an article | key takeaways, TL;DR, in brief, summary box, takeaways field | `workflows/key-takeaways.md` |
 | Research, populate, or audit entity-equivalence links | sameAs, Wikipedia/Wikidata identity, official profiles, knowledge-graph links | `workflows/identity-linking.md` |
 | Generate/backfill/improve CPT field content and apply it | write/backfill/regenerate definition, hook, excerpt, sources, h1, body copy; bulk field authoring | `workflows/content-generation.md` |
 | Review/QA existing CPT field content against spec | audit/score/verify field content quality, prove backfill quality | `workflows/content-review.md` |
