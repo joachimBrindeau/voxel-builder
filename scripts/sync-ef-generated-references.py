@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import sys
@@ -19,6 +20,30 @@ REFERENCE_MARKERS = {
     "ef-widgets.md": ("ef-widgets",),
     "widgets.md": ("widgets",),
 }
+
+
+def strip_presentation_fields(value):
+    """Remove presentation-field definitions from the skill's schema mirror."""
+    if isinstance(value, dict):
+        return {
+            key: strip_presentation_fields(child)
+            for key, child in value.items()
+            if "variant" not in key.lower()
+        }
+    if isinstance(value, list):
+        return [strip_presentation_fields(child) for child in value]
+    return value
+
+
+def filtered_schema_bytes(source: Path) -> bytes:
+    data = json.loads(source.read_text())
+    filtered = strip_presentation_fields(data)
+    return (json.dumps(filtered, indent=2, ensure_ascii=False) + "\n").encode()
+
+
+def filtered_generated_block(block: str) -> str:
+    """Drop generated table/prose lines that expose presentation fields."""
+    return "".join(line for line in block.splitlines(keepends=True) if "variant" not in line.lower())
 
 
 def resolve_wpdev_root(explicit: str | None) -> Path:
@@ -49,7 +74,7 @@ def generated_block(text: str, marker: str, path: Path) -> str:
 def sync_marker(source: Path, target: Path, marker: str, check: bool) -> bool:
     source_text = source.read_text()
     target_text = target.read_text()
-    desired = generated_block(source_text, marker, source)
+    desired = filtered_generated_block(generated_block(source_text, marker, source))
     pattern = marker_pattern(marker)
     match = pattern.search(target_text)
     if not match:
@@ -74,7 +99,7 @@ def main() -> int:
         raise SystemExit(f"generated EF reference directory not found: {source_refs}")
 
     drifted: list[str] = []
-    schema_bytes = source_schema.read_bytes()
+    schema_bytes = filtered_schema_bytes(source_schema)
     if not LOCAL_SCHEMA.is_file() or LOCAL_SCHEMA.read_bytes() != schema_bytes:
         drifted.append(str(LOCAL_SCHEMA.relative_to(SKILL_ROOT)))
         if not args.check:

@@ -62,6 +62,11 @@ PREFIXES = (
     "schema:",
 )
 BARE = {"headings", "quality", "perf", "purge", "rebuild", "smoke"}
+OUT_OF_SCOPE = {
+    # Retired presentation-management path. The skill must use atomic dynamic
+    # styles and must not document or route agents through this command.
+    "elementor:reset:button-variants",
+}
 
 if WPDEV_INDEX is None:
     print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT or WPDEV_SOURCE_ROOT")
@@ -98,7 +103,8 @@ for registry in sorted(CLI_ROOT.glob("commands/**/registry.ts")):
 in_scope = sorted(
     cmd
     for cmd in registered
-    if cmd in BARE or any(cmd == p.rstrip(":") or cmd.startswith(p) for p in PREFIXES)
+    if cmd not in OUT_OF_SCOPE
+    and (cmd in BARE or any(cmd == p.rstrip(":") or cmd.startswith(p) for p in PREFIXES))
 )
 
 missing = [cmd for cmd in in_scope if f"`{cmd}`" not in coverage and f"`{cmd} " not in coverage]

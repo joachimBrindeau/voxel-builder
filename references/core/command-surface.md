@@ -100,7 +100,7 @@ Priority for Elementor reads: **EMCP live single-page/element reads > wpdev raw/
 ## Build-time scaffolds
 
 ```bash
-wpdev voxel:cards    <site> [--type <key>] [--sizes small,large,link] [--replace] [-y]   # preview-card scaffold (default emits all three variants)
+wpdev voxel:cards    <site> [--type <key>] [--sizes small,large,link] [--replace] [-y]   # preview-card scaffold (default emits all requested sizes)
 wpdev voxel:create   <site> <key> [--label <Label>]                                     # CPT + 4 blank templates
 wpdev voxel:assign   <site> --role <role> [--type <key>] --template <id> [--unset] [-y] # assign (or --unset) template to role
 ```
@@ -155,7 +155,7 @@ wpdev rebuild          <site> --only purge           # flush all caches (object 
 wpdev elementor:strip:wrappers      <site> --fix --yes                                # redundant wrapper containers (any depth, incl. root) around ef-* widgets
 wpdev elementor:strip:styles        <site> [--post <id>] [--widget-type <t>] --fix -y # per-node style overrides → globals
 wpdev db:encoding                   <site> --fix -y                                   # double-encoded UTF-8 (mojibake); scans every site when <site> is omitted
-wpdev elementor:reset:button-variants <site> [--post <id>] --fix [--dry] -y           # ef-card action buttons → primary (first) / white (rest)
+
 wpdev elementor:styles              <site> [--post <id>] --fix --dry                  # preview style normalization; drop --dry to apply
 wpdev elementor:styles              <site> --sync-voxel                               # sync Voxel shade tokens into Elementor kit globals
 wpdev elementor:styles              <site> --fix --only buttons,shadowed,voxel,units,colors,typography,headings,bloat  # scoped fixers

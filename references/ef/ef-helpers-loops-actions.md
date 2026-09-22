@@ -125,10 +125,10 @@ See [Atomic V4](ef-helpers-atomic-settings.md#atomic-v4).
 - **File**: `includes/action-controls.php:252`
 - **Behavior**: `{href, attrs}` block from one composite row's action cells.
 
-#### ef_action_surface_class( $variant, $embedded, $extra )
-- **Signature**: `function ef_action_surface_class( string $variant, bool $embedded = false, array $extra = [] ): string`
+#### ef_action_surface_class( $embedded, $extra )
+- **Signature**: `function ef_action_surface_class( bool $embedded = false, array $extra = [] ): string`
 - **File**: `includes/action-controls.php:98`
-- **Behavior**: Pre-built action surface class string — `ef-action ef-action--{variant} ef-action--{embedded?inline:button} {extra…}`.
+- **Behavior**: Pre-built action behavior class string. Visual presentation is supplied by the owning atomic node's dynamic styles.
 
 #### ef_action_type_options( $include_none )
 - **Signature**: `function ef_action_type_options( bool $include_none = true ): array`

@@ -123,7 +123,9 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-77c9fa9-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -179,10 +181,6 @@
               "value": false
             }
           }
-        },
-        "variant": {
-          "$$type": "string",
-          "value": "white"
         },
         "full_height": {
           "$$type": "boolean",
@@ -246,7 +244,36 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-77c9fa9-0": {
+          "id": "s-77c9fa9-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-white)"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-text)"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-border-default)"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"
@@ -364,7 +391,9 @@
           "settings": {
             "classes": {
               "$$type": "classes",
-              "value": []
+              "value": [
+                "s-dafa0d6-0"
+              ]
             },
             "attributes": {
               "$$type": "attributes",
@@ -420,10 +449,6 @@
                   "value": false
                 }
               }
-            },
-            "variant": {
-              "$$type": "string",
-              "value": "primary"
             },
             "content_blocks": {
               "$$type": "ef-content-block-rows",
@@ -487,7 +512,36 @@
           },
           "elements": [],
           "isInner": false,
-          "styles": [],
+          "styles": {
+            "s-dafa0d6-0": {
+              "id": "s-dafa0d6-0",
+              "type": "class",
+              "label": "Dynamic surface",
+              "variants": [
+                {
+                  "meta": {
+                    "breakpoint": "desktop",
+                    "state": null
+                  },
+                  "props": {
+                    "background-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    },
+                    "color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-white)"
+                    },
+                    "border-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    }
+                  },
+                  "custom_css": null
+                }
+              ]
+            }
+          },
           "interactions": [],
           "editor_settings": [],
           "version": "0.0"
@@ -498,7 +552,9 @@
           "settings": {
             "classes": {
               "$$type": "classes",
-              "value": []
+              "value": [
+                "s-4cd424b-0"
+              ]
             },
             "attributes": {
               "$$type": "attributes",
@@ -554,10 +610,6 @@
                   "value": false
                 }
               }
-            },
-            "variant": {
-              "$$type": "string",
-              "value": "primary"
             },
             "content_blocks": {
               "$$type": "ef-content-block-rows",
@@ -621,7 +673,36 @@
           },
           "elements": [],
           "isInner": false,
-          "styles": [],
+          "styles": {
+            "s-4cd424b-0": {
+              "id": "s-4cd424b-0",
+              "type": "class",
+              "label": "Dynamic surface",
+              "variants": [
+                {
+                  "meta": {
+                    "breakpoint": "desktop",
+                    "state": null
+                  },
+                  "props": {
+                    "background-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    },
+                    "color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-white)"
+                    },
+                    "border-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    }
+                  },
+                  "custom_css": null
+                }
+              ]
+            }
+          },
           "interactions": [],
           "editor_settings": [],
           "version": "0.0"
@@ -632,7 +713,9 @@
           "settings": {
             "classes": {
               "$$type": "classes",
-              "value": []
+              "value": [
+                "s-fa2239e-0"
+              ]
             },
             "attributes": {
               "$$type": "attributes",
@@ -688,10 +771,6 @@
                   "value": false
                 }
               }
-            },
-            "variant": {
-              "$$type": "string",
-              "value": "primary"
             },
             "content_blocks": {
               "$$type": "ef-content-block-rows",
@@ -755,7 +834,36 @@
           },
           "elements": [],
           "isInner": false,
-          "styles": [],
+          "styles": {
+            "s-fa2239e-0": {
+              "id": "s-fa2239e-0",
+              "type": "class",
+              "label": "Dynamic surface",
+              "variants": [
+                {
+                  "meta": {
+                    "breakpoint": "desktop",
+                    "state": null
+                  },
+                  "props": {
+                    "background-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    },
+                    "color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-white)"
+                    },
+                    "border-color": {
+                      "$$type": "string",
+                      "value": "var(--ef-color-primary)"
+                    }
+                  },
+                  "custom_css": null
+                }
+              ]
+            }
+          },
           "interactions": [],
           "editor_settings": [],
           "version": "0.0"

@@ -57,12 +57,12 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "Configure post types / taxonomies / roles / collections / verification / async jobs / nav menus / Voxel widget catalog" | [`voxel-platform.md`](voxel/voxel-platform.md) |
 | "What's the shape of an ef-card / ef-form / ef-wrapper widget?" | committed SSOT `cli/src/generated/widget-schemas.json` (preferred, offline) → [`ef-widgets.md`](ef/ef-widgets.md) → live `wpdev elementor:schema` (fallback) |
 | "Which EF widget should I use? (router / phantom check / reserved keys / `$$type` envelopes)" | [`widgets.md`](ef/widgets.md) |
-| "Which generated EF artifact owns schemas/defaults/types, or how do variants/icons/compat stay single-source?" | [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) |
+| "Which generated EF artifact owns schemas/defaults/types, or how do icons/compat stay single-source?" | [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) |
 | "Why does EF differ in the editor iframe, or how should live preview refresh and teardown work?" | [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) |
 | "What settings does ts-search-form / ts-post-feed / ts-map / ts-template-tabs / ts-print-template take?" | [`ts-widgets.md`](voxel/ts-widgets.md) |
 | "Build a CPT submission / edit form (ts-create-post)" | [`ts-widgets.md`](voxel/ts-widgets.md) §ts-create-post + [`../examples/ts-create-post.json`](../examples/ts-create-post.json) |
 | "I'm building an ef-card and need to wire up the `tags` pill repeater or `ts_actions` action rows" | [`widgets.md`](ef/widgets.md) + [`actions.md`](ef/actions.md) |
-| "I'm composing section backgrounds / assigning surface variants / building a masonry bento block" | [`section-rhythm.md`](ef/section-rhythm.md) + [`masonry.md`](ef/masonry.md) |
+| "I'm composing section backgrounds / assigning dynamic surface styles / building a masonry bento block" | [`section-rhythm.md`](ef/section-rhythm.md) + [`masonry.md`](ef/masonry.md) |
 | "Map media doesn't load / is blank when scrolled into view, especially with LSCache/performance JS delay" | [`widgets.md`](ef/widgets.md) §Map media runtime (Leaflet / Google) — LSCache-safe lazy load |
 | "Define / fix the card's action buttons (`ts_actions` strip / `cta_ts_actions`) — pick the right action type + cells" | [`card-actions.md`](../workflows/card-actions.md) (process) + [`actions.md`](ef/actions.md) (catalog) |
 | "Populate or repair taxonomy TERM icons (`voxel_icon` term meta, all six EF packs)" | [`lookup-and-repair.md`](icons/material-symbols/lookup-and-repair.md) §Populate taxonomy term icons |
@@ -99,12 +99,12 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | File | What it is |
 |---|---|
 | [`widgets.md`](ef/widgets.md) · [`ef-widgets.md`](ef/ef-widgets.md) | Widget catalog + per-widget prop tables (generated from the schema SSOT). |
-| [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) | Generated-schema, atomic-node, compatibility, icon, variant, and token ownership rules. |
+| [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) | Generated-schema, atomic-node, compatibility, icon, dynamic-style, and token ownership rules. |
 | [`ef-color-tokens.md`](ef/ef-color-tokens.md) | Brand palette SSOT (`EF_Tokens_Runtime_Facade::DEFAULTS`), `_light` 10% white-tint derivation, system slots vs custom colors, live-CSS extraction, token guardrails. |
 | [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) | Editor iframe parity, batch preview refresh, view dispatch, bindings, and teardown contract. |
 | [`ef-parts.md`](ef/ef-parts.md) · [core](ef/ef-parts-core.md) · [media/nav](ef/ef-parts-media-nav.md) · [row surfaces](ef/ef-parts-row-surfaces.md) | Parts index and its three concern-owned catalogs. |
 | [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |
-| [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` variants and registration behavior. |
+| [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` sizes and registration behavior. |
 | [`masonry.md`](ef/masonry.md) · [`section-rhythm.md`](ef/section-rhythm.md) | Bento/masonry grid composition (`col_span` / `row_span`, track ratios) and section background/spacing rhythm. |
 | schema SSOT | Not stored in this skill. Read `cli/src/generated/widget-schemas.json` in the wpdev workspace (regenerate with `wpdev elementor:codegen`); it is the only schema artifact. |
 

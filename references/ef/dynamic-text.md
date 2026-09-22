@@ -43,7 +43,7 @@ Single comparison, single emit. Do not chain a second comparison after `.then()`
 
 ## §2 — Recipes by goal
 
-Each recipe lists the expression, an `assert` line showing what it resolves to on a sample post, and notes on variants.
+Each recipe lists the expression, an `assert` line showing what it resolves to on a sample post, and notes on alternate expressions.
 
 ### Recipe 1: graceful empty fallback
 

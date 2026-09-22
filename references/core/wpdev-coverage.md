@@ -123,14 +123,14 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
-| `elementor:strip:styles` | `surfaced` | `voxel-elementor-fixer` Pass 2 | Removes per-node style overrides (local + globals), keeping settings (variants, etc.) intact; Pass 2 mutation when audit finds redundant styles. |
+| `elementor:strip:styles` | `surfaced` | `voxel-elementor-fixer` Pass 2 | Removes per-node style overrides (local + globals), keeping content, behavior, and layout settings intact; Pass 2 mutation when audit finds redundant styles. |
 | `elementor:strip:wrappers` | `surfaced` | `references/core/command-surface.md`, `voxel-elementor-fixer` Pass 2, success-criteria checklist | Removes unnecessary wrapper containers around `ef-*` widgets (any depth, including root); covers the single-`ef-card` root-wrapper case. |
 
 ## `elementor:reset:*` namespace
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
-| `elementor:reset:button-variants` | `defer` | n/a | Resets button-variant assignments across `_elementor_data`. Surface if a fix-loop recipe needs deterministic button-variant normalization beyond what `elementor:styles` covers. |
+
 
 ## `elementor:revisions:*` namespace
 
@@ -203,7 +203,7 @@ These wpdev namespaces are out of the voxel-builder mission entirely — listed 
 - `elementor:ef:*`: **2 surfaced** (`ef:migrate` → cpt-lifecycle Phase 0; `rebuild --only tokens` → elementor-build Phase 6 + fixer Pass 2), 3 deferred / 1 out-of-scope.
 - `elementor:migrate:*`: **3 surfaced** (`containers`, `loop-index`, `main`) + **1 surface-pending** (`voxel-feeds`).
 - `elementor:strip:*`: **2 surfaced** (`styles`, `wrappers`).
-- `elementor:reset:*`: 1 deferred (`button-variants`).
+
 - `elementor:revisions:*`: **2 surfaced** (both).
 - Encoding repair: **1 surfaced** (`db:encoding`; retired `elementor:fix:unicode` is historical context only).
 - `audit*`: 1 surfaced, 2 deferred.

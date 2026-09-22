@@ -51,12 +51,13 @@ value and one resolver; the bolt changes the envelope/source, not the domain sto
 format. A picker-backed control needs one PHP control, one native JS renderer, one
 registry row, and schema ownership. Do not add sibling static/dynamic props.
 
-### Variants
+### Dynamic styles
 
-Variant vocabulary comes from `EF_Tokens::VARIANTS` and named sets resolved by
-`EF_Tokens::variant_set()`. Schemas reference the set; PHP, editor enums, and generated
-CSS consume the same vocabulary. Components may expose a subset but must not invent
-local spelling or color maps.
+Visual presentation for cards, wrappers, navbars, and repeater rows is authored through
+Elementor atomic dynamic styles. Store the class id in the owning node's
+`settings.classes` envelope and the matching class record in that node's `styles` map.
+Use typed CSS-property envelopes and live `--ef-*` tokens. Repeater rows remain content
+and behavior data; descendant appearance is scoped from the owning atomic node.
 
 ## CSS Token Rule
 

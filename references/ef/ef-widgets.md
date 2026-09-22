@@ -33,7 +33,7 @@ The widgets named `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-bu
 - **Voxel / dynamic-data integration**: `$include_voxel_runtime_keys = true` **and** `$include_loop_runtime_keys = true`. Per-content-block-row and per-tag-row `_vx_loop` cells expand via `ef_expand_definition()`. `@post()`, `@site()`, `@tags()` round-trip natively through the Lenient prop family + `ef_render()` calls inside the Parts. The whole card can be replicated by a wrapper-level `_vx_loop`.
 - **voxel-builder fixture**: `examples/ef-card.json` (golden, from a real post on `<site>`)
 - **Gotchas**:
-  - `actions_embedded=''` lets the variant decide — if the card variant defaults embedded, the footer goes inline; explicit `'yes'` / `'no'` overrides.
+  - `actions_embedded=''` uses the host default; explicit `'yes'` / `'no'` controls inline versus button placement.
   - Tag pills `aria-controls` id is stamped via `wp_unique_id()` to dedupe across loop iterations — don't hardcode it.
   - The accordion is a `content_blocks` row with `kind: accordion` (a collapsible heading+body unit) — the same widget; it replaces the retired standalone `ef-accordion` (migration step 530). A looped heading+body unit MUST be a single `accordion` block (a loop on a `heading` block + a separate `rich_text` peer would not interleave).
   - Table of contents is a `content_blocks` row with `kind: toc`; migration step 998 absorbs retired standalone `ef-toc` nodes into the nearest card or morphs orphan TOCs into a minimal card.
@@ -101,7 +101,6 @@ The widgets named `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-bu
   |---|---|---|---|
   | `tag` | `Enum_String` | `'div'` | enum = `EF_Tags::STRUCTURAL` |
   | `mode` | `Enum_String` | `''` | enum `['','modal','template']` — `template` swaps inner_html for a saved Elementor library template render |
-  | `variant` | `Enum_String` | `'transparent'` | From `EF_Tokens::SURFACE_VARIANTS` |
   | `template_id` | `String_Prop_Type` | `''` | Library template ID — gated by `ef_show_when(['mode'],'template')` |
   | `reverse_mobile` | Boolean (`ef_atomic_boolean(false)`) | `false` | Flip flex/grid order on mobile |
   | `cols` | `Responsive_String` (via `ef_cols_pair()`) | `''` | `grid-template-columns` track list, per breakpoint |
@@ -110,7 +109,7 @@ The widgets named `ef-media`, `ef-button`, `ef-buttons`, `ef-breadcrumb`, `ef-bu
   | (universal) | — | — | `ef_atomic_base_props()` |
 
 - **Parts used**: `EF\Parts\Media\Media` (`$background` slot, prefix `bg_media`), `EF\Parts\Actions\Action_Slot` (`$action` slot)
-- **Base styles** (`define_base_styles()`): a single `min-width: 30px` Style_Variant. Display, grid-template-columns, and min-mobile=1fr lock live in `base.css` under a compound selector — only `min-width` lives in PHP because it can't be expressed via a class rule.
+- **Base styles** (`define_base_styles()`): a single `min-width: 30px` atomic style definition. Display, grid-template-columns, and min-mobile=1fr lock live in `base.css` under a compound selector; only `min-width` lives in PHP because it cannot be expressed via a class rule.
 - **Twig context**: `tag`, `root_attrs` (pre-rendered attribute string including class + id + style + href + data-ef-* attrs + action attrs), `is_modal`, `close_label`, `bg_media_html`, `inner_html`
 - **REST shell endpoint**: `/ef/v1/render-wrapper-shell` returns the `get_shell_data()` payload (tag, classes, base_style_class, style, id, href, attrs, is_modal, bg_media_html). The editor JS applies this to the live ef-wrapper element rather than swapping `innerHTML` — preserves the Marionette views of children inside the wrapper.
 - **Asset handles**: stylesheets = `['ef-wrapper']`; scripts = `['ef-modal']`
@@ -170,7 +169,6 @@ PHP class `EF\Widgets\Card`. 4 props.
 | `content_blocks` | repeater `ef-content-block-rows` (nested vx leaves) | `[]` | content | Add and order card content |
 | `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
 | `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` (direct vx) | `div` | settings | Choose what kind of container this is |
-| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-form` — generated prop table
 
@@ -185,7 +183,6 @@ PHP class `EF\Widgets\Form`. 8 props.
 | `recipients` | repeater `ef-recipient-rows` (nested vx leaves) | `[]` | recipients | Users or addresses receiving a copy of this form submission |
 | `success_message` | `string` (direct vx) | `Thank you! Your message has been sent.` | submit | Message shown after sending |
 | `tag` | enum: `div` \| `section` \| `article` \| `aside` (direct vx) | `div` | settings | Choose what kind of container this is |
-| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | submit | Button or pill colors |
 
 ### `ef-navbar` — generated prop table
 
@@ -194,7 +191,7 @@ PHP class `EF\Widgets\Navbar`. 12 props.
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `banner_action_payload` | `action_payload` (nested vx leaves) | — | banner | Fields for the selected action type |
-| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `vote_upvote` \| `vote_downvote` (direct vx) | `''` | banner | Choose what opens on click |
+| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` (direct vx) | `''` | banner | Choose what opens on click |
 | `banner_background` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `primary` | banner | Announcement bar colors |
 | `banner_label` | `string` (direct vx) | `''` | banner | Button text |
 | `banner_message` | `string` (direct vx) | `''` | banner | Announcement text |
@@ -204,11 +201,10 @@ PHP class `EF\Widgets\Navbar`. 12 props.
 | `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
 | `nav_items` | repeater `ef-mega-rows` (nested vx leaves) | `[]` | nav_items | Add and order menu links |
 | `tag` | enum: `nav` \| `header` \| `div` (direct vx) | `nav` | settings | Choose what kind of container this is |
-| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-wrapper` — generated prop table
 
-PHP class `EF\Elements\Wrapper`. 17 props.
+PHP class `EF\Elements\Wrapper`. 18 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
@@ -222,6 +218,7 @@ PHP class `EF\Elements\Wrapper`. 17 props.
 | `bg_media_map_zoom` | `string` (direct vx) | `14` | settings | Starting map zoom level |
 | `bg_media_modifiers` | `string` (direct vx) | `''` | settings | Optional image behavior flags |
 | `bg_media_type` | enum: `''` \| `color` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | settings | Choose what kind of media to show |
+| `bg_media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | settings | Keep the initial player on video watch pages |
 | `bg_media_video_url` | `source` (nested vx leaves) | `''` | settings | Video link or file |
 | `cols` | `string` (responsive, nested vx leaves) | `1fr` | settings | Columns for each screen size |
 | `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `fullscreen` (direct vx) | `''` | settings | Choose how this wrapper works |

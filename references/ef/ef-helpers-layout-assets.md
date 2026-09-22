@@ -27,7 +27,7 @@ Col-span + grid-column conversions.
 - **Behavior**: Build a flat list of modifier classes from settings by walking a `key => 'pattern-{}'` map. The `{}` placeholder is replaced with the settings value.
 - **Example**:
 ```php
-ef_modifier_classes( $s, [ 'layout' => 'ef-card--layout-{}', 'variant' => 'ef-card--{}' ] )
+ef_modifier_classes( $s, [ 'layout' => 'ef-card--layout-{}' ] )
 // returns ['ef-card--layout-horizontal', 'ef-card--white']
 ```
 

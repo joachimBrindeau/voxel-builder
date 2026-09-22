@@ -26,53 +26,60 @@ The action-type catalog below is generated from `cli/src/generated/ef-catalogs.j
 
 <!-- AUTO-GENERATED:actions START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
-41 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
+48 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
 
-Unified action surface — every type works on every action host (slot, heading, tag, card actions).
+Action types are shared by default; entries with a host restriction list the only supported hosts below.
 
-| Action ID | Label | Required fields |
-|---|---|---|
-| `''` (None) | None | — |
-| `access_markdown` | Access Markdown | — |
-| `action_follow` | Follow post author | `icon_active`, `label_active` |
-| `action_follow_post` | Follow post | `icon_active`, `label_active` |
-| `action_gcal` | Add to Google Calendar | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location` |
-| `action_ical` | Add to iCalendar | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location`, `cal_url` |
-| `action_link` | Link | `link` |
-| `action_login` | Log in | — |
-| `action_logout` | Log out | — |
-| `action_save` | Save post to collection | `icon_active`, `label_active` |
-| `add_to_cart` | Add to cart | `cart_text` |
-| `back_to_top` | Back to top | — |
-| `call` | Phone call | `phone` |
-| `claim_post` | Claim post | — |
-| `copy_to_clipboard` | Copy to clipboard | `copy_value`, `copy_event`, `icon_active`, `label_active`, `toast_message` |
-| `delete_post` | Delete post | — |
-| `direct_message` | Message post | — |
-| `direct_message_user` | Message post author | — |
-| `edit_post` | Edit post | — |
-| `get_directions` | Get directions | `address` |
-| `go_back` | Go back | — |
-| `open_modal` | Open modal | `modal_id` |
-| `open_vx_cart` | Open cart | — |
-| `open_vx_inbox` | Open inbox | — |
-| `open_vx_notifications` | Open notifications | — |
-| `open_vx_quick_search` | Open quick search | — |
-| `open_vx_user_menu` | Open user menu | `menu` |
-| `promote_post` | Promote post | — |
-| `publish_post` | Publish post | — |
-| `relist_post` | Relist post | — |
-| `scroll_to_section` | Scroll to section | `scroll_to` |
-| `select_addition` | Select add-on | `addition_id`, `icon_active`, `label_active` |
-| `send_email` | Email | `email` |
-| `share_post` | Share post | `toast_message` |
-| `show_post_on_map` | Show on map | — |
-| `switch_listing_plan` | Switch listing plan | — |
-| `unpublish_post` | Unpublish post | — |
-| `upgrade_listing_plan` | Upgrade listing plan | — |
-| `view_post_stats` | View post stats | — |
-| `vote_downvote` | Downvote | `vote_field_key` |
-| `vote_upvote` | Upvote | `vote_field_key` |
+| Action ID | Label | Hosts | Required fields |
+|---|---|---|---|
+| `''` (None) | None | all action hosts | — |
+| `access_markdown` | Access Markdown | all action hosts | — |
+| `action_follow` | Follow post author | all action hosts | `icon_active`, `label_active` |
+| `action_follow_post` | Follow post | all action hosts | `icon_active`, `label_active` |
+| `action_gcal` | Add to Google Calendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location` |
+| `action_ical` | Add to iCalendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location`, `cal_url` |
+| `action_link` | Link | all action hosts | `link` |
+| `action_login` | Log in | all action hosts | — |
+| `action_logout` | Log out | all action hosts | — |
+| `action_save` | Save post to collection | all action hosts | `icon_active`, `label_active` |
+| `add_to_cart` | Add to cart | all action hosts | `cart_text` |
+| `ask_chatgpt` | Summarize with ChatGPT | all action hosts | `llm_prompt` |
+| `ask_claude` | Summarize with Claude | all action hosts | `llm_prompt` |
+| `ask_copilot` | Summarize with Copilot | all action hosts | `llm_prompt` |
+| `ask_google_ai` | Summarize with Google AI Mode | all action hosts | `llm_prompt` |
+| `ask_mistral` | Summarize with Mistral | all action hosts | `llm_prompt` |
+| `ask_perplexity` | Summarize with Perplexity | all action hosts | `llm_prompt` |
+| `back_to_top` | Back to top | all action hosts | — |
+| `call` | Phone call | all action hosts | `phone` |
+| `claim_post` | Claim post | all action hosts | — |
+| `copy_to_clipboard` | Copy to clipboard | all action hosts | `copy_value`, `copy_event`, `icon_active`, `label_active`, `toast_message` |
+| `delete_post` | Delete post | all action hosts | — |
+| `direct_message` | Message post | all action hosts | — |
+| `direct_message_user` | Message post author | all action hosts | — |
+| `edit_post` | Edit post | all action hosts | — |
+| `get_directions` | Get directions | all action hosts | `address` |
+| `go_back` | Go back | all action hosts | — |
+| `open_modal` | Open modal | all action hosts | `modal_id` |
+| `open_vx_cart` | Open cart | all action hosts | — |
+| `open_vx_inbox` | Open inbox | all action hosts | — |
+| `open_vx_notifications` | Open notifications | all action hosts | — |
+| `open_vx_quick_search` | Open quick search | all action hosts | — |
+| `open_vx_user_menu` | Open user menu | all action hosts | `menu` |
+| `promote_post` | Promote post | all action hosts | — |
+| `publish_post` | Publish post | all action hosts | — |
+| `relist_post` | Relist post | all action hosts | — |
+| `scroll_to_section` | Scroll to section | all action hosts | `scroll_to` |
+| `select` | Select | `ef-card` | — |
+| `select_addition` | Select add-on | all action hosts | `addition_id`, `icon_active`, `label_active` |
+| `send_email` | Email | all action hosts | `email` |
+| `share_post` | Share post | all action hosts | `toast_message` |
+| `show_post_on_map` | Show on map | all action hosts | — |
+| `switch_listing_plan` | Switch listing plan | all action hosts | — |
+| `unpublish_post` | Unpublish post | all action hosts | — |
+| `upgrade_listing_plan` | Upgrade listing plan | all action hosts | — |
+| `view_post_stats` | View post stats | all action hosts | — |
+| `vote_downvote` | Downvote | all action hosts | `vote_field_key` |
+| `vote_upvote` | Upvote | all action hosts | `vote_field_key` |
 
 <!-- AUTO-GENERATED:actions END -->
 
@@ -116,8 +123,8 @@ card 2 → href="/a /b" class="… ef-action--primary ef-buttons-item ef-action-
 
 Symptoms are easy to misread because the markup *looks* populated in devtools: the URL is
 visibly present but **unclickable** (it contains a space, so the browser can't navigate
-it), and buttons/pills render **unstyled** because conflicting `ef-action--{variant}`
-classes both match the `:is(.ef-buttons-item,.ef-card-action).ef-action--{name}` rules
+it), and buttons/pills render **unstyled** because conflicting action presentation classes
+both match the `:is(.ef-buttons-item,.ef-card-action).ef-action--{name}` rules
 emitted by `tokens/runtime.php`. The **first** card on a page always renders correctly —
 breakage grows with position in the loop, which is the diagnostic tell. Nothing in the PHP
 errors, so unit tests and the quality gate stay green.
@@ -143,7 +150,6 @@ The cell table below mirrors the resolved `action-row` sub-schema in `cli/src/ge
 | `type` | enum (29 ids, see catalog above) | `action_link` | — (drives dispatch) |
 | `label` | string | `''` | any |
 | `icon` | string | `''` | any |
-| `variant` | enum: `''` \| `transparent` \| `white` \| `primary` \| `secondary` \| `red` \| `green` \| `gray` | `''` (inherit host's `default_variant_key`) | any |
 | `tooltip` | string | `''` | any — non-empty emits `data-tooltip` + `aria-label` |
 | `link` | Link primitive (`{url, is_external, nofollow}`) | — | `action_link` |
 | `address` | string | `''` | `get_directions` |
@@ -257,7 +263,7 @@ ts_actions:
 
 **Pattern B — splice `ts-advanced-list` (Voxel-runtime alternative):**
 
-Voxel's `ts-advanced-list` widget iterates a repeater natively with per-sub-type sub-templates (each sub-type gets its own `<a>` markup). For any contact-method repeater where every sub-type needs a distinct link shape (`tel:` / `mailto:` / `https://`) — splicing a known-good `ts-advanced-list` instance is simpler than Pattern A. Read it from production via `wpdev elementor:dump <site> ts-advanced-list --post <prod_post_id> --json` and re-embed the entire node (id + every setting) verbatim, then strip plugin pollution (`eael_*`, `jet_*`, `__globals__`, `_voxel_dynamic_attrs`) before re-emitting. Both patterns are valid; pick A when you want EF V4 design-system styling (variant tokens), B when you want zero-config parity with the legacy Voxel UI.
+Voxel's `ts-advanced-list` widget iterates a repeater natively with per-sub-type sub-templates (each sub-type gets its own `<a>` markup). For any contact-method repeater where every sub-type needs a distinct link shape (`tel:` / `mailto:` / `https://`) — splicing a known-good `ts-advanced-list` instance is simpler than Pattern A. Read it from production via `wpdev elementor:dump <site> ts-advanced-list --post <prod_post_id> --json` and re-embed the entire node (id + every setting) verbatim, then strip plugin pollution (`eael_*`, `jet_*`, `__globals__`, `_voxel_dynamic_attrs`) before re-emitting. Both patterns are valid; pick A when you want EF V4 design-system styling through atomic dynamic styles, B when you want zero-config parity with the legacy Voxel UI.
 
 **Visibility-rule fragility on structured-array fields (work-hours, location, repeaters):**
 

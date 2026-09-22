@@ -164,7 +164,7 @@ clean, CSS/save hooks ran, and caches are purged.
 | Existing-data tools/rollback/Behavior Contract | `references/core/elementor-mutation-tools.md` |
 | Page/Blueprint schema and examples | `references/core/page-plan-contract.md` |
 | Archetype and heading vocabulary | `references/core/page-plan-archetypes.md` |
-| Card variants | `references/ef/card-scaffolding.md` |
+| Preview-card sizes | `references/ef/card-scaffolding.md` |
 | Runtime symptom recovery | `references/core/build-troubleshooting.md` |
 | Browser commands/assertions | `references/verification/browser.md` |
 

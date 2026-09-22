@@ -1,6 +1,6 @@
 # Widget Catalog (router)
 
-For per-widget detail see [`ef-widgets.md`](ef-widgets.md); for the shared parts they compose see [`ef-parts.md`](ef-parts.md); for the helpers they call see [`ef-helpers.md`](ef-helpers.md); for **dedicated `ef-wrapper mode:masonry` vs CSS Grid bento** (automatic CSS Columns packing vs explicit responsive numeric `col_span` + `row_span`) see [`masonry.md`](masonry.md); for **section background rhythm** (segmenting a page with alternating `transparent`/`secondary` tints via the wrapper `variant`, and the clash rule that keeps tints off colored-card sections) see [`section-rhythm.md`](section-rhythm.md). This file is the **router** — quick "which widget?" lookup plus the canonical cross-widget references (reserved keys, `$$type` envelopes, EF surface-churn timeline) that span every widget.
+For per-widget detail see [`ef-widgets.md`](ef-widgets.md); for the shared parts they compose see [`ef-parts.md`](ef-parts.md); for the helpers they call see [`ef-helpers.md`](ef-helpers.md); for **dedicated `ef-wrapper mode:masonry` vs CSS Grid bento** (automatic CSS Columns packing vs explicit responsive numeric `col_span` + `row_span`) see [`masonry.md`](masonry.md); for **section background rhythm** (segmenting a page with alternating base/muted tints through Elementor dynamic styles, and the clash rule that keeps tints off strongly colored card sections) see [`section-rhythm.md`](section-rhythm.md). This file is the **router** — quick "which widget?" lookup plus the canonical cross-widget references (reserved keys, `$$type` envelopes, EF surface-churn timeline) that span every widget.
 
 ## EF widget catalog → per-widget detail
 
@@ -18,10 +18,10 @@ The atomic-widget catalog below is generated from `cli/src/generated/widget-sche
 
 | Widget | Title | Props | Row surfaces | PHP class |
 |---|---|---|---|---|
-| `ef-card` | Card | 4 | `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
+| `ef-card` | Card | 4 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
 | `ef-form` | Form | 8 | `field-row`, `recipient-row` | `EF\Widgets\Form` |
 | `ef-navbar` | Navbar | 12 | `action-row`, `map-pin-row`, `mega-row` | `EF\Widgets\Navbar` |
-| `ef-wrapper` | Wrapper | 17 | `map-pin-row` | `EF\Elements\Wrapper` |
+| `ef-wrapper` | Wrapper | 18 | `map-pin-row` | `EF\Elements\Wrapper` |
 
 <!-- AUTO-GENERATED:widgets END -->
 
@@ -187,7 +187,7 @@ Before adding `_vx_loop`, decide whether the repeated unit is the whole widget o
 
 ## Making a widget prop dynamic-tag-aware
 
-Use `EF_Vx_{Text,Textarea,Select,Switch,Number,Icon}_Control::bind_to(...)` (in place of the native `Text_Control` etc.) for any **content-bearing** prop — the editor renders a bolt next to the input that opens Voxel's tag picker, and the value persists as a `{$$type: 'vx', value: '@post(...)'}` envelope that Voxel's `Vx_Transformer` resolves at render. Full Vx-aware control set under `includes/controls/`: `EF_Vx_Text_Control`, `EF_Vx_Textarea_Control`, `EF_Vx_Select_Control`, `EF_Vx_Switch_Control`, `EF_Vx_Number_Control`, `EF_Vx_Icon_Control`. Layout / variant / CSS-token props keep their native control.
+Use `EF_Vx_{Text,Textarea,Select,Switch,Number,Icon}_Control::bind_to(...)` (in place of the native `Text_Control` etc.) for any **content-bearing** prop — the editor renders a bolt next to the input that opens Voxel's tag picker, and the value persists as a `{$$type: 'vx', value: '@post(...)'}` envelope that Voxel's `Vx_Transformer` resolves at render. Full Vx-aware control set under `includes/controls/`: `EF_Vx_Text_Control`, `EF_Vx_Textarea_Control`, `EF_Vx_Select_Control`, `EF_Vx_Switch_Control`, `EF_Vx_Number_Control`, `EF_Vx_Icon_Control`. Layout props keep their native controls; visual presentation belongs in Elementor dynamic styles.
 
 ## Recent EF surface changes (re-introspect on every build)
 

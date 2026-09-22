@@ -123,7 +123,9 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-d26e4d9-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -334,10 +336,6 @@
                   "$$type": "string",
                   "value": "open_modal"
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "white"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": "ms:ms ms-calendar_add_on"
@@ -471,7 +469,23 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-d26e4d9-0": {
+          "id": "s-d26e4d9-0",
+          "type": "class",
+          "label": "Dynamic action styles",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {},
+              "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-white);color:var(--ef-color-text);border-color:var(--ef-border-default);}"
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"

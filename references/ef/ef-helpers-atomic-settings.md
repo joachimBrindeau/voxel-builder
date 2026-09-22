@@ -26,7 +26,7 @@ $schema = array_merge(
 - **Returns**: `EF\Props\Enum_String`
 - **Example**:
 ```php
-'variant' => ef_atomic_enum_string( EF_Tokens::SURFACE_VARIANTS, 'white' )
+'tag' => ef_atomic_enum_string( [ 'div', 'section', 'article' ], 'div' )
 ```
 
 #### ef_atomic_boolean( $default )
@@ -90,7 +90,7 @@ ef_envelope_responsive_string( 'horizontal', 'vertical', 'vertical' )
 #### ef_base_style_display( $display, $key )
 - **Signature**: `function ef_base_style_display( string $display, string $key = 'base' ): array`
 - **File**: `includes/atomic.php:103`
-- **Behavior**: Build `['base' => Style_Definition]` for display-only base styles. Lets an element override its CSS `display` (e.g., navbar sets `'block'`) without authoring a full Style_Variant.
+- **Behavior**: Build `['base' => Style_Definition]` for display-only base styles. Lets an element override its CSS `display` (e.g., navbar sets `'block'`) without authoring a complete atomic style definition.
 - **Example**:
 ```php
 public static function define_base_styles(): array {
@@ -148,17 +148,6 @@ A "pair" is a `[prop, control]` tuple — the prop goes into `define_props_schem
 - **File**: `includes/pairs.php:147`
 - **Behavior**: `[prop, control]` for HTML tag enum. Wraps `ef_atomic_enum_string` + a Vx_Select with `ef_html_tag_options()`.
 
-#### ef_variant_pair( $values_map, $default, $key, $label )
-- **Signature**: `function ef_variant_pair( array $values_map, string $default = '', string $key = 'variant', ?string $label = null ): array`
-- **File**: `includes/pairs.php:171`
-- **Behavior**: Generic variant select pair — used by every element with a variant (card, wrapper, navbar, button, etc.).
-- **Returns**: `['prop' => Enum_String, 'control' => Vx_Select]`
-
-#### ef_variant_prop( $key, $default, $allowed, $label )
-- **Signature**: `function ef_variant_prop( string $key = 'variant', string $default = 'white', ?array $allowed = null, ?string $label = null ): array`
-- **File**: `includes/pairs.php:196`
-- **Behavior**: Canonical single-prop variant. Uses `EF_Tokens::variant_labels()` for label resolution; pass `$allowed=null` to use all tokens, or restrict.
-
 **Retired**: `ef_content_section` (use `ef_section( 'content', __( 'Content', 'ef' ), $items )`); `ef_layout_pair` (build the responsive-select pair directly via `ef_responsive_select_pair` with caller-supplied options + `ef_with_inherit` for non-desktop cells).
 
 ---
@@ -171,14 +160,14 @@ EF widgets use a small set of canonical section shells so the panel layout stays
 #### ef_settings_section( $items )
 - **Signature**: `function ef_settings_section( array $items = [] )`
 - **File**: `includes/atomic.php:66`
-- **Behavior**: Canonical Settings section shell. Use for variant + tag + layout + sticky controls.
+- **Behavior**: Canonical Settings section shell. Use for tag, layout, sticky, and other behavior controls. Visual presentation belongs in Elementor atomic dynamic styles.
 - **Returns**: V4 section descriptor object.
 - **Example**:
 ```php
 public static function define_atomic_controls(): array {
     return [
         ef_general_section( static::class ),
-        ef_settings_section([ $variant_control, $tag_control, $layout_control ]),
+        ef_settings_section([ $tag_control, $layout_control ]),
         ef_section( 'content', __( 'Content', 'ef' ), [ $headings_control, $tags_control ] ),
     ];
 }

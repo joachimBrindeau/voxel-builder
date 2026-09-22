@@ -150,7 +150,9 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-e59f756-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -217,17 +219,9 @@
                   "$$type": "string",
                   "value": "text"
                 },
-                "accordion_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
-                },
                 "text": {
                   "$$type": "string",
                   "value": "@tags()@post(parent.title)@endtags()"
-                },
-                "toc_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
                 },
                 "toc_scope": {
                   "$$type": "string",
@@ -236,10 +230,6 @@
                 "toc_max_heading": {
                   "$$type": "string",
                   "value": "h3"
-                },
-                "variant": {
-                  "$$type": "string",
-                  "value": "primary"
                 },
                 "icon": {
                   "$$type": "string",
@@ -280,10 +270,6 @@
                 "accordion_open": {
                   "$$type": "boolean",
                   "value": false
-                },
-                "separator_variant": {
-                  "$$type": "string",
-                  "value": "full"
                 },
                 "separator_spacing": {
                   "$$type": "string",
@@ -586,10 +572,6 @@
                   "$$type": "string",
                   "value": "open_modal"
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "primary"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": ""
@@ -629,7 +611,23 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-e59f756-0": {
+          "id": "s-e59f756-0",
+          "type": "class",
+          "label": "Dynamic action styles",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {},
+              "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-primary);color:var(--ef-color-white);border-color:var(--ef-color-primary);}"
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"

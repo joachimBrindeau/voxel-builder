@@ -24,11 +24,15 @@
             "$primitive": "string",
             "default": "action_link",
             "description": "Choose what opens on click."
-          },
-          "variant": {
+          }
+        }
+      },
+      "identity": {
+        "cells": {
+          "_rid": {
             "$primitive": "string",
             "default": "",
-            "description": "Button colors."
+            "description": "Opaque per-row identity, unique within its host cell. Assigned by the editor on insert and by migration backfill for rows authored before identity existed."
           }
         }
       },
@@ -77,6 +81,9 @@
       "action-row": [
         "loop",
         "actions"
+      ],
+      "comparison-field-row": [
+        "loop"
       ],
       "content-block-row": [
         "loop",
@@ -353,6 +360,7 @@
         "renderer": {
           "phpClass": "EF\\Widgets\\Card",
           "scripts": [
+            "ef-video-facade",
             "ef-vx-popup",
             "ef-card-tags",
             "ef-card-layout",
@@ -363,6 +371,9 @@
             "ef-action-share",
             "ef-action-copy",
             "ef-action-collections",
+            "ef-card-selection",
+            "ef-comparison-tray",
+            "ef-compare-matrix",
             "ef-toc"
           ],
           "stylesheets": [
@@ -393,13 +404,16 @@
         },
         "modifiers": {
           "control": {
-            "$appendOptionsFromOption": "extra_options",
             "kind": "multiselect",
             "label": "Modifiers",
             "options": [
               {
                 "label": "Sticky",
                 "value": "sticky"
+              },
+              {
+                "label": "Own height",
+                "value": "no-full-height"
               }
             ],
             "section": "settings"
@@ -465,38 +479,49 @@
             "header"
           ],
           "primitive": "string"
-        },
-        "variant": {
-          "control": {
-            "kind": "select",
-            "label": "Variant",
-            "options": "variants",
-            "section": "settings"
-          },
-          "default": "dynamic",
-          "description": "Choose the colors.",
-          "dynamicCapability": {
-            "directVx": true,
-            "nestedDynamicLeaves": false,
-            "source": "primitive-default"
-          },
-          "enum": [
-            "dynamic",
-            "transparent",
-            "white",
-            "primary",
-            "primary_light",
-            "primary_white",
-            "secondary",
-            "secondary_light",
-            "secondary_white",
-            "positive",
-            "negative"
-          ],
-          "primitive": "string"
         }
       },
       "rows": {
+        "comparison-field-row": {
+          "envelope": "loop",
+          "name": "comparison-field-row",
+          "props": {
+            "label": {
+              "control": {
+                "kind": "text",
+                "label": "Label",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Label shown in the first comparison column.",
+              "dynamic": false,
+              "dynamicCapability": {
+                "directVx": false,
+                "nestedDynamicLeaves": false,
+                "source": "authored"
+              },
+              "primitive": "string",
+              "translatable": true
+            },
+            "value": {
+              "control": {
+                "kind": "text",
+                "label": "Value",
+                "section": "content"
+              },
+              "default": "",
+              "description": "Comparison value. Use a literal or a Voxel dynamic tag; the tag is evaluated in each compared post's context.",
+              "dynamic": true,
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "authored"
+              },
+              "primitive": "string"
+            }
+          },
+          "title": "Comparison field row"
+        },
         "content-block-row": {
           "envelope": "loop+actions",
           "name": "content-block-row",
@@ -553,43 +578,184 @@
               },
               "primitive": "string"
             },
-            "button_placement": {
+            "compare_destination": {
               "control": {
-                "default": "content",
-                "kind": "segmented",
-                "label": "Placement",
+                "group": "Compare",
+                "kind": "source",
+                "label": "Destination",
                 "preserveWhenHidden": true,
-                "relevantWhen": {
-                  "depth": 0
-                },
                 "section": "content",
-                "when": [
-                  {
-                    "field": "kind",
-                    "value": "text"
-                  },
-                  {
-                    "field": "appearance",
-                    "value": "button"
-                  }
-                ]
+                "when": {
+                  "field": "kind",
+                  "value": "select"
+                }
               },
-              "default": "content",
-              "description": "Place an ungrouped button in the card content or footer. Group membership is authored structurally by nesting the button under a Group row.",
+              "description": "Optional override for the comparison page the floating tray opens. Left empty, the tray uses EF's own comparison route, which needs no page.",
+              "dynamic": true,
+              "dynamicCapability": {
+                "directVx": false,
+                "nestedDynamicLeaves": true,
+                "source": "authored"
+              },
+              "primitive": "source"
+            },
+            "compare_fields": {
+              "control": {
+                "group": "Compare",
+                "kind": "repeater",
+                "label": "Comparison fields",
+                "preserveWhenHidden": true,
+                "rowLabel": "Comparison field",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "comparison"
+                }
+              },
+              "default": [],
+              "description": "Ordered comparison fields. Each item supplies the first-column label and a literal or dynamic-tag value evaluated for every compared post.",
+              "dynamicCapability": {
+                "directVx": false,
+                "nestedDynamicLeaves": true,
+                "source": "primitive-default"
+              },
+              "primitive": "string",
+              "repeater": {
+                "rowPart": "comparison-field-row"
+              }
+            },
+            "compare_label": {
+              "control": {
+                "group": "Compare",
+                "kind": "text",
+                "label": "Compare label",
+                "preserveWhenHidden": true,
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "select"
+                }
+              },
+              "default": "Compare",
+              "description": "Comparison action label.",
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "enum": [
-                "content",
-                "footer"
-              ],
-              "enumLabels": {
-                "content": "Content",
-                "footer": "Footer"
+              "primitive": "string",
+              "translatable": true
+            },
+            "compare_label_field": {
+              "control": {
+                "group": "Compare",
+                "kind": "text",
+                "label": "Label field",
+                "preserveWhenHidden": true,
+                "when": {
+                  "field": "kind",
+                  "value": "comparison"
+                }
+              },
+              "default": "",
+              "description": "Optional dynamic tag for comparison column labels. Empty uses each post title; examples: @post(title) or @post(product-brand.title).",
+              "dynamic": true,
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "authored"
               },
               "primitive": "string"
+            },
+            "compare_maximum": {
+              "control": {
+                "group": "Compare",
+                "kind": "number",
+                "label": "Maximum items",
+                "max": 4,
+                "min": 2,
+                "preserveWhenHidden": true,
+                "section": "content",
+                "step": 1,
+                "when": {
+                  "field": "kind",
+                  "value": "select"
+                }
+              },
+              "default": 4,
+              "description": "Maximum persisted comparison selection. The tray enables Compare at two selections, the smallest comparison that means anything.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "number"
+            },
+            "compare_source_field": {
+              "control": {
+                "group": "Compare",
+                "kind": "text",
+                "label": "Compare related posts via",
+                "preserveWhenHidden": true,
+                "when": {
+                  "field": "kind",
+                  "value": "comparison"
+                }
+              },
+              "default": "",
+              "description": "Optional post-relation field whose related posts are compared instead of the selected posts. Empty compares the selected posts themselves.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "string"
+            },
+            "compare_template": {
+              "control": {
+                "combobox": true,
+                "group": "Compare",
+                "kind": "select",
+                "label": "Preview template",
+                "openTemplate": true,
+                "options": "elementorTemplates",
+                "preserveWhenHidden": true,
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "select"
+                }
+              },
+              "default": "",
+              "description": "Saved Elementor template rendered as each selected item's preview inside the tray. Empty keeps the compact title chip.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "string"
+            },
+            "compare_tray_label": {
+              "control": {
+                "group": "Compare",
+                "kind": "text",
+                "label": "Tray label",
+                "preserveWhenHidden": true,
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "select"
+                }
+              },
+              "default": "Selected items",
+              "description": "Accessible label for the automatic tray.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "string",
+              "translatable": true
             },
             "description": {
               "control": {
@@ -625,7 +791,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "filters": {
               "control": {
@@ -712,6 +879,8 @@
                 "calendar",
                 "toc",
                 "reviews",
+                "select",
+                "comparison",
                 "custom_code",
                 "auth"
               ],
@@ -719,11 +888,13 @@
                 "accordion": "Add collapsible content.",
                 "auth": "Add a login or registration surface with password credentials and the site's configured sign-in providers.",
                 "calendar": "Add a Cal.com booking form.",
+                "comparison": "Show the selected posts as a comparison table, with one row per attribute derived from the posts' own fields.",
                 "custom_code": "Execute raw HTML and CSS.",
                 "filter": "Add an EF-owned filter control that targets an EF loop directly.",
                 "group": "Set membership rules for a group of text rows.",
                 "media": "Add standalone edge or main media without a textual row.",
                 "reviews": "Show the current Voxel post's rating and review count.",
+                "select": "Add the card selection checkbox.",
                 "text": "Add text with text, field, pill, or button appearance and optional shared capabilities.",
                 "toc": "Add links to headings on the page."
               },
@@ -731,11 +902,13 @@
                 "accordion": "Accordion",
                 "auth": "Auth",
                 "calendar": "Calendar",
+                "comparison": "Comparison",
                 "custom_code": "Custom code",
                 "filter": "Filter",
                 "group": "Group",
                 "media": "Media",
                 "reviews": "Reviews",
+                "select": "Select",
                 "text": "Text",
                 "toc": "Table of contents"
               },
@@ -764,7 +937,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "richtext"
+              "primitive": "richtext",
+              "translatable": true
             },
             "layout": {
               "control": {
@@ -774,7 +948,8 @@
                   {
                     "values": [
                       "inline",
-                      "stacked"
+                      "stacked",
+                      "floating"
                     ],
                     "when": {
                       "field": "kind",
@@ -814,6 +989,7 @@
                 "",
                 "inline",
                 "stacked",
+                "floating",
                 "week_view",
                 "month_view",
                 "column_view"
@@ -821,6 +997,7 @@
               "enumLabels": {
                 "": "Default",
                 "column_view": "Column",
+                "floating": "Floating",
                 "inline": "Inline",
                 "month_view": "Month",
                 "stacked": "Stacked",
@@ -998,7 +1175,8 @@
                     "value": "custom"
                   }
                 ]
-              }
+              },
+              "translatable": true
             },
             "media_image_alt_mode": {
               "control": {
@@ -1184,7 +1362,6 @@
             },
             "media_modifiers": {
               "control": {
-                "$appendOptionsFromOption": "extra_modifier_options",
                 "default": "",
                 "kind": "multiselect",
                 "label": "Modifiers",
@@ -1200,6 +1377,14 @@
                   {
                     "label": "Overlay",
                     "value": "overlay"
+                  },
+                  {
+                    "label": "Avatar",
+                    "value": "avatar"
+                  },
+                  {
+                    "label": "Action",
+                    "value": "action"
                   }
                 ],
                 "preserveWhenHidden": true,
@@ -1266,11 +1451,13 @@
                 "inline",
                 "top-edge",
                 "auto-main",
+                "right-main",
                 "top-main"
               ],
               "enumLabels": {
                 "auto-main": "Auto main",
                 "inline": "Inline",
+                "right-main": "Auto right",
                 "top-edge": "Top edge",
                 "top-main": "Top main"
               },
@@ -1321,6 +1508,65 @@
                 "map"
               ],
               "primitive": "string"
+            },
+            "media_video_loading": {
+              "control": {
+                "kind": "select",
+                "label": "Video loading",
+                "options": [
+                  {
+                    "label": "Native player (watch pages)",
+                    "value": "native"
+                  },
+                  {
+                    "label": "Click to load (YouTube)",
+                    "value": "facade"
+                  }
+                ],
+                "preserveWhenHidden": true,
+                "section": "content",
+                "whenAny": [
+                  [
+                    {
+                      "field": "kind",
+                      "value": "media"
+                    }
+                  ],
+                  [
+                    {
+                      "field": "kind",
+                      "value": "text"
+                    },
+                    {
+                      "field": "modifiers",
+                      "operator": "contains",
+                      "value": "media"
+                    }
+                  ]
+                ]
+              },
+              "default": "native",
+              "description": "Keep the initial player on video watch pages. Click to load is an opt-in YouTube poster; other providers keep their native player.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "enum": [
+                "native",
+                "facade"
+              ],
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "video"
+                  }
+                ]
+              }
             },
             "media_video_url": {
               "control": {
@@ -1451,19 +1697,24 @@
                     "value": "over-media"
                   },
                   {
-                    "label": "Footer",
-                    "value": "footer"
-                  },
-                  {
                     "label": "Limit",
                     "value": "limit"
+                  },
+                  {
+                    "label": "Description",
+                    "value": "description"
+                  },
+                  {
+                    "label": "Numbering",
+                    "value": "numbering"
                   }
                 ],
                 "optionsWhen": [
                   {
                     "values": [
                       "subtitle",
-                      "media"
+                      "media",
+                      "numbering"
                     ],
                     "when": [
                       {
@@ -1552,12 +1803,20 @@
                   {
                     "values": [
                       "over-media",
-                      "footer",
                       "limit"
                     ],
                     "when": {
                       "field": "kind",
                       "value": "group"
+                    }
+                  },
+                  {
+                    "values": [
+                      "description"
+                    ],
+                    "when": {
+                      "field": "kind",
+                      "value": "reviews"
                     }
                   }
                 ],
@@ -1566,12 +1825,13 @@
                   "field": "kind",
                   "value": [
                     "text",
-                    "group"
+                    "group",
+                    "reviews"
                   ]
                 }
               },
               "default": "",
-              "description": "Kind-scoped behavior flags shared by text and group rows.",
+              "description": "Kind-scoped behavior flags shared by text, group, and reviews rows.",
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
@@ -1655,7 +1915,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "overflow_suffix_plural": {
               "control": {
@@ -1683,7 +1944,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "payload": {
               "control": {
@@ -1898,6 +2160,21 @@
                     ]
                   },
                   {
+                    "description": "Prompt sent to the assistant. {title} and {url} are replaced with the current post's title and its agent-readable .md URL. Leave empty for the site default.",
+                    "key": "llm_prompt",
+                    "kind": "textarea",
+                    "label": "Prompt",
+                    "placeholder": "Summarize {title} concisely, then list the key takeaways. Source: {url}",
+                    "types": [
+                      "ask_chatgpt",
+                      "ask_perplexity",
+                      "ask_claude",
+                      "ask_copilot",
+                      "ask_mistral",
+                      "ask_google_ai"
+                    ]
+                  },
+                  {
                     "description": "Vote field to update. Leave empty to use the first one.",
                     "key": "vote_field_key",
                     "kind": "text",
@@ -1923,6 +2200,37 @@
               },
               "primitive": "action_payload"
             },
+            "placement": {
+              "control": {
+                "default": "content",
+                "kind": "segmented",
+                "label": "Placement",
+                "relevantWhen": {
+                  "depth": 0
+                },
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "group"
+                }
+              },
+              "default": "content",
+              "description": "Choose the card surface that owns this group. Footer groups render in the separate footer bar after the body.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "enum": [
+                "content",
+                "footer"
+              ],
+              "enumLabels": {
+                "content": "Content",
+                "footer": "Footer"
+              },
+              "primitive": "string"
+            },
             "position": {
               "control": {
                 "default": "left",
@@ -1939,12 +2247,15 @@
                   },
                   {
                     "field": "layout",
-                    "value": "inline"
+                    "value": [
+                      "inline",
+                      "floating"
+                    ]
                   }
                 ]
               },
               "default": "left",
-              "description": "Align inline group members to the left, center, or right, or spread them across the available row.",
+              "description": "Align inline or floating group members to the left, center, or right, or spread them across the available row.",
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
@@ -2009,15 +2320,42 @@
               },
               "primitive": "boolean"
             },
-            "reviews_icon": {
+            "reviews_category": {
               "control": {
-                "kind": "icon",
-                "label": "Rating icon",
+                "kind": "select",
+                "label": "Review category",
+                "optionsDynamic": true,
+                "optionsSource": "voxelReviewCategories",
                 "section": "content",
                 "when": {
                   "field": "kind",
                   "value": "reviews"
                 }
+              },
+              "default": "",
+              "description": "Stable native Voxel review category key. Empty keeps the global aggregate.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "string"
+            },
+            "reviews_icon": {
+              "control": {
+                "kind": "icon",
+                "label": "Rating icon",
+                "section": "content",
+                "when": [
+                  {
+                    "field": "kind",
+                    "value": "reviews"
+                  },
+                  {
+                    "field": "reviews_presentation",
+                    "value": "icon"
+                  }
+                ]
               },
               "default": "ms:ms ms-star",
               "description": "Repeated icon used to visualize the aggregate rating.",
@@ -2028,11 +2366,41 @@
               },
               "primitive": "string"
             },
+            "reviews_presentation": {
+              "control": {
+                "default": "icon",
+                "kind": "segmented",
+                "label": "Presentation",
+                "section": "content",
+                "when": {
+                  "field": "kind",
+                  "value": "reviews"
+                }
+              },
+              "default": "icon",
+              "description": "Choose repeated icons, one rounded progress bar, or a compact category-and-score pill.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "enum": [
+                "icon",
+                "bars",
+                "compact"
+              ],
+              "enumLabels": {
+                "bars": "Rounded bar",
+                "compact": "Compact pill",
+                "icon": "Icon"
+              },
+              "primitive": "string"
+            },
             "reviews_star_color": {
               "control": {
                 "default": "yellow",
                 "kind": "select",
-                "label": "Rating icon color",
+                "label": "Rating color",
                 "options": "colors",
                 "section": "content",
                 "when": {
@@ -2041,7 +2409,7 @@
                 }
               },
               "default": "yellow",
-              "description": "Filled rating icon color.",
+              "description": "Filled rating icon or rounded bar color.",
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
@@ -2085,7 +2453,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "sorts": {
               "control": {
@@ -2132,11 +2501,17 @@
                       "field": "kind",
                       "value": "accordion"
                     }
+                  ],
+                  [
+                    {
+                      "field": "kind",
+                      "value": "toc"
+                    }
                   ]
                 ]
               },
               "default": "",
-              "description": "Choose the visual heading size independently of the semantic tag.",
+              "description": "Visual size of this row's heading text, independent of its semantic tag. Affects typography only, never colour or surface.",
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
@@ -2183,7 +2558,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "tag": {
               "control": {
@@ -2247,6 +2623,8 @@
                 "p",
                 "span",
                 "address",
+                "ol_item",
+                "ul_item",
                 "rich_text"
               ],
               "enumLabels": {
@@ -2257,9 +2635,11 @@
                 "h4": "H4",
                 "h5": "H5",
                 "h6": "H6",
+                "ol_item": "Ordered list item",
                 "p": "Paragraph",
                 "rich_text": "Rich text",
-                "span": "Span"
+                "span": "Span",
+                "ul_item": "Unordered list item"
               },
               "primitive": "string"
             },
@@ -2351,7 +2731,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "type": {
               "control": {
@@ -2432,6 +2813,12 @@
                 "open_vx_user_menu",
                 "open_vx_quick_search",
                 "access_markdown",
+                "ask_chatgpt",
+                "ask_perplexity",
+                "ask_claude",
+                "ask_copilot",
+                "ask_mistral",
+                "ask_google_ai",
                 "vote_upvote",
                 "vote_downvote"
               ],
@@ -2447,6 +2834,12 @@
                 "action_logout": "Log out",
                 "action_save": "Save post to collection",
                 "add_to_cart": "Add to cart",
+                "ask_chatgpt": "Summarize with ChatGPT",
+                "ask_claude": "Summarize with Claude",
+                "ask_copilot": "Summarize with Copilot",
+                "ask_google_ai": "Summarize with Google AI Mode",
+                "ask_mistral": "Summarize with Mistral",
+                "ask_perplexity": "Summarize with Perplexity",
                 "back_to_top": "Back to top",
                 "call": "Phone call",
                 "claim_post": "Claim post",
@@ -2533,98 +2926,15 @@
                 }
               },
               "default": "",
-              "description": "Primary authored content for text, accordion, and custom-code rows. Text rows use the rich-text editor when Tag is Rich text.",
+              "description": "Primary authored content for text, accordion, and custom-code rows. Text rows use the rich-text editor when Tag is Rich text. Comparison headings can combine ordered URL selections, for example: Compare: @post_from(request.1,title) and @post_from(request.2,title).",
               "dynamic": true,
               "dynamicCapability": {
                 "directVx": true,
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "richtext"
-            },
-            "variant": {
-              "control": {
-                "cascadeFrom": "variant",
-                "cascadeTransform": "content_variant",
-                "default": "dynamic",
-                "kind": "select",
-                "label": "Colors",
-                "optionsWhen": [
-                  {
-                    "values": [
-                      "dynamic",
-                      "transparent",
-                      "primary",
-                      "secondary",
-                      "negative",
-                      "positive"
-                    ],
-                    "when": {
-                      "field": "kind",
-                      "value": "toc"
-                    }
-                  }
-                ],
-                "section": "content",
-                "whenAny": [
-                  [
-                    {
-                      "field": "kind",
-                      "value": "text"
-                    },
-                    {
-                      "field": "appearance",
-                      "value": [
-                        "pill",
-                        "button"
-                      ]
-                    }
-                  ],
-                  [
-                    {
-                      "field": "kind",
-                      "value": [
-                        "accordion",
-                        "toc"
-                      ]
-                    }
-                  ]
-                ]
-              },
-              "default": "dynamic",
-              "description": "One shared appearance variant for text, accordion, and table-of-contents rows. Kind-specific options and host inheritance are resolved without changing the stored key.",
-              "dynamicCapability": {
-                "directVx": true,
-                "nestedDynamicLeaves": false,
-                "source": "primitive-default"
-              },
-              "enum": [
-                "dynamic",
-                "transparent",
-                "white",
-                "primary",
-                "primary_light",
-                "primary_white",
-                "secondary",
-                "secondary_light",
-                "secondary_white",
-                "positive",
-                "negative"
-              ],
-              "enumLabels": {
-                "dynamic": "Dynamic",
-                "negative": "Negative",
-                "positive": "Positive",
-                "primary": "Primary",
-                "primary_light": "Primary Light",
-                "primary_white": "Primary White",
-                "secondary": "Secondary",
-                "secondary_light": "Secondary Light",
-                "secondary_white": "Secondary White",
-                "transparent": "Transparent",
-                "white": "White"
-              },
-              "primitive": "string"
+              "primitive": "richtext",
+              "translatable": true
             }
           },
           "title": "Content block row"
@@ -2647,7 +2957,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "options": {
               "control": {
@@ -2701,7 +3012,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "location": {
               "control": {
@@ -2750,7 +3062,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "media_image_loading": {
               "default": "auto",
@@ -2817,7 +3130,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "ordering": {
               "control": {
@@ -2845,7 +3159,7 @@
           "label": "Settings"
         },
         {
-          "description": "Add the text, tags, media, and details.",
+          "description": "Add the text, tags, media, selection, and details.",
           "id": "content",
           "label": "Content"
         }
@@ -2922,11 +3236,11 @@
             "nestedDynamicLeaves": false,
             "source": "authored"
           },
-          "primitive": "string"
+          "primitive": "string",
+          "translatable": true
         },
         "modifiers": {
           "control": {
-            "$appendOptionsFromOption": "extra_options",
             "kind": "multiselect",
             "label": "Modifiers",
             "options": [
@@ -2992,7 +3306,8 @@
             "nestedDynamicLeaves": false,
             "source": "primitive-default"
           },
-          "primitive": "string"
+          "primitive": "string",
+          "translatable": true
         },
         "tag": {
           "control": {
@@ -3029,50 +3344,6 @@
             "aside"
           ],
           "primitive": "string"
-        },
-        "variant": {
-          "control": {
-            "cascadeFrom": "variant",
-            "cascadeTransform": "variant_base",
-            "default": "dynamic",
-            "kind": "select",
-            "label": "Variant",
-            "section": "submit"
-          },
-          "default": "dynamic",
-          "description": "Button or pill colors. Dynamic derives its paint from the nearest contextual surface.",
-          "dynamicCapability": {
-            "directVx": true,
-            "nestedDynamicLeaves": false,
-            "source": "primitive-default"
-          },
-          "enum": [
-            "dynamic",
-            "transparent",
-            "white",
-            "primary",
-            "primary_light",
-            "primary_white",
-            "secondary",
-            "secondary_light",
-            "secondary_white",
-            "positive",
-            "negative"
-          ],
-          "enumLabels": {
-            "dynamic": "Dynamic",
-            "negative": "Negative",
-            "positive": "Positive",
-            "primary": "Primary",
-            "primary_light": "Primary Light",
-            "primary_white": "Primary White",
-            "secondary": "Secondary",
-            "secondary_light": "Secondary Light",
-            "secondary_white": "Secondary White",
-            "transparent": "Transparent",
-            "white": "White"
-          },
-          "primitive": "string"
         }
       },
       "rows": {
@@ -3092,7 +3363,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "payload": {
               "control": {
@@ -3303,7 +3575,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "required": {
               "control": {
@@ -3429,8 +3702,10 @@
         "renderer": {
           "phpClass": "EF\\Widgets\\Navbar",
           "scripts": [
+            "ef-video-facade",
             "ef-grid-fill",
             "ef-navbar-drawer",
+            "ef-navbar-reading-progress",
             "ef-navbar",
             "ef-vx-popup",
             "ef-action-toast",
@@ -3661,6 +3936,21 @@
                 ]
               },
               {
+                "description": "Prompt sent to the assistant. {title} and {url} are replaced with the current post's title and its agent-readable .md URL. Leave empty for the site default.",
+                "key": "llm_prompt",
+                "kind": "textarea",
+                "label": "Prompt",
+                "placeholder": "Summarize {title} concisely, then list the key takeaways. Source: {url}",
+                "types": [
+                  "ask_chatgpt",
+                  "ask_perplexity",
+                  "ask_claude",
+                  "ask_copilot",
+                  "ask_mistral",
+                  "ask_google_ai"
+                ]
+              },
+              {
                 "description": "Vote field to update. Leave empty to use the first one.",
                 "key": "vote_field_key",
                 "kind": "text",
@@ -3739,6 +4029,12 @@
             "open_vx_user_menu",
             "open_vx_quick_search",
             "access_markdown",
+            "ask_chatgpt",
+            "ask_perplexity",
+            "ask_claude",
+            "ask_copilot",
+            "ask_mistral",
+            "ask_google_ai",
             "vote_upvote",
             "vote_downvote"
           ],
@@ -3754,6 +4050,12 @@
             "action_logout": "Log out",
             "action_save": "Save post to collection",
             "add_to_cart": "Add to cart",
+            "ask_chatgpt": "Summarize with ChatGPT",
+            "ask_claude": "Summarize with Claude",
+            "ask_copilot": "Summarize with Copilot",
+            "ask_google_ai": "Summarize with Google AI Mode",
+            "ask_mistral": "Summarize with Mistral",
+            "ask_perplexity": "Summarize with Perplexity",
             "back_to_top": "Back to top",
             "call": "Phone call",
             "claim_post": "Claim post",
@@ -3841,7 +4143,8 @@
             "nestedDynamicLeaves": false,
             "source": "authored"
           },
-          "primitive": "string"
+          "primitive": "string",
+          "translatable": true
         },
         "banner_message": {
           "control": {
@@ -3857,7 +4160,8 @@
             "nestedDynamicLeaves": false,
             "source": "authored"
           },
-          "primitive": "string"
+          "primitive": "string",
+          "translatable": true
         },
         "banner_require_login": {
           "control": {
@@ -3897,7 +4201,8 @@
             "nestedDynamicLeaves": false,
             "source": "primitive-default"
           },
-          "primitive": "string"
+          "primitive": "string",
+          "translatable": true
         },
         "cta_ts_actions": {
           "control": {
@@ -3920,13 +4225,20 @@
         },
         "modifiers": {
           "control": {
-            "$appendOptionsFromOption": "extra_options",
             "kind": "multiselect",
             "label": "Modifiers",
             "options": [
               {
                 "label": "Sticky",
                 "value": "sticky"
+              },
+              {
+                "label": "Breadcrumb",
+                "value": "breadcrumb"
+              },
+              {
+                "label": "Reading progress",
+                "value": "reading-progress"
               }
             ],
             "section": "settings"
@@ -4008,35 +4320,6 @@
             "div"
           ],
           "primitive": "string"
-        },
-        "variant": {
-          "control": {
-            "kind": "select",
-            "label": "Variant",
-            "options": "variants",
-            "section": "settings"
-          },
-          "default": "dynamic",
-          "description": "Choose the colors.",
-          "dynamicCapability": {
-            "directVx": true,
-            "nestedDynamicLeaves": false,
-            "source": "primitive-default"
-          },
-          "enum": [
-            "dynamic",
-            "transparent",
-            "white",
-            "primary",
-            "primary_light",
-            "primary_white",
-            "secondary",
-            "secondary_light",
-            "secondary_white",
-            "positive",
-            "negative"
-          ],
-          "primitive": "string"
         }
       },
       "rows": {
@@ -4091,7 +4374,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "payload": {
               "control": {
@@ -4306,6 +4590,21 @@
                     ]
                   },
                   {
+                    "description": "Prompt sent to the assistant. {title} and {url} are replaced with the current post's title and its agent-readable .md URL. Leave empty for the site default.",
+                    "key": "llm_prompt",
+                    "kind": "textarea",
+                    "label": "Prompt",
+                    "placeholder": "Summarize {title} concisely, then list the key takeaways. Source: {url}",
+                    "types": [
+                      "ask_chatgpt",
+                      "ask_perplexity",
+                      "ask_claude",
+                      "ask_copilot",
+                      "ask_mistral",
+                      "ask_google_ai"
+                    ]
+                  },
+                  {
                     "description": "Vote field to update. Leave empty to use the first one.",
                     "key": "vote_field_key",
                     "kind": "text",
@@ -4369,7 +4668,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "primitive-default"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "type": {
               "control": {
@@ -4424,6 +4724,12 @@
                 "open_vx_user_menu",
                 "open_vx_quick_search",
                 "access_markdown",
+                "ask_chatgpt",
+                "ask_perplexity",
+                "ask_claude",
+                "ask_copilot",
+                "ask_mistral",
+                "ask_google_ai",
                 "vote_upvote",
                 "vote_downvote"
               ],
@@ -4438,6 +4744,12 @@
                 "action_logout": "Log out",
                 "action_save": "Save post to collection",
                 "add_to_cart": "Add to cart",
+                "ask_chatgpt": "Summarize with ChatGPT",
+                "ask_claude": "Summarize with Claude",
+                "ask_copilot": "Summarize with Copilot",
+                "ask_google_ai": "Summarize with Google AI Mode",
+                "ask_mistral": "Summarize with Mistral",
+                "ask_perplexity": "Summarize with Perplexity",
                 "back_to_top": "Back to top",
                 "call": "Phone call",
                 "claim_post": "Claim post",
@@ -4470,50 +4782,6 @@
                 "vote_upvote": "Upvote"
               },
               "primitive": "string"
-            },
-            "variant": {
-              "control": {
-                "cascadeFrom": "variant",
-                "cascadeTransform": "variant_base",
-                "default": "dynamic",
-                "kind": "select",
-                "label": "Variant",
-                "section": "content"
-              },
-              "default": "dynamic",
-              "description": "Button or pill colors. Dynamic derives its paint from the nearest contextual surface.",
-              "dynamicCapability": {
-                "directVx": true,
-                "nestedDynamicLeaves": false,
-                "source": "primitive-default"
-              },
-              "enum": [
-                "dynamic",
-                "transparent",
-                "white",
-                "primary",
-                "primary_light",
-                "primary_white",
-                "secondary",
-                "secondary_light",
-                "secondary_white",
-                "positive",
-                "negative"
-              ],
-              "enumLabels": {
-                "dynamic": "Dynamic",
-                "negative": "Negative",
-                "positive": "Positive",
-                "primary": "Primary",
-                "primary_light": "Primary Light",
-                "primary_white": "Primary White",
-                "secondary": "Secondary",
-                "secondary_light": "Secondary Light",
-                "secondary_white": "Secondary White",
-                "transparent": "Transparent",
-                "white": "White"
-              },
-              "primitive": "string"
             }
           },
           "title": "Action row"
@@ -4536,7 +4804,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "location": {
               "control": {
@@ -4585,7 +4854,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "media_image_loading": {
               "default": "auto",
@@ -4657,7 +4927,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "label": {
               "control": {
@@ -4673,7 +4944,24 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
+            },
+            "limit": {
+              "control": {
+                "default": false,
+                "kind": "switch",
+                "label": "Limit rows",
+                "section": "content"
+              },
+              "default": false,
+              "description": "Caps the visible rows this row generates (a heading row clamps its column grid, a link row clamps its pill list) and reveals an overflow affordance.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "primitive": "boolean"
             },
             "link": {
               "control": {
@@ -4819,7 +5107,8 @@
                     "value": "custom"
                   }
                 ]
-              }
+              },
+              "translatable": true
             },
             "media_image_alt_mode": {
               "control": {
@@ -4948,7 +5237,6 @@
             },
             "media_modifiers": {
               "control": {
-                "$appendOptionsFromOption": "extra_modifier_options",
                 "default": "",
                 "kind": "multiselect",
                 "label": "Modifiers",
@@ -5014,6 +5302,46 @@
               ],
               "primitive": "string"
             },
+            "media_video_loading": {
+              "control": {
+                "kind": "select",
+                "label": "Video loading",
+                "options": [
+                  {
+                    "label": "Native player (watch pages)",
+                    "value": "native"
+                  },
+                  {
+                    "label": "Click to load (YouTube)",
+                    "value": "facade"
+                  }
+                ],
+                "preserveWhenHidden": true,
+                "section": "content"
+              },
+              "default": "native",
+              "description": "Keep the initial player on video watch pages. Click to load is an opt-in YouTube poster; other providers keep their native player.",
+              "dynamicCapability": {
+                "directVx": true,
+                "nestedDynamicLeaves": false,
+                "source": "primitive-default"
+              },
+              "enum": [
+                "native",
+                "facade"
+              ],
+              "primitive": "string",
+              "showWhen": {
+                "conditions": [
+                  {
+                    "path": [
+                      "media_type"
+                    ],
+                    "value": "video"
+                  }
+                ]
+              }
+            },
             "media_video_url": {
               "control": {
                 "customOnly": true,
@@ -5042,28 +5370,6 @@
                 ]
               }
             },
-            "modifiers": {
-              "control": {
-                "default": "",
-                "kind": "multiselect",
-                "label": "Modifiers",
-                "options": [
-                  {
-                    "label": "Limit",
-                    "value": "limit"
-                  }
-                ],
-                "section": "content"
-              },
-              "default": "",
-              "description": "Optional row behavior flags. Limit caps the visible rows this row generates (a heading row clamps its column grid, a link row clamps its pill list) and reveals an overflow affordance — the same contract as a Card group's Limit modifier.",
-              "dynamicCapability": {
-                "directVx": true,
-                "nestedDynamicLeaves": false,
-                "source": "primitive-default"
-              },
-              "primitive": "string"
-            },
             "overflow_limit": {
               "control": {
                 "kind": "number",
@@ -5074,9 +5380,8 @@
                 "section": "content",
                 "step": 1,
                 "when": {
-                  "field": "modifiers",
-                  "operator": "contains",
-                  "value": "limit"
+                  "field": "limit",
+                  "value": true
                 }
               },
               "default": 0,
@@ -5095,9 +5400,8 @@
                 "preserveWhenHidden": true,
                 "section": "content",
                 "when": {
-                  "field": "modifiers",
-                  "operator": "contains",
-                  "value": "limit"
+                  "field": "limit",
+                  "value": true
                 }
               },
               "default": "",
@@ -5108,7 +5412,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "overflow_suffix_plural": {
               "control": {
@@ -5117,9 +5422,8 @@
                 "preserveWhenHidden": true,
                 "section": "content",
                 "when": {
-                  "field": "modifiers",
-                  "operator": "contains",
-                  "value": "limit"
+                  "field": "limit",
+                  "value": true
                 }
               },
               "default": "",
@@ -5130,52 +5434,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
-            },
-            "pill_variant": {
-              "control": {
-                "default": "dynamic",
-                "kind": "select",
-                "label": "Pill colors",
-                "relevantWhen": {
-                  "depth": 3
-                },
-                "section": "content"
-              },
-              "default": "dynamic",
-              "description": "Colors for last-level megamenu pills. Dynamic derives its paint from the nearest contextual surface.",
-              "dynamicCapability": {
-                "directVx": true,
-                "nestedDynamicLeaves": false,
-                "source": "primitive-default"
-              },
-              "enum": [
-                "dynamic",
-                "white",
-                "transparent",
-                "primary_light",
-                "primary_white",
-                "secondary_light",
-                "secondary_white",
-                "primary",
-                "secondary",
-                "positive",
-                "negative"
-              ],
-              "enumLabels": {
-                "dynamic": "Dynamic",
-                "negative": "Negative",
-                "positive": "Positive",
-                "primary": "Primary",
-                "primary_light": "Primary Light",
-                "primary_white": "Primary White",
-                "secondary": "Secondary",
-                "secondary_light": "Secondary Light",
-                "secondary_white": "Secondary White",
-                "transparent": "Transparent",
-                "white": "White"
-              },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             }
           },
           "title": "Mega row"
@@ -5223,6 +5483,7 @@
         "renderer": {
           "phpClass": "EF\\Elements\\Wrapper",
           "scripts": [
+            "ef-video-facade",
             "ef-grid-fill",
             "ef-modal",
             "ef-tabs",
@@ -5344,7 +5605,8 @@
                 "value": "custom"
               }
             ]
-          }
+          },
+          "translatable": true
         },
         "bg_media_image_alt_mode": {
           "control": {
@@ -5473,7 +5735,6 @@
         },
         "bg_media_modifiers": {
           "control": {
-            "$appendOptionsFromOption": "extra_modifier_options",
             "default": "",
             "kind": "multiselect",
             "label": "Modifiers",
@@ -5539,6 +5800,46 @@
             "map"
           ],
           "primitive": "string"
+        },
+        "bg_media_video_loading": {
+          "control": {
+            "kind": "select",
+            "label": "Video loading",
+            "options": [
+              {
+                "label": "Native player (watch pages)",
+                "value": "native"
+              },
+              {
+                "label": "Click to load (YouTube)",
+                "value": "facade"
+              }
+            ],
+            "preserveWhenHidden": true,
+            "section": "settings"
+          },
+          "default": "native",
+          "description": "Keep the initial player on video watch pages. Click to load is an opt-in YouTube poster; other providers keep their native player.",
+          "dynamicCapability": {
+            "directVx": true,
+            "nestedDynamicLeaves": false,
+            "source": "primitive-default"
+          },
+          "enum": [
+            "native",
+            "facade"
+          ],
+          "primitive": "string",
+          "showWhen": {
+            "conditions": [
+              {
+                "path": [
+                  "bg_media_type"
+                ],
+                "value": "video"
+              }
+            ]
+          }
         },
         "bg_media_video_url": {
           "control": {
@@ -5631,7 +5932,6 @@
         },
         "modifiers": {
           "control": {
-            "$appendOptionsFromOption": "extra_options",
             "exclusiveOptions": [
               [
                 "padded",
@@ -5644,6 +5944,18 @@
               {
                 "label": "Sticky",
                 "value": "sticky"
+              },
+              {
+                "label": "Reversed",
+                "value": "reversed"
+              },
+              {
+                "label": "Padding",
+                "value": "padded"
+              },
+              {
+                "label": "No padding",
+                "value": "unpadded"
               }
             ],
             "section": "settings"
@@ -5795,7 +6107,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "location": {
               "control": {
@@ -5844,7 +6157,8 @@
                 "nestedDynamicLeaves": false,
                 "source": "authored"
               },
-              "primitive": "string"
+              "primitive": "string",
+              "translatable": true
             },
             "media_image_loading": {
               "default": "auto",

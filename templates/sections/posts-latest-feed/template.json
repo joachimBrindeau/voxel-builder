@@ -119,7 +119,9 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-4d28fb2-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -176,10 +178,6 @@
             }
           }
         },
-        "variant": {
-          "$$type": "string",
-          "value": "transparent"
-        },
         "content_blocks": {
           "$$type": "ef-content-block-rows",
           "value": [
@@ -190,17 +188,9 @@
                   "$$type": "string",
                   "value": "text"
                 },
-                "accordion_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
-                },
                 "text": {
                   "$$type": "string",
                   "value": "Lorem ipsum dolor sit amet consectetur"
-                },
-                "toc_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
                 },
                 "icon": {
                   "$$type": "string",
@@ -245,10 +235,6 @@
                 "accordion_open": {
                   "$$type": "boolean",
                   "value": false
-                },
-                "separator_variant": {
-                  "$$type": "string",
-                  "value": "full"
                 },
                 "separator_spacing": {
                   "$$type": "string",
@@ -426,17 +412,9 @@
                   "$$type": "string",
                   "value": "text"
                 },
-                "accordion_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
-                },
                 "text": {
                   "$$type": "string",
                   "value": "Lorem ipsum dolor sit amet consectetur"
-                },
-                "toc_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
                 },
                 "icon": {
                   "$$type": "string",
@@ -477,10 +455,6 @@
                 "accordion_open": {
                   "$$type": "boolean",
                   "value": false
-                },
-                "separator_variant": {
-                  "$$type": "string",
-                  "value": "full"
                 },
                 "separator_spacing": {
                   "$$type": "string",
@@ -656,7 +630,36 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-4d28fb2-0": {
+          "id": "s-4d28fb2-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "inherit"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"

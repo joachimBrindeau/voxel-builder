@@ -64,12 +64,12 @@ Key reference:
 
 ## Naming rule
 
-Folder / `id` = **`<type>-<variant>`**, kebab-case, **no numeric suffixes**.
+Folder / `id` = **`<type>-<distinguishing-trait>`**, kebab-case, **no numeric suffixes**.
 
 - Good: `hero-search-overlay`, `hero-city-geo`, `cta-newsletter-band`
 - Bad: `hero-1`, `hero_search`, `HeroSearchOverlay`
 
-The variant describes the distinguishing trait, never a counter.
+The distinguishing trait describes what makes the template reusable, never a counter.
 
 ## SSOT wins
 

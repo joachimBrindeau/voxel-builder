@@ -61,7 +61,7 @@ When a post is rendered as a card inside `ts-post-feed` / `ts-term-feed`:
 
 1. **Feed-level override**: the feed widget's `ts_card_template__<post_type>` (or `ts_manual_card_template__<post_type>` for manual mode) — if set, this card template wins for items of that post type in this feed.
 2. **CPT custom card** (visibility-rule scoped):
-   `voxel:post_types[<key>].custom_templates.card[]` — first matching entry wins. Used for variant cards (small/large/avatar/…).
+   `voxel:post_types[<key>].custom_templates.card[]` — first matching entry wins. Used for preview-card sizes (small/large/avatar/…).
 3. **CPT default card**:
    `voxel:post_types[<key>].templates.card`.
 

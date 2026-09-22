@@ -182,7 +182,7 @@ Glob-loading + class-discovery primitives. Build agents rarely call these direct
 - **Example**:
 ```php
 ef_register_row_prop_type( 'tag', function () {
-    return [ 'text' => String_Prop_Type::make(), 'variant' => Enum_String::make([...]) ];
+    return [ 'text' => String_Prop_Type::make() ];
 } );
 ```
 

@@ -54,7 +54,7 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
    attributable and rejectable.
 5. **Native, surface-matched output.** Validate stored data and the affected runtime surface;
    DB equality alone cannot prove rendering, schema, behavior, or performance. Express site
-   content through native Voxel/Elementor Framework settings, variants, tokens, layout props,
+   content through native Voxel/Elementor Framework settings, Elementor dynamic styles, tokens, layout props,
    and source templates — never custom CSS, inline styles, ad-hoc classes, Elementor overrides,
    or screenshot patches. Report native capability gaps at their component/source owner.
 
