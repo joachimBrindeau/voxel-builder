@@ -63,7 +63,7 @@ Reuse existing structural data instead of adding fields:
   hierarchy — parenting a term to a category *post* nests the URL (see
   the **Flat URLs** section below).
 - **A-Z index** → an alphabetical `order` option on the search config
-- **"see also" lateral links** → the `siblings` hierarchy relation (see the **Internal linking** section below)
+- **"see also" lateral links** → the derived `hierarchy-<cpt>-siblings` relation (see the **Internal linking** section below)
 - **`dateModified`** → native `post:modified` (no editorial date field)
 
 ## The two-surface rule (the #1 mistake to avoid)
@@ -80,6 +80,40 @@ Point it at `hook` instead — a field Voxel bounds to 35-120 chars, structurall
 guaranteed below 155, so the meta description is always complete. This is the
 "let the Voxel field `maxlength` enforce the SERP bound" pattern: the field limit
 (120) sits safely under the display limit (155).
+
+### The term/service title collision
+
+A glossary term almost always shares its name with something else on the site: a
+service page, a product, a category. On the shipped `title_template_<cpt>` default
+of `%title%`, `/glossary/horodatage` and the service page `/horodatage` both emit
+`<title>Horodatage | MyProof</title>`. Two indexable URLs with an identical title
+read as duplicates, and Google may serve the commercial page for a definitional
+query, or vice versa.
+
+**Fix at the type-level setting, not per record.** Retitling the current terms
+leaves the next one to regress:
+
+```bash
+# key is title_template_<cpt> in the `meta` category; derive it rather than
+# hardcoding the convention:
+#   lean_seo_build_meta_setting_key( LEAN_SEO_META_KIND_TITLE_TEMPLATE, '<cpt>' )
+```
+
+Prefer `%h1%` over a mechanical `%title% : définition` suffix **when the CPT
+already has an authored `h1`** — it reuses editorial copy instead of generating
+boilerplate, and the `h1` is already distinct per term. Check the resolved length
+first (`%h1%` plus the site suffix should stay under ~60 chars); fall back to a
+short suffix when the `h1` is long. There is no `wpdev` setter for lean-seo
+settings, so `lean_seo_settings_set( 'meta', $key, $value, $type, $desc )` is the
+path, and a migration should refuse to overwrite anything other than the shipped
+default.
+
+Verify by **counting duplicate titles across every published post in every public
+post type**, not just the terms you touched: that is what proves the collision is
+gone rather than relocated, and it catches sibling scopes the change should not
+have moved. Watch for a term whose slug also has a redirect (`/blockchain` →
+`/glossary/blockchain`): a matching canonical makes that a redirect, not a second
+collision.
 
 ## Tier 4 — every term needs a long-form body (anti-thin-content)
 
@@ -127,6 +161,9 @@ parent a term to a *category post* to get grouping, you also nest its URL. So:
 
 - **Parent every term to the CPT's landing page** (the `permalink_default` page),
   never to another term/category post → flat URL, breadcrumb `Home > Glossary > Term`.
+  This same parent is what materializes the hierarchy relations (see
+  [Hub-and-spoke](#hub-and-spoke--internal-linking-tier-3133) below), so it is not
+  an optional tidiness step.
 - **Express category grouping through a taxonomy** (`<cpt>_category`), not
   `post_parent`. The taxonomy gives category archive pages (the sub-hubs of
   Tier 3.1) and optional per-category `DefinedTermSet`s **without** touching the URL.
@@ -135,13 +172,61 @@ parent a term to a *category post* to get grouping, you also nest its URL. So:
 
 - **Hub:** the CPT landing page links to every term (or to each category archive,
   which links to its terms). Every term links back to the hub via the breadcrumb.
-- **Lateral "see also":** set the Voxel `siblings` relation on each term to 2-4
-  *genuinely* related terms (e.g. `CIR ↔ CII ↔ JEI`), so related-term links render
-  and lateral PageRank flows.
+- **Lateral "see also":** the derived `hierarchy-<cpt>-siblings` relation supplies related-term links, so
+  lateral PageRank flows. It is **derived, not writable** — see below.
 - **Anchor discipline:** vary anchor text (use the related term's name), embed links
   in sentences in the `content` body, and **cap exact-match** internal anchors per
   term. Automated linking must read as editorial, not engineered — over-optimized
   identical internal anchors trip the same suspicion as manipulative backlink anchors.
+
+### Hierarchy relations are derived from `post_parent`, not writable
+
+`siblings`, `ancestors` and `children` are **computed** by the Hierarchy module's
+maintainer from `wp_posts.post_parent`, and stored under prefixed keys
+(`hierarchy-<cpt>-siblings`), not under the bare field name.
+
+**`voxel:set-field hierarchy-siblings` therefore reports success and writes
+nothing** — `wp_voxel_relations` stays empty. There is no error to notice. Do not
+verify these relations from the command's exit status; read the relation rows back.
+
+Set the **parent** instead, and every derived relation materializes at once:
+
+```sh
+wp post update <term-id> --post_parent=<hub-id>
+```
+
+This single write is what closes four gaps together, so do it before diagnosing
+them separately: flat URL + breadcrumb (both walk `post_parent`), the `siblings`
+relation, and the `ancestors` trail. Note lean-seo's builder **drops trails under
+3 items**, so a term with no real parent emits no `BreadcrumbList` at all — an
+absent breadcrumb is usually a missing parent, not a schema misconfiguration.
+
+A related-terms template block must also bind the token that actually has rows:
+`hierarchy-<cpt>-siblings` for lateral links. `hierarchy-<cpt>-children` is empty on a
+leaf term and renders an invisible, permanently-empty section.
+
+### Verifying prose autolinking: two traps
+
+Autolinking (the linker that turns a term mention in body copy into a link) lives on
+a **different surface** from the related-terms cards. Conflating them produces checks
+that contradict each other.
+
+- **Scope the check to prose.** "Does the page link term X?" is the wrong question:
+  the related-terms **card** legitimately links a sibling that prose must *not*
+  link (e.g. a compound term must not link its own constituents inside its
+  definition). Collect prose links specifically (`main p a[href]`, `main li a[href]`)
+  and assert on those, or a no-self-link rule will fight a related-cards rule.
+- **Never require every term page to autolink.** A correct page can have zero prose
+  term links: the head term may mention no other term, and a near-miss mention is
+  *not* a match — "enveloppe **e-Soleau**" (a distinct product name) must not link the
+  term "Enveloppe Soleau". Per-page minimums fail on correct pages.
+
+To still catch "autolinking silently switched off", assert at **corpus level** — at
+least one prose term link exists across all terms — plus an untouched control page
+that was already autolinking. That fails on a real regression without punishing a
+page whose prose has nothing to link. Before changing either the site or the check,
+read the actual sentence: `get_post_field( 'post_content', <id> )` shows whether the
+mention is a true term occurrence or a near-miss.
 
 ## E-E-A-T (Tier 4.3)
 
@@ -241,6 +326,15 @@ not a preference. If a CPT config still carries a `FAQPage` node added solely fo
 SERP enrichment, **remove it**; it has no Google rich-result upside and distracts
 from the supported `DefinedTerm`/`DefinedTermSet` graph.
 
+**Scope this to the defined-term target you own.** A site's `page` or `post`
+schema target may carry its own `FAQPage` node, typically gated by
+`@require: voxel:faq` so it only fires on records that actually have rows. Seeing
+`FAQPage` on the homepage is therefore *not* evidence that the glossary work is
+non-compliant — check `schema:get <site> <cpt>` for the term target before
+concluding anything. Removing a `FAQPage` from a shared `page` target is a
+separate, wider content decision affecting every page with `faq` rows, and it
+belongs to the owner of that target, not to a glossary task.
+
 Visible FAQ content is not banned. Keep it only when the questions are genuinely
 term-specific, self-contained, and useful after the main definition/body. Do not
 bake a boilerplate FAQ module into every glossary template.
@@ -327,6 +421,15 @@ menu/section subtitle. Write it as one complete, standalone sentence.
 A term is **not done** until every box is true. Following only the schema/field
 setup produces a thin page — the content + linking rows are what make it survive.
 
+> **Field names vary per site. Map roles before authoring.** The names below are
+> this reference's canonical vocabulary, not a guarantee. Run
+> `./wpdev voxel:fields <site> <cpt>` first and bind by *role*, not by name. A
+> site may carry no `hook`/`content`/`acronym` at all and instead express the same
+> roles as, for example, `definition` (answer block) + `description`
+> (long-form body) + `post_excerpt` (meta description). Apply each row's length
+> and quality bound to whichever field actually owns that role, and note any role
+> the CPT genuinely cannot express rather than inventing a field for it.
+
 - [ ] `h1` set, ≤70 chars.
 - [ ] `hook` set, 35-120 chars, one complete sentence (→ meta description).
 - [ ] `definition` set, 200-400 chars ≈ 40-60 words, term-as-subject, dictionary
@@ -339,14 +442,50 @@ setup produces a thin page — the content + linking rows are what make it survi
       (not template filler), renders after the main body, and emits no `FAQPage`.
 - [ ] Parented to the **CPT landing page** (flat URL) — not to a category post.
 - [ ] Category assigned via **taxonomy** (not `post_parent`).
-- [ ] `siblings` set to 2-4 genuinely related terms (lateral links).
+- [ ] Lateral links present: verify `hierarchy-<cpt>-siblings` rows exist (they are
+      **derived** from `post_parent`, never set directly — see Internal linking).
 - [ ] `post_author` = a credentialed profile (E-E-A-T).
+- [ ] Prose autolinking checked at **corpus level** (≥1 prose term link across all
+      terms, plus an untouched control), never as a per-page minimum — see
+      "Verifying prose autolinking".
+- [ ] `sources` rows render as **visible anchors in the body**, not only inside
+      JSON-LD `citation`. Compare the two counts explicitly; see below.
 - [ ] Live check after release/noindex removal: flat URL, breadcrumb
       `Home > Glossary > Term`, `DefinedTerm` + `WebPage` + `BreadcrumbList`,
       **no `FAQPage`**, meta description complete. While an intentional editorial
       noindex flag remains, Lean SEO must emit no JSON-LD; verify that exact URL
       and defer the positive schema assertion rather than substituting a
       post-type-wide validator sample.
+
+## Creating the first record of an empty glossary CPT
+
+A CPT with zero published records has a **never-exercised single template**.
+Field data can be perfectly stored while the template silently fails to surface
+it, so treat the first record as a template audit, not just a content write.
+
+Two defect classes recur and neither is visible from stored data or HTTP 200:
+
+1. **Untranslated donor copy.** Templates ported from an English source keep
+   hardcoded strings (section headings, "Learn more", `pluralize(term,terms)`)
+   that never appear until a record renders. Diff the rendered headings against
+   the site language; a `<h2>` from the *template* is as user-visible as one from
+   the content.
+2. **A field with no rendering surface.** `sources`, `faq`, or `sameAs` may reach
+   JSON-LD through lean-seo while the template has no section for them. The
+   schema is then strictly better than the page, which is the wrong direction.
+   Assert **visible anchor count == JSON-LD `citation` count**, not merely that
+   the schema is populated.
+
+When a section is missing, port the site's existing one (for example a
+`*-section-sources` library template) rather than authoring a new tree: the
+shipped donor already carries the correct visibility gate. Copying also means
+**regenerating element ids** against the ids already present in the target
+document, or the duplicate ids will collide.
+
+Verify with a control that has a rendering surface you already trust — an
+existing article page — so a whole-template failure cannot be mistaken for a
+content problem.
+
 
 ## Related
 

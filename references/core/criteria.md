@@ -80,6 +80,7 @@ Each returned leaf checks exactly one criterion and stays within that remit. A w
 | `css-token-fallback` | prop | both | I | Design-token references resolve (no silent fallback to an unintended default). | computed style vs token |
 | `reindex-after-filter` | page | both | I | Feed filters have a matching index-table reindex (feed not silently empty). | feed settings + index table |
 | `unicode-integrity` | prop | both | C | No `u00xx` accent corruption in written or rendered text. | regex probe on `_elementor_data` + rendered text |
+| `check-validity` | page | both | C | No two criteria in a run can contradict each other (one requiring a link another forbids), and no criterion passes vacuously when the feature it guards is off. Trace each failure to its owner before changing the site or the check: a failing check may itself be the defect. | the two criterion definitions + the source value the assertion reads |
 
 ## Extending the checklist
 
