@@ -110,6 +110,9 @@ state that a check ran.
 
 1. Reject duplicate/missing scope ids, mixed modes, cross-scope evidence, missing evidence,
    and write claims from read-only roles.
+   If the coordinator view truncates a worker return, retrieve the complete leaf envelopes
+   through the host's worker-session read or direct-message surface before validating them;
+   never reconstruct missing findings from the visible summary.
 2. Re-dispatch only rejected leaves, at most twice. After three total failed attempts,
    stop that leaf and report the blocking evidence.
 3. Merge valid leaves deterministically:

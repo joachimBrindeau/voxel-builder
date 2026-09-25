@@ -11,6 +11,7 @@ workspace source and command registry on 2026-07-10.
 | Resolved agent/CLI schema | `cli/src/generated/widget-schemas.json` | generated, never hand-edited |
 | TypeScript builders/types | `cli/src/generated/widgets.ts` | generated, never hand-edited |
 | Live PHP registration parity | JSON loader under `includes/schema/` | `wpdev elementor:codegen:verify <site>` |
+| Render-time row/modifier admissibility | `includes/generated/schema_contract.php` plus the owning `includes/row_definitions/` source | when a schema-valid value renders no output, inspect the generated contract, then fix the schema/row-definition owner rather than the generated file |
 | Golden runtime shape | live dump + schema checks | `wpdev elementor:schema:check <site>` |
 
 Widgets compose parts; parts compose parts/primitives; primitives are leaves. Use `$part`
