@@ -447,11 +447,21 @@
                   "effects": {
                     "_cssid": {
                       "$$type": "string",
-                      "value": "Hero"
+                      "value": "header"
                     }
                   },
                   "fallback": "div",
                   "value": "header"
+                },
+                {
+                  "effects": {
+                    "_cssid": {
+                      "$$type": "string",
+                      "value": "main"
+                    }
+                  },
+                  "fallback": "div",
+                  "value": "main"
                 }
               ]
             },
@@ -3668,6 +3678,31 @@
                 "default": "left",
                 "kind": "segmented",
                 "label": "Position",
+                "optionsWhen": [
+                  {
+                    "values": [
+                      "left",
+                      "center",
+                      "right",
+                      "spread"
+                    ],
+                    "when": {
+                      "field": "inline",
+                      "value": true
+                    }
+                  },
+                  {
+                    "values": [
+                      "left",
+                      "center",
+                      "right"
+                    ],
+                    "when": {
+                      "field": "inline",
+                      "value": false
+                    }
+                  }
+                ],
                 "relevantWhen": {
                   "depth": 0
                 },
@@ -3675,24 +3710,7 @@
                 "when": {
                   "field": "kind",
                   "value": "group"
-                },
-                "whenAny": [
-                  [
-                    {
-                      "field": "placement",
-                      "value": [
-                        "over-media",
-                        "floating"
-                      ]
-                    }
-                  ],
-                  [
-                    {
-                      "field": "inline",
-                      "value": true
-                    }
-                  ]
-                ]
+                }
               },
               "default": "left",
               "description": "Align inline, over-media, or floating group members to the left, center, or right, or spread them across the available row.",
@@ -6550,11 +6568,21 @@
                   "effects": {
                     "_cssid": {
                       "$$type": "string",
-                      "value": "Hero"
+                      "value": "header"
                     }
                   },
                   "fallback": "div",
                   "value": "header"
+                },
+                {
+                  "effects": {
+                    "_cssid": {
+                      "$$type": "string",
+                      "value": "main"
+                    }
+                  },
+                  "fallback": "div",
+                  "value": "main"
                 }
               ]
             },
@@ -8453,24 +8481,6 @@
           "primitive": "boolean",
           "responsive": true
         },
-        "gap": {
-          "control": {
-            "after": "cols",
-            "kind": "text",
-            "label": "Gap",
-            "section": "settings"
-          },
-          "default": "",
-          "description": "Space between this wrapper's rows and columns. Leave empty to use the design-system default.",
-          "dynamicCapability": {
-            "directVx": false,
-            "nestedDynamicLeaves": true,
-            "source": "primitive-default"
-          },
-          "primitive": "string",
-          "responsive": true,
-          "responsiveInherit": true
-        },
         "mode": {
           "control": {
             "kind": "select",
@@ -8643,11 +8653,21 @@
                   "effects": {
                     "_cssid": {
                       "$$type": "string",
-                      "value": "Hero"
+                      "value": "header"
                     }
                   },
                   "fallback": "div",
                   "value": "header"
+                },
+                {
+                  "effects": {
+                    "_cssid": {
+                      "$$type": "string",
+                      "value": "main"
+                    }
+                  },
+                  "fallback": "div",
+                  "value": "main"
                 }
               ]
             },
