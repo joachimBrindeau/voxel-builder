@@ -19,7 +19,7 @@
           "scope": { "type": "string", "enum": ["page", "section", "widget", "prop", "section/widget"] },
           "phase": { "type": "string", "enum": ["plan", "render", "both"] },
           "severity": { "type": "string", "enum": ["C", "I", "K", "C/I"], "description": "Row-level gate-blocking CEILING (consumed by the §2g computed gate), not the per-finding severity. A criterion's protocol may emit findings at any level at or below this ceiling at runtime; 'C/I' = can block at Critical or Improvement depending on must/should classification." },
-          "mode": { "type": "string", "enum": ["build", "migration"] },
+          "mode": { "type": "string", "enum": ["build", "migration", "authoring"] },
           "criterion": { "type": "string", "minLength": 1 },
           "evidence": { "type": "string", "minLength": 1 },
           "predicate": { "type": "string", "minLength": 1 }

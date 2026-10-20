@@ -54,7 +54,7 @@ The page must read as a valid `h1 → h2 → h3` outline when a screen reader wa
 
 **Eyebrow rule — use a `heading` row's `subtitle` cell, not a separate row and not a phantom `style` value:**
 
-> **SSOT (verified against `schemas/parts/rows/content-block-row.schema.json` and EF migration step 1336).** The `byline` row kind is **gone**, folded into `heading`: a byline was a heading that had grown a second text cell, its own avatar media, its own Twig variant, and its own CSS block, and every one of those was a second spelling of something `heading` already owned. Step 1336 migrates stored rows (`byline_primary → text`, `byline_secondary → subtitle`, `byline_avatar_* → inline_*`, `tag → span`). Do NOT author `kind: byline`, `byline_primary`, `byline_secondary`, or `byline_avatar_*` — none of those cells exist in the schema any more, and a row carrying them falls through to the `heading` default and renders empty. `style: byline_label` and `style: label` are both dead — neither is in the `style` enum (`''`, `h1`..`h6`, `small`) and neither has a CSS class. Use `style: small` for de-emphasised text.
+> **SSOT (verified against `schemas/parts/rows/content-block-row.schema.json` and EF migration step 1336).** The `byline` row kind is **gone**, folded into `heading`: a byline was a heading that had grown a second text cell, its own avatar media, its own alternate Twig branch, and its own CSS block, and every one of those was a second spelling of something `heading` already owned. Step 1336 migrates stored rows (`byline_primary → text`, `byline_secondary → subtitle`, `byline_avatar_* → inline_*`, `tag → span`). Do NOT author `kind: byline`, `byline_primary`, `byline_secondary`, or `byline_avatar_*` — none of those cells exist in the schema any more, and a row carrying them falls through to the `heading` default and renders empty. `style: byline_label` and `style: label` are both dead — neither is in the `style` enum (`''`, `h1`..`h6`, `small`) and neither has a CSS class. Use `style: small` for de-emphasised text.
 
 The **eyebrow / kicker** — the small upper-case label sitting directly above a card's main heading — and the **second line** under a heading are now the same affordance: one `kind: heading` row carrying a `subtitle` cell, rendered as `.ef-ih-subtitle` inside the heading's text column.
 
@@ -81,7 +81,7 @@ The §2d Blueprint Settings cell for every card MUST declare its `tag` prop. The
 
 ## Phase 2c.bis — Production vocabulary palettes (consumed by §2d)
 
-Before composing Blueprints, the planner reads the production vocabulary for dynamic-tag transforms, tag-row variants, and action types — these recur across every site's templates and the planner reuses them instead of reinventing. Source: a rich peer template (a data-rich CPT single) plus a homepage page. The `voxel-heading-curator` agent dispatched in this phase samples additional peer templates if needed.
+Before composing Blueprints, the planner reads the production vocabulary for dynamic-tag transforms, atomic dynamic styles, and action types. These recur across every site's templates and the planner reuses them instead of reinventing. Source: a rich peer template (a data-rich CPT single) plus a homepage page. The `voxel-heading-curator` agent dispatched in this phase samples additional peer templates if needed.
 
 **Dynamic-tag transform chains (use these patterns, not bare `@post(field)`):**
 
@@ -108,17 +108,11 @@ The data-wiring criterion checks every Blueprint dynamic tag against this palett
 
 `size: "large"` is the universal default token (production exemplar). The planner records `vx envelope` in the Dynamic affordance column for these props.
 
-**Tag-row variant vocabulary** (the `variant` value on each `ef-card.tags` repeater row):
-
-| Variant | Visual role | Production example |
-|---|---|---|
-| `""` (empty) | Default pill | CPT types pill, regions pill |
-| `transparent` | Outline-only, low emphasis | Secondary metadata loop |
-| `green` | Affirmative status | "Verified" badge |
-| `gray` | Neutral / pending status | "Unverified" badge |
-| `primary` | High-emphasis brand pill | Featured / promoted state |
-
-Tag-rows use `loop` to iterate a relation/taxonomy and conditional `_vx_visibility` to gate badges. The planner records the variant per tag-row in the Blueprint Settings cell.
+**Tag-row styling.** Tag rows use `loop` to iterate a relation/taxonomy and
+conditional `_vx_visibility` to gate badges. They carry content and behavior only.
+The planner records the desired visual role in the Blueprint, then implements it
+through the owning card's atomic dynamic styles, using stable rendered pill selectors
+and live `--ef-color-*` tokens. Never add a presentation field to a tag row.
 
 **Action-row type vocabulary** (the `type` value on each `ef-card.ts_actions` repeater row — full list in [`actions.md`](../ef/actions.md); the production-frequency subset is):
 
@@ -134,7 +128,9 @@ Tag-rows use `loop` to iterate a relation/taxonomy and conditional `_vx_visibili
 | `show_post_on_map` | Pan/zoom the page's ts-map | `map_id` (the `ts-map` widget's element id) |
 | `scroll_to` | Anchor scroll | `scroll_target` (target `_cssid`) |
 
-Action-row `variant` vocabulary: `""` (default), `primary`, `secondary` (production usage).
+Action-row appearance is also host-owned. Keep action rows limited to type, payload,
+label, icon, tooltip, loop, and visibility data; style their rendered buttons from
+the owning card or navbar atomic dynamic styles.
 
 **Section-wrapper aria-label defaults (a11y discipline):**
 

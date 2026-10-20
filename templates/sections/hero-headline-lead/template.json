@@ -119,7 +119,10 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-198cdda-0",
+            "s-22ca1fb-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -179,10 +182,6 @@
         "tag": {
           "$$type": "string",
           "value": "section"
-        },
-        "variant": {
-          "$$type": "string",
-          "value": "transparent"
         },
         "content_blocks": {
           "$$type": "ef-content-block-rows",
@@ -270,10 +269,6 @@
                     }
                   }
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "primary"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": ""
@@ -323,10 +318,6 @@
                   "$$type": "string",
                   "value": "open_modal"
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "white"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": ""
@@ -366,7 +357,51 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-198cdda-0": {
+          "id": "s-198cdda-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "inherit"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        },
+        "s-22ca1fb-0": {
+          "id": "s-22ca1fb-0",
+          "type": "class",
+          "label": "Dynamic action styles",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {},
+              "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-primary);color:var(--ef-color-white);border-color:var(--ef-color-primary);}\nselector .ef-buttons-item:nth-child(2), selector .ef-card-action:nth-child(2){background-color:var(--ef-color-white);color:var(--ef-color-text);border-color:var(--ef-border-default);}"
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"
@@ -377,7 +412,10 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-27552a4-0",
+            "s-fae94da-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -433,10 +471,6 @@
               "value": false
             }
           }
-        },
-        "variant": {
-          "$$type": "string",
-          "value": "primary"
         },
         "full_height": {
           "$$type": "boolean",
@@ -508,10 +542,6 @@
                     }
                   }
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "primary"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": "ms:ms ms-show_chart"
@@ -573,10 +603,6 @@
                       "value": "#propriete-industrielle"
                     }
                   }
-                },
-                "variant": {
-                  "$$type": "string",
-                  "value": "white"
                 },
                 "icon": {
                   "$$type": "string",
@@ -640,10 +666,6 @@
                     }
                   }
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "white"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": "ms:ms ms-bolt"
@@ -683,7 +705,51 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-27552a4-0": {
+          "id": "s-27552a4-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-primary)"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-white)"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-primary)"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        },
+        "s-fae94da-0": {
+          "id": "s-fae94da-0",
+          "type": "class",
+          "label": "Dynamic action styles",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {},
+              "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-primary);color:var(--ef-color-white);border-color:var(--ef-color-primary);}\nselector .ef-buttons-item:nth-child(2), selector .ef-card-action:nth-child(2){background-color:var(--ef-color-white);color:var(--ef-color-text);border-color:var(--ef-border-default);}\nselector .ef-buttons-item:nth-child(3), selector .ef-card-action:nth-child(3){background-color:var(--ef-color-white);color:var(--ef-color-text);border-color:var(--ef-border-default);}"
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"

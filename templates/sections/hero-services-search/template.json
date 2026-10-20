@@ -92,13 +92,11 @@
       "id": "62e6b0b",
       "elType": "ef-card",
       "settings": {
-        "variant": {
-          "$$type": "string",
-          "value": "transparent"
-        },
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-7d8ac80-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -131,17 +129,9 @@
                   "$$type": "string",
                   "value": "text"
                 },
-                "accordion_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
-                },
                 "text": {
                   "$$type": "string",
                   "value": "@tags()@post(parent.title)@endtags()"
-                },
-                "toc_variant": {
-                  "$$type": "string",
-                  "value": "transparent"
                 },
                 "toc_scope": {
                   "$$type": "string",
@@ -150,10 +140,6 @@
                 "toc_max_heading": {
                   "$$type": "string",
                   "value": "h3"
-                },
-                "variant": {
-                  "$$type": "string",
-                  "value": "primary"
                 },
                 "icon": {
                   "$$type": "string",
@@ -194,10 +180,6 @@
                 "accordion_open": {
                   "$$type": "boolean",
                   "value": false
-                },
-                "separator_variant": {
-                  "$$type": "string",
-                  "value": "full"
                 },
                 "separator_spacing": {
                   "$$type": "string",
@@ -465,7 +447,37 @@
       },
       "elements": [],
       "version": "1.0",
-      "interactions": []
+      "interactions": [],
+      "styles": {
+        "s-7d8ac80-0": {
+          "id": "s-7d8ac80-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "inherit"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        }
+      }
     }
   ],
   "isInner": false,

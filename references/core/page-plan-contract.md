@@ -32,7 +32,7 @@ this contract block.
 | `tag` | `section` | semantic HTML wrapper (or `aside` for sidebar-only archetypes, `main` for hero-only) |
 | `_cssid` | `<section-overview>` | stable selector for browser-verification + Behavior Contract DOM anchor |
 | Section width | `contained` \| `full-bleed` \| `narrow` | maps to design-token max-width band |
-| Background | `transparent` \| `white` \| `secondary` \| `primary` | wrapper **`variant`** (surface SSOT) — NOT invented tokens. Assign via the P1–P6 ladder + set `bg_media_type:color` (else inert). See [`../ef/section-rhythm.md`](../ef/section-rhythm.md) |
+| Background | base \| white \| muted \| primary accent | Elementor atomic dynamic styles on the wrapper. Use live `--ef-color-*` tokens and the section precedence ladder in [`../ef/section-rhythm.md`](../ef/section-rhythm.md). |
 | Vertical rhythm | `sm` \| `md` \| `lg` \| `xl` | top/bottom padding band (design tokens) |
 | Sticky | `none` \| `sidebar-sticky` | only when the archetype calls for it |
 

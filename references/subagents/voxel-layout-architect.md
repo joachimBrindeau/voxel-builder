@@ -47,7 +47,7 @@ For each section:
    otherwise; never persist this verification override into site CSS.
 9. Assign continuous production color through wrapper color mode
    (`bg_media_enabled:true`, `bg_media_type:color`, token-backed `bg_color`); `bg_color`
-   alone is inert. Use child card variants only for intentional card islands. Resolve
+   alone is inert. Use child-card dynamic styles only for intentional card islands. Resolve
    live token names and preserve production loop item count before judging density.
 10. If the content does not fit the assigned archetype, return `blocked` with
    `escalate_split` evidence instead of forcing a layout.

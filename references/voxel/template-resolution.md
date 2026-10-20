@@ -61,7 +61,7 @@ When a post is rendered as a card inside `ts-post-feed` / `ts-term-feed`:
 
 1. **Feed-level override**: the feed widget's `ts_card_template__<post_type>` (or `ts_manual_card_template__<post_type>` for manual mode) — if set, this card template wins for items of that post type in this feed.
 2. **CPT custom card** (visibility-rule scoped):
-   `voxel:post_types[<key>].custom_templates.card[]` — first matching entry wins. Used for variant cards (small/large/avatar/…).
+   `voxel:post_types[<key>].custom_templates.card[]` — first matching entry wins. Used for preview-card sizes (small/large/avatar/…).
 3. **CPT default card**:
    `voxel:post_types[<key>].templates.card`.
 
@@ -86,6 +86,27 @@ Per-template / per-post Elementor data is in `wp_postmeta`:
 | `_elementor_edit_mode` | Any post | `builder` if Elementor is active on this post. |
 
 To dump everything for a post: `wpdev elementor:dump <site> all --post <id> --json`.
+
+### A new page needs activation flags, not just `_elementor_data`
+
+`_elementor_data` alone does **not** make Elementor render a post. Without
+`_elementor_edit_mode`, the theme ignores the tree and the post falls through to
+the generic single template, so a freshly created page renders as an unstyled
+shell (no `h1`, bare `WebPage` schema) while its stored tree is perfectly valid.
+
+`elementor:import --save` writes the tree but **not** these flags, so a page
+created outside the editor must have them set explicitly:
+
+| Meta key | Value |
+|---|---|
+| `_elementor_edit_mode` | `builder` |
+| `_elementor_template_type` | `wp-page` (for a `page`) |
+| `_elementor_version` | the site's current Elementor version |
+| `_wp_page_template` | `default` |
+
+Copy the values from an existing working page of the same post type rather than
+assuming; `wpdev voxel:page <site> <id>` shows which template actually resolves,
+which is how this class of failure is distinguished from a broken tree.
 
 To list all `elementor_library` templates with their type + role + Voxel/Elementor binding:
 ```bash

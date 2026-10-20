@@ -123,7 +123,9 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-a6be98f-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -183,10 +185,6 @@
         "tag": {
           "$$type": "string",
           "value": "div"
-        },
-        "variant": {
-          "$$type": "string",
-          "value": "transparent"
         },
         "content_blocks": {
           "$$type": "ef-content-block-rows",
@@ -271,7 +269,36 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-a6be98f-0": {
+          "id": "s-a6be98f-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "inherit"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "transparent"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"
@@ -282,7 +309,10 @@
       "settings": {
         "classes": {
           "$$type": "classes",
-          "value": []
+          "value": [
+            "s-2474cb5-0",
+            "s-47bd945-0"
+          ]
         },
         "attributes": {
           "$$type": "attributes",
@@ -338,10 +368,6 @@
               "value": false
             }
           }
-        },
-        "variant": {
-          "$$type": "string",
-          "value": "secondary"
         },
         "full_height": {
           "$$type": "boolean",
@@ -409,10 +435,6 @@
                     }
                   }
                 },
-                "variant": {
-                  "$$type": "string",
-                  "value": "white"
-                },
                 "icon": {
                   "$$type": "string",
                   "value": "lar la-list-alt"
@@ -456,7 +478,51 @@
       },
       "elements": [],
       "isInner": false,
-      "styles": [],
+      "styles": {
+        "s-2474cb5-0": {
+          "id": "s-2474cb5-0",
+          "type": "class",
+          "label": "Dynamic surface",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {
+                "background-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-secondary)"
+                },
+                "color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-white)"
+                },
+                "border-color": {
+                  "$$type": "string",
+                  "value": "var(--ef-color-secondary)"
+                }
+              },
+              "custom_css": null
+            }
+          ]
+        },
+        "s-47bd945-0": {
+          "id": "s-47bd945-0",
+          "type": "class",
+          "label": "Dynamic action styles",
+          "variants": [
+            {
+              "meta": {
+                "breakpoint": "desktop",
+                "state": null
+              },
+              "props": {},
+              "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-white);color:var(--ef-color-text);border-color:var(--ef-border-default);}"
+            }
+          ]
+        }
+      },
       "interactions": [],
       "editor_settings": [],
       "version": "0.0"

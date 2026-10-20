@@ -27,8 +27,9 @@
 # Exit 0 = every check passed on every scanned template; non-zero otherwise.
 set -u
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-SKILL_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+SKILL_ROOT=$(CDPATH='' cd -- "$SCRIPT_DIR/.." && pwd)
+# shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 
 WPDEV_SOURCE_ROOT=$(find_wpdev_root || true)
@@ -116,12 +117,16 @@ except Exception as e:
     for L in "abcd": emit(L, False, f"cannot read/parse template.json: {e}")
     sys.exit(0)
 
-def all_strings(o):
-    if isinstance(o, str): yield o
+STRUCTURAL_KEYS = {"id", "classes"}
+ATOMIC_STYLE_ID = re.compile(r"^s-[a-z0-9]+-\d+$")
+def all_strings(o, parent_key=None):
+    if isinstance(o, str):
+        if parent_key not in STRUCTURAL_KEYS and not ATOMIC_STYLE_ID.fullmatch(o):
+            yield o
     elif isinstance(o, dict):
-        for v in o.values(): yield from all_strings(v)
+        for k, v in o.items(): yield from all_strings(v, k)
     elif isinstance(o, list):
-        for v in o: yield from all_strings(v)
+        for v in o: yield from all_strings(v, parent_key)
 
 strings = list(all_strings(tree))
 

@@ -164,20 +164,20 @@ height, and grid track after forcing visibility.
 The temporary browser override above is verification instrumentation only. Site output
 must never receive custom CSS, inline styles, ad-hoc utility classes, Elementor style
 overrides, or screenshot-targeted patches. Resolve visual differences through native EF
-schema props, variants, tokens, templates, and source-owner fixes.
+schema props, dynamic styles, tokens, templates, and source-owner fixes.
 
 ## Production surface ownership
 
 Match section-wide production color with the top-level semantic wrapper's `bg_color`.
-Do not imitate a continuous section surface by assigning the same card variant to every
+Do not imitate a continuous section surface by assigning the same card surface style to every
 child: that creates separate bordered islands and loses the production grouping. Use
-card variants only for intentional cards inside that surface.
+card dynamic styles only for intentional card islands inside that surface.
 
 Map colors through live EF token names, not sampled hex values. Wrapper color requires
 the complete color-mode trio: `bg_media_enabled:true`, `bg_media_type:color`, and the
 token-backed `bg_color`; `bg_color` alone is inert. Set `bg_pattern:false` when production
 uses a flat surface. For example, a pale brand-primary section uses wrapper color mode
-with `bg_color: primary_light`; a pale primary card uses card `variant: primary`. Verify
+with a primary-light background token; a pale primary card uses an atomic style record with `background-color: var(--ef-color-primary_light)`. Verify
 the actual site's computed token values because `primary`, `secondary`, and their light
 surfaces are site-specific. Preserve production item counts on repeated loops as part of
 geometry: an incorrect loop `limit` changes section height even when grid tracks are

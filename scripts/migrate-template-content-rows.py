@@ -99,7 +99,6 @@ def migrate_row(cells: dict[str, Any]) -> dict[str, Any]:
             required.append("subtitle")
         if migrate_inline_media(migrated):
             required.append("media")
-        migrated.pop("tag_variant", None)
         if value(migrated.get("type")) == "default":
             migrated.pop("type", None)
     elif kind == "rich_text":
@@ -109,7 +108,6 @@ def migrate_row(cells: dict[str, Any]) -> dict[str, Any]:
         migrated["tag"] = string_cell("rich_text")
         required.append("rich_text")
     elif kind in {"tag", "button"}:
-        assign(migrated, "tag_variant" if kind == "tag" else "button_variant", "variant")
         if migrate_inline_media(migrated):
             required.append("media")
         if value(migrated.get("type")) not in (None, ""):
@@ -134,9 +132,6 @@ def migrate_row(cells: dict[str, Any]) -> dict[str, Any]:
             migrated.pop("icon", None)
 
     finish_modifiers(migrated, required)
-    variant = value(migrated.get("variant"))
-    if variant == "":
-        migrated.pop("variant", None)
     return migrated
 
 
@@ -147,12 +142,6 @@ def normalize_canonical_row(cells: dict[str, Any]) -> bool:
         if value(cells.get("type")) == "default":
             cells.pop("type", None)
             changed = True
-        if value(cells.get("variant")) == "":
-            cells.pop("variant", None)
-            changed = True
-    elif kind in {"group", "accordion", "toc"} and value(cells.get("variant")) == "":
-        cells.pop("variant", None)
-        changed = True
     return changed
 
 

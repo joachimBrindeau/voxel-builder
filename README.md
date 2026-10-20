@@ -19,7 +19,9 @@ This skill drives real infrastructure; confirm these prerequisites before use:
 
 - **`wpdev` CLI on `PATH`** — the engine behind every command (from the wpdev repo). For repository linting that compares command coverage to source, set `WPDEV_ROOT=/path/to/wpdev` when the executable is not inside its checkout.
 - **A WordPress site running the Voxel theme + `lean-seo` + the `elementor-framework` (EF V4) plugin.**
-- **The skill-local EF V4 SSOT** is `references/ef/widget-schemas.json`. It and the
+- **The skill-local EF V4 SSOT mirror** is `references/ef/widget-schemas.json`. It is an
+  exact byte-for-byte copy of the WordPress workspace's canonical
+  `cli/src/generated/widget-schemas.json`; it and the
   generated widget/action/part tables are synchronized from the WordPress workspace's
   `wpdev elementor:codegen` + `wpdev elementor:docs:gen` outputs by
   `scripts/sync-ef-generated-references.py`; `scripts/lint.sh` rejects drift.
@@ -50,7 +52,7 @@ are host-independent — see
 - **`references/`** — knowledge: `core/` (rules, command-surface, parallel-dispatch, criteria, blueprint-format), `voxel/` (field types, visibility, timeline, commerce, search, platform, tags, template-resolution, SEO/content guidance), `ef/` (widgets, parts, helpers, masonry, section-rhythm, dynamic-text), `icons/` (Material Symbols lookup), and `subagents/` (MECE role briefs indexed in `references/subagents/README.md`).
 - **`workflows/`** — primary phased workflows plus supporting pipelines, indexed with exclusive ownership and exit artifacts in [`workflows/README.md`](workflows/README.md).
 - **`templates/`** — the reusable section-template store: extracted, sanitized `_elementor_data` subtrees (`global` / `section` / `page` scope) agents can splice into new builds. See `templates/README.md` for the on-disk shape and `templates/index.md` for the master catalog.
-- **`examples/`** — four golden `_elementor_data` fixtures (ef-card, ef-wrapper, ts-create-post, ts-post-feed).
+- **`examples/`** — golden `_elementor_data` fixtures for EF starting trees and current Voxel `ts-*` widget shapes, with runtime provenance in `examples/README.md`.
 - **`scripts/`** — the canonical lint, EF codegen/docs synchronization, prerequisite checks, validators, and generated-reference tooling.
 
 ### Curation route

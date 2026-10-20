@@ -42,7 +42,7 @@ Each returned leaf checks exactly one criterion and stays within that remit. A w
 |---|---|---|---|---|
 | `wrapper-semantics` | plan | C/I | Each section's wrapper tag fits its role (`section` content, `aside` sidebar, `article` self-contained card, `main` root only); `div` at shallow depth is a missed-semantic-tag flag. | §2c/§2d Section wrapper props |
 | `grid-fit` | plan | I | Column count follows the content's hierarchy; **more sections over more columns**; collapses to one column on small screens; no grid that fights the content. | §2d Layout map grid tracks |
-| `section-heading` | plan | I | Each section's first heading is an `h2` naming its purpose; a second line under a heading is that heading row's `subtitle` cell; no other decorative text is a heading. `kind: byline` and `byline_*` cells are migrated-away (step 1336 → `kind: heading` + `subtitle`) and any `style` outside the enum `['', h1..h6, small]` (notably `label` / `byline_label`) is invalid — flag any occurrence (severity `C`). | §2d heading rows + kind/style/subtitle props |
+| `section-heading` | plan | I | The homepage hero section may begin with the document's sole `h1`; every other section's first heading is an `h2` naming its purpose. A second line under a heading is that heading row's `subtitle` cell; no other decorative text is a heading. `kind: byline` and `byline_*` cells are migrated-away (step 1336 → `kind: heading` + `subtitle`) and any `style` outside the current content-row schema enum `['', h1..h6, body, small]` (notably `label` / `byline_label`) is invalid — flag any occurrence (severity `C`). | §2d heading rows + kind/style/subtitle props + current content-row text schema |
 
 ### Scope: widget (plan)
 
@@ -57,7 +57,7 @@ Each returned leaf checks exactly one criterion and stays within that remit. A w
 | id | phase | severity | criterion | evidence |
 |---|---|---|---|---|
 | `data-wiring` | plan | C/I | Every dynamic tag resolves non-empty on the sample (or declares a fallback); the dynamic-affordance switch matches (on for tags, off for literals); the `$$type` envelope matches the SSOT. | sampled `wpdev voxel:data` + `cli/src/generated/widget-schemas.json` |
-| `tag-wrap` | plan | C | CPT-template strings are wrapped `@tags()…@endtags()`; `_cssid` and image refs use the raw `vx` envelope; static literals are neither. | §2d Settings + Tag-wrap columns |
+| `tag-wrap` | plan | C | CPT-template dynamic strings are wrapped `@tags()…@endtags()`; `_cssid` uses the current schema string envelope; images use the current schema image envelope; static literals are not tag-wrapped. | §2d Settings + Tag-wrap columns + current generated/live schemas |
 | `design-tokens` | plan | I | Colors, spacing, widths come from design tokens — never hand-authored hex/px/rem literals. | §2d Layout map + Settings |
 | `content-methodology` | plan | C | *(authoring builds)* Every authored reader/SERP-facing field (`h1`, `hook`/meta, `description`, `faq`, `conversion-*`, `post_excerpt`) was produced through claude-seo content methodology (Read-fallback of `seo-content-brief` + `seo-local`): keyword placement, meta length ≤`LEAN_SEO_DESC_LIMIT`(155)/target 120–152, stated **information gain** vs source, swap-test + ≥500-word/>60 %-unique for location pages, E-E-A-T. Not ad-hoc prose; no fabricated program/stat. See [`../voxel/claude-seo-authoring.md`](../voxel/claude-seo-authoring.md) §2. | authored field values vs the §2 checklist; swap-test; word/char counts |
 
@@ -80,6 +80,7 @@ Each returned leaf checks exactly one criterion and stays within that remit. A w
 | `css-token-fallback` | prop | both | I | Design-token references resolve (no silent fallback to an unintended default). | computed style vs token |
 | `reindex-after-filter` | page | both | I | Feed filters have a matching index-table reindex (feed not silently empty). | feed settings + index table |
 | `unicode-integrity` | prop | both | C | No `u00xx` accent corruption in written or rendered text. | regex probe on `_elementor_data` + rendered text |
+| `check-validity` | page | both | C | No two criteria in a run can contradict each other (one requiring a link another forbids), and no criterion passes vacuously when the feature it guards is off. Trace each failure to its owner before changing the site or the check: a failing check may itself be the defect. | the two criterion definitions + the source value the assertion reads |
 
 ## Extending the checklist
 

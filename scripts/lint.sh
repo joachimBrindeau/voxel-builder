@@ -13,8 +13,8 @@
 # portable skill.
 set -u
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-SKILL_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+SKILL_ROOT=$(CDPATH='' cd -- "$SCRIPT_DIR/.." && pwd)
 # shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 cd "$SKILL_ROOT" || { printf "cannot cd to skill root\n"; exit 1; }
@@ -129,10 +129,10 @@ fi
 # --- 11. Deep link + anchor check (lychee, optional) -------------------------
 heading "Deep link check (lychee)"
 if command -v lychee >/dev/null 2>&1; then
-  md_files=$(find . -name '*.md' -not -path './node_modules/*')
+  mapfile -t md_files < <(find . -name '*.md' -not -path './node_modules/*')
   if lychee --offline --include-fragments --no-progress \
        --exclude-path CHANGELOG.md \
-       $md_files >/tmp/.vb-lychee.$$ 2>&1; then
+       "${md_files[@]}" >/tmp/.vb-lychee.$$ 2>&1; then
     pass "lychee: all local links + #anchors resolve ($(grep -oE '[0-9]+ OK' /tmp/.vb-lychee.$$ | head -1))"
   else
     fail "lychee: broken local link(s)/anchor(s):"

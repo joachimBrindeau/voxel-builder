@@ -294,17 +294,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "@tags()@post(parent.title)@endtags()"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -313,10 +305,6 @@
                       "toc_max_heading": {
                         "$$type": "string",
                         "value": "h3"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": "primary"
                       },
                       "icon": {
                         "$$type": "string",
@@ -357,10 +345,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -841,7 +825,10 @@
             "settings": {
               "classes": {
                 "$$type": "classes",
-                "value": []
+                "value": [
+                  "s-ceb9a6d-0",
+                  "s-b693866-0"
+                ]
               },
               "attributes": {
                 "$$type": "attributes",
@@ -880,10 +867,6 @@
                     "value": false
                   }
                 }
-              },
-              "variant": {
-                "$$type": "string",
-                "value": "primary"
               },
               "layout": {
                 "$$type": "ef-responsive-string",
@@ -966,17 +949,9 @@
                         "$$type": "string",
                         "value": "group"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": ""
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "icon": {
                         "$$type": "string",
@@ -1021,10 +996,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -1262,10 +1233,6 @@
                           }
                         }
                       },
-                      "variant": {
-                        "$$type": "string",
-                        "value": "primary"
-                      },
                       "icon": {
                         "$$type": "string",
                         "value": ""
@@ -1324,7 +1291,52 @@
             "isInner": false,
             "interactions": [],
             "editor_settings": [],
-            "version": "0.0"
+            "version": "0.0",
+            "styles": {
+              "s-ceb9a6d-0": {
+                "id": "s-ceb9a6d-0",
+                "type": "class",
+                "label": "Dynamic surface",
+                "variants": [
+                  {
+                    "meta": {
+                      "breakpoint": "desktop",
+                      "state": null
+                    },
+                    "props": {
+                      "background-color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-primary)"
+                      },
+                      "color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-white)"
+                      },
+                      "border-color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-primary)"
+                      }
+                    },
+                    "custom_css": null
+                  }
+                ]
+              },
+              "s-b693866-0": {
+                "id": "s-b693866-0",
+                "type": "class",
+                "label": "Dynamic action styles",
+                "variants": [
+                  {
+                    "meta": {
+                      "breakpoint": "desktop",
+                      "state": null
+                    },
+                    "props": {},
+                    "custom_css": "selector .ef-buttons-item:nth-child(1), selector .ef-card-action:nth-child(1){background-color:var(--ef-color-primary);color:var(--ef-color-white);border-color:var(--ef-color-primary);}"
+                  }
+                ]
+              }
+            }
           },
           {
             "id": "9c05699",
@@ -1382,17 +1394,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -1450,10 +1454,6 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
-                      },
                       "separator_spacing": {
                         "$$type": "string",
                         "value": "m"
@@ -1634,17 +1634,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "@tags()@post(:excerpt)@endtags()"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -1702,10 +1694,6 @@
                         "$$type": "string",
                         "value": ""
                       },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
-                      },
                       "separator_spacing": {
                         "$$type": "string",
                         "value": "m"
@@ -1886,17 +1874,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "__VIDEO_DURATION_TAG__"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -1941,10 +1921,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -2134,17 +2110,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "__VIDEO_STATS_TAG__"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -2189,10 +2157,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -2382,17 +2346,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "__VIDEO_DURATION_TAG__"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -2437,10 +2393,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -2630,17 +2582,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -2685,10 +2629,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -2878,17 +2818,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "__DATE_CREATED_TAG__"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -2933,10 +2865,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -3126,17 +3054,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "__DATE_MODIFIED_TAG__"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
                       },
                       "toc_scope": {
                         "$$type": "string",
@@ -3181,10 +3101,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -3547,7 +3463,8 @@
               "classes": {
                 "$$type": "classes",
                 "value": [
-                  "s-9f93738-0"
+                  "s-9f93738-0",
+                  "s-1027a26-0"
                 ]
               },
               "attributes": {
@@ -3587,10 +3504,6 @@
                     "value": false
                   }
                 }
-              },
-              "variant": {
-                "$$type": "string",
-                "value": "primary"
               },
               "content_blocks": {
                 "$$type": "ef-content-block-rows",
@@ -3742,6 +3655,34 @@
                     "custom_css": null
                   }
                 ]
+              },
+              "s-1027a26-0": {
+                "id": "s-1027a26-0",
+                "type": "class",
+                "label": "Dynamic surface",
+                "variants": [
+                  {
+                    "meta": {
+                      "breakpoint": "desktop",
+                      "state": null
+                    },
+                    "props": {
+                      "background-color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-primary)"
+                      },
+                      "color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-white)"
+                      },
+                      "border-color": {
+                        "$$type": "string",
+                        "value": "var(--ef-color-primary)"
+                      }
+                    },
+                    "custom_css": null
+                  }
+                ]
               }
             },
             "interactions": [],
@@ -3837,7 +3778,8 @@
                   "classes": {
                     "$$type": "classes",
                     "value": [
-                      "s-364a943-0"
+                      "s-364a943-0",
+                      "s-9344105-0"
                     ]
                   },
                   "attributes": {
@@ -3877,10 +3819,6 @@
                         "value": false
                       }
                     }
-                  },
-                  "variant": {
-                    "$$type": "string",
-                    "value": "white"
                   },
                   "content_blocks": {
                     "$$type": "ef-content-block-rows",
@@ -3975,7 +3913,37 @@
                 "isInner": false,
                 "interactions": [],
                 "editor_settings": [],
-                "version": "0.0"
+                "version": "0.0",
+                "styles": {
+                  "s-9344105-0": {
+                    "id": "s-9344105-0",
+                    "type": "class",
+                    "label": "Dynamic surface",
+                    "variants": [
+                      {
+                        "meta": {
+                          "breakpoint": "desktop",
+                          "state": null
+                        },
+                        "props": {
+                          "background-color": {
+                            "$$type": "string",
+                            "value": "var(--ef-color-white)"
+                          },
+                          "color": {
+                            "$$type": "string",
+                            "value": "var(--ef-color-text)"
+                          },
+                          "border-color": {
+                            "$$type": "string",
+                            "value": "var(--ef-border-default)"
+                          }
+                        },
+                        "custom_css": null
+                      }
+                    ]
+                  }
+                }
               }
             ],
             "isInner": false,
@@ -4167,7 +4135,9 @@
             "settings": {
               "classes": {
                 "$$type": "classes",
-                "value": []
+                "value": [
+                  "s-aab0a74-0"
+                ]
               },
               "attributes": {
                 "$$type": "attributes",
@@ -4207,10 +4177,6 @@
                   }
                 }
               },
-              "variant": {
-                "$$type": "string",
-                "value": "transparent"
-              },
               "content_blocks": {
                 "$$type": "ef-content-block-rows",
                 "value": [
@@ -4221,21 +4187,9 @@
                         "$$type": "string",
                         "value": "text"
                       },
-                      "accordion_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
                       "text": {
                         "$$type": "string",
                         "value": "Lorem ipsum dolor sit amet"
-                      },
-                      "toc_variant": {
-                        "$$type": "string",
-                        "value": "transparent"
-                      },
-                      "variant": {
-                        "$$type": "string",
-                        "value": "primary"
                       },
                       "icon": {
                         "$$type": "string",
@@ -4276,10 +4230,6 @@
                       "accordion_open": {
                         "$$type": "boolean",
                         "value": false
-                      },
-                      "separator_variant": {
-                        "$$type": "string",
-                        "value": "full"
                       },
                       "separator_spacing": {
                         "$$type": "string",
@@ -4540,7 +4490,37 @@
             "isInner": false,
             "interactions": [],
             "editor_settings": [],
-            "version": "0.0"
+            "version": "0.0",
+            "styles": {
+              "s-aab0a74-0": {
+                "id": "s-aab0a74-0",
+                "type": "class",
+                "label": "Dynamic surface",
+                "variants": [
+                  {
+                    "meta": {
+                      "breakpoint": "desktop",
+                      "state": null
+                    },
+                    "props": {
+                      "background-color": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      },
+                      "color": {
+                        "$$type": "string",
+                        "value": "inherit"
+                      },
+                      "border-color": {
+                        "$$type": "string",
+                        "value": "transparent"
+                      }
+                    },
+                    "custom_css": null
+                  }
+                ]
+              }
+            }
           },
           {
             "id": "04e72f9",

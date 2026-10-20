@@ -41,7 +41,7 @@ valid transport scaffold, not the final editorial card design.
 
 **Entry:** canonical IDs and field matrix available.
 
-Design each variant independently:
+Design each preview-card size independently:
 
 1. `small`: identity, logo when real, concise differentiator, one primary destination.
 2. `medium`: small content plus one useful metadata cluster (a heading row with a `subtitle`) and compact actions.

@@ -1,7 +1,8 @@
 #!/bin/sh
 set -eu
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 
 fail() {
@@ -20,10 +21,10 @@ chmod +x "$fixture/wpdev"
 actual=$(WPDEV_ROOT="$fixture" find_wpdev_root)
 [ "$actual" = "$fixture" ] || fail "WPDEV_ROOT did not resolve to the explicit executable checkout"
 
-actual=$(WPDEV_ROOT= WPDEV_SOURCE_ROOT="$fixture" find_wpdev_root)
+actual=$(WPDEV_ROOT='' WPDEV_SOURCE_ROOT="$fixture" find_wpdev_root)
 [ "$actual" = "$fixture" ] || fail "WPDEV_SOURCE_ROOT did not resolve to the explicit source checkout"
 
-actual=$(WPDEV_ROOT= WPDEV_SOURCE_ROOT="$fixture" python3 "$SCRIPT_DIR/check-wpdev-coverage.py" --resolve-index)
+actual=$(WPDEV_ROOT='' WPDEV_SOURCE_ROOT="$fixture" python3 "$SCRIPT_DIR/check-wpdev-coverage.py" --resolve-index)
 [ "$actual" = "$fixture/cli/src/index.ts" ] || fail "coverage check ignored WPDEV_SOURCE_ROOT"
 
 printf 'lib helper tests OK (WPDEV_ROOT and WPDEV_SOURCE_ROOT overrides, including coverage)\n'

@@ -40,7 +40,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 - **Control API**: `Action_Slot::controls($prefix)` returns `ef_atomic_action_controls($prefix)` — action-type select + dependency-gated per-type fields via `ef_show_when(['action_type'], <type>)`
 - **Render contract**: NOT a `Renderable_Part`. Instead exposes two instance methods that produce structured blocks:
   - `to_link(array $settings): array` — `{href: string, attrs: array}` block (used to wrap the wrapper root / navbar banner action in `<a>`)
-  - `to_render_item(array $settings, $widget, string $attr_key, string $label, string $variant): array` — `{tag, attrs, icon, label}` for button-style render (used by ts_actions footer rendering)
+  - `to_render_item(array $settings, $widget, string $attr_key, string $label): array` — `{tag, attrs, icon, label}` for button-style render (used by ts_actions footer rendering)
 - **Context contract**: n/a (produces blocks consumed by the calling part / widget, not Twig directly)
 - **Routes through**: `EF\Actions\Resolver::from_settings()` — single source of truth for parsing `{prefix_}action_type` + per-type fields into an action descriptor
 - **Used by** (widgets):
@@ -135,7 +135,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
       // one resolved block per non-empty row, in row order; shape depends on kind:
       // heading  : {kind:'heading',   text, subtitle, tag, visual_class, role, link:{href,attrs}, icon, media}
       // rich_text: {kind:'rich_text', body, link:{href,attrs}}
-      // separator: {kind:'separator', variant, spacing}
+      // separator: {kind:'separator', spacing, color}
       // accordion: {kind:'accordion', text, body, accordion_open, tag, visual_class, role, link:{href,attrs}, icon}
       ...
     ]
@@ -191,7 +191,7 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
 - **Loop expansion**: n/a — icon slots are leaf values; loop expansion happens at the row level
 - **Configuration knobs**: none
 - **Gotchas**:
-  - `svg` library is the SVG-upload variant — emits `<img>`, not `<i>`. Round-trips via `ef_sanitize_svg()` for content security
+  - `svg` library is the SVG-upload form — emits `<img>`, not `<i>`. Round-trips via `ef_sanitize_svg()` for content security
   - `efn` is the EF-native icon library (custom EF icons); other `la-*` / `fa-*` libraries follow Line Awesome / Font Awesome conventions
 
 ### EF_Part_Media
@@ -273,8 +273,8 @@ Every part extends `EF\Parts\Base`; rendering parts also implement `EF\Parts\Ren
   ```
   {
     has_tags,
-    pills_visible: [{text, variant, link}, ...],
-    pills_overflow: [{text, variant, link}, ...],
+    pills_visible: [{text, link}, ...],
+    pills_overflow: [{text, link}, ...],
     overflow_count,
     overflow_label,
     more_label,

@@ -4,6 +4,7 @@
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `elementor:lint` reports `unknown-prop` for a recently-renamed key | Memorised V3 prop name | Re-query schema, use new name |
+| Strict validation reports `unknown-prop` for a runtime envelope that an unchanged production peer stores and renders identically | Validator/SSOT coverage gap, not evidence that the new build invented the prop | Diff the exact node against a production peer, file the source-owner issue, and report the finding as an explicit accepted deviation; never suppress the validator or silently call the build clean |
 | Dynamic tag renders as literal `@post(title)` text | Missing `@tags()...@endtags()` wrapper on a string-type prop | Wrap the value |
 | Image renders empty | Image `$$type` wrong; needs `{$$type: image, value: {src: {$$type: vx \| number, value: ...}}}` | Query `--prop <key>` for exact shape |
 | Feed renders empty | CPT lacks `search.filters` + `search.order`, or index table missing | Add to blueprint, run index table create + reindex |

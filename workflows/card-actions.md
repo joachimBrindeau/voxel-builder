@@ -30,8 +30,8 @@ cell table, the use-case→type map, the Voxel-runtime dependency table, and the
 golden loopable-row envelopes. This workflow is the *process*; that file is the
 *knowledge*. Do not restate the catalog here — query it (Phase 1/2).
 
-**Not for:** the `link` card variant (transparent inline reference — it
-intentionally has **no** `ts_actions`; skip it). Scaffolding the card itself →
+**Not for:** the `link` preview-card size. It is an inline title reference and
+intentionally has **no** `ts_actions`; skip it. Scaffolding the card itself →
 the cards flow (`build.md` §Cards) / `wpdev voxel:cards`.
 The heading-title permalink link is a *content-block* concern — the action suite on a
 `content_blocks` row whose `kind` is `heading` (cell `type` + `link`), not an
@@ -110,17 +110,24 @@ The heading-title permalink link is a *content-block* concern — the action sui
      navbar CTAs.
    - **`cal_*`** → date fields via `@post(<date_field>)`; see the
      `action-spec.sh` placeholders for the accepted formats.
-3. Set the per-row presentation cells as needed: `label` (localized — this is a
-   French B2B site; e.g. "Voir le profil", "Appeler", "Itinéraire"), `icon`,
-   `variant` (`''` inherits the host default; else `primary`/`white`/…), `tooltip`.
-   - **Variant-pairing rule (within ONE action group — a hero's CTAs, a card footer's buttons):** the primary/emphasis button is `primary`; every secondary button beside it is **`white`** (or `transparent`), **NEVER `secondary`**. `primary + white` and `primary + transparent` are the allowed CTA pairs; **`primary + secondary` is forbidden** — pairing the two saturated brand hues fights for attention and reads as two competing primaries. Use `secondary` only as a *standalone* accent surface (e.g. a lone tag/badge), not as the neighbor of a `primary` button. A single-button group may use any variant. The verification pass asserts no action group contains both `primary` and `secondary`.
+3. Set only the row's content and accessibility cells: `label` (localized — this is
+   a French B2B site; e.g. "Voir le profil", "Appeler", "Itinéraire"), `icon`, and
+   `tooltip`. Never write a visual-presentation cell on an action row.
+   - Style the rendered actions from the owning `ef-card` or `ef-navbar` atomic
+     node. Add a class id to `settings.classes`, add the matching node-local
+     `styles` record, and use scoped `custom_css` when descendant selectors are
+     required. Stable action hooks include `.ef-buttons-item` and `.ef-card-action`.
+   - The emphasis CTA uses the strong brand surface. Adjacent supporting CTAs use
+     a white or transparent surface so the group has one clear primary action.
+     Express those colors with live `--ef-color-*` tokens in dynamic styles.
 4. **Loop / visibility** (contact-method repeaters, per-sub-type rows): use the
    golden `_vx_loop` / `_vx_visibility` envelopes in
    [`actions.md`](../references/ef/actions.md) §"Loopable action-rows". Comparator
    rule: taxonomy/multiselect/relation sub-fields use `contains`, never
    `is_equal_to`.
 
-**Exit:** a fully-specified row per action — `type` + its required cells + presentation cells.
+**Exit:** a fully-specified row per action — `type` + its required payload cells,
+label, icon, and tooltip — plus host-level dynamic styles when visual emphasis is needed.
 
 ---
 
@@ -180,14 +187,14 @@ wpdev elementor:import <site> <post_id> <file.json>     # passes the pre-write s
 3. **Runtime actions:** for any non-self-contained type, verify in a real browser
    per [`browser.md`](../references/verification/browser.md) — an inert `<button>` in the live
    DOM means the page is missing the required Voxel piece (Phase 1 gate missed it).
-4. **Variant pairing:** assert no action group carries both `primary` and `secondary`.
-   Collect the group's variants (from the written envelope or the rendered button
-   classes) and fail if `primary` and `secondary` co-occur — the emphasis button is
-   `primary`, its neighbor is `white`/`transparent`.
+4. **Dynamic styles:** assert the owning atomic node references every authored style
+   class and that each class has a matching node-local `styles` record. In a real
+   browser, verify one strong CTA and neutral supporting CTAs through computed
+   `background-color`, `color`, and `border-color` values.
 
 **Exit:** lint clean; every `action_link` resolves to its permalink; runtime
-actions are live (or consciously accepted as advanced-list-only); no group mixes
-`primary` + `secondary`.
+actions are live (or consciously accepted as advanced-list-only); action emphasis
+is rendered through valid host-level dynamic styles.
 
 ---
 
@@ -202,7 +209,8 @@ actions are live (or consciously accepted as advanced-list-only); no group mixes
 - `@post(url)` as a destination — resolves empty; use `@post(permalink)`.
 - A footer `action_link` duplicating the heading's permalink link — adds no value.
 - Selecting a Voxel-runtime action (`add_to_cart`, `action_save`, `show_post_on_map`, `open_vx_*`, …) on a page without its runtime piece — renders an inert button.
-- Adding `ts_actions` to the `link` card variant — it is title-only by design.
-- Pairing `primary` + `secondary` in one action group — the two saturated brand hues compete; the secondary button beside a `primary` is `white`/`transparent`, never `secondary`.
+- Adding `ts_actions` to the `link` preview-card size — it is title-only by design.
+- Putting visual-presentation fields on action rows. Keep row data behavioral and
+  style the rendered buttons through the owning atomic node's dynamic styles.
 - Hand-writing `_elementor_data` without the lint gate / CSS regen — use `elementor:mutate` or `elementor:import`.
 - `is_equal_to` on a taxonomy/multiselect/relation sub-field in a loop visibility rule — use `contains`.

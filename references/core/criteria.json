@@ -49,9 +49,9 @@
       "evidence": "§2d Layout map grid tracks",
       "predicate": "∀ section s: s.mobile_cols == '1fr' AND grid justified by content" },
     { "id": "section-heading", "scope": "section", "phase": "plan", "severity": "I",
-      "criterion": "Each section's first heading is an h2 naming its purpose; a second line under a heading is that heading row's subtitle cell; no other decorative text is a heading. kind:byline and byline_* cells are migrated-away (step 1336 → kind:heading + subtitle) and any style outside the enum ['', h1..h6, small] (notably label / byline_label) is invalid; both are flagged severity C.",
-      "evidence": "§2d heading rows + kind/style/subtitle props",
-      "predicate": "∀ section s: first_heading(s)==h2 AND no decorative h* AND no kind:byline AND no byline_* cell AND style ∈ ['', h1..h6, small]" },
+      "criterion": "The homepage hero section may begin with the document's sole h1; every other section's first heading is an h2 naming its purpose. A second line under a heading is that heading row's subtitle cell; no other decorative text is a heading. kind:byline and byline_* cells are migrated-away (step 1336 → kind:heading + subtitle) and any style outside the current content-row schema enum ['', h1..h6, body, small] (notably label / byline_label) is invalid; both are flagged severity C.",
+      "evidence": "§2d heading rows + kind/style/subtitle props + current content-row text schema",
+      "predicate": "homepage_hero(s) ⇒ first_heading(s)==sole_h1; otherwise first_heading(s)==h2; AND no decorative h* AND no kind:byline AND no byline_* cell AND style ∈ current_content_row_style_enum" },
 
     { "id": "widget-in-catalog", "scope": "widget", "phase": "plan", "severity": "C",
       "criterion": "Every widget in a blueprint appears in the §2b Widget Catalog (schema SSOT or atomic fixture).",
@@ -71,9 +71,9 @@
       "evidence": "sampled wpdev voxel:data + cli/src/generated/widget-schemas.json",
       "predicate": "∀ dynamic prop p: resolves_nonempty(p) ∨ has_fallback(p); affordance(p)==is_dynamic(p); envelope(p)==schema(p)" },
     { "id": "tag-wrap", "scope": "prop", "phase": "plan", "severity": "C",
-      "criterion": "CPT-template strings wrapped @tags()…@endtags(); _cssid and image refs use the raw vx envelope; static literals are neither.",
-      "evidence": "§2d Settings + Tag-wrap columns",
-      "predicate": "∀ prop p: is_cpt_string(p) ⇒ tag_wrapped(p); is_cssid_or_image(p) ⇒ vx_envelope(p)" },
+      "criterion": "CPT-template dynamic strings are wrapped @tags()…@endtags(); _cssid uses the current schema string envelope; images use the current schema image envelope; static literals are not tag-wrapped.",
+      "evidence": "§2d Settings + Tag-wrap columns + current generated/live schemas",
+      "predicate": "∀ prop p: is_dynamic_cpt_string(p) ⇒ tag_wrapped(p); is_cssid(p) ⇒ envelope(p)==schema(_cssid); is_image(p) ⇒ envelope(p)==schema(image); is_static_literal(p) ⇒ not tag_wrapped(p)" },
     { "id": "design-tokens", "scope": "prop", "phase": "plan", "severity": "I",
       "criterion": "Colors, spacing, widths come from design tokens — never hand-authored hex/px/rem literals.",
       "evidence": "§2d Layout map + Settings",
@@ -127,6 +127,10 @@
     { "id": "unicode-integrity", "scope": "prop", "phase": "both", "severity": "C",
       "criterion": "No u00xx accent corruption in written or rendered text.",
       "evidence": "regex probe on _elementor_data + rendered text",
-      "predicate": "_elementor_data does NOT match /[a-zA-Z]u00[a-f0-9]{2}/" }
+      "predicate": "_elementor_data does NOT match /[a-zA-Z]u00[a-f0-9]{2}/" },
+    { "id": "check-validity", "scope": "page", "phase": "both", "severity": "C",
+      "criterion": "No two criteria in a run contradict each other, and no criterion passes vacuously when the feature it guards is off; each failure is traced to its actual owner before changing the site or check.",
+      "evidence": "selected criteria definitions + source values read by their predicates",
+      "predicate": "criteria_are_mutually_consistent AND every_applicable_pass_has_positive_non_vacuous_evidence" }
   ]
 }

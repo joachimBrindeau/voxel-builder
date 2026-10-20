@@ -6,17 +6,19 @@ For the action footer on `ef-card` (call, email, get_directions, show_post_on_ma
 Don't hand-write JSON for the `card` role. The CLI does it correctly:
 
 ```bash
-wpdev voxel:cards <site>                                   # all CPTs, all four variants (small + medium + large + link)
+wpdev voxel:cards <site>                                   # all CPTs, all four sizes (small + medium + large + link)
 wpdev voxel:cards <site> --type <cpt_key>                  # one CPT
-wpdev voxel:cards <site> --sizes small,medium,large,link   # explicit variant list (this is also the default)
-wpdev voxel:cards <site> --sizes link                      # one variant only
+wpdev voxel:cards <site> --sizes small,medium,large,link   # explicit size list (this is also the default)
+wpdev voxel:cards <site> --sizes link                      # one size only
 wpdev voxel:cards <site> --replace                         # rebuild existing
 wpdev voxel:cards <site> --type <cpt_key> --audit          # verify posts + Voxel custom_templates.card[] registry
 ```
 
-The command supports four variants (size is a scaffold recipe in `cli/src/utils/voxel/card-bindings.ts`, NOT an `ef-card` prop — the widget's own axes are `variant` = color surface and `layout` = vertical/horizontal):
+The command supports four preview-card sizes. Size is a scaffold recipe in
+`cli/src/utils/voxel/card-bindings.ts`, not an `ef-card` setting. Card surface
+styling belongs in Elementor atomic dynamic styles.
 
-| Variant | Shape | Use case |
+| Size | Shape | Use case |
 |---|---|---|
 | `small` | Real logo + linked title + `heading`/`span` summary (`@post(hook)` when the CPT has a hook field, else native `@post(excerpt)`); never rich text | Compact grid items, search results |
 | `medium` | Horizontal logo + linked title + `heading`/`span` summary (hook-or-excerpt) + author line; never rich text | Mid-density list rows |
@@ -25,11 +27,11 @@ The command supports four variants (size is a scaffold recipe in `cli/src/utils/
 
 **Logo rule.** The logo binds to a real logo field only — a field labelled "logo", else a `profile-avatar` field (profile CPTs). If the CPT has neither, the card carries NO logo. The featured image is NEVER used as a logo; it is only the `large` card's cover/media slot. So a CPT like `video` (no logo field) renders logo-less cards, with the featured image appearing solely as the large-card cover.
 
-The author line is one `kind: heading` row — `text: @author(display_name)`, `subtitle: @post(date)`, `inline_type: image` + `inline_image: @author(avatar)` (avatar is the bare attachment id, no `.id`; `@post(author.*)` resolves EMPTY). Set `tag: span`: the heading kind defaults to `h3`, and an author name is not an outline entry. Because cards render in same-parent loops, only `hierarchy-children` differs per card, so it is the only hierarchy field bound on a card body — see [`../voxel/voxel-field-inventory.md`](../voxel/voxel-field-inventory.md) §Always-present fields. No variant ships a default `ts_actions` strip; add meaningful actions with [`card-actions.md`](../../workflows/card-actions.md).
+The author line is one `kind: heading` row — `text: @author(display_name)`, `subtitle: @post(date)`, `inline_type: image` + `inline_image: @author(avatar)` (avatar is the bare attachment id, no `.id`; `@post(author.*)` resolves EMPTY). Set `tag: span`: the heading kind defaults to `h3`, and an author name is not an outline entry. Because cards render in same-parent loops, only `hierarchy-children` differs per card, so it is the only hierarchy field bound on a card body — see [`../voxel/voxel-field-inventory.md`](../voxel/voxel-field-inventory.md) §Always-present fields. No size ships a default `ts_actions` strip; add meaningful actions with [`card-actions.md`](../../workflows/card-actions.md).
 
 The command:
 - Creates `{key}-small` / `{key}-medium` / `{key}-large` / `{key}-link` Elementor templates.
-- Injects an unwrapped `ef-card` widget with the right envelope per variant.
+- Injects an unwrapped `ef-card` widget with the right envelope per size.
 - Registers as `voxel:post_types[<key>].custom_templates.card[]` with `{Singular} - small / - medium / - large / - link` labels.
 
 **Main-card rule.** The command assigns the generated `large` template as the CPT's
@@ -78,13 +80,13 @@ ordered `settings.content_blocks`; they are not separate widgets. Current row ki
 |---|---|---|---|
 | `heading` | Semantic heading, text line, or two-line block with inline media (absorbed the former `byline`) | `text`, `subtitle`, `tag`, `style`, `inline_*`; optional row action | Heading level matches page outline; `tag` set explicitly (defaults to `h3`) |
 | `rich_text` | Formatted body | `body` | Prose renders, no invented heading widget |
-| `separator` | Decorative divider | `separator_variant`, `separator_spacing`, `separator_color` | Divider has no content/action role |
-| `accordion` | Collapsible heading + body | `text`, `tag`, `style`, `body`, `accordion_variant`, `accordion_open` | Summary toggles; no row action |
-| `tag` | One pill tag | `text`, `variant`, `icon`, `group`; optional row action | Group name matches a `group` row when grouped |
+| `separator` | Decorative divider | `separator_spacing`, `separator_color` | Divider has no content/action role |
+| `accordion` | Collapsible heading + body | `text`, `tag`, `style`, `body`, `accordion_open` | Summary toggles; appearance comes from the owning card's dynamic styles |
+| `tag` | One pill tag | `text`, `icon`, `group`; optional row action | Group name matches a `group` row when grouped; appearance comes from the owning card's dynamic styles |
 | `datafield` | Label/value detail row | `datafield_label`, `datafield_value`, `icon`; optional row action | Label and dynamic value both render |
 | `group` | Rules for matching pill rows | `group_name`, `group_over_media`, visible/overflow cells | Matching `kind: tag` rows cluster correctly |
 | `calendar` | Cal.com embed | `calendar_url`, `layout`, `theme`, `brand_color`, mobile/detail switches | Booking URL and embed load |
-| `toc` | Links to page headings | `text`, `toc_scope`, `toc_max_heading`, `toc_variant` | Scope ID exists; links target rendered headings |
+| `toc` | Links to page headings | `text`, `toc_scope`, `toc_max_heading` | Scope ID exists; links target rendered headings; appearance comes from the owning card's dynamic styles |
 
 ### Three different `tag` meanings
 
@@ -92,7 +94,7 @@ ordered `settings.content_blocks`; they are not separate widgets. Current row ki
 |---|---|---|
 | Card outer `settings.tag` | Card root HTML element | `div`, `section`, `article`, `aside`, `li`, `header` |
 | Content-row `value.tag` | Semantic element for `heading` or `accordion` title | `h1`–`h6`, `p`, `span`, `address` |
-| Content-row `value.kind: tag` | Pill-tag content component | Uses `text`/`variant`/`icon`/`group`; it is not an HTML tag selector |
+| Content-row `value.kind: tag` | Pill-tag content component | Uses `text`/`icon`/`group`; it is not an HTML tag selector |
 
 `settings.ts_actions` stays a separate action repeater/footer. Never place it inside
 `content_blocks`, and never classify it as a content-block kind. Row-level optional
@@ -117,7 +119,6 @@ actions on actionable content rows do not replace the separate footer action str
         { "$$type": "ef-content-block-row", "value": {
           "kind": { "$$type": "string", "value": "tag" },
           "text": { "$$type": "string", "value": "Featured" },
-          "variant": { "$$type": "string", "value": "primary" },
           "group": { "$$type": "string", "value": "Status" }
         } },
         { "$$type": "ef-content-block-row", "value": {

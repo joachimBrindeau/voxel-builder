@@ -54,9 +54,13 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
    attributable and rejectable.
 5. **Native, surface-matched output.** Validate stored data and the affected runtime surface;
    DB equality alone cannot prove rendering, schema, behavior, or performance. Express site
-   content through native Voxel/Elementor Framework settings, variants, tokens, layout props,
+   content through native Voxel/Elementor Framework settings, Elementor dynamic styles, tokens, layout props,
    and source templates — never custom CSS, inline styles, ad-hoc classes, Elementor overrides,
-   or screenshot patches. Report native capability gaps at their component/source owner.
+   or screenshot patches. Report native capability gaps at their component/source owner. EF
+   content rows rendered as pills or buttons keep the schema-default `dynamic` variant by
+   omitting the `variant` cell or storing `dynamic`; hard-coded visual variants require an
+   explicit user-requested exception. Scan included templates as well as the owning page and
+   verify that invariant after every write.
 
 ## Intake And Routing
 
@@ -115,6 +119,7 @@ do not invent a generic worker merely to satisfy orchestration ceremony.
 | Research, author, validate, and optionally apply a complete matcha brand Organization profile | organization profile, matcha brand profile, metadescription + tagline + history + production + contacts + FAQ | `workflows/organization-profile.md` |
 | Complete imported Video records from source evidence | video backfill, transcript, presenter, service, FAQ, imported drafts | `workflows/video-content-backfill.md` |
 | Author visible FAQ rows for existing content | FAQ questions/answers, improve FAQ | `workflows/faq-authoring.md` |
+| Author the visible summary block above an article | key takeaways, TL;DR, in brief, summary box, takeaways field | `workflows/key-takeaways.md` |
 | Research, populate, or audit entity-equivalence links | sameAs, Wikipedia/Wikidata identity, official profiles, knowledge-graph links | `workflows/identity-linking.md` |
 | Generate/backfill/improve CPT field content and apply it | write/backfill/regenerate definition, hook, excerpt, sources, h1, body copy; bulk field authoring | `workflows/content-generation.md` |
 | Review/QA existing CPT field content against spec | audit/score/verify field content quality, prove backfill quality | `workflows/content-review.md` |
