@@ -109,34 +109,39 @@ The table below is generated from `plugins/custom/elementor-framework/schemas/pa
 
 <!-- AUTO-GENERATED:ef-parts-index START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
-26 Part schemas under `schemas/parts/` (sourced from `plugins/custom/elementor-framework/schemas/parts/*.schema.json`). The hand-written prose above is the source-of-truth for class hierarchy, contracts, and gotchas; this table enumerates the structural facts the JSON SSOT recovers (owned props, options, sub-parts, widget composers).
+29 Part schemas under `schemas/parts/` (sourced from `plugins/custom/elementor-framework/schemas/parts/*.schema.json`). The hand-written prose above is the source-of-truth for class hierarchy, contracts, and gotchas; this table enumerates the structural facts the JSON SSOT recovers (owned props, options, sub-parts, widget composers).
 
 | Part | Title | Prefix | Owned props | Options | Sub-parts | Composed by |
 |---|---|---|---|---|---|---|
 | `action-slot` | Action slot | yes | 1 (`action_type`) | — | — | `ef-navbar` (via sub-part) |
 | `actions` | Buttons | yes | 1 (`ts_actions`) | `embedded` | `action-row` | `ef-navbar` (prefix=`cta`) |
-| `banner` | Banner | yes | 2 (`background`, `message`) | — | `action-slot`, `button-presentation` | `ef-navbar` (prefix=`banner`) |
+| `banner` | Banner | yes | 5 (`background`, `compact_mobile`, `dismiss_label`, `dismissible`, `message`) | — | `action-slot`, `button-presentation` | `ef-navbar` (prefix=`banner`) |
+| `button-presentation` | Button presentation | yes | 6 (`aria_label`, `flyout_template`, `icon`, `label`, `tooltip`, `variant`) | `capabilities`, `label_default`, `label_dynamic`, `variant_default` | — | `ef-form`; `ef-navbar` (via sub-part) |
+| `card-settings` | Card settings | no | 1 (`own_height`) | — | — | `ef-card` |
 | `content-block-accordion` | Content block accordion payload | no | 1 (`open`) | — | — | — |
 | `content-block-auth` | Content block auth payload | no | 4 (`mode`, `redirect`, `social_label`, `submit_label`) | — | — | — |
-| `content-block-calendar` | Content block calendar payload | no | 5 (`brand_color`, `hide_details`, `mobile_slots_first`, `theme`, `url`) | — | — | — |
+| `content-block-calendar` | Content block calendar payload | no | 6 (`brand_color`, `hide_details`, `layout`, `mobile_slots_first`, `theme`, `url`) | — | — | — |
 | `content-block-filter` | Content block filter payload | no | 3 (`filters`, `sorts`, `target`) | — | — | — |
-| `content-block-group` | Content block group payload | no | 2 (`placement`, `position`) | — | — | — |
+| `content-block-group` | Content block group payload | no | 4 (`inline`, `limit`, `placement`, `position`) | — | — | — |
 | `content-block-reviews` | Content block reviews payload | no | 4 (`reviews_category`, `reviews_icon`, `reviews_presentation`, `reviews_star_color`) | — | — | — |
-| `content-block-text` | Content block text payload | no | 1 (`description`) | — | — | — |
+| `content-block-text` | Content block text payload | no | 2 (`description`, `expand`) | — | — | — |
 | `content-block-toc` | Content block toc payload | no | 2 (`max_heading`, `scope`) | — | — | — |
 | `form-fields` | Form fields | no | 1 (`fields`) | — | `field-row` | `ef-form` |
 | `form-honeypot` | Form honeypot | no | 1 (`honeypot`) | — | — | `ef-form` |
 | `form-recipients` | Form recipients | no | 1 (`recipients`) | — | `recipient-row` | `ef-form` |
-| `form-success-message` | Form success message | no | 1 (`success_message`) | — | — | `ef-form` |
+| `form-results` | Form results | no | 2 (`results`, `tie_policy`) | — | `result-content-row`, `result-row` | `ef-form` |
+| `form-success-message` | Form submit behavior | no | 3 (`redirect_destination`, `submit_action`, `success_message`) | — | — | `ef-form` |
 | `headings` | Headings | yes | 1 (`content_blocks`) | — | `filter-item-row` | `ef-card` |
 | `layout` | Layout | no | 1 (`layout`) | `default_layout`, `layouts` | — | — |
-| `media` | Media slot | yes | 12 (`color`, `icon`, `image`, `image_alt`, `image_alt_mode`, `image_loading`, `map_pins`, `map_zoom`, `modifiers`, `type`, `video_loading`, `video_url`) | `default_type`, `enabled_types`, `extra_modifier_options`, `include_modifiers`, `type_control_label`, `type_labels` | — | `ef-wrapper` (prefix=`bg_media`) |
-| `modifiers` | Modifiers | no | 1 (`modifiers`) | `extra_options`, `initial` | — | `ef-card`; `ef-form`; `ef-navbar`; `ef-wrapper` |
+| `media` | Media slot | yes | 14 (`color`, `icon`, `image`, `image_alt`, `image_alt_mode`, `image_loading`, `image_preload`, `image_sizes`, `map_pins`, `map_zoom`, `modifiers`, `type`, `video_loading`, `video_url`) | `default_type`, `enabled_types`, `extra_modifier_options`, `include_modifiers`, `type_control_label`, `type_labels` | — | `ef-wrapper` (prefix=`bg_media`) |
 | `nav-item` | Nav item | no | — | — | — | — |
 | `navbar-nav-items` | Navbar nav items | no | 1 (`nav_items`) | — | `mega-row` | `ef-navbar` |
+| `navbar-settings` | Navbar settings | no | 2 (`breadcrumb`, `reading_progress`) | — | — | `ef-navbar` |
 | `overflow-clamp` | Overflow clamp | no | 3 (`overflow_limit`, `overflow_suffix`, `overflow_suffix_plural`) | `default_limit`, `limit_label`, `min_limit` | — | — |
-| `tag` | HTML tag | no | 1 (`tag`) | `allowed_tags`, `default_tag` | — | `ef-card`; `ef-form`; `ef-navbar`; `ef-wrapper` |
-| `wrapper-settings` | Wrapper settings | no | 4 (`cols`, `mode`, `page_size`, `template_id`) | — | — | `ef-wrapper` |
+| `sticky` | Sticky | no | 1 (`sticky`) | — | — | `ef-card`; `ef-form`; `ef-navbar`; `ef-wrapper` |
+| `tag` | HTML tag | no | 1 (`tag`) | `allowed_tags`, `default_tag` | — | `ef-card`; `ef-navbar`; `ef-wrapper` |
+| `variant` | Variant | no | 1 (`variant`) | `default_variant`, `variants` | — | `ef-card`; `ef-navbar` |
+| `wrapper-settings` | Wrapper settings | no | 9 (`cols`, `constrain_row_height`, `gap`, `mode`, `padding`, `page_size`, `reversed`, `tabs_color`, `template_id`) | — | — | `ef-wrapper` |
 
 <!-- AUTO-GENERATED:ef-parts-index END -->
 

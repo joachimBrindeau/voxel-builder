@@ -114,7 +114,11 @@ blocked. Any required blocked leaf halts the build.
    node ids and preserve untouched siblings byte-for-byte.
 3. Enforce one root `ef-wrapper` with `tag: main` for full pages/templates; a single atomic
    widget may remain unwrapped when that is the complete document.
-4. Write `/tmp/built-<id>.json` once and validate it:
+4. Scan the assembled tree, plus transitively included templates in scope, for content rows
+   whose `appearance.value` is `pill` or `button`. Their `variant` must be absent or
+   `dynamic`; reject any hard-coded visual variant unless the Plan records an explicit
+   user-requested exception. Do not conflate these row variants with card surface variants.
+5. Write `/tmp/built-<id>.json` once and validate it:
    ```bash
    wpdev elementor:validate --file /tmp/built-<id>.json
    ```
@@ -133,7 +137,9 @@ approved Plan.
    ```
 3. For a surgical edit, run the approved `wpdev elementor:mutate` command. Do not use raw
    `wp eval-file` for single-post Elementor mutations.
-4. Read `_elementor_data` back, compare owned paths with the aggregate, and run:
+4. Read `_elementor_data` back, compare owned paths with the aggregate, and assert that
+   every owned pill/button row has no `variant` cell or `variant.value == "dynamic"`.
+   Then run:
    ```bash
    wpdev elementor:lint <site> --post <id>
    wpdev rebuild <site> --only purge
@@ -183,4 +189,5 @@ clean, CSS/save hooks ran, and caches are purged.
 - [ ] Rollback, plan/trivial contract, and schema evidence exist.
 - [ ] Widget manifest coverage is exact with bounded batches.
 - [ ] One authoritative write was read back and linted.
+- [ ] Every pill/button row uses the absent-or-`dynamic` schema-default variant unless an explicit user exception is documented.
 - [ ] Browser and Behavior Contract assertions pass on representative data.

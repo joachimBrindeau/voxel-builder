@@ -1,0 +1,89 @@
+{
+  "postId": 3003,
+  "title": "quick-search",
+  "id": "3003",
+  "elType": "widget",
+  "widgetType": "quick-search",
+  "settings": {
+    "ts_choose_post_types": [
+      "products",
+      "brand",
+      "post",
+      "page"
+    ],
+    "ts_qr_text": "Quick search",
+    "ts_display_mode": "tabbed",
+    "ts_single_submit_key": "keywords",
+    "ts_sf_input_height": {
+      "unit": "px",
+      "size": 45,
+      "sizes": []
+    },
+    "ts_suffix_text": "#004D40",
+    "ts_suffix_bg": "#E8F5E9",
+    "ts_tabs_padding": {
+      "unit": "px",
+      "top": "5",
+      "right": "10",
+      "bottom": "5",
+      "left": "10",
+      "isLinked": false
+    },
+    "ts_tabs_margin": {
+      "unit": "px",
+      "top": "5",
+      "right": "5",
+      "bottom": "5",
+      "left": "5",
+      "isLinked": true
+    },
+    "ts_tabs_radius": {
+      "unit": "px",
+      "size": 4,
+      "sizes": []
+    },
+    "__globals__": {
+      "ts_suffix_text": "globals/colors?id=primary",
+      "ts_suffix_bg": "globals/colors?id=primary_light",
+      "ts_sf_input_value_col": "globals/colors?id=primary",
+      "ts_tabs_bg_color": "",
+      "ts_tabs_bg_active_color": "globals/colors?id=primary",
+      "ts_active_text_color": "globals/colors?id=da5a9aa",
+      "ts_tabs_text_color": "globals/colors?id=primary",
+      "ts_sf_input_border_color": "globals/colors?id=primary",
+      "ts_sf_input_icon_col": "globals/colors?id=primary"
+    },
+    "ts__post__label": "Guides",
+    "ts__post__filter": "keywords",
+    "ts__post__taxonomies": [],
+    "ts__page__label": "Pages",
+    "ts__products__label": "Matcha",
+    "ts__products__filter": "keywords",
+    "ts__products__taxonomies": [
+      "matcha_origin",
+      "matcha_grade",
+      "matcha_certifications",
+      "matcha_season"
+    ],
+    "ts__brand__label": "Brands",
+    "ts__brand__filter": "keywords",
+    "ts__brand__taxonomies": [],
+    "ts_suffix_radius": {
+      "unit": "px",
+      "size": 4,
+      "sizes": []
+    },
+    "ts_tabs_text_active_typography": "custom",
+    "ts_tabs_text_active_font_weight": "400",
+    "ts__page__filter": "keywords",
+    "ts_sf_input_border_border": "solid",
+    "ts_sf_input_border_width": {
+      "unit": "px",
+      "top": "1",
+      "right": "1",
+      "bottom": "1",
+      "left": "1",
+      "isLinked": true
+    }
+  }
+}

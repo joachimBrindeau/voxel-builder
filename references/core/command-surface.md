@@ -195,10 +195,6 @@ wpdev elementor:ef:migrate <site> [run] [--from N] -y   # execute pending steps 
 wpdev elementor:ef:migrate <site> release-lock          # clear a stuck migration lock
 wpdev rebuild              <site> --only tokens         # sync EF design tokens → Elementor kit, clear CSS, purge cache (re-fire kit-color chain)
 # To reset a token override: edit/remove it in the EF Design Tokens admin page (or the ef_tokens option), then re-run rebuild --only tokens
-wpdev elementor:ef:settings <site> get [<key>]          # print all settings or one key
-wpdev elementor:ef:settings <site> set <key> <value>    # write one key through the sanitize chain
-wpdev elementor:ef:smtp    <site> test <email>          # send a real test message
-wpdev elementor:ef:smtp    <site> clear-db-pass         # strip DB-stored SMTP password
 wpdev elementor:ef:submissions <site> list              # enumerate form submissions with decoded fields
 wpdev elementor:ef:tool    <site> list                  # enumerate registered ops tools
 wpdev elementor:ef:tool    <site> run <slug>            # invoke one tool from migrations/tools/

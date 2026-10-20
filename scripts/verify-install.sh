@@ -7,7 +7,8 @@
 # Exit 1: at least one required prerequisite is missing.
 
 set -u
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 
 # verify-install uses its own OK/MISSING verbs and shares warning output plus

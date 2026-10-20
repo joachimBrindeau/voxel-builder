@@ -44,7 +44,7 @@ Pattern for a tree-walking patcher (idempotent, preserves siblings):
 $post_id = <post_id>;
 $raw = get_post_meta($post_id, '_elementor_data', true);
 $data = json_decode($raw, true);
-if (!is_array($data)) { exit("decode failed\n"); }
+if (!is_array($data)) { throw new \RuntimeException("decode failed"); }
 
 $walk = function (&$nodes) use (&$walk) {
     foreach ($nodes as &$node) {
@@ -59,7 +59,7 @@ $walk($data);
 $json = wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 // WordPress unslashes only the new value; prev_value is compared RAW.
 update_post_meta($post_id, '_elementor_data', wp_slash($json), $raw);
-if (get_post_meta($post_id, '_elementor_data', true) !== $json) { exit("write conflict\n"); }
+if (get_post_meta($post_id, '_elementor_data', true) !== $json) { throw new \RuntimeException("write conflict"); }
 echo "patched\n";
 ```
 
@@ -92,6 +92,12 @@ path rather than trusting it, so it rejects shapes that are correct at runtime:
 A throwaway `/tmp` mutator is not scanned, but anything landing under `tools/`
 is, so write it in the compliant shape from the start. Run
 `bun test cli/src/utils/elementor/storage-contract.test.ts` before committing.
+
+Guard failures must produce a nonzero command result. In PHP, `exit("message")` prints text but exits successfully; use an exception or the CLI's error mechanism so the mutation wrapper cannot continue its success tail after a failed guard.
+
+Resetting a value to an **existing** schema default can legitimately remove the entire cell during normalization. For example, an explicit pill/button row `variant: dynamic` can canonicalize to omission. Compare that normalized tree against the exact planned default-cell removals, keep untouched paths exact, and require idempotence. This is not permission to change the schema default or accept unrelated normalization drift.
+
+Build the closeout document set from the actual write ledger, not only a CPT card registry. Supporting single/map/template owners changed during follow-through need the same recursive row-invariant scan and read-back gate as the primary cards. Include their nested repeater children and any transitively included templates in scope.
 
 ### Changing an EF schema default is a data mutation
 

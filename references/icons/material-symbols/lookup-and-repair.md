@@ -87,6 +87,13 @@ Term icons are a **different source owner** from Elementor icon cells: they live
 neither find nor fix a missing term icon. There is no `wpdev` term-meta write command;
 use `wp eval-file` with a read-back gate.
 
+Trace a rendered glyph back through the owning widget before choosing this route. A
+classic icon cell can contain `@post(<taxonomy-field>.icon)` rather than a static
+library value. In the current Voxel field API, a taxonomy field's `get_value()` returns
+`Voxel\Term` objects, not necessarily integer IDs. Use their `get_id()` and `get_icon()`
+accessors to identify the real term-meta owner. Preserve the dynamic Elementor binding
+instead of replacing it with a fixed icon that only matches one sample record.
+
 Scope the work to **registered** taxonomies first — an unregistered taxonomy renders
 nowhere, so icons on it are dead data:
 
@@ -148,6 +155,15 @@ Prove the runtime surface, not just the column:
 ```
 
 Empty markup means the library prefix or glyph is wrong even though the meta value stored fine.
+
+Nonempty markup is still not a painted-glyph pass. In the real browser, inspect the
+resolved icon class, computed font family, pseudo-element content and nonzero glyph
+geometry, then read a screenshot. If exact term-meta read-back succeeds but the clean
+page still emits old icon classes, invalidate the affected site's cached renders with
+the supported `wpdev purge <site>` command and revisit the same URL. Do not rewrite the
+dynamic template or inject CSS to conceal stale cached output. Keep existing working
+icons and unrelated term data unchanged unless the selected scope explicitly includes
+them.
 
 ## Anti-patterns
 

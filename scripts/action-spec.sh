@@ -15,7 +15,8 @@
 # Resolves the catalog through the wpdev checkout; honors $EF_CATALOGS or
 # $WPDEV_ROOT for out-of-tree installations.
 set -euo pipefail
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 
 catalogs="${EF_CATALOGS:-}"
@@ -25,7 +26,7 @@ if [[ -z "$catalogs" ]]; then
   fi
 fi
 
-[[ -n "$catalogs" && -f "$catalogs" ]] || { printf 'ef-catalogs.json not found — run `wpdev elementor:codegen`, or set EF_CATALOGS/WPDEV_ROOT.\n' >&2; exit 1; }
+[[ -n "$catalogs" && -f "$catalogs" ]] || { printf '%s\n' "ef-catalogs.json not found — run \`wpdev elementor:codegen\`, or set EF_CATALOGS/WPDEV_ROOT." >&2; exit 1; }
 command -v jq >/dev/null 2>&1 || { printf 'jq is required.\n' >&2; exit 1; }
 
 id="${1:-}"
@@ -33,7 +34,8 @@ id="${1:-}"
 if [[ -z "$id" ]]; then
   printf 'Action catalog (%s):\n\n' "$catalogs"
   jq -r '.action_types[]
-    | "\(.id // "''")\t\(.label)\t[\((.required_fields // []) | join(", "))]"' "$catalogs" \
+    | [(.id // ""), .label, ("[" + ((.required_fields // []) | join(", ")) + "]")]
+    | @tsv' "$catalogs" \
     | column -t -s $'\t'
   exit 0
 fi

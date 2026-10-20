@@ -18,6 +18,8 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | Command | Status | Location | Rationale |
 |---|---|---|---|
 | `voxel:admin-menu` | `defer` | n/a | Reads or adjusts Voxel admin-menu settings. Operator/admin UX territory; surface only if a future curation workflow needs deterministic menu repair. |
+| `voxel:apply-structure-routes` | `defer` | n/a | Hash-locked atomic writer for structure geography, Permalink Manager URIs, and redirects. Relevant to geolocation publishing, but keep deferred until that workflow owns its manifest, rollback, and read-back contract. |
+| `voxel:apply-taxonomy` | `defer` | n/a | Hash-locked hierarchical taxonomy replacement. Relevant to CPT lifecycle and curation, but keep deferred until a workflow defines term-level evidence, rollback, and browser verification. |
 | `voxel:archives` | `surfaced` | `workflows/archive-search-pages.md` (archive scaffolding); pairs with `elementor:verify:loop-render` for the post-build proof | Scaffolds Voxel CPT archive templates as EF query-backed loops (header + paginated results grid). Mission-critical: archives are EF loops, so this is the supported alternative to hand-authoring `_elementor_data`. |
 | `voxel:assign` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 6 | Assigns templates to roles; canonical Phase 6 step. |
 | `voxel:backfill-authors` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 6 | Useful for CPTs whose posts are missing or have stale `post_author`. |
@@ -32,6 +34,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `voxel:field-schema` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 2; `workflows/field-metadata.md` Phase 4; `references/core/command-surface.md` §CPT introspection | Corruption-proof top-level field-definition merge. Lifecycle owns creation-time blueprint convergence; field-metadata owns recursive UX metadata remediation and verification. |
 | `voxel:fields` | `surfaced` | the CPT lifecycle Phase 2 (`workflows/cpt-lifecycle.md`), `voxel-widget-builder`, `voxel-schema-detective` | Lists CPT fields — valid `@post(<key>)` tags. |
 | `voxel:filters` | `surfaced` | `references/core/command-surface.md` §CPT introspection; `workflows/audit.md` reindex-after-filter failure class | Audits or upserts Voxel CPT search filters (`--mode baseline` universal filters, `--mode derive` per-field filters, `--prune` orphan cleanup); changed filters require recreate+reindex. Scope note: reads only `voxel:post_types[<cpt>].search.filters`, so it never sees stale filter keys stored in `_elementor_data` — audit those separately per `workflows/archive-search-pages.md` §Stored Search Config Drift. |
+| `voxel:filter-rekey` | `defer` | n/a | Atomically renames one Voxel filter key and its exact Elementor consumers from a hash-locked manifest. Keep deferred until archive/search repair owns the prepare/apply/rollback workflow. |
 | `voxel:heading-curator` | `surface-pending` | will surface in the `voxel-heading-curator` agent (read the cache instead of re-extracting) | Extracts production heading phrasings from peer single templates and writes a per-site cache the `voxel-heading-curator` agent should consume — replaces re-running `voxel:templates` + `elementor:dump` extraction on every plan dispatch. |
 | `voxel:imports` | `surfaced` | `workflows/database-cleanup.md` (halt a running import before cleanup mutates rows underneath it) | Halts, resumes, or inspects Voxel Addon import execution on a site. Use it to stop a running import before mutating the CPT registry underneath it. |
 | `voxel:import-policy` | `surfaced` | `workflows/database-cleanup.md` (the criterion that decides what `voxel:imports` admits) | Shows, sets, or clears the LLM eligibility criterion product imports are screened against (`show`/`set`/`clear`/`check`, `--scope` defaulting to `products:default:all`, which every brand inherits). Pairs with `voxel:imports`: that command controls whether an import runs, this one controls what it is allowed to admit, so a surprising import result is worth checking here before blaming the importer. |
@@ -60,6 +63,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:action-drift` | `defer` | n/a | EF action-type registry drift gate — verifies EF covers every Voxel advanced-list action; exits non-zero on un-accounted drift. Surface if an action-row audit recipe needs the registry-drift signal. |
 | `elementor:anchors` | `surfaced` | `references/core/command-surface.md`; pre-input for `elementor:set-cssid` / `set-value` repair | Read-only anchor-link orphan finder. Its JSON output is the canonical input for the two batch-repair verbs below. |
 | `elementor:animations` | `defer` | n/a | List/remove all Elementor animations and motion effects. Niche; revisit when animation cleanup becomes a recurring task. |
+| `elementor:apply-data` | `defer` | n/a | CAS-validated manifest writer for reviewed Elementor data with mandatory rollback bundles on apply. Keep deferred until build/migration adopts it as a primary batch write path. |
 | `elementor:codegen` | `surfaced` | `rules.md` rule 1 (unconditional regen at start of every build); `page-planning.md` entry criteria; `references/core/command-surface.md` §Schema | Generates the committed SSOT widget-schemas artifact (`cli/src/generated/widget-schemas.json`) from EF widget-registration source. Run unconditionally at the start of every run. |
 | `elementor:codegen:tokens` | `defer` | n/a | Sibling codegen for design-token SSOT. Build-time tooling; surface if token-edit recipes need a deterministic regen step. |
 | `elementor:codegen:verify` | `surfaced` | `references/core/rules.md` rule 1 (live-site drift gate, companion to `elementor:codegen --check`) | CI-gated drift check between `cli/src/generated/widget-schemas.json` and live registration. Cited next to rule 1 so agents know how the SSOT stays current. |
@@ -86,6 +90,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | `elementor:rename` | `defer` | n/a | Bulk Navigator-title cleanup. Cosmetic; revisit when batch-rename becomes a recurring task. |
 | `elementor:schema` | `surfaced` | rule 1 of `rules.md`, `voxel-widget-builder`, `voxel-schema-detective` | EF V4 atomic widget schema — the canonical prop / `$$type` source. |
 | `elementor:schema:check` | `defer` | n/a | Schema drift verification companion to `codegen:verify`. Surface alongside the codegen pair when the SSOT gate is wired in. |
+| `elementor:sections` | `defer` | n/a | Manages framework section variants through the plugin service on explicitly selected local sites. Keep deferred until the section-template workflow adopts its catalog/plan/apply lifecycle. |
 | `elementor:semantic` | `surfaced` | `voxel-page-auditor` `[G]`-tier (per-post) | Semantic HTML structure analysis — single-post audit input. |
 | `elementor:set-cssid` | `surfaced` | `references/core/command-surface.md` §Anchor repair; consumed by `voxel-elementor-fixer` Pass 2 when audit finds anchor-target gaps from `elementor:anchors` | Writes a node's `_cssid` (single or `--map` batch) to repair broken in-page anchors. The repair path for `elementor:anchors` output. |
 | `elementor:set-value` | `surfaced` | `references/core/command-surface.md` §Anchor repair; consumed by `voxel-elementor-fixer` Pass 2 to repoint broken links / URLs / strings | Scalar-at-path writer — repoints a link or fixes a URL/string at any node-settings key path. Batched via `--map`. |
@@ -104,8 +109,6 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | Command | Status | Location | Rationale |
 |---|---|---|---|
 | `elementor:ef:migrate` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 0 §EF data-migration health check | EF data migrator — `status` shows pending steps, `run` executes, `release-lock` clears stuck locks. Mission-critical before any Phase 5 `elementor:import` lands on a stale EF install. |
-| `elementor:ef:settings` | `defer` | n/a | EF settings read/write. Site-config plumbing, not build/audit territory. Surface only when a build recipe needs to flip a setting deterministically. |
-| `elementor:ef:smtp` | `out-of-scope` | n/a | SMTP test / DB-password clear. Operator territory (form delivery wiring), not build/audit. |
 | `elementor:ef:submissions` | `defer` | n/a | Lists EF form submissions with decoded fields. Useful for verifying a built `ef-form` widget after deploy; revisit if form-build flows become recurring. |
 | `rebuild --only tokens` (was `elementor:ef:tokens sync`) | `surfaced` | `workflows/build.md` Phase 6 (after token/kit-color edits) + `voxel-elementor-fixer` Pass 2 | Design-token re-sync — pushes EF tokens → Elementor kit + clears CSS + purges cache. Closes the loop after token mutations. Token reset is no longer a CLI verb: edit/remove the override in the EF Design Tokens admin page (or `ef_tokens` option), then re-run `rebuild --only tokens`. |
 | `elementor:ef:tool` | `defer` | n/a | Tools-tab tool dispatcher (`list` / `run <slug>`). Catalog of one-off ops scripts in `plugins/custom/elementor-framework/migrations/tools/`; surface specific tools individually if a build/audit flow needs them. |
@@ -114,6 +117,7 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 
 | Command | Status | Location | Rationale |
 |---|---|---|---|
+| `elementor:migrate:advanced-lists` | `surfaced` | `workflows/migrate.md` Phase 1 | Converts Voxel Advanced List widgets into ID-preserving EF card action groups, with dry-run output before mutation. |
 | `elementor:migrate:containers` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `workflows/migrate.md` Phase 1 | Converts legacy `<container>` nodes to clean `ef-wrapper` (tag from `html_tag`; `cols=N×1fr` only when horizontal). Drops all other styling. |
 | `elementor:migrate:loop-index` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `voxel-elementor-fixer` Pass 2 fork point | Rewrites `@<group>(<path>.index)` (broken) → `@<group>(<path>.title).loop_index()` (Voxel canonical). Run on every CPT page that uses loop iteration indexes. |
 | `elementor:migrate:main` | `surfaced` | `references/core/command-surface.md` §Fix-loop mutations; `workflows/migrate.md` Phase 1 | Converts every root `<main>` container (`html_tag=main`) into a clean `ef-wrapper(tag=main)`, preserving children. Structural Phase 1 of migration. |
@@ -158,11 +162,13 @@ Completeness is enforced mechanically: `scripts/lint.sh` §"CLI verb drift" cros
 | Command | Status | Location | Rationale |
 |---|---|---|---|
 | `schema` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 (as the way to see what the namespace offers) | Namespace parent: prints the schema subcommands. Runnable in its own right, which is why it needs a row — a namespace with no entry reads as a typo when an agent meets it in output. |
+| `schema:apply` | `defer` | n/a | Applies an exact reviewed plan ID to selected site-owned schema targets. Keep deferred until settings/CPT lifecycle adopts the plan/apply transaction as its canonical writer. |
 | `schema:compile` | `defer` | n/a | Schema compilation. Used inside `schema:set`/`validate`; not directly invoked by the plugin. |
 | `schema:delete` | `out-of-scope` | n/a | Destructive operational. CPT lifecycle Phase 4 only sets/validates; deletion is operator territory. |
 | `schema:export` | `defer` | n/a | Cross-site schema migration. Same posture as `voxel:export`. |
 | `schema:get` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 | Reads the existing schema mapping for a CPT target. |
 | `schema:import` | `defer` | n/a | Cross-site schema migration. Pair with `schema:export`. |
+| `schema:plan` | `defer` | n/a | Produces a targeted live-change plan from site-owned Lean SEO schema configs. Keep paired with `schema:apply` until a workflow owns both steps. |
 | `schema:set` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 | Writes a new schema config for a CPT target (JSON blob). |
 | `schema:validate` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 | Static validation against JSON-LD shape. |
 | `schema:validate-live` | `surfaced` | `workflows/cpt-lifecycle.md` Phase 4 (gating step before Phase 5) | Live validation against rendered pages — Phase 4's verification step. |

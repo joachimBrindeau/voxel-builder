@@ -56,7 +56,11 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
    DB equality alone cannot prove rendering, schema, behavior, or performance. Express site
    content through native Voxel/Elementor Framework settings, Elementor dynamic styles, tokens, layout props,
    and source templates — never custom CSS, inline styles, ad-hoc classes, Elementor overrides,
-   or screenshot patches. Report native capability gaps at their component/source owner.
+   or screenshot patches. Report native capability gaps at their component/source owner. EF
+   content rows rendered as pills or buttons keep the schema-default `dynamic` variant by
+   omitting the `variant` cell or storing `dynamic`; hard-coded visual variants require an
+   explicit user-requested exception. Scan included templates as well as the owning page and
+   verify that invariant after every write.
 
 ## Intake And Routing
 

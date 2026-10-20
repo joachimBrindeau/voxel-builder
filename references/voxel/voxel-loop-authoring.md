@@ -17,6 +17,20 @@ and `includes/voxel/voxel.php` on 2026-07-10.
 dynamic tag. Use `@children(exp).count()` for an EF visibility gate; EF resolves the
 count before handing the rule to Voxel.
 
+**`@children(...)` is a row-level loop source only.** Composite rows (`content_blocks`,
+nav items) route it through `ef_with_parent_children_loop()`. A wrapper/card-level
+`behavior.loop` is iterated by VoxelAddon `LoopController`, which parses the tag with
+`Looper::parse_loopable()` and does not know `@children`; the element then renders once
+in the host post's context (verified on my-proof 338, 2026-10-06). For an element-level
+children loop use `@post(hierarchy-children)` plus an include filter
+`@post(post_type.key) is_equal_to <cpt>`, and keep `@children(<cpt>).count()` as the
+section gate.
+
+**Template-mode loop wrappers do not own a grid.** An `ef-wrapper` with `mode: template`
+and a loop renders as a `display: contents` feed shell (`.ef-loop-feed--contents`), so
+its own `cols` is ignored and the repeated cards flow into the parent's grid. Nest the
+template loop inside a plain `ef-wrapper` that carries the `cols` tracks.
+
 ## Envelope And Placement
 
 ```json

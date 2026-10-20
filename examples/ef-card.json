@@ -1,104 +1,34 @@
 {
-  "postId": 2023,
-  "title": "Pages: Single post",
-  "id": "a8839c0",
+  "postId": 1067,
+  "title": "Products",
+  "id": "346a3cf",
   "elType": "ef-card",
   "settings": {
-    "__globals__": [],
-    "classes": {
-      "$$type": "classes",
-      "value": [
-        "s-a8839c0-0"
-      ]
-    },
-    "attributes": {
-      "$$type": "attributes",
-      "value": []
-    },
+    "classes": { "$$type": "classes", "value": [] },
+    "attributes": { "$$type": "attributes", "value": [] },
+    "col_span": { "$$type": "ef-responsive-number", "value": { "desktop": { "$$type": "number", "value": 1 }, "tablet": { "$$type": "number", "value": 1 }, "mobile": { "$$type": "number", "value": 1 } } },
+    "row_span": { "$$type": "ef-responsive-number", "value": { "desktop": { "$$type": "number", "value": 1 }, "tablet": { "$$type": "number", "value": 1 }, "mobile": { "$$type": "number", "value": 1 } } },
     "content_blocks": {
       "$$type": "ef-content-block-rows",
       "value": [
         {
           "$$type": "ef-content-block-row",
           "value": {
-            "kind": {
-              "$$type": "string",
-              "value": "heading"
-            },
-            "text": {
-              "$$type": "string",
-              "value": "@tags()@post(h1)@endtags()"
-            },
-            "tag": {
-              "$$type": "string",
-              "value": "h1"
-            },
-            "style": {
-              "$$type": "string",
-              "value": ""
-            }
-          }
-        },
-        {
-          "$$type": "ef-content-block-row",
-          "value": {
-            "kind": {
-              "$$type": "string",
-              "value": "heading"
-            },
-            "type": {
-              "$$type": "string",
-              "value": "action_link"
-            },
-            "link": {
-              "$$type": "link",
-              "value": {
-                "destination": {
-                  "$$type": "vx",
-                  "value": "@author(profile.permalink)"
-                },
-                "isTargetBlank": {
-                  "$$type": "boolean",
-                  "value": false
-                },
-                "tag": {
-                  "$$type": "string",
-                  "value": "a"
-                }
-              }
-            },
-            "text": {
-              "$$type": "string",
-              "value": "@author(display_name)"
-            },
-            "subtitle": {
-              "$$type": "string",
-              "value": "@author(profile.job)"
-            },
-            "tag": {
-              "$$type": "string",
-              "value": "span"
-            }
+            "kind": { "$$type": "string", "value": "text" },
+            "group_over_media": { "$$type": "boolean", "value": false },
+            "media_image": { "$$type": "image", "value": [] },
+            "media_video_url": { "$$type": "ef-source-value", "value": { "source": { "$$type": "string", "value": "custom" }, "value": { "$$type": "string", "value": "" } } },
+            "media_map_zoom": { "$$type": "string", "value": "" },
+            "byline_avatar_fit": { "$$type": "string", "value": "cover" },
+            "appearance": { "$$type": "string", "value": "plain" },
+            "tag": { "$$type": "string", "value": "h1" },
+            "value": { "$$type": "string", "value": "Products" },
+            "_rid": { "$$type": "string", "value": "rbf6c169dd38d8c65" }
           }
         }
       ]
     },
-    "col_span": {
-      "$$type": "ef-responsive-string",
-      "value": {
-        "desktop": {
-          "$$type": "string",
-          "value": ""
-        },
-        "tablet": {
-          "$$type": "string",
-          "value": "2"
-        },
-        "mobile": {
-          "$$type": "string",
-          "value": ""
-        }
-      }
-    }
+    "sticky": { "$$type": "ef-responsive-boolean", "value": { "desktop": { "$$type": "boolean", "value": false }, "tablet": { "$$type": "boolean", "value": false }, "mobile": { "$$type": "boolean", "value": false } } },
+    "own_height": { "$$type": "ef-responsive-boolean", "value": { "desktop": { "$$type": "boolean", "value": false }, "tablet": { "$$type": "boolean", "value": false }, "mobile": { "$$type": "boolean", "value": false } } }
   }
 }

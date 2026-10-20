@@ -33,7 +33,7 @@ find_wpdev_root() {
   fi
 
   if command -v wpdev >/dev/null 2>&1; then
-    candidate=$(CDPATH= cd -- "$(dirname -- "$(command -v wpdev)")" && pwd)
+    candidate=$(CDPATH='' cd -- "$(dirname -- "$(command -v wpdev)")" && pwd)
     if [ -f "$candidate/cli/src/index.ts" ]; then
       printf "%s" "$candidate"
       return 0

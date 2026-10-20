@@ -26,7 +26,7 @@ The action-type catalog below is generated from `cli/src/generated/ef-catalogs.j
 
 <!-- AUTO-GENERATED:actions START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
-48 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
+49 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
 
 Action types are shared by default; entries with a host restriction list the only supported hosts below.
 
@@ -34,14 +34,14 @@ Action types are shared by default; entries with a host restriction list the onl
 |---|---|---|---|
 | `''` (None) | None | all action hosts | — |
 | `access_markdown` | Access Markdown | all action hosts | — |
-| `action_follow` | Follow post author | all action hosts | `icon_active`, `label_active` |
-| `action_follow_post` | Follow post | all action hosts | `icon_active`, `label_active` |
+| `action_follow` | Follow post author | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
+| `action_follow_post` | Follow post | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
 | `action_gcal` | Add to Google Calendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location` |
 | `action_ical` | Add to iCalendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location`, `cal_url` |
 | `action_link` | Link | all action hosts | `link` |
 | `action_login` | Log in | all action hosts | — |
 | `action_logout` | Log out | all action hosts | — |
-| `action_save` | Save post to collection | all action hosts | `icon_active`, `label_active` |
+| `action_save` | Save post to collection | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
 | `add_to_cart` | Add to cart | all action hosts | `cart_text` |
 | `ask_chatgpt` | Summarize with ChatGPT | all action hosts | `llm_prompt` |
 | `ask_claude` | Summarize with Claude | all action hosts | `llm_prompt` |
@@ -52,7 +52,7 @@ Action types are shared by default; entries with a host restriction list the onl
 | `back_to_top` | Back to top | all action hosts | — |
 | `call` | Phone call | all action hosts | `phone` |
 | `claim_post` | Claim post | all action hosts | — |
-| `copy_to_clipboard` | Copy to clipboard | all action hosts | `copy_value`, `copy_event`, `icon_active`, `label_active`, `toast_message` |
+| `copy_to_clipboard` | Copy to clipboard | all action hosts | `copy_value`, `copy_event`, `icon_active`, `label_active`, `tooltip_active`, `toast_message` |
 | `delete_post` | Delete post | all action hosts | — |
 | `direct_message` | Message post | all action hosts | — |
 | `direct_message_user` | Message post author | all action hosts | — |
@@ -70,8 +70,9 @@ Action types are shared by default; entries with a host restriction list the onl
 | `relist_post` | Relist post | all action hosts | — |
 | `scroll_to_section` | Scroll to section | all action hosts | `scroll_to` |
 | `select` | Select | `ef-card` | — |
-| `select_addition` | Select add-on | all action hosts | `addition_id`, `icon_active`, `label_active` |
+| `select_addition` | Select add-on | all action hosts | `addition_id`, `icon_active`, `label_active`, `tooltip_active` |
 | `send_email` | Email | all action hosts | `email` |
+| `set_field_value` | Set field value | all action hosts | `field_post_id`, `field_key`, `field_mode`, `field_values` |
 | `share_post` | Share post | all action hosts | `toast_message` |
 | `show_post_on_map` | Show on map | all action hosts | — |
 | `switch_listing_plan` | Switch listing plan | all action hosts | — |

@@ -1,0 +1,297 @@
+{
+  "postId": 4730,
+  "title": "Brands",
+  "id": "1169174",
+  "elType": "widget",
+  "widgetType": "ts-search-form",
+  "settings": {
+    "ts_choose_post_types": [
+      "brand"
+    ],
+    "cpt_filter_show": "",
+    "ts_filter_list__post": [],
+    "ts_filter_list__profile": [],
+    "ts_filter_list__elementor_library": [],
+    "ts_filter_list__products": [
+      {
+        "_id": "496a6b6",
+        "ts_choose_filter": "heading-search",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "33cbaa0",
+        "ts_choose_filter": "sort",
+        "sort:display_as": "popup",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "e6ca1c1",
+        "ts_choose_filter": "keywords",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "69fb805",
+        "ts_choose_filter": "heading-quality",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "cc67f7e",
+        "ts_choose_filter": "matcha_grade",
+        "matcha_grade:display_as": "buttons",
+        "matcha_grade:inl_set_menu_cols": 3,
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "172b086",
+        "ts_choose_filter": "heading-origin",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      },
+      {
+        "_id": "3a6bcf4",
+        "ts_choose_filter": "matcha_origin",
+        "ts_filter_width": {
+          "unit": "px",
+          "size": 100,
+          "sizes": []
+        }
+      }
+    ],
+    "ts_filter_list__brand": [
+      {
+        "_voxel_visibility_rules": "",
+        "_id": "8cf1065",
+        "ts_choose_filter": "keywords"
+      },
+      {
+        "_id": "3789d20",
+        "ts_choose_filter": "sort",
+        "sort:choices": [
+          "alphabetical"
+        ],
+        "ts_repeater_hide_filter": "equal"
+      }
+    ],
+    "ts_search_text": "Search",
+    "ts_reset_text": "Reset form",
+    "ts_filter_list__page": [],
+    "ts_post_to_feed": null,
+    "ts_search_on": "filter_update",
+    "ts_show_reset_btn": "true",
+    "ts_filter_list__collection": [],
+    "ea4v_related_filter_filter__post": [],
+    "ea4v_related_filter_filter__page": [],
+    "ea4v_related_filter_filter__collection": [],
+    "ea4v_related_filter_filter__profile": [],
+    "ea4v_related_filter_filter__elementor_library": [],
+    "ea4v_related_filter_filter__products": [],
+    "ea4v_related_filter_filter__brand": [],
+    "ts_sf_input_icon_margin": {
+      "unit": "px",
+      "size": 8,
+      "sizes": []
+    },
+    "_title": "form",
+    "ts_search_btn_width": {
+      "unit": "px",
+      "size": 100,
+      "sizes": []
+    },
+    "ts_sf_input_label_text_typography": "custom",
+    "ts_sf_input_label_text_font_weight": "500",
+    "ts_sf_input_label_col": "#004D40",
+    "ts_sf_input_radius": {
+      "unit": "px",
+      "size": 4,
+      "sizes": []
+    },
+    "ts_sf_input_border_border": "solid",
+    "ts_sf_input_border_width": {
+      "unit": "px",
+      "top": "2",
+      "right": "2",
+      "bottom": "2",
+      "left": "2",
+      "isLinked": true
+    },
+    "ts_sf_input_input_typo_typography": "custom",
+    "one_btn_typo_font_weight": "400",
+    "form_toggle_mobile": "yes",
+    "ts_sf_input_label_padding": {
+      "unit": "px",
+      "top": "20",
+      "right": "0",
+      "bottom": "0",
+      "left": "0",
+      "isLinked": false
+    },
+    "ts_sf_input_border_color": "#EEF9EF",
+    "ts_sf_input_border_h": "#EEF9EF",
+    "ts_sf_input_bg_h": "#EEF9EF",
+    "one_btn_bg_h": "#004D40",
+    "_element_width_mobile": "inherit",
+    "sticky_offset": 20,
+    "ks_nowrap_max_width": {
+      "unit": "%",
+      "size": "",
+      "sizes": []
+    },
+    "ks_nowrap_max_width_tablet": {
+      "unit": "%",
+      "size": "",
+      "sizes": []
+    },
+    "ks_nowrap_max_width_mobile": {
+      "unit": "%",
+      "size": "",
+      "sizes": []
+    },
+    "inline_max_height": {
+      "unit": "px",
+      "size": 0,
+      "sizes": []
+    },
+    "ts_save_search_success_message": "Search saved successfully",
+    "ts_save_search_link_label": "Your searches",
+    "ts_save_search_btn_text": "Save &amp; Get notification",
+    "ts_save_placeholder": "Leave a short note...",
+    "form_toggle_tablet": "yes",
+    "one_btn_c_h_tablet": "#004D40",
+    "one_btn_bg_h_tablet": "#EEF9EF",
+    "one_btn_border_h_tablet": "#004D40",
+    "one_btn_icon_color_h_tablet": "#004D40",
+    "ts_reset_btn_width": {
+      "unit": "px",
+      "size": 100,
+      "sizes": []
+    },
+    "ts_show_save_search_btn": "yes",
+    "ts_sf_form_group_padding": {
+      "unit": "px",
+      "top": "0",
+      "right": "0",
+      "bottom": "10",
+      "left": "0",
+      "isLinked": false
+    },
+    "ts_sf_form_btn_radius": {
+      "unit": "px",
+      "size": 4,
+      "sizes": []
+    },
+    "ts_submit_btn_typo_typography": "custom",
+    "ts_submit_btn_typo_font_family": "Afacad",
+    "ts_submit_btn_typo_font_size": {
+      "unit": "px",
+      "size": 16,
+      "sizes": []
+    },
+    "ts_submit_btn_typo_font_weight": "600",
+    "ts_sf_form_btn_c": "#FFFFFF",
+    "ts_sf_form_btn_c_i": "#FFFFFF",
+    "ts_sf_form_btn_bg": "#004D40",
+    "ts_sf_search_border_border": "solid",
+    "ts_sf_search_border_width": {
+      "unit": "px",
+      "top": "2",
+      "right": "2",
+      "bottom": "2",
+      "left": "2",
+      "isLinked": true
+    },
+    "ts_reset_btn_typo_typography": "custom",
+    "ts_reset_btn_typo_font_family": "Afacad",
+    "ts_reset_btn_typo_font_size": {
+      "unit": "px",
+      "size": 16,
+      "sizes": []
+    },
+    "ts_reset_btn_typo_font_weight": "600",
+    "ts_sf_reset_btn_c": "#004D40",
+    "ts_sf_reset_btn_c_i": "#004D40",
+    "ts_sf_reset_btn_bg": "#FFFFFF",
+    "ts_sf_reset_border_border": "solid",
+    "ts_sf_reset_border_width": {
+      "unit": "px",
+      "top": "2",
+      "right": "2",
+      "bottom": "2",
+      "left": "2",
+      "isLinked": true
+    },
+    "ts_sf_reset_border_color": "#004D40",
+    "ts_sf_form_btn_c_h": "#FFFFFF",
+    "ts_sf_form_btn_c_h_i": "#FFFFFF",
+    "ts_sf_form_btn_bg_h": "#067800",
+    "ts_sf_form_btn_border_h": "#067800",
+    "ts_sf_form_btn_c_reset_h": "#004D40",
+    "ts_sf_form_btn_c_reset_h_i": "#004D40",
+    "ts_sf_form_btn_bg_reset_h": "#EEF9EF",
+    "ts_sf_reset_btn_border_h": "#004D40",
+    "ts_sf_save_btn_radius": {
+      "unit": "px",
+      "size": 4,
+      "sizes": []
+    },
+    "ts_sf_save_btn_c": "#B90808",
+    "ts_sf_save_btn_bg": "#B908082A",
+    "ts_sf_save_border_border": "solid",
+    "ts_sf_save_border_width": {
+      "unit": "px",
+      "top": "2",
+      "right": "2",
+      "bottom": "2",
+      "left": "2",
+      "isLinked": true
+    },
+    "ts_sf_save_border_color": "#B90808",
+    "ts_sf_save_btn_c_h": "#FFFFFF",
+    "ts_sf_save_btn_bg_h": "#B90808",
+    "ts_sf_save_btn_border_h": "#B90808",
+    "__globals__": {
+      "one_btn_c": "",
+      "inline_input_placeholder_color": "",
+      "one_btn_bg_filled": "",
+      "ts_number_btn_bg_h": "",
+      "one_btn_c_filled_tablet": "",
+      "one_btn_bg_filled_tablet": "",
+      "one_btn_border_filled_tablet": "",
+      "ts_sf_input_icon_col": "globals/colors?id=primary",
+      "ts_sf_input_value_col": "globals/colors?id=primary",
+      "ts_sf_input_bg": "globals/colors?id=da5a9aa",
+      "ts_sf_search_border_color": "globals/colors?id=primary"
+    },
+    "ts_card_template__brand": "20402",
+    "ts_filter_list__org": [],
+    "ts_filter_list__video": [],
+    "ts_filter_list__glossary": [],
+    "_ef_loop_more_label": "Voir plus",
+    "_voxel_dynamic_attrs": [],
+    "content_blocks": {
+      "value": null
+    }
+  }
+}

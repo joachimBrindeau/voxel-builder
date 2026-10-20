@@ -27,8 +27,9 @@
 # Exit 0 = every check passed on every scanned template; non-zero otherwise.
 set -u
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-SKILL_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+SKILL_ROOT=$(CDPATH='' cd -- "$SCRIPT_DIR/.." && pwd)
+# shellcheck source=scripts/lib.sh
 . "$SCRIPT_DIR/lib.sh"
 
 WPDEV_SOURCE_ROOT=$(find_wpdev_root || true)

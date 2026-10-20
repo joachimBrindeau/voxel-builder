@@ -162,49 +162,64 @@ The tables below are generated from `cli/src/generated/widget-schemas.json` (the
 
 ### `ef-card` — generated prop table
 
-PHP class `EF\Widgets\Card`. 4 props.
+PHP class `EF\Widgets\Card`. 5 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `content_blocks` | repeater `ef-content-block-rows` (nested vx leaves) | `[]` | content | Add and order card content |
-| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `own_height` | `boolean` (responsive, nested vx leaves) | `false` | settings | Size the card to its own content instead of filling the available row height |
+| `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
 | `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` (direct vx) | `div` | settings | Choose what kind of container this is |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-form` — generated prop table
 
-PHP class `EF\Widgets\Form`. 8 props.
+PHP class `EF\Widgets\Form`. 11 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `fields` | repeater `ef-field-rows` (nested vx leaves) | `[]` | fields | Add and order fields |
 | `honeypot` | `boolean` (direct vx) | `true` | submit | Add hidden spam protection |
 | `label` | `string` (dynamic disabled) | `Send` | submit | Button text |
-| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
-| `recipients` | repeater `ef-recipient-rows` (nested vx leaves) | `[]` | recipients | Users or addresses receiving a copy of this form submission |
+| `recipients` | repeater `ef-recipient-rows` (nested vx leaves) | `[]` | recipients | Custom addresses, WordPress users, or submitted Email fields receiving this form submission |
+| `redirect_destination` | `source` (nested vx leaves) | — | submit | Destination used after a successful Redirect submission |
+| `results` | repeater `ef-result-rows` (nested vx leaves) | `[]` | results | Authored results used only when Submit action is Results |
+| `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
+| `submit_action` | enum: `message` \| `results` \| `redirect` (dynamic disabled) | `message` | submit | Choose what happens after a successful final submit |
 | `success_message` | `string` (direct vx) | `Thank you! Your message has been sent.` | submit | Message shown after sending |
-| `tag` | enum: `div` \| `section` \| `article` \| `aside` (direct vx) | `div` | settings | Choose what kind of container this is |
+| `tie_policy` | enum: `all` \| `first` (direct vx) | `all` | results-advanced | How to present results with the same highest score |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | submit | Button or pill colors |
 
 ### `ef-navbar` — generated prop table
 
-PHP class `EF\Widgets\Navbar`. 12 props.
+PHP class `EF\Widgets\Navbar`. 20 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `banner_action_payload` | `action_payload` (nested vx leaves) | — | banner | Fields for the selected action type |
-| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` (direct vx) | `''` | banner | Choose what opens on click |
+| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | banner | Choose what opens on click |
+| `banner_aria_label` | `string` (direct vx) | `''` | banner | Accessible name override for an empty or icon-only control |
 | `banner_background` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `primary` | banner | Announcement bar colors |
+| `banner_compact_mobile` | `boolean` (direct vx) | `false` | banner | Use a denser announcement layout on small screens |
+| `banner_disabled` | `boolean` (direct vx) | `false` | banner | Disable this action without removing its configuration |
+| `banner_dismiss_label` | `string` (direct vx) | `Dismiss announcement` | banner | Accessible name for the banner dismiss button |
+| `banner_dismissible` | `boolean` (direct vx) | `false` | banner | Let visitors dismiss the announcement for the current page view |
 | `banner_label` | `string` (direct vx) | `''` | banner | Button text |
 | `banner_message` | `string` (direct vx) | `''` | banner | Announcement text |
 | `banner_require_login` | `boolean` (direct vx) | `false` | banner | Require authentication before this action can resolve or execute |
 | `banner_tooltip` | `string` (direct vx) | `''` | banner | Short hover text shown on the button |
+| `banner_tooltip_disabled` | `string` (direct vx) | `''` | banner | Tooltip shown when this action is disabled |
+| `breadcrumb` | `boolean` (responsive, nested vx leaves) | `true` | settings | Show the breadcrumb region at this screen size |
 | `cta_ts_actions` | repeater `ef-action-rows` (nested vx leaves) | `[]` | actions | Add and order buttons |
-| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
 | `nav_items` | repeater `ef-mega-rows` (nested vx leaves) | `[]` | nav_items | Add and order menu links |
+| `reading_progress` | `boolean` (responsive, nested vx leaves) | `false` | settings | Show article reading progress at this screen size |
+| `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
 | `tag` | enum: `nav` \| `header` \| `div` (direct vx) | `nav` | settings | Choose what kind of container this is |
+| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-wrapper` — generated prop table
 
-PHP class `EF\Elements\Wrapper`. 18 props.
+PHP class `EF\Elements\Wrapper`. 25 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
@@ -214,6 +229,8 @@ PHP class `EF\Elements\Wrapper`. 18 props.
 | `bg_media_image_alt` | `string` (direct vx) | `''` | settings | Describe the image for screen readers |
 | `bg_media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | settings | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
 | `bg_media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | — | Choose when the image loads |
+| `bg_media_image_preload` | `boolean` (direct vx) | `false` | settings | Preload this image when it is a known above-the-fold asset |
+| `bg_media_image_sizes` | `string` (direct vx) | `''` | settings | Optional responsive sizes attribute |
 | `bg_media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | settings | Add pins to the map |
 | `bg_media_map_zoom` | `string` (direct vx) | `14` | settings | Starting map zoom level |
 | `bg_media_modifiers` | `string` (direct vx) | `''` | settings | Optional image behavior flags |
@@ -221,9 +238,14 @@ PHP class `EF\Elements\Wrapper`. 18 props.
 | `bg_media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | settings | Keep the initial player on video watch pages |
 | `bg_media_video_url` | `source` (nested vx leaves) | `''` | settings | Video link or file |
 | `cols` | `string` (responsive, nested vx leaves) | `1fr` | settings | Columns for each screen size |
-| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `fullscreen` (direct vx) | `''` | settings | Choose how this wrapper works |
-| `modifiers` | `string` (responsive, nested vx leaves) | `''` | settings | Active modifier flags per breakpoint |
+| `constrain_row_height` | `boolean` (responsive, nested vx leaves) | `false` | settings | Prevents this wrapper's contents from determining the shared Grid or Flex row height |
+| `gap` | `string` (responsive, nested vx leaves) | `''` | settings | Space between this wrapper's rows and columns |
+| `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `gallery` \| `fullscreen` (direct vx) | `''` | settings | Choose how this wrapper works |
+| `padding` | enum: `auto` \| `enabled` \| `disabled` (responsive, nested vx leaves) | `auto` | settings | Use contextual padding, force padding, or suppress padding at each screen size |
 | `page_size` | `number` (direct vx) | `12` | settings | Number of items on each pagination page |
+| `reversed` | `boolean` (responsive, nested vx leaves) | `false` | settings | Reverse the order of this wrapper's direct children |
+| `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
+| `tabs_color` | `string` (direct vx) | `''` | settings | Color token used to tint the tab buttons |
 | `tag` | enum: `div` \| `main` \| `section` \| `article` \| `aside` \| `header` \| `footer` \| `nav` (direct vx) | `div` | settings | Choose what kind of container this is |
 | `template_id` | `string` (direct vx) | `''` | settings | Saved template to show here |
 

@@ -1,0 +1,149 @@
+{
+  "postId": 1067,
+  "title": "Products",
+  "id": "5b11e84",
+  "elType": "widget",
+  "widgetType": "ts-advanced-list",
+  "settings": {
+    "ts_actions": [
+      {
+        "_voxel_visibility_rules": "",
+        "_id": "f48fe46",
+        "ts_action_type": "action_link",
+        "ts_acw_initial_text": "Add a product",
+        "ts_tooltip_text": "@tags()@user(profile.registration-doc.id).is_not_empty().else(Upload your Business Registration Doc)@endtags()",
+        "ts_cart_opts_text": "Select options",
+        "ts_cart_opts_tooltip_text": "Action",
+        "ts_acw_reveal_text": "Action",
+        "ts_acw_tooltip_text": "Action",
+        "ts_action_payload": {
+          "$$type": "ef-action-payload",
+          "value": {
+            "link": {
+              "url": "/account/brand/products/new",
+              "is_external": "",
+              "nofollow": "",
+              "custom_attributes": ""
+            }
+          }
+        }
+      }
+    ],
+    "ts_al_justify": "center",
+    "ts_action_padding": {
+      "unit": "px",
+      "top": "8",
+      "right": "14",
+      "bottom": "8",
+      "left": "14",
+      "isLinked": false
+    },
+    "ts_acw_border_radius": {
+      "unit": "px",
+      "size": 5,
+      "sizes": []
+    },
+    "ts_acw_typography_typography": "custom",
+    "ts_acw_typography_font_weight": "500",
+    "ts_acw_initial_color": "#FFFFFF",
+    "ts_acw_initial_bg": "#004D40",
+    "ts_acw_icon_con_border_border": "solid",
+    "ts_acw_icon_con_border_width": {
+      "unit": "px",
+      "top": "1",
+      "right": "1",
+      "bottom": "1",
+      "left": "1",
+      "isLinked": true
+    },
+    "ts_acw_icon_con_radius": {
+      "unit": "px",
+      "size": 0,
+      "sizes": []
+    },
+    "ts_acw_initial_color_h": "#004D40",
+    "ts_acw_initial_bg_h": "#EEF9EF",
+    "ts_tooltip_color": "#000000",
+    "ts_tooltip_bg": "#B908082A",
+    "_padding": {
+      "unit": "px",
+      "top": "8",
+      "right": "12",
+      "bottom": "8",
+      "left": "12",
+      "isLinked": false
+    },
+    "_element_width_mobile": "inherit",
+    "_flex_align_self": "flex-end",
+    "_background_background": "classic",
+    "_background_color_stop_tablet": {
+      "unit": "%"
+    },
+    "_background_color_stop_mobile": {
+      "unit": "%"
+    },
+    "_background_color_b_stop_tablet": {
+      "unit": "%"
+    },
+    "_background_color_b_stop_mobile": {
+      "unit": "%"
+    },
+    "_background_gradient_angle_tablet": {
+      "unit": "deg"
+    },
+    "_background_gradient_angle_mobile": {
+      "unit": "deg"
+    },
+    "_background_hover_background": "classic",
+    "_background_hover_color_stop_tablet": {
+      "unit": "%"
+    },
+    "_background_hover_color_stop_mobile": {
+      "unit": "%"
+    },
+    "_background_hover_color_b_stop_tablet": {
+      "unit": "%"
+    },
+    "_background_hover_color_b_stop_mobile": {
+      "unit": "%"
+    },
+    "_background_hover_gradient_angle_tablet": {
+      "unit": "deg"
+    },
+    "_background_hover_gradient_angle_mobile": {
+      "unit": "deg"
+    },
+    "_border_border": "none",
+    "_border_color": "#FFFFFF",
+    "_border_hover_border": "none",
+    "_border_hover_width": {
+      "unit": "px",
+      "top": "1",
+      "right": "1",
+      "bottom": "1",
+      "left": "1",
+      "isLinked": true
+    },
+    "_border_hover_color": "#004D40",
+    "__globals__": {
+      "ts_acw_initial_color": "globals/colors?id=da5a9aa",
+      "_background_color": "",
+      "_background_hover_color": "",
+      "ts_acw_icon_con_bg": "",
+      "ts_tooltip_bg": "globals/colors?id=c4c802e",
+      "ts_tooltip_color": "globals/colors?id=text",
+      "ts_acw_initial_bg_h": "globals/colors?id=primary_light",
+      "ts_acw_initial_color_h": "globals/colors?id=primary",
+      "_border_hover_color": "globals/colors?id=primary",
+      "_border_color": "globals/colors?id=da5a9aa",
+      "ts_acw_initial_bg": "globals/colors?id=primary",
+      "ts_acw_border_h": "",
+      "ts_acw_icon_con_bord_h": ""
+    },
+    "_ef_loop_more_label": "Voir plus",
+    "_voxel_dynamic_attrs": [],
+    "content_blocks": {
+      "value": null
+    }
+  }
+}

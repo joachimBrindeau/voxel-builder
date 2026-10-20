@@ -18,10 +18,10 @@ The atomic-widget catalog below is generated from `cli/src/generated/widget-sche
 
 | Widget | Title | Props | Row surfaces | PHP class |
 |---|---|---|---|---|
-| `ef-card` | Card | 4 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
-| `ef-form` | Form | 8 | `field-row`, `recipient-row` | `EF\Widgets\Form` |
-| `ef-navbar` | Navbar | 12 | `action-row`, `map-pin-row`, `mega-row` | `EF\Widgets\Navbar` |
-| `ef-wrapper` | Wrapper | 18 | `map-pin-row` | `EF\Elements\Wrapper` |
+| `ef-card` | Card | 5 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
+| `ef-form` | Form | 11 | `field-row`, `recipient-row`, `result-content-row`, `result-row` | `EF\Widgets\Form` |
+| `ef-navbar` | Navbar | 20 | `action-row`, `map-pin-row`, `mega-row` | `EF\Widgets\Navbar` |
+| `ef-wrapper` | Wrapper | 25 | `map-pin-row` | `EF\Elements\Wrapper` |
 
 <!-- AUTO-GENERATED:widgets END -->
 
@@ -163,13 +163,51 @@ The reserved keys (`_vx_loop`, `_vx_visibility`, `_ef_loop_transform`, `_cssid`,
 
 **Emptiness-probe tag forms (the subtle part — a bare relation/repeater tag resolves EMPTY in a `.then()` statement):**
 
-| Field kind | Loop `tag` / visibility `tag` | Why |
-|---|---|---|
-| Repeater (e.g. `faq`) | loop: `@post(faq)` · visibility: `@post(faq).count()` | bare `@post(faq)` works for the loop tokenizer but resolves empty in `@site().then(@post(faq)).is_not_empty()` — use `.count()` for the gate |
-| Post-relation (e.g. `hierarchy-children`) | loop: `@post(hierarchy-children)` · visibility: `@post(hierarchy-children.id)` | the gate needs `.id` (the relation's post-id list); the bare relation resolves empty in the modifier statement |
-| Scalar text (e.g. `description`, `parent.title`) | `@post(description)` | resolves directly |
+| Field kind | Loop `tag` | Visibility `tag` + comparator | Why |
+|---|---|---|---|
+| Repeater (e.g. `faq`) | `@post(faq)` | `@post(faq).count()` + **`is_greater_than(0)`** | bare `@post(faq)` resolves empty in a modifier statement, so the gate needs `.count()` — but `count()` returns the STRING `"0"` for an empty repeater, and `is_not_empty` is a pure `!== ''` test that therefore passes on zero rows. Pair `.count()` with `is_greater_than(0)`, never with `is_not_empty`. |
+| Post-relation (e.g. `hierarchy-children`) | `@post(hierarchy-children)` | `@post(hierarchy-children.id)` + `is_not_empty` | the gate needs `.id` (the relation's post-id list); the bare relation resolves empty in the modifier statement. `.id` yields an empty string when there are no related posts, so `is_not_empty` is correct here. |
+| Scalar text (e.g. `description`, `parent.title`) | — | `@post(description)` + `is_not_empty` | resolves directly |
 
-Inside a `_vx_loop` row, reference the iterated item's fields with the dotted path: `@post(faq.question)`, `@post(faq.answer)`. Confirm any probe form with `wpdev wp <site> eval` + `\Voxel\render("@site().then(<tag>).is_not_empty().then(yes).else(no)")` on a real post before writing.
+**`count()` is a chained MODIFIER, not an argument.** Write `@post(faq).count()`. The
+form `@post(faq.count())` does not parse and leaks raw tag text such as
+`).is_not_empty().then(...)` into the rendered page — if you ever see a stray `)` plus
+modifier text on a live page, this is the cause.
+
+Measured on a real post (3 `faq` rows, 0 `sources` rows) — the middle row is the trap:
+
+```
+@post(faq).count()                              => "3"        @post(sources).count()                              => "0"
+@post(faq).count().is_not_empty()               => HAS        @post(sources).count().is_not_empty()               => HAS   ← WRONG, 0 rows
+@post(faq).count().is_greater_than(0)           => HAS        @post(sources).count().is_greater_than(0)           => NONE  ← correct
+@post(faq).is_not_empty()                       => NONE ← also WRONG (false negative on 3 rows)
+```
+
+Inside a `_vx_loop` row, reference the iterated item's fields with the dotted path: `@post(faq.question)`, `@post(faq.answer)`.
+
+**Verify a gate on BOTH sides before believing it.** On the empty side, "correctly
+hidden" and "silently broken" render identically — an always-false gate, a typo'd field
+key, and a correct gate all produce the same blank page. A gate is only proven once you
+have seen the section *appear* after the field is populated. Backfill at least one row,
+re-fetch the live URL, and confirm the section heading and row content are now present;
+then confirm the negative side separately on a field that is genuinely empty.
+
+**Populating a Voxel field does not refresh the JSON-LD.** Lean SEO caches its rendered
+schema graph in `_transient_lean_seo_jsonld_*`, keyed off the
+`lean_seo_schema_cache_generation` option, which is bumped only by `save_post` /
+`deleted_post` / `edited_terms` / settings-saved. Voxel field writes go through the
+Voxel field API and index table and fire none of those. `wpdev voxel:set-field` now
+bumps the generation itself (and prints `Schema cache invalidated`), but if you write
+fields any other way, expect `Article.image`, `Article.citation` and FAQ `hasPart` to
+keep serving the pre-write payload for up to the 12h TTL. Symptom to recognise: the
+resolver returns the right value under `wp eval` while the live page's `ld+json` still
+omits it. Force a bump with `lean_seo_schema_output_cache_invalidate()`.
+
+**Always negative-control the gate.** Verifying only on a populated field cannot
+distinguish a correct gate from one that always passes. Probe a record that is EMPTY for
+that field and require the gate to report hidden, using `wpdev wp <site> eval-file` with
+`\Voxel\set_current_post()` + `\Voxel\render("@tags()<tag>@endtags()")`. A reusable probe
+lives at `tools/migrations/probe-repeater-emptiness.php` in the wordpress workspace.
 
 ### Widget-level vs row-level loop placement — do not put row loops on the host widget
 
