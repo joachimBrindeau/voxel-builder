@@ -31,12 +31,11 @@ Site names are lowercase/hyphenated. Databases use `wp_<site>` with hyphens conv
 ## MCP config
 
 ```bash
-wpdev mcp <site>              # generate site .mcp.json with MySQL MCP by default
-wpdev mcp <site> --wordpress  # add WordPress MCP adapter
-wpdev mcp <site> --show       # print current config
+wpdev mcp <site> --show       # print current client config
+wpdev mcp <site> [--no-mysql] [--wordpress]  # (re)generate a site .mcp.json
 ```
 
-`wpdev work <site>` creates `.mcp.json` if missing. Treat it as generated client config: never read it for diagnostics (it can contain credentials). Which Voxel/Elementor operations are structured MCP tools versus CLI-only verbs is defined in `command-surface.md` §wpdev MCP vs CLI.
+`wpdev work <site>` creates `.mcp.json` if missing. Treat it as generated client config: never read it for diagnostics (it can contain credentials). The MySQL and WordPress adapters it can declare are not operating surfaces for this skill: Voxel/Elementor work goes through the workspace `wpdev` MCP or an audited `wpdev` CLI verb only (see `command-surface.md` §No generic fallbacks). Which operations are structured MCP tools versus CLI-only verbs is defined in `command-surface.md` §wpdev MCP vs CLI.
 
 ## WP-CLI passthrough
 

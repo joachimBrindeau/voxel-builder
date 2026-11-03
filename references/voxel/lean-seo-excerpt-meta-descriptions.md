@@ -176,17 +176,22 @@ concurrently with a validation-retry gate:
 - Deterministic **validation gate** per response: length in `[lo,hi]`, terminal punctuation for
   excerpts, no `…`/dangling-hyphen truncation marker, no url/token/`%..%`/markup. On fail, append
   the bad output + a "non conforme, corrige" turn and retry (≤4 attempts, nudge temperature up).
-- Write results to JSONL (`id,type,field,text,len,ok`), then apply with the idempotent no-purge
-  script. Sample one id per type FIRST and eyeball quality before running all N.
+- Write results to JSONL (`id,type,field,text,len,ok`), then apply through `wpdev voxel:apply-content`
+  (next section). Sample one id per type FIRST and eyeball quality before running all N.
 
 Full reusable orchestrator + gate:
 [`lean-seo-ninerouter-concurrent-generation.md`](lean-seo-ninerouter-concurrent-generation.md).
 
-### 4. Apply via WP-CLI eval-file (idempotent, no per-row purge)
+### 4. Apply via `wpdev voxel:apply-content` (manifest batch, read-back, rollback)
 
-Write ONE PHP script that reads the redrafted JSON and writes direct, neutralizing purge
-side-effects during the loop, then does ONE bulk purge at the end (see LSCache pitfall). Apply
-with `./wpdev wp <site> eval-file /tmp/apply-script.php`.
+Convert the validated rows into an apply manifest (`id`, `expectedBeforeSha256` from a
+preflight read, `post_excerpt` or `fields` for a Voxel field such as `hook`), dry-run it, then
+apply with `--yes --rollback /tmp/rollback.json`. The command reads back and reindexes every
+row and restores the whole batch if one row fails. Single records go through
+`wpdev voxel:set-field <site> --id=<id> --set '{"post_excerpt":"<text>"}'`. A raw
+`wp eval-file` loop of `$wpdb->update` / `update_post_meta` is not a fallback (core rule 9);
+manifest shape and gates are in
+[`lean-seo-ninerouter-concurrent-generation.md`](lean-seo-ninerouter-concurrent-generation.md).
 
 ### 5. Verify live
 
@@ -208,19 +213,11 @@ Export original excerpts before any mutation:
 - **LSCache purge cascade on bulk `wp_update_post()`** — the real cost. Each `wp_update_post()`
   fires synchronous LiteSpeed purge hooks that purge many URLs per post (post URL, `/`, `.md`,
   `sitemap.xml`, `sitemap-<type>.xml`, `llms.txt`, `llms-full.txt`, `robots.txt`). At ~250 posts
-  this floods stdout and blows past a 300s timeout mid-apply. Fix — in the apply PHP script,
-  neutralize purge/save side-effects during the loop and write direct, then ONE bulk purge at the
-  end:
-  ```php
-  remove_all_actions('save_post'); remove_all_actions('post_updated'); remove_all_actions('edit_post');
-  add_filter('litespeed_can_purge','__return_false',99);
-  // for post_excerpt: $wpdb->update($wpdb->posts,['post_excerpt'=>$t],['ID'=>$id]); clean_post_cache($id);
-  // for a meta field:  update_post_meta($id,'<key>',$t);
-  ```
-  Then once: `./wpdev wp <site> litespeed-purge all`. Make the script idempotent (skip rows already
-  equal; count APPLIED/ALREADY/FAILED) so a timed-out first run can be re-run safely.
-- Avoid updating many rows through one `terminal()` call per row — tool-call caps can stop
-  mid-apply. Prefer one `wp eval-file` PHP script that loops all bad IDs.
+  this floods stdout and blows past a 300s timeout mid-apply. `voxel:apply-content` batches the
+  writes for exactly this reason. A manifest row whose `expectedBeforeSha256` no longer matches
+  fails preflight for the whole batch, so after a partial run drop the already-applied ids, run
+  `--prepare` again for fresh hashes, apply the remainder, and finish with one `./wpdev purge <site>`.
+- Avoid one tool call per row — tool-call caps can stop mid-apply. One manifest covers all ids.
 - WP-CLI JSON output can contain control characters from rich post content. If parsing fails, use
   `json_parse(…, strict=False)` or audit lengths via `wp db query` before exporting full content.
 - `wp db query` doesn't reliably accept `--format=csv` in every local setup; plain tabular output

@@ -14,7 +14,7 @@ Do NOT hardcode this table — read `lean_seo_meta` option's `desc_template_<typ
 ## Endpoint facts
 
 - URL: `http://localhost:20128/v1/chat/completions`, models `high`/`medium`/`low` (`medium` = claude-sonnet, vision OK).
-- Auth: `Authorization: Bearer $NINEROUTER_KEY`. Key lives in `~/.hermes/.env` (`set -a; . ~/.hermes/.env; set +a`). The local endpoint requires the key — the older "no auth in local" note is stale.
+- Auth: `Authorization: Bearer $NINEROUTER_KEY`. Export the key from the operator's env file in-process (`set -a; . <env-file>; set +a`); never print it. The local endpoint requires the key — the older "no auth in local" note is stale.
 - `.env` may have stray value-only lines that error when sourced (`line NNN: <b64>: command not found`); harmless, ignore.
 - Non-stream: send `"stream": false` and read `choices[0].message.content`. Endpoint may still emit SSE for some calls — tolerate both.
 
@@ -138,5 +138,5 @@ and the field-scoped reference it routes to), never a mechanical transform of a 
 - Sample one id per type and eyeball before the full run — catch tone/field drift early.
 - `python3 -c "print(f'...\"key\"...')"` fails: f-strings can't contain backslashes. Put multi-line inspection in a `.py` file and run it, or avoid nested quotes.
 - WP-CLI leaks `Deprecated:` lines to stdout on this stack; `grep -v '^Deprecated'` before piping to `json.load`.
-- Get the key by SOURCING the env file, never by `grep`-scraping it: `set -a; . ~/.hermes/.env; set +a; export NINEROUTER_KEY`. Ad-hoc `grep -oE 'NINEROUTER_KEY[=:]...'` is fragile (has matched a stray quote → `keylen=1` → 401), and a leftover bad `export NINEROUTER_KEY='...'` from a previous command can shadow the real value. Assert `echo ${#NINEROUTER_KEY}` is ~35 and run one `curl` OK-probe before fanning out ~250 calls.
+- Get the key by SOURCING the env file, never by `grep`-scraping it: `set -a; . <env-file>; set +a; export NINEROUTER_KEY`. Ad-hoc `grep -oE 'NINEROUTER_KEY[=:]...'` is fragile (has matched a stray quote → `keylen=1` → 401), and a leftover bad `export NINEROUTER_KEY='...'` from a previous command can shadow the real value. Assert `echo ${#NINEROUTER_KEY}` is ~35 and run one `curl` OK-probe before fanning out ~250 calls.
 - Applier idempotency pays off: a first apply run can hit the 300s cap mid-loop from residual purge cost even with hooks removed (LSCache filter may not catch every code path). Re-running the same script writes only the remaining rows (`APPLIED=11 ALREADY=241`) — always report APPLIED/ALREADY/FAILED and design for re-run.
