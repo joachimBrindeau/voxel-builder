@@ -35,6 +35,10 @@ def string_cell(text: str) -> dict[str, Any]:
     return {"$$type": "string", "value": text}
 
 
+def boolean_cell(flag: bool) -> dict[str, Any]:
+    return {"$$type": "boolean", "value": flag}
+
+
 def responsive_string_cell(text: str) -> dict[str, Any]:
     return {
         "$$type": "ef-responsive-string",
@@ -132,7 +136,50 @@ def migrate_row(cells: dict[str, Any]) -> dict[str, Any]:
             migrated.pop("icon", None)
 
     finish_modifiers(migrated, required)
+    split_field_appearance(migrated)
     return migrated
+
+
+def row_repeats(cells: dict[str, Any]) -> bool:
+    """Mirror EF step 2390: a looped or multiple-value field renders its values as pills."""
+    if value(cells.get("multiple")) is True:
+        return True
+    for key in ("_vx_loop", "_ef_loop_query"):
+        loop = cells.get(key)
+        if isinstance(loop, dict) and isinstance(loop.get("value"), dict):
+            if any(value(inner) not in (None, "") for inner in loop["value"].values()):
+                return True
+    return False
+
+
+def split_field_appearance(cells: dict[str, Any]) -> bool:
+    """Mirror EF migration step 2390 (`field-label-value-split`).
+
+    The `field` appearance was retired: a text row shows its label through
+    `field_enabled`, the former `description`/`media_*` cells become the label's
+    `label_text`/`label_media_*`, and the value keeps `plain` (or `pill` when the
+    row repeats). The migrator previously emitted `field` itself, so stored
+    templates failed `elementor:validate` with an enum violation.
+    """
+    if value(cells.get("kind")) != "text" or value(cells.get("appearance")) != "field":
+        return False
+    cells["field_enabled"] = boolean_cell(True)
+    cells["appearance"] = string_cell("pill" if row_repeats(cells) else "plain")
+    moved = {key: cell for key, cell in cells.items() if key == "description" or key.startswith("media_")}
+    for key, cell in moved.items():
+        target = "label_text" if key == "description" else f"label_{key}"
+        cells[target] = cell
+        if key != "media_enabled":
+            cells.pop(key)
+    cells["media_enabled"] = boolean_cell(False)
+    if "media_enabled" not in moved:
+        cells.setdefault("label_media_enabled", boolean_cell(False))
+    modifiers = [name for name in parse_modifiers(cells.get("modifiers")) if name != "field"]
+    if modifiers:
+        cells["modifiers"] = string_cell(",".join(modifiers))
+    else:
+        cells.pop("modifiers", None)
+    return True
 
 
 def normalize_canonical_row(cells: dict[str, Any]) -> bool:
@@ -141,6 +188,8 @@ def normalize_canonical_row(cells: dict[str, Any]) -> bool:
     if kind == "text":
         if value(cells.get("type")) == "default":
             cells.pop("type", None)
+            changed = True
+        if split_field_appearance(cells):
             changed = True
     return changed
 

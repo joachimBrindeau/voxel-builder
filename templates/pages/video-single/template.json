@@ -2091,15 +2091,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Duration"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   },
@@ -2327,15 +2335,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Statistiques"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   },
@@ -2563,15 +2579,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Duration"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   },
@@ -2799,15 +2823,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Lien"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   },
@@ -3035,15 +3067,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Published"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   },
@@ -3271,15 +3311,23 @@
                       },
                       "appearance": {
                         "$$type": "string",
-                        "value": "field"
+                        "value": "plain"
                       },
-                      "description": {
+                      "field_enabled": {
+                        "$$type": "boolean",
+                        "value": true
+                      },
+                      "label_text": {
                         "$$type": "string",
                         "value": "Updated"
                       },
-                      "modifiers": {
-                        "$$type": "string",
-                        "value": "field"
+                      "media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
+                      },
+                      "label_media_enabled": {
+                        "$$type": "boolean",
+                        "value": false
                       }
                     }
                   }
