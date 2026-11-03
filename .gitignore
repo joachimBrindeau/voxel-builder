@@ -2,10 +2,5 @@
 __pycache__/
 *.pyc
 
-# Generated agent skill directories (see skills-lock.json)
-.agents/
-agent/
-.claude/skills/
-
 # Icon metadata fetch cache (3 MB); search.tsv is the committed index
 references/icons/material-symbols/.metadata-cache.json
