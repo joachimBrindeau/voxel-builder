@@ -80,22 +80,16 @@ wpdev elementor:icon-search "external link" [--category "UI actions"] [--limit 1
 wpdev elementor:icons <site> [--unique] [--library ms] [--json] # icon values across all stored Elementor data, including templates
 ```
 
-## EMCP vs headless wpdev reads
+## wpdev MCP vs CLI
 
-Use live Elementor MCP (EMCP) when page state must match the editor runtime or browser/editor session, especially for a single page/element:
+The workspace `wpdev` MCP server and the `./wpdev` CLI expose the same audited command registry; the MCP adds authentication, per-tool approval and policy gates on top. Rules for any agent session, local or hosted (LobeHub connector, Codex device):
 
-- `get-page-structure` instead of `wpdev elementor:tree` for live editor-equivalent structure.
-- `get-element-settings` instead of `wpdev elementor:dump --post <id>` when reading one live element.
-- `export-page` instead of `wpdev elementor:export` when export must include Elementor editor-equivalent normalization.
+1. **Discover before executing.** `command_search` → `command_describe` → `command_execute` only when the description reports `transport.allowed: true`. Most `elementor:*` / `voxel:*` verbs are deliberately **not** MCP-executable; a denied verb stays denied. Do not route the same operation through SQL, raw WP/PHP, a generic database tool, or browser eval.
+2. **Prefer the structured tools** when one exists for the operation, because they carry their own schemas and read-back: `elementor_tree`, `elementor_export`, `elementor_pages`, `elementor_templates`, `elementor_import`, `elementor_create`, `elementor_rename`, `voxel_status`, `voxel_fields`, `voxel_post_data`, `voxel_templates`, `voxel_assign`, `voxel_reindex`, `schema_catalog`/`schema_get`/`schema_preview`/`schema_set`, `wpdev_elementor__icon-search`, and the `qa_*` tools for isolated QA environments. Writes among these are approval-gated on hosted connectors; preview or plan first, then ask.
+3. **CLI-only verbs** (`elementor:dump`, `elementor:lint`, `elementor:revisions:prune`, `voxel:apply-content`, `voxel:cards`, codegen, migrations and every other `transport.allowed: false` command) run through the connected device's shell from the checkout root as `./wpdev <verb>`, under that runtime's own approval mode. Never paste them into `command_execute`.
+4. **Read raw `_elementor_data`, not editor state.** `elementor:tree` / `elementor_tree`, `elementor:dump` and `elementor:export` / `elementor_export` read stored data without the Elementor runtime; `elementor:import --save` is the write path when editor-equivalent save effects are required. There is no separate editor-side MCP in this workflow.
 
-Use wpdev headless commands when you need raw `_elementor_data`, DB-wide/corpus scans, deterministic offline fixtures, or migration round-trips:
-
-- `wpdev elementor:tree` reads raw `_elementor_data` without Elementor runtime.
-- `wpdev elementor:dump` uses raw SQL and can sweep complete widget corpora.
-- `wpdev elementor:export` pairs with `wpdev elementor:import` for controlled migration files.
-- `wpdev elementor:import --save` is the wpdev write path when you need editor-equivalent save effects after importing JSON.
-
-Priority for Elementor reads: **EMCP live single-page/element reads > wpdev raw/corpus reads > direct SQL**. Priority for writes remains: **wpdev mutation/import wrappers > EMCP update tools > direct SQL**, because wpdev wrappers bundle snapshots, lint, CSS regeneration, and cache purge where applicable.
+Canonical contract, including missing-tool repair and the rule against widening eligibility guards: `docs/agents/mcp-workflow.md` in the WordPress workspace.
 
 ## Build-time scaffolds
 
@@ -257,13 +251,8 @@ Empty/null children are pruned (no empty strings emitted); a node with only stat
 
 **For a glossary / dictionary / defined-term CPT** (DefinedTerm + DefinedTermSet + `sameAs`, the field↔SERP-surface model, the answer-block rule, and the no-FAQPage constraint), use the worked recipe in [`../voxel/seo-defined-terms.md`](../voxel/seo-defined-terms.md).
 
-## MCP fallbacks
+## No generic fallbacks
 
-The wpdev CLI is preferred. When the operation is ad-hoc and a CLI command would require extending the CLI:
-
-- `mcp__elementor__get_page` / `update_page` / `download_page_to_file` — REST API for `_elementor_data`. Use for one-off reads / writes when batching via `wpdev` would be overkill.
-- `mcp__mysql__run_select_query` / `read_records` / `update_record` / `bulk_update` — direct SQL on local databases. Use for inspections and rare bulk data fixes.
-
-Priority order for any Voxel operation: **wpdev CLI > MCP tool > raw shell command.**
+Priority for any Voxel/Elementor operation: **wpdev structured MCP tool > audited `wpdev` CLI verb > nothing else.** Generic Elementor REST, MySQL or WordPress MCP tools, `wp eval` writes and direct SQL are not fallbacks: they bypass the snapshot, lint, read-back and purge that the wpdev wrappers bundle. When no sanctioned path covers an operation, extend the wpdev CLI/MCP with tests (see §wpdev MCP vs CLI) and report the gap; do not improvise.
 
 Raw WP-CLI passthrough (`wpdev wp <site> ...`) and site/remote/db/backup ops live in [`wpdev-ops.md`](wpdev-ops.md), not here. This file stays scoped to Voxel/Elementor/lean-seo command surfaces.

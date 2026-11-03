@@ -149,7 +149,6 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 
 | File | Exclusive purpose |
 |---|---|
-| [`emcp-wordpress-mcp.md`](core/emcp-wordpress-mcp.md) | Optional WordPress MCP transport when the local `wpdev` path is unavailable. |
 | [`content-quality-worker.md`](verification/content-quality-worker.md) | Evidence contract for delegated visible-copy quality checks. |
 | [`lean-seo-plugin-internals.md`](voxel/lean-seo-plugin-internals.md) | The plugin's **source architecture** (for reading/modifying/debugging its PHP) — module registry, unified settings store, the SSOT crawl predicates, meta/schema token grammars, the agnostic field-catalog seam, author↔profile seam, and code-level gotchas. |
 | [`lean-seo-crawl-permalinks-linking-reference.md`](voxel/lean-seo-crawl-permalinks-linking-reference.md) | Exhaustive **source-verified** reference for the crawl / permalinks / linking modules — exact function names, file paths, option keys, hooks, and Voxel interactions. The deepest developer reference. |

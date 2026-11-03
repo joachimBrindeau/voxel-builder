@@ -71,7 +71,7 @@ Improve performance in a Voxel + Elementor Framework WordPress workspace using s
 2. Compare only same-state measurements; do not mix cache-hit and cache-miss numbers without labeling them.
 3. For frontend changes, verify browser console/network and visible behavior.
 4. For query fixes, verify duplicate query groups/caller stacks shrink or disappear.
-5. If canonical test suites are blocked by unrelated environment issues, create a temporary `hermes-verify-*` ad-hoc assertion and delete it after running. Report it as ad-hoc verification, not suite green.
+5. If canonical test suites are blocked by unrelated environment issues, create a temporary `verify-*` ad-hoc assertion and delete it after running. Report it as ad-hoc verification, not suite green.
 
 **Exit:** The performance change is validated, blocked with evidence, or queued for another focused loop.
 
