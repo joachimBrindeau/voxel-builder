@@ -153,6 +153,22 @@ and result/filter ownership points to the target CPT.
 **Exit:** The archive/search URL, EF/approved legacy surface, index, results, and browser
 assertions all pass.
 
+## Indexed Provider Migrations
+
+When a source moves from WordPress storage to a native Voxel search index, audit custom public search adapters for hard-coded `engine=wordpress` restrictions. Preserve provider and binding validation, but pass keywords through `ef_search_prepare_keywords()` before `ef_search_candidates()`; raw query text does not represent every engine's search syntax. Prove a positive match, a sparse record, no-match and input bounds, then submit the real form and navigate a result. A working result adapter does not accept a legacy plain-HTML presentation as a finished native EF search layout.
+
+## Native Mixed-Archive Prerequisites
+
+A copied `@site(loop_archive)` / `@site(archive.title)` surface depends on Voxel Addon's archive-context controller, not EF props alone. Verify that the plugin is linked/active and `ArchiveSourceResolver::sources_for_document()` resolves the intended assigned-header sources before import. Snapshot native config before activation and recheck after an admin bootstrap: default-enabled unrelated modules can auto-provision fields and filters. Disable unneeded modules through their canonical settings, restore only proven incidental config deltas through supported `voxel:settings`, and rerun strict preservation. Never expand a deliberately minimal CPT model merely to silence a drift check.
+
+## Native Save And Reactive Acceptance
+
+Do not assume a reviewed/imported page is activated: confirm `_elementor_edit_mode=builder` after actual native Save. Capture `post_content` separately before opening the editor; Save may clear a legacy shortcode body. Opening Elementor alone can also restore builder mode even without Save; an inactive candidate preview is not guaranteed to leave public routing inactive. After previewing a held candidate, close that session, reread the render flag and restore the held flag/purge before yielding. When holding a failed candidate, retain its tree but restore both the original render flag and captured core content through supported commands, then verify the public route in a browser. Verify query-bearing headings after interactive filter changes, not just after reload: an archive title resolved only during SSR can contradict freshly updated result cards. Likewise date controls need real persisted browser interaction; an accepted CLI fill with an unchanged empty input is not a passing filter test.
+
+## Native Date Input Browser Interaction
+
+When a Chromium native date input stays empty after a successful generic fill or picker click, inspect its actual `.value` before blaming filter transport. Focus the input and enter month, day, and four-digit year using native key presses with ArrowRight segment navigation, then Tab to commit. Require both the ISO value and settled filter URL/results to change; serializing a DOM-injected value is not browser acceptance. This can establish a working donor interaction without authoring changes, but target acceptance must still repeat it on the target.
+
 ## Stored Search Config Drift
 
 Renaming or deleting a Voxel filter or taxonomy does NOT rewrite the search widgets that

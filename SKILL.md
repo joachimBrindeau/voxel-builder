@@ -26,6 +26,8 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
 - Audit or clean WordPress database state for a Voxel/Elementor Framework site.
 - Inspect rendered behavior or source-of-truth data before a Voxel/Elementor
   mutation, then verify the resulting runtime state.
+- Name every Elementor node with concise one-word Navigator labels, on one document
+  or across all pages and templates.
 - Use the routing table below to select the narrow workflow for the request.
 
 ## When NOT to Use
@@ -108,6 +110,7 @@ do not invent a generic worker merely to satisfy orchestration ceremony.
 | Repair an existing CPT definition/runtime, including renaming a CPT/taxonomy **key** | missing CPT, field drift, template resolution, registration; rename CPT/taxonomy key, change post-type slug/key | `workflows/cpt-repair.md` |
 | Converge CPT field-definition UX metadata recursively | description/placeholder/limits, repeater subfields, blueprint/live metadata alignment, self-documenting forms | `workflows/field-metadata.md` |
 | Convert legacy Elementor data to EF V4 | migrate, V3 to V4, legacy containers/widgets | `workflows/migrate.md` |
+| Name Elementor nodes only | Navigator/Structure labels, name every node, one-word names, site-wide page/template naming | `workflows/node-naming.md` |
 | Create or change general EF `_elementor_data` | build template/page, wrapper, feed, loop, card tree | `workflows/build.md` |
 | Create or rebuild complete CPT preview cards | preview cards, small/medium/large/link cards, main card | `workflows/preview-cards.md` |
 | Port an artifact between sites and adapt it | copy/clone page, template, section, widget; translate; retarget CPT fields | `workflows/site-port.md` |

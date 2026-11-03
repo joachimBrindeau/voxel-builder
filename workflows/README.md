@@ -13,6 +13,7 @@ workflow and never compete at intake.
 | [`cpt-repair.md`](cpt-repair.md) | Existing CPT config/runtime/template-resolution repair | Source-owner repair + all affected surfaces verified |
 | [`field-metadata.md`](field-metadata.md) | Recursive CPT field-definition UX metadata | Validated recursive manifest + depth-specific safe writes + read-back/diff/record-safety evidence |
 | [`migrate.md`](migrate.md) | Legacy Elementor V3 to EF V4 conversion | Preserved-information EF tree + browser proof |
+| [`node-naming.md`](node-naming.md) | Complete concise one-word Elementor Navigator naming | Full node map + reversible name-only writes + editor and anchor verification |
 | [`build.md`](build.md) | General EF `_elementor_data` creation/modification | Read-back-equal, linted, browser-verified tree |
 | [`preview-cards.md`](preview-cards.md) | Complete CPT small/medium/large/link card family | Command-pushed registry + LLM-mutated cards + large main + runtime proof |
 | [`site-port.md`](site-port.md) | Cross-site page/template/section/widget adaptation | Adaptation manifest + target-native lint/read-back/browser proof |

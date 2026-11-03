@@ -222,7 +222,9 @@ failed/blocked with rollback evidence.
 
 ## Editor naming note
 
-`ef-wrapper` navigator labels derive live from the `tag` prop (`assets/js/editor/preview/wrapper.js` → `syncWrapperTitlesDeep` walks the whole tree; broad `change` listener catches V4 atomic control edits at any depth). No `_title` is baked into the data — keep it that way (zero bloat); the label follows whatever tag is selected.
+EF Navigator labels currently derive from `_cssid`, not the semantic `tag` prop.
+Use the [node-naming workflow](node-naming.md) for concise one-word labels and its
+anchor-dependency checks. Preserve tags independently and keep `_title` out of EF data.
 
 ## Mistake guards
 
