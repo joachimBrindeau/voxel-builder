@@ -47,9 +47,14 @@ Schema-driven Voxel CPT lifecycle, Elementor Framework V4 atomic build/audit, Vo
 2. **One primary route.** Select exactly one workflow for each independently verifiable
    task. Composite requests become ordered tasks with explicit handoffs; workflows do
    not compete for the same mutation.
-3. **Safe writes.** Capture rollback evidence before every mutation, centralize writes,
-   and read the authoritative value back. Destructive merge/delete actions require the
-   workflow's two confirmation gates.
+3. **Safe writes on one surface.** Reach every site operation through the workspace
+   `wpdev` MCP (`command_search` → `command_describe` → `command_execute` when
+   `transport.allowed: true`) or, for CLI-only verbs, the audited `wpdev` CLI in the
+   device shell; generic Elementor/WordPress/MySQL MCP tools, `wp eval` writes and direct
+   SQL are not fallbacks (`references/core/command-surface.md` §wpdev MCP vs CLI).
+   Capture rollback evidence before every mutation, centralize writes, and read the
+   authoritative value back. Destructive merge/delete actions require the workflow's
+   two confirmation gates.
 4. **Bounded atomic delegation.** A leaf result covers one widget, section, criterion,
    URL, entity, or schema question. Batch 5-10 homogeneous leaves per worker and run at
    most the host concurrency cap in waves; every returned leaf remains independently
