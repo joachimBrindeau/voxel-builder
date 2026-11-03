@@ -17,6 +17,7 @@ inside a role brief.
 
 | Brief | Exclusive responsibility | Mode | Batch unit |
 |---|---|---|---|
+| [`node-name-author`](node-name-author.md) | Complete one-word node naming maps with dependency constraints | Build material | 5-10 documents |
 | [`voxel-page-auditor`](voxel-page-auditor.md) | Page-global context, tier inventory, and report framing | Read-only | 1-4 pages/templates |
 | [`voxel-widget-builder`](voxel-widget-builder.md) | Widget settings/DOM analysis or scoped widget JSON | Read-only or build, never mixed | 5-10 widgets |
 | [`voxel-elementor-fixer`](voxel-elementor-fixer.md) | Approved finding-to-repair material and repair verification plan | Build | 5-10 non-overlapping findings |

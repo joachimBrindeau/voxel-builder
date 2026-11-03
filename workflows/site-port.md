@@ -133,7 +133,8 @@ read-back matches critical mappings.
    ownership; shared header defects must be reported separately from the port verdict.
 7. Capture and read screenshots. Compare with source only for intentionally preserved
    structure; target correctness outranks pixel identity.
-8. Report target IDs, manifest summary, omissions/fallbacks, evidence, and named handoffs
+8. Exercise every ported search row from its actual assigned public role, not just the donor or a page preview. A header-authorized search definition does not prove a library-based 404 definition is authorized. Keep public-role authorization explicit and test deassignment, draft/password protection, and unrelated private roles before expanding an allowlist. Treat expected main-document 404 status/console reports separately from script or subresource errors.
+9. Report target IDs, manifest summary, omissions/fallbacks, evidence, and named handoffs
    to `cpt-lifecycle.md`, `curation.md`, `content-generation.md`, `image-generation.md`,
    or `settings.md`.
 

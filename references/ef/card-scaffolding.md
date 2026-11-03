@@ -70,6 +70,16 @@ When the user asks to delete every existing preview card and rebuild cleanly:
 
 If different card content is needed, run `voxel:cards` first to register the templates, then modify the resulting template via this pipeline (Phase 0 to capture, Phase 1-5 to mutate).
 
+### Shared-card substitution checks
+
+- Preserve a consumer's fragment ID on an ordinary native wrapper around the template reference. Template-mode wrappers are transparent tree splices and do not emit their own wrapper attributes; putting the fragment only on the reference loses the target.
+- Put explicit selected-record context on the template reference itself, not only its outer wrapper. Verify every distinct title and permalink after substitution: template context boundaries can restore page context and make every card display the host title.
+- Inspect the current row-behavior schema before authoring optional metadata gates. When it exposes `query.filters`, use a `scope: render` predicate there rather than an obsolete `behavior.visibility` cell. Test a populated and an empty record; a title-only check misses orphan labels such as Developer.
+- Pass `-y` to unattended revision pruning. A process that prints a confirmation prompt is not evidence that revisions were pruned; verify the snapshot/deletion receipt.
+- Isolate mutually exclusive editorial branches with repeated public fragment names in separate saved templates. Elementor native Save deduplicates `_cssid` across the whole editor document even when server visibility makes the public DOM unique. Prove original fragment inventories again after native Save/reload; normalization and pre-save public checks cannot establish persistence.
+- Register isolated body templates under native `custom_templates.single` with stable `unique_key` to enable owning-product preview; setting `voxel_preview_post` alone is ineffective for an unregistered library. Do not register them under `single_post`, which can intercept public routing. Select the product and Save/reload each body plus shell through native UI before cutover; compare post-Save fragments and public FAQ answers, not only stored pre-Save trees.
+- Neutralize both a product's `_elementor_edit_mode` and `_wp_page_template` when transferring its presentation to a Voxel managed single. Elementor Full Width can bypass the theme route without builder mode; capture and restore both exact metadata values if acceptance fails.
+
 ## Authoring `content_blocks`
 
 `ef-card` is one composite widget. Headings, prose, separators, accordions,
