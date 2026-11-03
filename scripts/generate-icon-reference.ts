@@ -219,17 +219,6 @@ function metadataStats(entries: IconEntry[], metadata: Map<string, CompactIconMe
   };
 }
 
-function groupByPrefix(entries: IconEntry[]): [string, IconEntry[]][] {
-  const groups = new Map<string, IconEntry[]>();
-  for (const entry of entries) {
-    const prefix = /^[a-z]/.test(entry.name[0] ?? '') ? entry.name[0] : '0-9';
-    const bucket = groups.get(prefix) ?? [];
-    bucket.push(entry);
-    groups.set(prefix, bucket);
-  }
-  return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-}
-
 function unique(values: string[]): string[] {
   return [...new Set(values.map((value) => value.trim()).filter(Boolean))];
 }
