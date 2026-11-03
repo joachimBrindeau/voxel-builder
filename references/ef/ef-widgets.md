@@ -162,11 +162,14 @@ The tables below are generated from `cli/src/generated/widget-schemas.json` (the
 
 ### `ef-card` — generated prop table
 
-PHP class `EF\Widgets\Card`. 5 props.
+PHP class `EF\Widgets\Card`. 8 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `content_blocks` | repeater `ef-content-block-rows` (nested vx leaves) | `[]` | content | Add and order card content |
+| `empty_icon` | `string` (direct vx) | `ms:ms ms-inbox` | empty_state | Icon shown above the empty-state message |
+| `empty_subtitle` | `string` (direct vx) | `There is currently no item in this list.` | empty_state | Supporting message shown below the empty-state title |
+| `empty_title` | `string` (direct vx) | `This list is empty` | empty_state | Primary message shown when the loop has no items |
 | `own_height` | `boolean` (responsive, nested vx leaves) | `false` | settings | Size the card to its own content instead of filling the available row height |
 | `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
 | `tag` | enum: `div` \| `section` \| `article` \| `aside` \| `li` \| `header` (direct vx) | `div` | settings | Choose what kind of container this is |
@@ -192,13 +195,12 @@ PHP class `EF\Widgets\Form`. 11 props.
 
 ### `ef-navbar` — generated prop table
 
-PHP class `EF\Widgets\Navbar`. 20 props.
+PHP class `EF\Widgets\Navbar`. 19 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `banner_action_payload` | `action_payload` (nested vx leaves) | — | banner | Fields for the selected action type |
-| `banner_action_type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | banner | Choose what opens on click |
-| `banner_aria_label` | `string` (direct vx) | `''` | banner | Accessible name override for an empty or icon-only control |
+| `banner_action_type` | enum: `''` \| `action_link` \| `open_menu` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `open_flyout` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_register` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | banner | Choose what opens on click |
 | `banner_background` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `primary` | banner | Announcement bar colors |
 | `banner_compact_mobile` | `boolean` (direct vx) | `false` | banner | Use a denser announcement layout on small screens |
 | `banner_disabled` | `boolean` (direct vx) | `false` | banner | Disable this action without removing its configuration |
@@ -210,38 +212,40 @@ PHP class `EF\Widgets\Navbar`. 20 props.
 | `banner_tooltip` | `string` (direct vx) | `''` | banner | Short hover text shown on the button |
 | `banner_tooltip_disabled` | `string` (direct vx) | `''` | banner | Tooltip shown when this action is disabled |
 | `breadcrumb` | `boolean` (responsive, nested vx leaves) | `true` | settings | Show the breadcrumb region at this screen size |
-| `cta_ts_actions` | repeater `ef-action-rows` (nested vx leaves) | `[]` | actions | Add and order buttons |
+| `content_blocks` | repeater `ef-content-block-rows` (nested vx leaves) | `[]` | content | Add and order card content |
+| `mega_columns` | `number` (direct vx) | `2` | settings | Number of columns in the level-three megamenu grid |
 | `nav_items` | repeater `ef-mega-rows` (nested vx leaves) | `[]` | nav_items | Add and order menu links |
 | `reading_progress` | `boolean` (responsive, nested vx leaves) | `false` | settings | Show article reading progress at this screen size |
 | `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |
-| `tag` | enum: `nav` \| `header` \| `div` (direct vx) | `nav` | settings | Choose what kind of container this is |
 | `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | settings | Choose the colors |
 
 ### `ef-wrapper` — generated prop table
 
-PHP class `EF\Elements\Wrapper`. 25 props.
+PHP class `EF\Elements\Wrapper`. 27 props.
 
 | Prop | Type / enum | Default | Section | Brief |
 |---|---|---|---|---|
 | `bg_media_color` | `string` (direct vx) | `transparent` | settings | Background color token painted on the host surface |
+| `bg_media_contain_enabled` | `boolean` (direct vx) | `false` | settings | Fit the whole image inside its frame instead of cropping it |
 | `bg_media_icon` | `string` (direct vx) | `''` | settings | Choose an icon |
-| `bg_media_image` | `image` (nested vx leaves) | `[]` | settings | Choose an image |
+| `bg_media_image` | `image` (nested vx leaves) | `[]` | settings | Image attachment displayed when this media slot uses the Image type |
 | `bg_media_image_alt` | `string` (direct vx) | `''` | settings | Describe the image for screen readers |
 | `bg_media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | settings | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
 | `bg_media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | — | Choose when the image loads |
-| `bg_media_image_preload` | `boolean` (direct vx) | `false` | settings | Preload this image when it is a known above-the-fold asset |
-| `bg_media_image_sizes` | `string` (direct vx) | `''` | settings | Optional responsive sizes attribute |
+| `bg_media_lightbox_enabled` | `boolean` (direct vx) | `false` | settings | Open the image in a lightbox |
 | `bg_media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | settings | Add pins to the map |
-| `bg_media_map_zoom` | `string` (direct vx) | `14` | settings | Starting map zoom level |
-| `bg_media_modifiers` | `string` (direct vx) | `''` | settings | Optional image behavior flags |
+| `bg_media_map_zoom` | `string` (direct vx) | `14` | — | Starting map zoom level |
+| `bg_media_overlay_enabled` | `boolean` (direct vx) | `false` | settings | Apply the image overlay treatment |
 | `bg_media_type` | enum: `''` \| `color` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | settings | Choose what kind of media to show |
 | `bg_media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | settings | Keep the initial player on video watch pages |
 | `bg_media_video_url` | `source` (nested vx leaves) | `''` | settings | Video link or file |
 | `cols` | `string` (responsive, nested vx leaves) | `1fr` | settings | Columns for each screen size |
 | `constrain_row_height` | `boolean` (responsive, nested vx leaves) | `false` | settings | Prevents this wrapper's contents from determining the shared Grid or Flex row height |
-| `gap` | `string` (responsive, nested vx leaves) | `''` | settings | Space between this wrapper's rows and columns |
+| `empty_icon` | `string` (direct vx) | `ms:ms ms-inbox` | empty_state | Icon shown above the empty-state message |
+| `empty_subtitle` | `string` (direct vx) | `There is currently no item in this list.` | empty_state | Supporting message shown below the empty-state title |
+| `empty_title` | `string` (direct vx) | `This list is empty` | empty_state | Primary message shown when the loop has no items |
 | `mode` | enum: `''` \| `modal` \| `template` \| `tabs` \| `carousel` \| `pagination` \| `masonry` \| `gallery` \| `fullscreen` (direct vx) | `''` | settings | Choose how this wrapper works |
-| `padding` | enum: `auto` \| `enabled` \| `disabled` (responsive, nested vx leaves) | `auto` | settings | Use contextual padding, force padding, or suppress padding at each screen size |
+| `padding` | `boolean` (responsive, nested vx leaves) | `true` | settings | Enable contextual padding at each screen size |
 | `page_size` | `number` (direct vx) | `12` | settings | Number of items on each pagination page |
 | `reversed` | `boolean` (responsive, nested vx leaves) | `false` | settings | Reverse the order of this wrapper's direct children |
 | `sticky` | `boolean` (responsive, nested vx leaves) | `false` | settings | Keep this element fixed to the top of the viewport while its scroll context remains active |

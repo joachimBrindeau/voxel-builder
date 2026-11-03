@@ -18,10 +18,10 @@ The atomic-widget catalog below is generated from `cli/src/generated/widget-sche
 
 | Widget | Title | Props | Row surfaces | PHP class |
 |---|---|---|---|---|
-| `ef-card` | Card | 5 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `sort-item-row` | `EF\Widgets\Card` |
+| `ef-card` | Card | 8 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `search-source-row`, `sort-item-row` | `EF\Widgets\Card` |
 | `ef-form` | Form | 11 | `field-row`, `recipient-row`, `result-content-row`, `result-row` | `EF\Widgets\Form` |
-| `ef-navbar` | Navbar | 20 | `action-row`, `map-pin-row`, `mega-row` | `EF\Widgets\Navbar` |
-| `ef-wrapper` | Wrapper | 25 | `map-pin-row` | `EF\Elements\Wrapper` |
+| `ef-navbar` | Navbar | 19 | `comparison-field-row`, `content-block-row`, `filter-item-row`, `map-pin-row`, `mega-row`, `search-source-row`, `sort-item-row` | `EF\Widgets\Navbar` |
+| `ef-wrapper` | Wrapper | 27 | `map-pin-row` | `EF\Elements\Wrapper` |
 
 <!-- AUTO-GENERATED:widgets END -->
 
