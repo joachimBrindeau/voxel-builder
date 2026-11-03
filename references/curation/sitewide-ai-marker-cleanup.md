@@ -29,23 +29,6 @@ Check all likely text stores, not only rendered page content:
    - `un bon conseil` -> `un conseil`
 8. Stop before destroying meaning in quotes/testimonials or technical terms unless user explicitly asks for zero raw occurrences.
 
-## EMCP / REST proof path
-
-If an EMCP endpoint returns 401 with an application password on local OpenLiteSpeed, verify whether the hostname resolves to the wrong interface before assuming EMCP itself is broken.
-
-Useful probe pattern:
-
-```bash
-APP_PASS=$(./wpdev wp <site> user application-password create wpdev hermes-emcp --porcelain)
-AUTH=$(printf 'wpdev:%s' "$APP_PASS" | base64)
-curl -sk --resolve <site>.test:443:127.0.0.1 \
-  -H "Authorization: Basic $AUTH" \
-  https://<site>.test/wp-json/
-./wpdev wp <site> user application-password delete wpdev <uuid>
-```
-
-Do not leave app passwords or temp password files behind.
-
 ## Verification
 
 After writes:
@@ -53,7 +36,7 @@ After writes:
 - `php -l <cleanup-script>.php`
 - re-run marker count query for posts + targeted meta keys
 - `./wpdev rebuild <site> --only purge,css`
-- if a script was edited, create and run a focused temporary verifier under OS temp with `hermes-verify-` prefix, then remove it; report as ad-hoc verification, not suite green
+- if a script was edited, create and run a focused temporary verifier under OS temp with a `verify-` prefix, then remove it; report as ad-hoc verification, not suite green
 
 ## Pitfalls
 

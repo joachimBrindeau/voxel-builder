@@ -155,7 +155,7 @@ lane has written state or authored another lane's fields.
 **Entry:** Four lane candidates returned.
 
 1. Save candidates outside the repository and validate each independently through
-   the Hermes `terminal` tool from the skill root:
+   the host's shell tool from the skill root:
 
    ```bash
    python3 scripts/validate-organization-profile.py --lane foundation --brand-name "Brand" foundation.json
@@ -183,7 +183,7 @@ blocked with the failing lane and unresolved errors named.
 
 1. Merge by the ownership table only. All four `title` values must equal
    `brand_name`; disagreement is a validation failure, never normalized silently.
-2. Use the validator's deterministic merge mode through the Hermes `terminal` tool,
+2. Use the validator's deterministic merge mode through the host's shell tool,
    which refuses missing, extra, or
    cross-owned fields. Pass every evidence-critical proper noun, product name,
    size, price, date, cultivar, and Japanese term from the approved research packet

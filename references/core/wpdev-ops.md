@@ -36,7 +36,7 @@ wpdev mcp <site> --wordpress  # add WordPress MCP adapter
 wpdev mcp <site> --show       # print current config
 ```
 
-`wpdev work <site>` creates `.mcp.json` if missing. This is generic site MCP config, not EMCP. For Elementor live editor reads, see `command-surface.md` §EMCP vs headless wpdev reads.
+`wpdev work <site>` creates `.mcp.json` if missing. Treat it as generated client config: never read it for diagnostics (it can contain credentials). Which Voxel/Elementor operations are structured MCP tools versus CLI-only verbs is defined in `command-surface.md` §wpdev MCP vs CLI.
 
 ## WP-CLI passthrough
 

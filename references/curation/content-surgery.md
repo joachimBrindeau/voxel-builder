@@ -145,8 +145,9 @@ Pitfalls.
 - [`bulk-rich-text.md`](bulk-rich-text.md) — bulk-reformat bulky single-`<p>` Voxel `texteditor`
   fields into rich text across many records (scope discipline, batch engine, QA gates, TSV
   silent-drop pitfall, write-back + live verify).
-- [`../core/emcp-wordpress-mcp.md`](../core/emcp-wordpress-mcp.md) — clean EMCP / WordPress MCP
-  wiring, app-password validation, which server actually serves a site (two Docker daemons), streamable-HTTP handshake verification.
+- [`../core/command-surface.md`](../core/command-surface.md) §wpdev MCP vs CLI — which content
+  operations are structured MCP tools, which are CLI-only verbs, and why generic WordPress or
+  database MCP tools are not fallbacks.
 
 ## Reporting
 
