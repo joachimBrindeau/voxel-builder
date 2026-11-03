@@ -26,7 +26,7 @@ The action-type catalog below is generated from `cli/src/generated/ef-catalogs.j
 
 <!-- AUTO-GENERATED:actions START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
-49 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
+51 action types from `ef_action_types()` (see `includes/catalogs/action-types.php`).
 
 Action types are shared by default; entries with a host restriction list the only supported hosts below.
 
@@ -37,12 +37,13 @@ Action types are shared by default; entries with a host restriction list the onl
 | `action_follow` | Follow post author | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
 | `action_follow_post` | Follow post | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
 | `action_gcal` | Add to Google Calendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location` |
-| `action_ical` | Add to iCalendar | all action hosts | `cal_start_date`, `cal_end_date`, `cal_title`, `cal_desc`, `cal_location`, `cal_url` |
+| `action_ical` | Add to iCalendar | all action hosts | `cal_url` |
 | `action_link` | Link | all action hosts | `link` |
 | `action_login` | Log in | all action hosts | — |
 | `action_logout` | Log out | all action hosts | — |
+| `action_register` | Register | all action hosts | — |
 | `action_save` | Save post to collection | all action hosts | `icon_active`, `label_active`, `tooltip_active` |
-| `add_to_cart` | Add to cart | all action hosts | `cart_text` |
+| `add_to_cart` | Add to cart | all action hosts | — |
 | `ask_chatgpt` | Summarize with ChatGPT | all action hosts | `llm_prompt` |
 | `ask_claude` | Summarize with Claude | all action hosts | `llm_prompt` |
 | `ask_copilot` | Summarize with Copilot | all action hosts | `llm_prompt` |
@@ -59,11 +60,12 @@ Action types are shared by default; entries with a host restriction list the onl
 | `edit_post` | Edit post | all action hosts | — |
 | `get_directions` | Get directions | all action hosts | `address` |
 | `go_back` | Go back | all action hosts | — |
-| `open_modal` | Open modal | all action hosts | `modal_id` |
+| `open_flyout` | Open flyout | all action hosts | `flyout_template` |
+| `open_menu` | Open menu | all action hosts | `menu_entries` |
+| `open_modal` | Open modal | all action hosts | `modal_id`, `modal_context_id`, `modal_chat_target` |
 | `open_vx_cart` | Open cart | all action hosts | — |
 | `open_vx_inbox` | Open inbox | all action hosts | — |
 | `open_vx_notifications` | Open notifications | all action hosts | — |
-| `open_vx_quick_search` | Open quick search | all action hosts | — |
 | `open_vx_user_menu` | Open user menu | all action hosts | `menu` |
 | `promote_post` | Promote post | all action hosts | — |
 | `publish_post` | Publish post | all action hosts | — |

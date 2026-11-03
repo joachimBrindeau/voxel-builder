@@ -6,58 +6,67 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 <!-- AUTO-GENERATED:ef-parts START — edit schemas, run `wpdev elementor:docs:gen`, do not hand-edit -->
 
-### Row surface `action-row` — Action row
-
-11 cells.
-
-| Cell | Type / enum | Default | Brief |
-|---|---|---|---|
-| `action_payload` | `action_payload` (nested vx leaves) | — | Fields for the selected action type |
-| `aria_label` | `string` (direct vx) | `''` | Accessible name override for an empty or icon-only control |
-| `disabled` | `boolean` (direct vx) | `false` | Disable this action without removing its configuration |
-| `flyout_template` | `string` (direct vx) | `''` | Saved Elementor template shown as an anchored interactive flyout |
-| `icon` | `string` (direct vx) | `''` | Icon shown on the button |
-| `label` | `string` (direct vx) | `''` | Button text |
-| `require_login` | `boolean` (direct vx) | `false` | Require authentication before this action can resolve or execute |
-| `tooltip` | `string` (direct vx) | `''` | Short hover text shown on the button |
-| `tooltip_disabled` | `string` (direct vx) | `''` | Tooltip shown when this action is disabled |
-| `type` | enum: `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `action_link` | Choose what opens on click |
-| `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | Button or pill colors |
-
 ### Row surface `comparison-field-row` — Comparison field row
 
-19 cells.
+44 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
+| `action_enabled` | `boolean` (direct vx) | `false` | Enable an action for this text row |
 | `action_payload` | `action_payload` (nested vx leaves) | — | Fields for the selected action type |
-| `appearance` | enum: `plain` \| `field` \| `pill` \| `button` (direct vx) | `plain` | Choose the canonical Text content-row presentation |
-| `description` | `string` (direct vx) | `''` | Shared supporting text |
+| `appearance` | enum: `plain` \| `pill` \| `button` (direct vx) | `plain` | Choose the canonical Text content-row presentation |
+| `description` | `string` (direct vx) | `''` | Supporting subtitle rendered after the primary value, independent of the field label |
 | `disabled` | `boolean` (direct vx) | `false` | Disable this action without removing its configuration |
-| `flyout_template` | `string` (direct vx) | `''` | Template-flyout cell — data only |
+| `expand` | `boolean` (direct vx) | `true` | Expand this button to fill the available width |
+| `field_enabled` | `boolean` (direct vx) | `false` | Show a field label alongside the value |
 | `icon` | `string` (direct vx) | `''` | Icon cell — data only |
 | `label` | `string` (dynamic disabled) | `''` | Label shown in the first comparison column |
+| `label_media_avatar_enabled` | `boolean` (direct vx) | `false` | Render the image as an avatar |
+| `label_media_caption` | `richtext` (direct vx) | `''` | Preserved authored label media caption |
+| `label_media_contain_enabled` | `boolean` (direct vx) | `false` | Fit the whole image inside its frame instead of cropping it |
+| `label_media_icon` | `string` (direct vx) | `''` | Choose an icon |
+| `label_media_image` | `image` (nested vx leaves) | `[]` | Image attachment displayed when this media slot uses the Image type |
+| `label_media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `label_media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `label_media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `label_media_lightbox_enabled` | `boolean` (direct vx) | `false` | Open the image in a lightbox |
+| `label_media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
+| `label_media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
+| `label_media_overlay_enabled` | `boolean` (direct vx) | `false` | Apply the image overlay treatment |
+| `label_media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
+| `label_media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | Keep the initial player on video watch pages |
+| `label_media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
+| `label_text` | `string` (direct vx) | `''` | Field label text, independent of the value subtitle |
 | `links` | `string` (direct vx) | `''` | Optional comma-separated destinations paired by position with pill values |
-| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_avatar_enabled` | `boolean` (direct vx) | `false` | Render the comparison image as a circular avatar |
+| `media_contain_enabled` | `boolean` (direct vx) | `false` | Fit the whole comparison image inside its frame instead of cropping it |
+| `media_enabled` | `boolean` (direct vx) | `false` | Show inline media with this text row |
+| `media_image` | `image` (nested vx leaves) | `[]` | Image displayed beside this comparison value |
+| `media_lightbox_enabled` | `boolean` (direct vx) | `false` | Open the comparison image in a lightbox |
+| `media_overlay_enabled` | `boolean` (direct vx) | `false` | Apply the image overlay treatment to the comparison image |
 | `media_type` | enum: `''` \| `image` (direct vx) | `''` | Optional image for the comparison value |
-| `modifiers` | `string` (direct vx) | `''` | Kind-scoped behavior flags shared by text and reviews content rows |
+| `numbering_enabled` | `boolean` (direct vx) | `false` | Number the items in rich text |
 | `require_login` | `boolean` (direct vx) | `false` | Require authentication before this action can resolve or execute |
 | `style` | enum: `''` \| `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `body` \| `small` (direct vx) | `body` | Visual typography for plain Text content rows, independent of the semantic tag |
+| `subtitle_enabled` | `boolean` (direct vx) | `false` | Show supporting text after the primary value |
 | `tag` | enum: `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `p` \| `span` \| `address` \| `ol_item` \| `ul_item` \| `rich_text` (direct vx) | `p` | Semantic tag for plain Text content rows, or rich-text mode |
-| `tooltip` | `string` (direct vx) | `''` | Short hover text shown on the button |
+| `tooltip` | `string` (direct vx) | `''` | Plain-text explanation shown on hover and keyboard focus, with or without an action |
 | `tooltip_disabled` | `string` (direct vx) | `''` | Tooltip shown when this action is disabled |
-| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | Choose what opens on click |
+| `tooltip_enabled` | `boolean` (direct vx) | `false` | Show a tooltip independently of the text row action |
+| `type` | enum: `''` \| `action_link` \| `open_menu` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `open_flyout` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_register` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | Choose what opens on click |
 | `value` | `richtext` (direct vx) | `''` | Primary Text content-row value |
 | `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | Shared pill or button colors |
 
 ### Row surface `content-block-row` — Content block row
 
-69 cells.
+99 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
+| `action_enabled` | `boolean` (direct vx) | `false` | Enable an action for this text row |
 | `action_payload` | `action_payload` (nested vx leaves) | — | Fields for the selected action type |
-| `appearance` | enum: `plain` \| `field` \| `pill` \| `button` (direct vx) | `plain` | Choose the canonical Text content-row presentation |
+| `appearance` | enum: `plain` \| `pill` \| `button` (direct vx) | `plain` | Choose the canonical Text content-row presentation |
+| `auth_redirect` | `string` (direct vx) | `''` | Optional URL the visitor lands on after a successful login or registration |
 | `brand_color` | `string` (direct vx) | `primary` | Booking accent color |
 | `compare_bar_variant` | enum: `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `white` | Floating bar colors, drawn from the shared surface variant vocabulary so the tray is paintable exactly like a card, navbar, or accordion surface |
 | `compare_destination` | `source` (nested vx leaves) | — | Optional override for the comparison page the floating tray opens |
@@ -69,59 +78,87 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `compare_template` | `string` (direct vx) | `''` | Saved Elementor template rendered as each selected item's preview inside the tray |
 | `compare_tray_label` | `string` (direct vx) | `Selected items` | Accessible label for the automatic tray |
 | `compare_variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | Comparison button colors — the same vocabulary every other EF button offers, so the tray's action cannot drift from the rest of the interface |
-| `description` | `string` (direct vx) | `''` | Shared supporting text |
+| `description` | `string` (direct vx) | `''` | Supporting subtitle rendered after the primary value, independent of the field label |
+| `description_enabled` | `boolean` (direct vx) | `false` | Show the review count alongside the rating |
 | `disabled` | `boolean` (direct vx) | `false` | Disable this action without removing its configuration |
 | `expand` | `boolean` (direct vx) | `true` | Expand this button to fill the available width |
+| `field_enabled` | `boolean` (direct vx) | `false` | Show a field label alongside the value |
 | `filters` | repeater `ef-filter-item-rows` (nested vx leaves) | `[]` | Ordered visitor filters applied to the selected results loop |
-| `flyout_template` | `string` (direct vx) | `''` | Template-flyout cell — data only |
 | `hide_details` | `boolean` (direct vx) | `false` | Hide event details |
-| `icon` | `string` (direct vx) | `''` | Icon cell — data only |
+| `icon` | `string` (direct vx) | `''` | Icon shown on the button |
 | `inline` | `boolean` (direct vx) | `false` | Run the members together on one line, wrapping at the card edge, instead of one member per line |
-| `kind` | enum: `text` \| `media` \| `group` \| `accordion` \| `filter` \| `calendar` \| `toc` \| `reviews` \| `select` \| `comparison` \| `custom_code` \| `auth` (direct vx) | `text` | Choose what this content block shows |
+| `kind` | enum: `text` \| `media` \| `spacer` \| `group` \| `menu` \| `accordion` \| `filter` \| `search` \| `calendar` \| `toc` \| `reviews` \| `select` \| `comparison` \| `custom_code` \| `auth` (direct vx) | `text` | Choose what this content block shows |
 | `label` | `richtext` (direct vx) | `''` | Human-facing title for accordion, table-of-contents, and filter sort controls |
-| `layout` | enum: `week_view` \| `month_view` \| `column_view` (direct vx) | `week_view` | Cal.com booker layout |
-| `limit` | `boolean` (direct vx) | `false` | Clamp the visible child rows and reveal overflow through the shared disclosure control |
+| `label_media_avatar_enabled` | `boolean` (direct vx) | `false` | Render the image as an avatar |
+| `label_media_caption` | `richtext` (direct vx) | `''` | Preserved authored label media caption |
+| `label_media_contain_enabled` | `boolean` (direct vx) | `false` | Fit the whole image inside its frame instead of cropping it |
+| `label_media_icon` | `string` (direct vx) | `''` | Choose an icon |
+| `label_media_image` | `image` (nested vx leaves) | `[]` | Image attachment displayed when this media slot uses the Image type |
+| `label_media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `label_media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `label_media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `label_media_lightbox_enabled` | `boolean` (direct vx) | `false` | Open the image in a lightbox |
+| `label_media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
+| `label_media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
+| `label_media_overlay_enabled` | `boolean` (direct vx) | `false` | Apply the image overlay treatment |
+| `label_media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
+| `label_media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | Keep the initial player on video watch pages |
+| `label_media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
+| `label_text` | `string` (direct vx) | `''` | Field label text, independent of the value subtitle |
+| `layout` | enum: `week_view` \| `month_view` \| `column_view` \| `stacked` \| `inline` (direct vx) | `week_view` | Cal.com booker layout |
+| `limit` | `boolean` (direct vx) | `false` | Limit the visible rows of this loop and reveal the remaining items through the shared disclosure control |
 | `max_heading` | enum: `h2` \| `h3` \| `h4` \| `h5` \| `h6` (direct vx) | `h3` | Deepest heading level included in the table of contents |
+| `media_action_enabled` | `boolean` (direct vx) | `false` | Enable an independent action for standalone image media |
+| `media_after_label` | `boolean` (direct vx) | `false` | Place the text row icon after its label instead of before it |
+| `media_avatar_enabled` | `boolean` (direct vx) | `false` | Render the image as an avatar |
+| `media_caption` | `richtext` (direct vx) | `''` | Optional media caption |
+| `media_contain_enabled` | `boolean` (direct vx) | `false` | Fit the whole image inside its frame instead of cropping it |
+| `media_enabled` | `boolean` (direct vx) | `false` | Show inline media with this text row |
 | `media_icon` | `string` (direct vx) | `''` | Choose an icon |
-| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_image` | `image` (nested vx leaves) | `[]` | Image attachment displayed when this media slot uses the Image type |
 | `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
 | `media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
 | `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
-| `media_image_preload` | `boolean` (direct vx) | `false` | Preload this image when it is a known above-the-fold asset |
-| `media_image_sizes` | `string` (direct vx) | `''` | Optional responsive sizes attribute |
+| `media_lightbox_enabled` | `boolean` (direct vx) | `false` | Open the image in a lightbox |
 | `media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
 | `media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
-| `media_modifiers` | `string` (direct vx) | `''` | Optional media behavior flags |
+| `media_overlay_enabled` | `boolean` (direct vx) | `false` | Apply the image overlay treatment |
 | `media_position` | enum: `inline` \| `top-edge` \| `auto-main` \| `right-main` \| `top-main` (responsive, nested vx leaves) | `inline` | Choose where this media appears |
 | `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
 | `media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | Keep the initial player on video watch pages |
 | `media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
 | `mobile_slots_first` | `boolean` (direct vx) | `true` | Show times first on mobile |
-| `mode` | enum: `login` \| `register` (direct vx) | `login` | Choose the password credential mode this row shows |
-| `modifiers` | `string` (direct vx) | `''` | Kind-scoped behavior flags shared by text and reviews content rows |
+| `mode` | enum: `login` \| `register` \| `settings` (direct vx) | `login` | Choose the account surface this row shows |
+| `numbering_enabled` | `boolean` (direct vx) | `false` | Number the items in rich text |
 | `open` | `boolean` (direct vx) | `false` | Open this accordion by default |
 | `overflow_limit` | `number` (direct vx) | `1` | Rows shown before the overflow affordance appears |
 | `overflow_suffix` | `string` (direct vx) | `''` | Word after a hidden count of one (for example +1 product) |
 | `overflow_suffix_plural` | `string` (direct vx) | `''` | Word after a hidden count of two or more |
 | `placement` | enum: `content` \| `over-media` \| `floating` \| `footer` (direct vx) | `content` | Choose the card surface that owns this group |
-| `position` | enum: `left` \| `center` \| `right` \| `spread` (direct vx) | `left` | Align inline, over-media, or floating group members to the left, center, or right, or spread them across the available row |
-| `redirect` | `string` (direct vx) | `''` | Optional URL the visitor lands on after a successful login or registration |
+| `position` | enum: `left` \| `center` \| `right` \| `spread` (direct vx) | `left` | Align group members to the left, center, or right, or spread them across the available width, independently of Inline |
+| `redirect` | `boolean` (direct vx) | `false` | Navigate to the authored URL instead of opening an overflow popover |
+| `redirect_url` | `string` (direct vx) | `''` | Overflow destination, resolved once in the loop source context |
 | `require_login` | `boolean` (direct vx) | `false` | Require authentication before this action can resolve or execute |
 | `reviews_category` | `string` (direct vx) | `''` | Stable native Voxel review category key |
 | `reviews_icon` | `string` (direct vx) | `ms:ms ms-star` | Repeated icon used to visualize the aggregate rating |
 | `reviews_presentation` | enum: `icon` \| `bars` \| `compact` (direct vx) | `icon` | Choose repeated icons, one rounded progress bar, or a compact category-and-score pill |
 | `reviews_star_color` | `string` (direct vx) | `yellow` | Filled rating icon or rounded bar color |
 | `scope` | `string` (direct vx) | `''` | Element ID to build the table of contents from |
-| `social_label` | `string` (direct vx) | `''` | Optional divider label above the provider buttons, for example 'or continue with' |
+| `search_archive` | `source` (nested vx leaves) | — | Public page serving the shared search archive, opened when submitting a search |
+| `search_placeholder` | `string` (direct vx) | `Search` | Prompt shown before a visitor enters a query |
+| `search_sources` | repeater `ef-search-source-rows` (nested vx leaves) | `[]` | Ordered explicit public search allowlist, up to 8 sources |
+| `social_label` | `string` (direct vx) | `''` | Optional divider label between the provider buttons and the email form |
 | `sorts` | repeater `ef-sort-item-rows` (nested vx leaves) | `[]` | Manifest-authorized orderings for the selected results loop |
 | `style` | enum: `''` \| `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `body` \| `small` (direct vx) | `''` | Visual typography for plain Text content rows, independent of the semantic tag |
 | `submit_label` | `string` (direct vx) | `''` | Optional submit button label override |
+| `subtitle_enabled` | `boolean` (direct vx) | `false` | Show supporting text after the primary value |
 | `tag` | enum: `h1` \| `h2` \| `h3` \| `h4` \| `h5` \| `h6` \| `p` \| `span` \| `address` \| `ol_item` \| `ul_item` \| `rich_text` (direct vx) | `h3` | Semantic tag for plain Text content rows, or rich-text mode |
 | `target` | `string` (dynamic disabled) | `''` | Comma-separated canonical Elementor element IDs of the compatible EF loops this filter updates |
 | `theme` | enum: `light` \| `dark` \| `auto` (direct vx) | `light` | Light, dark, or automatic theme |
-| `tooltip` | `string` (direct vx) | `''` | Short hover text shown on the button |
+| `tooltip` | `string` (direct vx) | `''` | Plain-text explanation shown on hover and keyboard focus, with or without an action |
 | `tooltip_disabled` | `string` (direct vx) | `''` | Tooltip shown when this action is disabled |
-| `type` | enum: `''` \| `action_link` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `open_vx_quick_search` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | Choose what opens on click |
+| `tooltip_enabled` | `boolean` (direct vx) | `false` | Show a tooltip independently of the text row action |
+| `type` | enum: `''` \| `action_link` \| `open_menu` \| `get_directions` \| `call` \| `send_email` \| `open_modal` \| `open_flyout` \| `scroll_to_section` \| `action_gcal` \| `action_ical` \| `share_post` \| `copy_to_clipboard` \| `add_to_cart` \| `promote_post` \| `action_follow_post` \| `action_follow` \| `action_save` \| `claim_post` \| `relist_post` \| `switch_listing_plan` \| `upgrade_listing_plan` \| `edit_post` \| `delete_post` \| `unpublish_post` \| `publish_post` \| `show_post_on_map` \| `view_post_stats` \| `go_back` \| `select_addition` \| `back_to_top` \| `action_login` \| `action_register` \| `action_logout` \| `direct_message` \| `direct_message_user` \| `open_vx_inbox` \| `open_vx_notifications` \| `open_vx_cart` \| `open_vx_user_menu` \| `access_markdown` \| `ask_chatgpt` \| `ask_perplexity` \| `ask_claude` \| `ask_copilot` \| `ask_mistral` \| `ask_google_ai` \| `vote_upvote` \| `vote_downvote` \| `set_field_value` (direct vx) | `''` | Choose what opens on click |
 | `url` | `source` (nested vx leaves) | — | Optional absolute booking URL override |
 | `value` | `richtext` (direct vx) | `''` | Primary authored content for text, accordion, and custom-code rows |
 | `variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | One shared appearance variant for text and accordion rows |
@@ -141,15 +178,20 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 ### Row surface `filter-item-row` — Filter item row
 
-5 cells.
+10 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
 | `group` | `string` (dynamic disabled) | `''` | Render rows in one group are ANDed; separate groups are ORed |
 | `label` | `string` (direct vx) | `''` | Optional author-facing label |
+| `max` | `string` (dynamic disabled) | `''` | Optional inclusive numeric maximum for both range inputs |
+| `min` | `string` (dynamic disabled) | `''` | Optional inclusive numeric minimum for both range inputs |
 | `options` | `string` (direct vx) | `''` | Optional authored visitor choices, one value per line |
+| `options_enabled` | `boolean` (dynamic disabled) | — | Whether authored visitor choices override automatic indexed choices |
 | `predicate` | `predicate` (nested vx leaves) | — | Indexed predicate source, comparison, and authored arguments |
+| `presentation` | enum: `dropdown` \| `chips` (dynamic disabled) | `dropdown` | Chips expose the first level of indexed choices as accessible toggle buttons while retaining the full picker |
 | `scope` | enum: `include` \| `render` (dynamic disabled) | `include` | Framework-owned compatibility cell |
+| `width` | `number` (dynamic disabled) | `100` | Percentage of the filter row, accounting for gaps |
 
 ### Row surface `map-pin-row` — Map pin row
 
@@ -167,7 +209,7 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 ### Row surface `mega-row` — Mega row
 
-21 cells.
+22 cells.
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
@@ -175,23 +217,24 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `label` | `string` (direct vx) | `''` | Menu item text |
 | `limit` | `boolean` (direct vx) | `false` | Caps the visible rows this row generates (a heading row clamps its column grid, a link row clamps its pill list) and reveals an overflow affordance |
 | `link` | `source` (nested vx leaves) | — | Link this item opens |
+| `media_contain_enabled` | `boolean` (direct vx) | `false` | Fit the whole image inside its frame instead of cropping it |
 | `media_icon` | `string` (direct vx) | `''` | Choose an icon |
-| `media_image` | `image` (nested vx leaves) | `[]` | Choose an image |
+| `media_image` | `image` (nested vx leaves) | `[]` | Image attachment displayed when this media slot uses the Image type |
 | `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
 | `media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
 | `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
-| `media_image_preload` | `boolean` (direct vx) | `false` | Preload this image when it is a known above-the-fold asset |
-| `media_image_sizes` | `string` (direct vx) | `''` | Optional responsive sizes attribute |
+| `media_lightbox_enabled` | `boolean` (direct vx) | `false` | Open the image in a lightbox |
 | `media_map_pins` | repeater `ef-map-pin-rows` (nested vx leaves) | `[]` | Add pins to the map |
 | `media_map_zoom` | `string` (direct vx) | `14` | Starting map zoom level |
-| `media_modifiers` | `string` (direct vx) | `''` | Optional image behavior flags |
+| `media_overlay_enabled` | `boolean` (direct vx) | `false` | Apply the image overlay treatment |
 | `media_type` | enum: `''` \| `image` \| `video` \| `icon` \| `map` (direct vx) | `''` | Choose what kind of media to show |
 | `media_video_loading` | enum: `native` \| `facade` (direct vx) | `native` | Keep the initial player on video watch pages |
 | `media_video_url` | `source` (nested vx leaves) | `''` | Video link or file |
+| `mega_columns` | `number` (direct vx) | `0` | Columns in this menu's level-three grid |
 | `overflow_limit` | `number` (direct vx) | `0` | Rows shown before the overflow affordance appears |
 | `overflow_suffix` | `string` (direct vx) | `''` | Word after a hidden count of one (for example +1 product) |
 | `overflow_suffix_plural` | `string` (direct vx) | `''` | Word after a hidden count of two or more |
-| `pill_variant` | enum: `dynamic` \| `white` \| `transparent` \| `primary_light` \| `primary_white` \| `secondary_light` \| `secondary_white` \| `primary` \| `secondary` \| `positive` \| `negative` (direct vx) | `dynamic` | Colors for last-level megamenu pills |
+| `pill_variant` | enum: `dynamic` \| `transparent` \| `white` \| `primary` \| `primary_light` \| `primary_white` \| `secondary` \| `secondary_light` \| `secondary_white` \| `positive` \| `negative` (direct vx) | `dynamic` | Colors for last-level megamenu pills |
 
 ### Row surface `recipient-row` — Recipient row
 
@@ -201,7 +244,7 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 |---|---|---|---|
 | `email` | `string` (direct vx) | `''` | Custom email address receiving a copy |
 | `field_rid` | `string` (dynamic disabled) | `''` | Stable row ID of an Email field in this form |
-| `source` | enum: `custom` \| `user` \| `input` (dynamic disabled) | `custom` | — |
+| `source` | enum: `custom` \| `user` \| `input` (dynamic disabled) | `custom` | Choose where this notification recipient's email address comes from |
 | `user_id` | `string` (dynamic disabled) | `''` | WordPress user selected by stable numeric ID |
 
 ### Row surface `result-content-row` — Result conditional content row
@@ -210,7 +253,7 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 
 | Cell | Type / enum | Default | Brief |
 |---|---|---|---|
-| `content` | `richtext` (direct vx) | `''` | — |
+| `content` | `richtext` (direct vx) | `''` | Rich content shown when this result condition matches |
 | `when` | `field_payload` | — | Optional answer predicate for this fragment |
 
 ### Row surface `result-row` — Result row
@@ -226,6 +269,25 @@ The tables below enumerate the per-row cell schemas (the prop surfaces parts exp
 | `link_url` | `source` (nested vx leaves) | — | Optional result link |
 | `title` | `string` (direct vx) | `''` | Required result title |
 | `when` | `field_payload` | — | Optional answer predicate controlling result eligibility |
+
+### Row surface `search-source-row` — Search source row
+
+12 cells.
+
+| Cell | Type / enum | Default | Brief |
+|---|---|---|---|
+| `entity` | `string` (dynamic disabled) | `''` | Namespaced registered entity ID: post_type:<slug> or taxonomy:<slug> |
+| `keyword_filter` | `string` (dynamic disabled) | `''` | Existing native keywords filter selection retained in storage only |
+| `media_enabled` | `boolean` (direct vx) | `false` | Show inline media with this text row |
+| `media_icon` | `string` (direct vx) | `''` | Choose an icon |
+| `media_image` | `image` (nested vx leaves) | `[]` | Image attachment displayed when this media slot uses the Image type |
+| `media_image_alt` | `string` (direct vx) | `''` | Describe the image for screen readers |
+| `media_image_alt_mode` | enum: `inherit` \| `custom` \| `decorative` (direct vx) | `inherit` | Choose whether alt text comes from the attachment, a custom value, or is intentionally empty for a decorative image |
+| `media_image_loading` | enum: `auto` \| `lazy` \| `eager` (direct vx) | `auto` | Choose when the image loads |
+| `media_type` | enum: `''` \| `icon` \| `image` (direct vx) | `''` | Choose what kind of media to show |
+| `search_by` | `string` (dynamic disabled) | `''` | Select a direct public field using the same picker as Filter by |
+| `show_type_badge` | `boolean` (dynamic disabled) | `false` | Show the registered singular post type or taxonomy label as a small native pill immediately after each result label |
+| `value` | `richtext` (direct vx) | `''` | Result label |
 
 ### Row surface `sort-item-row` — Sort option row
 
