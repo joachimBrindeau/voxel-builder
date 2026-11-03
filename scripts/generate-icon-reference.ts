@@ -9,9 +9,7 @@ import {
   renderMetadata,
   renderReadme,
   renderSearch,
-  renderShard,
   renderTopPicks,
-  renderWorkflow,
 } from './icon-reference-render';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
@@ -21,9 +19,9 @@ const OUT = join(SKILL_ROOT, 'references/icons/material-symbols');
 // The CLI (`wpdev elementor:icon-search`) reads the search index from the in-repo,
 // force-tracked snapshot dir, so mirror search.tsv there on every generate.
 const REPO_SNAPSHOT_TSV = resolveRepoSnapshotTsv();
-const SHARD_DIR = join(OUT, 'by-prefix');
-const MAX_SHARD_ENTRIES = 350;
-const METADATA_FILE = join(OUT, 'metadata.json');
+// Offline fallback for the Google metadata fetch. Untracked (.gitignore): it is a
+// 3 MB cache that search.tsv already summarises, so it is never committed.
+const METADATA_FILE = join(OUT, '.metadata-cache.json');
 const GOOGLE_SYMBOLS_METADATA_URL = 'https://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols';
 const MATERIAL_SYMBOLS_FAMILIES = ['Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp'];
 
@@ -35,14 +33,16 @@ async function main(): Promise<void> {
   const entries = readEntries(metadata);
   const stats = metadataStats(entries, metadata);
 
-  rmSync(OUT, { recursive: true, force: true });
-  mkdirSync(SHARD_DIR, { recursive: true });
+  // lookup-and-repair.md is hand-maintained; only the generated catalog files are rewritten.
+  for (const stale of ['README.md', 'top-picks.md', 'search.tsv', 'manifest.json']) {
+    rmSync(join(OUT, stale), { force: true });
+  }
+  mkdirSync(OUT, { recursive: true });
 
   const context: IconReferenceContext = {
     source: SOURCE,
     metadataUrl: GOOGLE_SYMBOLS_METADATA_URL,
     rel,
-    groupIntoShards,
   };
 
   write(
@@ -54,7 +54,6 @@ async function main(): Promise<void> {
       .replace('bun run ../skills/voxel-builder/scripts/generate-icon-reference.ts', 'bun run scripts/generate-icon-reference.ts')
       .replace('\n\n## Storage format', '\n\nSet `WPDEV_ROOT` when the WordPress workspace is not a sibling checkout.\n\n## Storage format'),
   );
-  write(OUT, 'lookup-and-repair.md', renderWorkflow(entries, stats));
   write(OUT, 'top-picks.md', renderTopPicks(entries));
   const searchTsv = renderSearch(entries);
   write(OUT, 'search.tsv', searchTsv);
@@ -62,12 +61,8 @@ async function main(): Promise<void> {
     mkdirSync(dirname(REPO_SNAPSHOT_TSV), { recursive: true });
     writeFileSync(REPO_SNAPSHOT_TSV, searchTsv);
   }
-  write(OUT, 'metadata.json', `${JSON.stringify(renderMetadata(entries), null, 2)}\n`);
+  write(OUT, '.metadata-cache.json', `${JSON.stringify(renderMetadata(entries), null, 2)}\n`);
   write(OUT, 'manifest.json', `${JSON.stringify(renderManifest(entries, stats, context), null, 2)}\n`);
-
-  for (const [prefix, bucket] of groupIntoShards(entries)) {
-    write(SHARD_DIR, `${prefix}.md`, renderShard(prefix, bucket));
-  }
 }
 
 function readPreviousMetadata(): Map<string, CompactIconMetadata> {
@@ -234,19 +229,6 @@ function groupByPrefix(entries: IconEntry[]): [string, IconEntry[]][] {
   }
   return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 }
-
-function groupIntoShards(entries: IconEntry[]): [string, IconEntry[]][] {
-  return groupByPrefix(entries).flatMap(([prefix, bucket]) => {
-    if (bucket.length <= MAX_SHARD_ENTRIES) return [[prefix, bucket]];
-
-    const chunks: [string, IconEntry[]][] = [];
-    for (let offset = 0; offset < bucket.length; offset += MAX_SHARD_ENTRIES) {
-      chunks.push([`${prefix}-${chunks.length + 1}`, bucket.slice(offset, offset + MAX_SHARD_ENTRIES)]);
-    }
-    return chunks;
-  });
-}
-
 
 function unique(values: string[]): string[] {
   return [...new Set(values.map((value) => value.trim()).filter(Boolean))];
