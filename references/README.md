@@ -56,7 +56,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | "Build a custom search page with filters / sort / map" | [`voxel-search.md`](voxel/voxel-search.md) |
 | "Add Stripe Connect / vendor / booking / membership / paid-listing flow" | [`voxel-commerce.md`](voxel/voxel-commerce.md) |
 | "Configure post types / taxonomies / roles / collections / verification / async jobs / nav menus / Voxel widget catalog" | [`voxel-platform.md`](voxel/voxel-platform.md) |
-| "What's the shape of an ef-card / ef-form / ef-wrapper widget?" | committed SSOT `cli/src/generated/widget-schemas.json` (preferred, offline) → [`ef-widgets.md`](ef/ef-widgets.md) → live `wpdev elementor:schema` (fallback) |
+| "What's the shape of an ef-card / ef-form / ef-wrapper widget?" | live `wpdev elementor:schema` (preferred when the workspace is reachable) → skill mirror [`ef/widget-schemas.json`](ef/widget-schemas.json) (offline) → [`ef-widgets.md`](ef/ef-widgets.md) |
 | "Which EF widget should I use? (router / phantom check / reserved keys / `$$type` envelopes)" | [`widgets.md`](ef/widgets.md) |
 | "Which generated EF artifact owns schemas/defaults/types, or how do icons/compat stay single-source?" | [`ef-authoring-ssot.md`](ef/ef-authoring-ssot.md) |
 | "Why does EF differ in the editor iframe, or how should live preview refresh and teardown work?" | [`ef-editor-runtime.md`](ef/ef-editor-runtime.md) |
@@ -107,7 +107,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`ef-helpers.md`](ef/ef-helpers.md) · [atomic/settings](ef/ef-helpers-atomic-settings.md) · [loops/actions](ef/ef-helpers-loops-actions.md) · [layout/assets](ef/ef-helpers-layout-assets.md) · [data/forms/admin](ef/ef-helpers-data-forms-admin.md) | Helper index and its four concern-owned catalogs. |
 | [`card-scaffolding.md`](ef/card-scaffolding.md) | `wpdev voxel:cards` sizes and registration behavior. |
 | [`masonry.md`](ef/masonry.md) · [`section-rhythm.md`](ef/section-rhythm.md) | Bento/masonry grid composition (`col_span` / `row_span`, track ratios) and section background/spacing rhythm. |
-| schema SSOT | Not stored in this skill. Read `cli/src/generated/widget-schemas.json` in the wpdev workspace (regenerate with `wpdev elementor:codegen`); it is the only schema artifact. |
+| [`widget-schemas.json`](ef/widget-schemas.json) | Byte-for-byte mirror of the wpdev SSOT `cli/src/generated/widget-schemas.json` (regenerate upstream with `wpdev elementor:codegen`, then run `scripts/sync-ef-generated-references.py`). Prefer the live `wpdev elementor:schema` tool when the workspace is reachable. |
 
 ## `icons/` — icon lookup + repair
 
@@ -116,9 +116,7 @@ This skill separates **knowledge** (look-it-up reference) from **process** (foll
 | [`material-symbols/README.md`](icons/material-symbols/README.md) | Short-context entrypoint for the full generated Material Symbols library installed by Elementor Framework. |
 | [`material-symbols/top-picks.md`](icons/material-symbols/top-picks.md) | Curated use-case map for common Voxel/EF icon decisions. |
 | [`material-symbols/lookup-and-repair.md`](icons/material-symbols/lookup-and-repair.md) | Choose, verify, and repair icons using `wpdev elementor:icon-search`, `elementor:icons`, and `elementor:set-value`. |
-| [`material-symbols/search.tsv`](icons/material-symbols/search.tsv) | Full generated grep index: icon name, EF value, codepoint, Google category/popularity, search terms. |
-| [`material-symbols/metadata.json`](icons/material-symbols/metadata.json) | Compact cache of Google Symbols tags/categories for EF-installed icons. |
-| [`material-symbols/by-prefix/`](icons/material-symbols/by-prefix/) | Generated alphabetical shards for nearby-name inspection without loading all 4k+ icons. |
+| [`material-symbols/search.tsv`](icons/material-symbols/search.tsv) | Full generated grep index: icon name, EF value, codepoint, Google category/popularity, search terms. Same bytes as the index behind `wpdev elementor:icon-search`. |
 
 ## `voxel/` — Voxel platform / domain
 

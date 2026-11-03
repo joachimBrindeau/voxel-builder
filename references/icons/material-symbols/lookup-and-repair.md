@@ -1,6 +1,6 @@
 # Icon Selection And Repair Workflow
 
-This workflow keeps context small while giving access to the full 4253-icon Material Symbols library installed by Elementor Framework. Search is enriched for 3879 installed icons with Google Symbols categories/tags/popularity; the rest use generated name terms.
+This workflow keeps context small while giving access to the full Material Symbols library installed by Elementor Framework (counts live in [manifest.json](manifest.json)). Hosted agents call the same verbs through the wpdev MCP (`wpdev_elementor__icon-search`, `wpdev_elementor__icons`, `wpdev_elementor__set-value`); run `command_describe` first and treat `transport.allowed: false` verbs as device-shell CLI.
 
 ## Pick the right icon
 
@@ -84,8 +84,9 @@ Term icons are a **different source owner** from Elementor icon cells: they live
 `voxel_icon` **term meta**, read by `\Voxel\Term::get_icon()`
 (`themes/vendor/voxel/app/term.php`) and rendered through `\Voxel\get_icon_markup()`.
 `elementor:icons` / `elementor:set-value` only scan and write `_elementor_data`, so they
-neither find nor fix a missing term icon. There is no `wpdev` term-meta write command;
-use `wp eval-file` with a read-back gate.
+neither find nor fix a missing term icon. No `wpdev` verb owns term meta yet; the
+sanctioned path is native WP-CLI `term meta` through the `wpdev wp` passthrough with a
+read-back gate. Do not reach for `wp eval`, `eval-file` or direct SQL for this.
 
 Trace a rendered glyph back through the owning widget before choosing this route. A
 classic icon cell can contain `@post(<taxonomy-field>.icon)` rather than a static
@@ -98,12 +99,11 @@ Scope the work to **registered** taxonomies first — an unregistered taxonomy r
 nowhere, so icons on it are dead data:
 
 ```bash
-./wpdev wp <site> eval 'foreach (get_taxonomies([],"objects") as $t) printf("%-28s public=%d\n",$t->name,$t->public);'
-./wpdev wp <site> db query "SELECT tt.taxonomy, COUNT(*) terms,
-  SUM(CASE WHEN tm.meta_value<>'' THEN 1 ELSE 0 END) with_icon
-  FROM wp_term_taxonomy tt
-  LEFT JOIN wp_termmeta tm ON tm.term_id=tt.term_id AND tm.meta_key='voxel_icon'
-  GROUP BY tt.taxonomy;"
+./wpdev wp <site> taxonomy list --fields=name,public,object_type
+./wpdev wp <site> term list <taxonomy> --fields=term_id,slug --format=json \
+  | jq -r '.[].term_id' | while read -r tid; do
+      printf '%s\t%s\n' "$tid" "$(./wpdev wp <site> term meta get "$tid" voxel_icon 2>/dev/null)"
+    done
 ```
 
 ### Pick the pack per taxonomy
@@ -129,7 +129,8 @@ Availability per pack is the shipped JSON, not memory — validate every candida
 
 Repeating one icon across a taxonomy destroys the visual signal it exists for. Gate on both:
 
-1. **Uniqueness** — assert `COUNT(*) = COUNT(DISTINCT meta_value)` for `voxel_icon`.
+1. **Uniqueness** — the `term_id<TAB>icon` listing above must have no repeated icon value
+   (`cut -f2 | sort | uniq -d` prints nothing).
 2. **Glyph exists** — a name in the pack JSON still needs a rule in the pack CSS. Grep
    `assets/icons/<pack>.css` for `.<class>` (Material Symbols/Phosphor use
    `::before{content:"\eXXX"}`; `efb`/`eff` use SVG `mask-image`). A missing rule renders
@@ -137,24 +138,18 @@ Repeating one icon across a taxonomy destroys the visual signal it exists for. G
 
 ### Apply with read-back, then verify rendering
 
-```php
-// /tmp/apply-term-icons.php — rows: [{term_id, icon}, …]
-update_term_meta( $tid, 'voxel_icon', $icon );
-if ( get_term_meta( $tid, 'voxel_icon', true ) !== $icon ) { /* record failure */ }
-```
+Capture the current values first (the listing above is the rollback), then write one
+term at a time and read it back:
 
 ```bash
-ICON_DRY=1 ./wpdev wp <site> eval-file /tmp/apply-term-icons.php   # capture rollback first
-./wpdev wp <site> eval-file /tmp/apply-term-icons.php
+./wpdev wp <site> term meta update <term_id> voxel_icon 'eff:eff eff-jp'
+[ "$(./wpdev wp <site> term meta get <term_id> voxel_icon)" = 'eff:eff eff-jp' ] || echo "READ-BACK FAILED <term_id>"
 ```
 
-Prove the runtime surface, not just the column:
-
-```bash
-./wpdev wp <site> eval '$t=\Voxel\Term::get(<id>); echo \Voxel\get_icon_markup($t->get_icon());'
-```
-
-Empty markup means the library prefix or glyph is wrong even though the meta value stored fine.
+Prove the runtime surface, not just the column: load a page that renders the term
+through `\Voxel\get_icon_markup()` (a card or taxonomy archive) and inspect the icon
+markup. Empty markup means the library prefix or glyph is wrong even though the meta
+value stored fine.
 
 Nonempty markup is still not a painted-glyph pass. In the real browser, inspect the
 resolved icon class, computed font family, pseudo-element content and nonzero glyph
