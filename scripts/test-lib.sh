@@ -13,8 +13,9 @@ fail() {
 fixture=$(mktemp -d)
 trap 'rm -rf "$fixture"' EXIT HUP INT TERM
 
-mkdir -p "$fixture/cli/src"
+mkdir -p "$fixture/cli/src/generated"
 : > "$fixture/cli/src/index.ts"
+printf '[]\n' > "$fixture/cli/src/generated/command-manifest.json"
 printf '#!/bin/sh\nexit 0\n' > "$fixture/wpdev"
 chmod +x "$fixture/wpdev"
 
@@ -25,6 +26,6 @@ actual=$(WPDEV_ROOT='' WPDEV_SOURCE_ROOT="$fixture" find_wpdev_root)
 [ "$actual" = "$fixture" ] || fail "WPDEV_SOURCE_ROOT did not resolve to the explicit source checkout"
 
 actual=$(WPDEV_ROOT='' WPDEV_SOURCE_ROOT="$fixture" python3 "$SCRIPT_DIR/check-wpdev-coverage.py" --resolve-index)
-[ "$actual" = "$fixture/cli/src/index.ts" ] || fail "coverage check ignored WPDEV_SOURCE_ROOT"
+[ "$actual" = "$fixture/cli/src/generated/command-manifest.json" ] || fail "coverage check ignored WPDEV_SOURCE_ROOT"
 
 printf 'lib helper tests OK (WPDEV_ROOT and WPDEV_SOURCE_ROOT overrides, including coverage)\n'

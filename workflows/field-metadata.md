@@ -44,7 +44,7 @@ unsafe tightening, partial candidate coverage, skipped dry-runs, or unexpected d
 
 1. Read required references and verify both depth-specific writers from command surface.
 2. Create a private unique run directory; capture option, DB, and blueprint/source-owner rollback artifacts per operations reference.
-3. Generate arbitrary-depth inventory for fields, repeater descendants, ownership, and nested overrides.
+3. Generate arbitrary-depth inventory for fields, repeater descendants, ownership, and nested overrides. Seed it with `wpdev voxel:lint-fields <site> --json`, the read-only finder of fields missing descriptions or supported placeholders; it names top-level gaps, so repeater descendants still come from the recursive inventory.
 4. Join inventory to machine contract; derive exact canonical-path scopes, exclusions/debt, and required/supported attributes.
 5. Block unknown types, duplicate same-depth keys, ambiguous paths, or missing backups.
 

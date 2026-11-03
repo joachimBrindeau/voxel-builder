@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Check wpdev-coverage.md against wpdev CLI registry.
 
-Keeps this skill's coverage map honest without importing TypeScript. It extracts
-registered leaf command keys from wpdev's cli/src/index.ts and verifies every
-in-scope command has a row in references/core/wpdev-coverage.md.
+Keeps this skill's coverage map honest without importing TypeScript. It reads
+the registered command keys from wpdev's generated manifest
+(cli/src/generated/command-manifest.json, the same SSOT the wpdev MCP serves)
+and verifies every in-scope command has a row in references/core/wpdev-coverage.md.
 
 It also checks the reverse direction: every namespaced `wpdev <cmd>` this skill
 tells an agent to run, and every command named in the coverage table's own first
@@ -15,6 +16,7 @@ row is precisely what an agent reads to conclude a command exists.
 """
 from __future__ import annotations
 
+import json
 import re
 import os
 import shutil
@@ -24,9 +26,10 @@ from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 COVERAGE = SKILL_ROOT / "references/core/wpdev-coverage.md"
+MANIFEST = Path("cli/src/generated/command-manifest.json")
 
 
-def find_wpdev_index() -> Path | None:
+def find_wpdev_manifest() -> Path | None:
     """Resolve wpdev source from an override, cwd, or the wpdev executable."""
     candidates: list[Path] = []
     if root := os.environ.get("WPDEV_ROOT"):
@@ -40,19 +43,19 @@ def find_wpdev_index() -> Path | None:
         candidates.extend([executable_dir, *executable_dir.parents])
 
     for root in candidates:
-        index = root / "cli/src/index.ts"
-        if index.is_file():
-            return index
+        manifest = root / MANIFEST
+        if manifest.is_file():
+            return manifest
     return None
 
 
-WPDEV_INDEX = find_wpdev_index()
+WPDEV_MANIFEST = find_wpdev_manifest()
 
 if "--resolve-index" in sys.argv:
-    if WPDEV_INDEX is None:
+    if WPDEV_MANIFEST is None:
         print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT or WPDEV_SOURCE_ROOT")
         sys.exit(1)
-    print(WPDEV_INDEX)
+    print(WPDEV_MANIFEST)
     sys.exit(0)
 
 PREFIXES = (
@@ -68,41 +71,27 @@ OUT_OF_SCOPE = {
     "elementor:reset:button-variants",
 }
 
-if WPDEV_INDEX is None:
+if WPDEV_MANIFEST is None:
     print("FAIL wpdev coverage: source checkout not found; set WPDEV_ROOT or WPDEV_SOURCE_ROOT")
     sys.exit(1)
 
-index = WPDEV_INDEX.read_text()
 coverage = COVERAGE.read_text()
 
-registered = set(re.findall(r"^\s*'([^']+)':", index, flags=re.M))
-# Shorthand entries (`quality,`) and renamed ones (`smoke: renderSmoke,`) are
-# both unquoted, so the quoted-key pattern above misses them. Matching the key
-# shape itself avoids a hardcoded name list, which silently goes stale: the
-# previous list omitted `audit` and mis-served `smoke`, and nothing noticed
-# because the only consumer asked "is every registered command documented?" --
-# a question an incomplete registry answers *more* easily, not less.
-# Command names are lowercase with optional hyphens or colons, never camelCase.
-# Matching `[a-zA-Z]` instead swept in implementation identifiers like
-# `olsDoctor` and `subCommands`; those never fail anything, they merely enlarge
-# `registered`, and a larger registry makes every ghost check easier to pass.
-CMD_KEY = r"[a-z][a-z0-9-]*"
-registered.update(re.findall(rf"^\s*({CMD_KEY}),\s*$", index, flags=re.M))
-registered.update(re.findall(rf"^\s*({CMD_KEY}):\s*[A-Za-z_$][\w$]*,\s*$", index, flags=re.M))
+manifest = json.loads(WPDEV_MANIFEST.read_text(encoding="utf-8"))
+entries = manifest if isinstance(manifest, list) else manifest.get("commands", list(manifest.values()))
+registered = {entry["command"] for entry in entries if isinstance(entry, dict) and "command" in entry}
+if not registered:
+    print(f"FAIL wpdev coverage: no commands found in {WPDEV_MANIFEST}")
+    sys.exit(1)
 # Namespace parents (`wpdev audit`) are real, runnable commands but appear only
-# as the prefix of their leaves, never as a key of their own.
+# as the prefix of their leaves, never as a key of their own. They count as
+# registered for the ghost checks, but only manifest leaves need a coverage row.
+leaves = set(registered)
 registered.update({cmd.split(':', 1)[0] for cmd in list(registered) if ':' in cmd})
-
-# index.ts holds only the top level; each namespace keeps its own registry, so a
-# parse limited to index.ts sees ~76 of ~149 leaves and would read every nested
-# command as absent.
-CLI_ROOT = WPDEV_INDEX.parent
-for registry in sorted(CLI_ROOT.glob("commands/**/registry.ts")):
-    registered.update(re.findall(r"^\s*'([a-z][a-z0-9:_-]*)':", registry.read_text(), flags=re.M))
 
 in_scope = sorted(
     cmd
-    for cmd in registered
+    for cmd in leaves
     if cmd not in OUT_OF_SCOPE
     and (cmd in BARE or any(cmd == p.rstrip(":") or cmd.startswith(p) for p in PREFIXES))
 )
