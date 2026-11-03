@@ -27,7 +27,7 @@ Example: `ms:ms ms-calendar_month`. Add `ms-fill` to the class only when a fille
 ./wpdev elementor:icon-search --categories
 ```
 
-The CLI expands common intent synonyms, accepts partial `--category` matches, returns match evidence in the table/JSON, and suppresses popularity-only false positives. Hosted agents reach the same index through the `wpdev_elementor__icon-search` MCP tool.
+The CLI expands common intent synonyms, accepts partial `--category` matches, returns match evidence in the table/JSON, and suppresses popularity-only false positives. Hosted agents reach the same index through the `command_execute` MCP tool with `command: elementor:icon-search` after `command_describe` confirms eligibility.
 
 2. Or search the generated index with intent words, not guesses:
 

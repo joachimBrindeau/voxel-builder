@@ -1,6 +1,6 @@
 # Icon Selection And Repair Workflow
 
-This workflow keeps context small while giving access to the full Material Symbols library installed by Elementor Framework (counts live in [manifest.json](manifest.json)). Hosted agents call the same verbs through the wpdev MCP (`wpdev_elementor__icon-search`, `wpdev_elementor__icons`, `wpdev_elementor__set-value`); run `command_describe` first and treat `transport.allowed: false` verbs as device-shell CLI.
+This workflow keeps context small while giving access to the full Material Symbols library installed by Elementor Framework (counts live in [manifest.json](manifest.json)). Hosted agents use `command_describe` for the canonical verbs: `elementor:icon-search` is eligible for `command_execute`; `elementor:icons` and `elementor:set-value` are CLI-only (`transport.allowed: false`) and require the connected device's shell and its approval gate.
 
 ## Pick the right icon
 

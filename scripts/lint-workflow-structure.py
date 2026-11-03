@@ -136,7 +136,7 @@ reference_index_corpus = (
 )
 for path in sorted((ROOT / "references").rglob("*.md")):
     relative = path.relative_to(ROOT).as_posix()
-    if "/icons/material-symbols/by-prefix/" in relative or path.name == "README.md":
+    if path.name == "README.md":
         continue
     if path.name not in reference_index_corpus and relative not in reference_index_corpus:
         fail(path, "hand-authored reference is not indexed or linked by a workflow")
